@@ -1,0 +1,340 @@
+#ALIAS {if_autokill_then_walk_second_target}
+{
+    #if {$state_autokill_enabled && !$autokill_is_walking}
+    {
+        #show {went for second target}; 
+        #variable {autokill_is_walking} {1};
+        #send walk @2;
+    }
+}
+
+#ACTION {You cast cats grace on yourself} { restart_autokill }
+#ACTION {It's too far away} { #variable {autokill_is_walking} {0};if_autokill_then_walk_second_target }
+#ACTION {There is nobody here to battle} { restart_autokill }
+#ACTION {You say, 'start greenhouse {.*?}'$}
+{
+    #variable greenhouse_sowing {%1};
+    #variable state_greenhouse_harvest_and_sow {1};
+    #variable greenhouse_action_count {0};
+    greenhouse_action_count_plus_one
+}
+
+#ACTION {You say, 'stop greenhouse'$}
+{
+    #variable state_greenhouse_harvest_and_sow {0}
+}
+
+#ACTION {You stop walking} {restart_autokill }
+
+#ACTION {Your action was interrupted} {restart_autokill}
+#ALIAS {restart_autokill}
+{
+    #if {$state_autokill_enabled}
+    {
+        #variable {autokill_is_walking} {0};
+        #show {restarded autokill};
+        #if {$wounded || $current_stamina < 80}
+        {
+            prospect
+        };
+        #else
+        {
+            scan
+        }
+    }
+}
+
+#ACTION {^@1}
+{
+    #if {$state_autokill_enabled && !$autokill_is_walking}
+    {
+        #send walk @1;
+        #variable {autokill_is_walking} {1}
+    }
+}
+
+#ACTION {^Entities: }
+{
+    #variable {is_enemy_present}{1}
+}
+
+#ACTION {^Minimap:}
+{
+    #if {$state_greenhouse_harvest_and_sow || !$is_enemy_present}
+    {
+        #buffer {find} {Room: } {location_of_room};
+        #buffer {find} {ground} {location_of_end_equip};
+        #buffer {find} {Items:} {location_of_start_equip};
+        #if {$location_of_room < $location_of_start_equip}
+        {
+            #buffer {get} {content_of_equip} {$location_of_start_equip}{$location_of_end_equip};
+            #regexp {$content_of_equip} {{.*?}Items: {([^,]*?,){2}}}
+            {
+                say there is more than three items so will not pick anything up.
+            };
+            #else
+            {
+                get all;
+                harvest
+            }
+        };
+        #else
+        {
+            #variable {content_of_equip}{};
+            #if {!$autokill_is_walking} {restart_autokill}
+        }
+    };
+    #elseif {$state_autokill_enabled && $is_enemy_present}
+    {
+        kill
+    }
+}
+
+#ACTION {^Nothing to chop here.}
+{
+    loot
+}
+
+#ACTION {^Nothing to harvest here.}
+{
+    chop
+}
+
+#ACTION {^Nothing to loot here.}
+{
+    #if {$state_greenhouse_harvest_and_sow}
+    {
+        plant ${greenhouse_sowing}
+    };
+    #elseif {$state_autokill_enabled} {restart_autokill};
+    #else
+    {
+        prospect
+    }
+}
+
+#ACTION {^Room: }
+{
+    #variable {is_enemy_present}{0};
+    #variable {content_of_equip}{}
+}
+
+#ACTION {^The {.*?} is broken.$}
+{
+    #variable state_greenhouse_harvest_and_sow {0}
+}
+
+#ACTION {^You are no longer affected by sneak.}
+{
+    #variable {is_sneaky}{0}
+}
+
+#ACTION {^You are now affected by sneak.}
+{
+    #variable {is_sneaky}{1}
+}
+
+#ACTION {^You are victorious in battle!$}
+{
+    #if {$state_autokill_enabled}
+    {
+        #variable {autokill_is_walking} {0}
+    }
+}
+
+#ACTION {^You can't plant any more seeds here.$}
+{
+    #if {$state_greenhouse_harvest_and_sow}
+    {
+        greenhouse_action_count_plus_one
+    }
+}
+
+#ACTION {^You chop down}
+{
+    chop
+}
+
+#ACTION {^You don't have that.$}
+{
+    #variable state_greenhouse_harvest_and_sow {0}
+}
+
+#ACTION {^You finish harvesting the}
+{
+    harvest
+}
+
+#ACTION {^You finish planting the {.*?}.$}
+{
+    plant %1
+}
+
+#ACTION {^You loot }
+{
+    loot
+}
+
+#ACTION {^You say, 'start autokill'$}
+{
+    #variable state_autokill_enabled {1};
+    #variable {autokill_is_walking} {0};
+    config autobattle on;
+    restart_autokill;
+}
+
+#ACTION {^You say, 'stop autokill'$}
+{
+    #variable state_autokill_enabled {0};
+    #variable {autokill_is_walking} {0} 
+}
+#ACTION {You are carrying too many items to move}
+{
+    #variable state_autokill_enabled {0};
+    #variable {autokill_is_walking} {0};
+    salvage
+}
+#ACTION {You are carrying too much weight to move}
+{
+    #variable state_autokill_enabled {0};
+    #variable {autokill_is_walking} {0};
+    salvage
+}
+#ACTION {You begin to travel}
+{
+    #variable state_autokill_enabled {0};
+    #variable {autokill_is_walking} {0};
+}
+
+#ACTION {^{\d+}, {\d+} {\d+}/{\d+}hp {\d+}en {\d+}st {\d+}food {\d+}.{\d+}/{\d+} {\d+}/{\d+}}
+{
+    #variable {current_life} {%3};
+    #variable {max_life}{%4};
+    #math {wounded} {$max_life-$current_life>$max_life/5};
+    #variable {current_energy} {%5};
+    #variable {current_stamina} {%6};
+    #variable {current_food} {%7};
+    #variable {current_weight} {%8};
+    #variable {max_weight} {%10};
+    #variable {current_inv_slots} {%11};
+    #variable {max_inv_slots} {%12};
+}
+
+#ACTION {autobattle turned off}
+{
+    #variable state_autokill_enabled {0};
+    #variable {autokill_is_walking} {0} 
+}
+
+
+#ALIAS {greenhouse_action_count_plus_one}
+{
+    #send ${greenhouse_path[${greenhouse_action_count}]};
+    #math {greenhouse_action_count} {$greenhouse_action_count + 1};
+    #if {${greenhouse_action_count} >= ${greenhouse_action_count_max}}
+    {
+        #showme {Done with planting loop greenhouse};
+        #variable state_greenhouse_harvest_and_sow {0}
+    }
+}
+
+#split
+
+#CONFIG {AUTO TAB} {5000}
+#CONFIG {BUFFER SIZE} {10000}
+#CONFIG {CHARSET} {UTF-8}
+#CONFIG {COLOR MODE} {TRUE}
+#CONFIG {COLOR PATCH} {OFF}
+#CONFIG {COMMAND COLOR} {\e[0;37m}
+#CONFIG {COMMAND ECHO} {ON}
+#CONFIG {COMPACT} {OFF}
+#CONFIG {CONNECT RETRY} {0.0}
+#CONFIG {HISTORY SIZE} {1000}
+#CONFIG {LOG MODE} {RAW}
+#CONFIG {MOUSE} {OFF}
+#CONFIG {PACKET PATCH} {AUTO OFF}
+#CONFIG {RANDOM SEED} {3000382588}
+#CONFIG {REPEAT CHAR} {!}
+#CONFIG {REPEAT ENTER} {OFF}
+#CONFIG {SCREEN READER} {OFF}
+#CONFIG {SCROLL LOCK} {ON}
+#CONFIG {SPEEDWALK} {OFF}
+#CONFIG {TAB WIDTH} {8}
+#CONFIG {TELNET} {ON}
+#CONFIG {TINTIN CHAR} {#}
+#CONFIG {VERBATIM} {OFF}
+#CONFIG {VERBATIM CHAR} {\}
+#CONFIG {VERBOSE} {OFF}
+#CONFIG {WORDWRAP} {ON}
+
+#PATHDIR {d} {u} {32}
+#PATHDIR {e} {w} {2}
+#PATHDIR {n} {s} {1}
+#PATHDIR {ne} {sw} {3}
+#PATHDIR {nw} {se} {9}
+#PATHDIR {s} {n} {4}
+#PATHDIR {se} {nw} {6}
+#PATHDIR {sw} {ne} {12}
+#PATHDIR {u} {d} {16}
+#PATHDIR {w} {e} {8}
+
+#VARIABLE {greenhouse_action_count_max} {13}
+#VARIABLE {greenhouse_path}
+{
+    {0} {ne}
+    {1} {ne}
+    {2} {s}
+    {3} {e}
+    {4} {se}
+    {5} {w}
+    {6} {w}
+    {7} {se}
+    {8} {w}
+    {9} {s}
+    {10} {nw}
+    {11} {n}
+    {12} {w}
+}
+#VARIABLE {state_autokill_enabled} {0}
+#VARIABLE {state_greenhouse_harvest_and_sow} {0}
+
+#VARIABLE {dump_items_and_go_to_obelisk_path_max_count} {5}
+#VARIABLE {dump_items_and_go_to_obelisk_path}
+{
+    {0} {travel 4}
+    {1} {n}
+    {2} {drop all}
+    {3} {travel 9}
+    {4} {say start autokill}
+}
+#ALIAS {start_dump_items_and_go_to_obelisk_path}
+{
+    #variable greenhouse_sowing {%1};
+    #variable state_dump_items_and_go_to_obelisk {1};
+    #variable dump_items_and_go_to_obelisk_path_count {0};
+    dump_items_and_go_to_obelisk_count_plus_one
+}
+#ALIAS {dump_items_and_go_to_obelisk_count_plus_one}
+{
+    #if {$state_dump_items_and_go_to_obelisk} 
+    {
+        #send ${dump_items_and_go_to_obelisk_path[${dump_items_and_go_to_obelisk_path_count}]};
+        #math {dump_items_and_go_to_obelisk_path_count} {$dump_items_and_go_to_obelisk_path_count + 1};
+        #if {${dump_items_and_go_to_obelisk_path_count} >= ${dump_items_and_go_to_obelisk_path_max_count}}
+        {
+            #variable state_dump_items_and_go_to_obelisk {0};
+        };
+    }
+}
+
+#ACTION {Robbingdahood leaves through a portal} 
+{
+    dump_items_and_go_to_obelisk_count_plus_one;
+}
+
+#ACTION {You say, 'there is more than three items so will not pick anything up.'} 
+{
+    dump_items_and_go_to_obelisk_count_plus_one;
+}
+
+#READ {pr_login.tin}
