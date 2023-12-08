@@ -8,6 +8,9 @@
     }
 }
 
+#ACTION {^You already know the {.*?} recipe.} {drop all %1 recipe; read recipe;}
+#ACTION {^You learn the {.*?} recipe.} {read recipe;}
+
 #ACTION {You cast cats grace on yourself} { restart_autokill }
 #ACTION {It's too far away} { #variable {autokill_is_walking} {0};if_autokill_then_walk_second_target }
 #ACTION {There is nobody here to battle} { restart_autokill }
@@ -208,6 +211,8 @@
 
 #ACTION {^{\d+}, {\d+} {\d+}/{\d+}hp {\d+}en {\d+}st {\d+}food {\d+}.{\d+}/{\d+} {\d+}/{\d+}}
 {
+    #variable {coordinate_x} {%1};
+    #variable {coordinate_y} {%2};
     #variable {current_life} {%3};
     #variable {max_life}{%4};
     #math {wounded} {$max_life-$current_life>$max_life/5};
