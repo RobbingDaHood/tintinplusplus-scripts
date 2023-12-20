@@ -8,8 +8,8 @@
     }
 }
 
-#ACTION {^You already know the {.*?} recipe.} {drop all %1 recipe; read recipe;}
-#ACTION {^You learn the {.*?} recipe.} {read recipe;}
+#ACTION {You already know the {.*?} recipe.} {drop all %1 recipe; read recipe;}
+#ACTION {You learn the {.*?} recipe.} {read recipe;}
 
 #ACTION {You cast cats grace on yourself} { restart_autokill }
 #ACTION {It's too far away} { #variable {autokill_is_walking} {0};if_autokill_then_walk_second_target }
@@ -29,7 +29,7 @@
 
 #ACTION {You stop walking} {restart_autokill }
 
-#ACTION {Your action was interrupted} {restart_autokill}
+#ACTION {Your action was interrupted} {look;}
 #ALIAS {restart_autokill}
 {
     #if {$state_autokill_enabled}
@@ -56,14 +56,26 @@
     }
 }
 
-#ACTION {^Entities: }
+#ACTION {Entities: }
 {
     #variable {is_enemy_present}{1}
 }
 
-#ACTION {^Minimap:}
+#ACTION {Minimap:}
 {
-    #if {$state_greenhouse_harvest_and_sow || !$is_enemy_present}
+    #if {$state_farm_mine} 
+    {
+                #if {$is_enemy_present}
+                {
+                    kill;
+                };
+                #else 
+                {
+                    get all; 
+                    harvest;    
+                };
+    };
+    #elseif {$state_greenhouse_harvest_and_sow || !$is_enemy_present}
     {
         #buffer {find} {Room: } {location_of_room};
         #buffer {find} {ground} {location_of_end_equip};
@@ -93,51 +105,104 @@
     }
 }
 
-#ACTION {^Nothing to chop here.}
+#ACTION {Nothing to chop here.}
 {
     loot
 }
 
-#ACTION {^Nothing to harvest here.}
+#ACTION {Nothing to harvest here.}
 {
-    chop
+    chop;
 }
 
-#ACTION {^Nothing to loot here.}
+#ACTION {Nothing to loot here.}
 {
     #if {$state_greenhouse_harvest_and_sow}
     {
         plant ${greenhouse_sowing}
     };
     #elseif {$state_autokill_enabled} {restart_autokill};
+    #elseif {$state_farm_mine} {#variable {farm_mine_ready_for_move} {1};};
     #else
     {
-        prospect
-    }
+        prospect;
+    };
 }
 
-#ACTION {^Room: }
+#ALIAS {farm_mine_next_move} 
+    {
+        #if {$state_farm_mine_restart} 
+        {
+            enter;
+            #variable {state_farm_mine_restart} {0}; 
+            #map create;
+            #map goto 1;
+            #variable {state_farm_mine} {1}; 
+            #variable {mine_farm_is_entrance_set} {0}; 
+            look;
+        };
+        #else
+        {
+            #map get roomexits current_known_room_exits;
+            #variable {next_unknown_direction} {0};
+            #foreach {n;ne;e;se;s;sw;w;nw} {next_direction}
+            {
+                #if {$current_known_room_exits[$next_direction] > 0}
+                {
+                };
+                #else
+                {
+                    #variable {next_unknown_direction} {$next_direction};
+                    #break;
+                };
+            };
+            #if {$next_unknown_direction == 0}
+            {
+                #list {farm_mine_rooms_unexplored_exits} {filter} {{.*}} {$current_coordinate_padded};
+                #list {farm_mine_rooms_unexplored_exits} {numerate};
+                #list {farm_mine_rooms_unexplored_exits} {size} {farm_mine_rooms_index_of_last_unexplored_room};
+                #if {$farm_mine_rooms_index_of_last_unexplored_room > 0}
+                { 
+                    #list {farm_mine_rooms_unexplored_exits} {get} {$farm_mine_rooms_index_of_last_unexplored_room} {farm_mine_rooms_last_unexplored_room};
+                    #map find $farm_mine_rooms_last_unexplored_room;
+                };
+                #else
+                {
+                    #map find $farm_mine_entrance;
+                };
+                #path walk;
+            };
+            #else 
+            {
+                #list farm_mine_rooms_unexplored_exits add $current_coordinate_padded;
+                $next_unknown_direction;
+            };
+
+        };
+    };
+
+#ACTION {Room: }
 {
     #variable {is_enemy_present}{0};
-    #variable {content_of_equip}{}
+    #variable {content_of_equip}{};
 }
 
-#ACTION {^The {.*?} is broken.$}
+#ACTION {The {.*?} is broken.$}
 {
     #variable state_greenhouse_harvest_and_sow {0}
 }
 
-#ACTION {^You are no longer affected by sneak.}
+#ACTION {You are no longer affected by sneak.}
 {
     #variable {is_sneaky}{0}
 }
 
-#ACTION {^You are now affected by sneak.}
+#ACTION {You are now affected by sneak.}
 {
     #variable {is_sneaky}{1}
 }
 
-#ACTION {^You are victorious in battle!$}
+#ACTION {You are victorious in battle!}
 {
     #if {$state_autokill_enabled}
     {
@@ -145,7 +210,7 @@
     }
 }
 
-#ACTION {^You can't plant any more seeds here.$}
+#ACTION {You can't plant any more seeds here.}
 {
     #if {$state_greenhouse_harvest_and_sow}
     {
@@ -153,32 +218,32 @@
     }
 }
 
-#ACTION {^You chop down}
+#ACTION {You chop down}
 {
     chop
 }
 
-#ACTION {^You don't have that.$}
+#ACTION {You don't have that.}
 {
     #variable state_greenhouse_harvest_and_sow {0}
 }
 
-#ACTION {^You finish harvesting the}
+#ACTION {You finish harvesting the}
 {
     harvest
 }
 
-#ACTION {^You finish planting the {.*?}.$}
+#ACTION {You finish planting the {.*?}.}
 {
     plant %1
 }
 
-#ACTION {^You loot }
+#ACTION {You loot }
 {
     loot
 }
 
-#ACTION {^You say, 'start autokill'$}
+#ACTION {You say, 'start autokill'}
 {
     #variable state_autokill_enabled {1};
     #variable {autokill_is_walking} {0};
@@ -186,7 +251,7 @@
     restart_autokill;
 }
 
-#ACTION {^You say, 'stop autokill'$}
+#ACTION {You say, 'stop autokill'}
 {
     #variable state_autokill_enabled {0};
     #variable {autokill_is_walking} {0} 
@@ -209,7 +274,7 @@
     #variable {autokill_is_walking} {0};
 }
 
-#ACTION {^{\d+}, {\d+} {\d+}/{\d+}hp {\d+}en {\d+}st {\d+}food {\d+}.{\d+}/{\d+} {\d+}/{\d+}}
+#ACTION {{\d+}, {\d+} {\d+}/{\d+}hp {\d+}en {\d+}st {\d+}food {\d+}{(.\d+)?}/{\d+} {\d+}/{\d+}}
 {
     #variable {coordinate_x} {%1};
     #variable {coordinate_y} {%2};
@@ -223,7 +288,45 @@
     #variable {max_weight} {%10};
     #variable {current_inv_slots} {%11};
     #variable {max_inv_slots} {%12};
+    
+    calculate_current_coordinate_padded; 
+    calculate_farm_mine_map;
 }
+
+#ALIAS {calculate_farm_mine_map} 
+{
+    #if {$state_farm_mine && ($coordinate_x != 0 || $coordinate_y != 0) && $farm_mine_ready_for_move}
+    {
+            #map get roomvnum {current_room_vnum} $current_coordinate_padded;
+            #map get roomvnum {current_expected_room_vnum};
+            #if {$current_room_vnum == 0 && $current_expected_room_vnum < 1000} 
+            {
+                #map vnum $current_coordinate_padded;
+                #map get roomvnum {current_room_vnum} $current_coordinate_padded;
+                #map get roomvnum {current_expected_room_vnum};
+            };
+
+            #if {!$mine_farm_is_entrance_set}
+            {
+                #variable {farm_mine_entrance} {$current_coordinate_padded}; 
+                #variable {mine_farm_is_entrance_set} {1}; 
+            };
+
+            #if {$current_expected_room_vnum != $current_room_vnum}
+            {
+                #map roomflag block on;
+                #map goto $current_room_vnum;
+            };
+            
+            #variable {farm_mine_ready_for_move} {0};
+            farm_mine_next_move;
+    };
+}
+
+#ALIAS {calculate_current_coordinate_padded} 
+{
+    #math {current_coordinate_padded} {$coordinate_x*1000 + $coordinate_y};
+};
 
 #ACTION {autobattle turned off}
 {
@@ -343,3 +446,47 @@
 }
 
 #READ {pr_login.tin}
+
+#variable {state_farm_mine} {0}; 
+#ACTION {You say, 'start farm mine'$}
+{
+    #map create;
+    #map goto 1;
+    #variable {state_farm_mine} {1}; 
+    #variable {mine_farm_is_entrance_set} {0}; 
+    look;
+}
+
+#ACTION {You say, 'stop farm mine'$}
+{
+    #variable {state_farm_mine} {0}; 
+    #map destroy world
+}
+
+#ACTION {You say, 'restart farm mine'$}
+{
+    #variable {state_farm_mine} {0}; 
+    #map destroy world
+    #variable {state_farm_mine_restart} {1}; 
+    enter;
+}
+
+#Action {You can't move } 
+{
+    #if {$state_farm_mine} {#variable {farm_mine_ready_for_move} {1};};
+}
+
+#Action { initiates combat!} 
+{
+    #variable {farm_mine_ready_for_move} {0};
+}
+
+#Action {You gather your party and prepare for battle!} 
+{
+    #variable {farm_mine_ready_for_move} {0};
+}
+
+#Action {arrives from the} 
+{
+    #variable {farm_mine_ready_for_move} {0};
+}
