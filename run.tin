@@ -11,9 +11,9 @@
 #ACTION {You already know the {.*?} recipe.} {drop all %1 recipe; read recipe;}
 #ACTION {You learn the {.*?} recipe.} {read recipe;}
 
-#ACTION {You cast cats grace on yourself} { restart_autokill }
+#ACTION {You cast cats grace on yourself} { look; }
 #ACTION {It's too far away} { #variable {autokill_is_walking} {0};if_autokill_then_walk_second_target }
-#ACTION {There is nobody here to battle} { restart_autokill }
+#ACTION {There is nobody here to battle} { look; }
 #ACTION {You say, 'start greenhouse {.*?}'$}
 {
     #variable greenhouse_sowing {%1};
@@ -131,6 +131,7 @@
 
 #ALIAS {farm_mine_next_move} 
     {
+
         #if {$state_farm_mine_restart} 
         {
             enter;
@@ -177,7 +178,6 @@
                 #list farm_mine_rooms_unexplored_exits add $current_coordinate_padded;
                 $next_unknown_direction;
             };
-
         };
     };
 
@@ -463,10 +463,10 @@
     #map destroy world
 }
 
+#variable {state_farm_mine_restart} {0}; 
 #ACTION {You say, 'restart farm mine'$}
 {
-    #variable {state_farm_mine} {0}; 
-    #map destroy world
+    #map destroy world;
     #variable {state_farm_mine_restart} {1}; 
     enter;
 }
