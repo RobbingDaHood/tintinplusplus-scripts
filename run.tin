@@ -11,9 +11,21 @@
 #ACTION {You already know the {.*?} recipe.} {drop all %1 recipe; read recipe;}
 #ACTION {You learn the {.*?} recipe.} {read recipe;}
 
-#ACTION {You cast cats grace on yourself} { look; }
+#ALIAS {try_to_restart} 
+{ 
+    #if {$state_autokill_enabled}
+    {
+        restart_autokill;
+    };
+    #else
+    {
+        look;
+    };
+}
+
+#ACTION {You cast cats grace on yourself} {try_to_restart}
 #ACTION {It's too far away} { #variable {autokill_is_walking} {0};if_autokill_then_walk_second_target }
-#ACTION {There is nobody here to battle} { look; }
+#ACTION {There is nobody here to battle} {try_to_restart}
 #ACTION {You say, 'start greenhouse {.*?}'$}
 {
     #variable greenhouse_sowing {%1};
@@ -29,7 +41,7 @@
 
 #ACTION {You stop walking} {restart_autokill }
 
-#ACTION {Your action was interrupted} {look;}
+#ACTION {Your action was interrupted} {try_to_restart;}
 #ALIAS {restart_autokill}
 {
     #if {$state_autokill_enabled}
