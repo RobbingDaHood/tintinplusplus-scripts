@@ -1,71 +1,6 @@
-#ALIAS {if_autokill_then_walk_second_target}
+#ACTION { initiates combat!}
 {
-    #if {$state_autokill_enabled && !$autokill_is_walking}
-    {
-        #show {went for second target}; 
-        #variable {autokill_is_walking} {1};
-        #send walk @2;
-    }
-}
-
-#ACTION {You already know the {.*?} recipe.} {drop all %1 recipe; read recipe;}
-#ACTION {You learn the {.*?} recipe.} {read recipe;}
-
-#ALIAS {try_to_restart} 
-{ 
-    #if {$state_autokill_enabled}
-    {
-        restart_autokill;
-    };
-    #else
-    {
-        look;
-    };
-}
-
-#ACTION {You cast cats grace on yourself} {try_to_restart}
-#ACTION {It's too far away} { #variable {autokill_is_walking} {0};if_autokill_then_walk_second_target }
-#ACTION {There is nobody here to battle} {try_to_restart}
-#ACTION {You say, 'start greenhouse {.*?}'$}
-{
-    #variable greenhouse_sowing {%1};
-    #variable state_greenhouse_harvest_and_sow {1};
-    #variable greenhouse_action_count {0};
-    greenhouse_action_count_plus_one
-}
-
-#ACTION {You say, 'stop greenhouse'$}
-{
-    #variable state_greenhouse_harvest_and_sow {0}
-}
-
-#ACTION {You stop walking} {restart_autokill }
-
-#ACTION {Your action was interrupted} {try_to_restart;}
-#ALIAS {restart_autokill}
-{
-    #if {$state_autokill_enabled}
-    {
-        #variable {autokill_is_walking} {0};
-        #show {restarded autokill};
-        #if {$wounded || $current_stamina < 80}
-        {
-            prospect
-        };
-        #else
-        {
-            scan
-        }
-    }
-}
-
-#ACTION {^@1}
-{
-    #if {$state_autokill_enabled && !$autokill_is_walking}
-    {
-        #send walk @1;
-        #variable {autokill_is_walking} {1}
-    }
+    #variable {farm_mine_ready_for_move} {0}
 }
 
 #ACTION {Entities: }
@@ -73,19 +8,25 @@
     #variable {is_enemy_present}{1}
 }
 
+#ACTION {It's too far away}
+{
+    #variable {autokill_is_walking} {0};
+    if_autokill_then_walk_second_target 
+}
+
 #ACTION {Minimap:}
 {
-    #if {$state_farm_mine} 
+    #if {$state_farm_mine}
     {
-                #if {$is_enemy_present}
-                {
-                    kill;
-                };
-                #else 
-                {
-                    get all; 
-                    harvest;    
-                };
+        #if {$is_enemy_present}
+        {
+            kill
+        };
+        #else
+        {
+            get all;
+            harvest
+        }
     };
     #elseif {$state_greenhouse_harvest_and_sow || !$is_enemy_present}
     {
@@ -108,7 +49,10 @@
         #else
         {
             #variable {content_of_equip}{};
-            #if {!$autokill_is_walking} {restart_autokill}
+            #if {!$autokill_is_walking}
+            {
+                restart_autokill
+            }
         }
     };
     #elseif {$state_autokill_enabled && $is_enemy_present}
@@ -124,7 +68,7 @@
 
 #ACTION {Nothing to harvest here.}
 {
-    chop;
+    chop
 }
 
 #ACTION {Nothing to loot here.}
@@ -133,75 +77,69 @@
     {
         plant ${greenhouse_sowing}
     };
-    #elseif {$state_autokill_enabled} {restart_autokill};
-    #elseif {$state_farm_mine} {#variable {farm_mine_ready_for_move} {1};};
+    #elseif {$state_autokill_enabled}
+    {
+        restart_autokill
+    };
+    #elseif {$state_farm_mine}
+    {
+        #variable {farm_mine_ready_for_move} {1}
+    };
     #else
     {
-        prospect;
-    };
+        prospect
+    }
 }
 
-#ALIAS {farm_mine_next_move} 
-    {
-
-        #if {$state_farm_mine_restart} 
-        {
-            enter;
-            #variable {state_farm_mine_restart} {0}; 
-            #map create;
-            #map goto 1;
-            #variable {state_farm_mine} {1}; 
-            #variable {mine_farm_is_entrance_set} {0}; 
-            look;
-        };
-        #else
-        {
-            #map get roomexits current_known_room_exits;
-            #variable {next_unknown_direction} {0};
-            #foreach {n;ne;e;se;s;sw;w;nw} {next_direction}
-            {
-                #if {$current_known_room_exits[$next_direction] > 0}
-                {
-                };
-                #else
-                {
-                    #variable {next_unknown_direction} {$next_direction};
-                    #break;
-                };
-            };
-            #if {$next_unknown_direction == 0}
-            {
-                #list {farm_mine_rooms_unexplored_exits} {filter} {{.*}} {$current_coordinate_padded};
-                #list {farm_mine_rooms_unexplored_exits} {numerate};
-                #list {farm_mine_rooms_unexplored_exits} {size} {farm_mine_rooms_index_of_last_unexplored_room};
-                #if {$farm_mine_rooms_index_of_last_unexplored_room > 0}
-                { 
-                    #list {farm_mine_rooms_unexplored_exits} {get} {$farm_mine_rooms_index_of_last_unexplored_room} {farm_mine_rooms_last_unexplored_room};
-                    #map find $farm_mine_rooms_last_unexplored_room;
-                };
-                #else
-                {
-                    #map find $farm_mine_entrance;
-                };
-                #path walk;
-            };
-            #else 
-            {
-                #list farm_mine_rooms_unexplored_exits add $current_coordinate_padded;
-                $next_unknown_direction;
-            };
-        };
-    };
+#ACTION {Robbingdahood leaves through a portal}
+{
+    dump_items_and_go_to_obelisk_count_plus_one
+}
 
 #ACTION {Room: }
 {
     #variable {is_enemy_present}{0};
-    #variable {content_of_equip}{};
+    #variable {content_of_equip}{}
+}
+
+#ACTION {The fish got away!}
+{
+    fish cast
+}
+
+#ACTION {The line broke!}
+{
+    fish cast
 }
 
 #ACTION {The {.*?} is broken.$}
 {
     #variable state_greenhouse_harvest_and_sow {0}
+}
+
+#ACTION {There is nobody here to battle}
+{
+    try_to_restart
+}
+
+#ACTION {You already know the {.*?} recipe.}
+{
+    drop all %1 recipe;
+    read recipe
+}
+
+#ACTION {You are carrying too many items to move}
+{
+    #variable state_autokill_enabled {0};
+    #variable {autokill_is_walking} {0};
+    salvage
+}
+
+#ACTION {You are carrying too much weight to move}
+{
+    #variable state_autokill_enabled {0};
+    #variable {autokill_is_walking} {0};
+    salvage
 }
 
 #ACTION {You are no longer affected by sneak.}
@@ -222,12 +160,36 @@
     }
 }
 
+#ACTION {You begin to travel}
+{
+    #variable state_autokill_enabled {0};
+    #variable {autokill_is_walking} {0}
+}
+
+#ACTION {You can't move }
+{
+    #if {$state_farm_mine}
+    {
+        #variable {farm_mine_ready_for_move} {1}
+    }
+}
+
 #ACTION {You can't plant any more seeds here.}
 {
     #if {$state_greenhouse_harvest_and_sow}
     {
         greenhouse_action_count_plus_one
     }
+}
+
+#ACTION {You cast cats grace on yourself}
+{
+    try_to_restart
+}
+
+#ACTION {You catch a }
+{
+    fish cast
 }
 
 #ACTION {You chop down}
@@ -250,9 +212,26 @@
     plant %1
 }
 
+#ACTION {You gather your party and prepare for battle!}
+{
+    #variable {farm_mine_ready_for_move} {0}
+}
+
+#ACTION {You learn the {.*?} recipe.}
+{
+    read recipe
+}
+
 #ACTION {You loot }
 {
     loot
+}
+
+#ACTION {You say, 'restart farm mine'$}
+{
+    #map destroy world;
+    #variable {state_farm_mine_restart} {1};
+    enter
 }
 
 #ACTION {You say, 'start autokill'}
@@ -260,30 +239,76 @@
     #variable state_autokill_enabled {1};
     #variable {autokill_is_walking} {0};
     config autobattle on;
-    restart_autokill;
+    restart_autokill
+}
+
+#ACTION {You say, 'start farm mine'$}
+{
+    #map create;
+    #map goto 1;
+    #variable {state_farm_mine} {1};
+    #variable {mine_farm_is_entrance_set} {0};
+    look
+}
+
+#ACTION {You say, 'start greenhouse {.*?}'$}
+{
+    #variable greenhouse_sowing {%1};
+    #variable state_greenhouse_harvest_and_sow {1};
+    #variable greenhouse_action_count {0};
+    greenhouse_action_count_plus_one
 }
 
 #ACTION {You say, 'stop autokill'}
 {
     #variable state_autokill_enabled {0};
-    #variable {autokill_is_walking} {0} 
+    #variable {autokill_is_walking} {0}
 }
-#ACTION {You are carrying too many items to move}
+
+#ACTION {You say, 'stop farm mine'$}
+{
+    #variable {state_farm_mine} {0};
+    #map destroy world
+}
+
+#ACTION {You say, 'stop greenhouse'$}
+{
+    #variable state_greenhouse_harvest_and_sow {0}
+}
+
+#ACTION {You say, 'there is more than three items so will not pick anything up.'}
+{
+    dump_items_and_go_to_obelisk_count_plus_one
+}
+
+#ACTION {You stop walking}
+{
+    restart_autokill 
+}
+
+#ACTION {Your action was interrupted}
+{
+    try_to_restart
+}
+
+#ACTION {^@1}
+{
+    #if {$state_autokill_enabled && !$autokill_is_walking}
+    {
+        #send walk @1;
+        #variable {autokill_is_walking} {1}
+    }
+}
+
+#ACTION {arrives from the}
+{
+    #variable {farm_mine_ready_for_move} {0}
+}
+
+#ACTION {autobattle turned off}
 {
     #variable state_autokill_enabled {0};
-    #variable {autokill_is_walking} {0};
-    salvage
-}
-#ACTION {You are carrying too much weight to move}
-{
-    #variable state_autokill_enabled {0};
-    #variable {autokill_is_walking} {0};
-    salvage
-}
-#ACTION {You begin to travel}
-{
-    #variable state_autokill_enabled {0};
-    #variable {autokill_is_walking} {0};
+    #variable {autokill_is_walking} {0}
 }
 
 #ACTION {{\d+}, {\d+} {\d+}/{\d+}hp {\d+}en {\d+}st {\d+}food {\d+}{(.\d+)?}/{\d+} {\d+}/{\d+}}
@@ -300,52 +325,107 @@
     #variable {max_weight} {%10};
     #variable {current_inv_slots} {%11};
     #variable {max_inv_slots} {%12};
-    
-    calculate_current_coordinate_padded; 
-    calculate_farm_mine_map;
+    calculate_current_coordinate_padded;
+    calculate_farm_mine_map
 }
 
-#ALIAS {calculate_farm_mine_map} 
+
+#ALIAS {calculate_current_coordinate_padded}
+{
+    #math {current_coordinate_padded} {$coordinate_x*1000 + $coordinate_y}
+}
+
+#ALIAS {calculate_farm_mine_map}
 {
     #if {$state_farm_mine && ($coordinate_x != 0 || $coordinate_y != 0) && $farm_mine_ready_for_move}
     {
+        #map get roomvnum {current_room_vnum} $current_coordinate_padded;
+        #map get roomvnum {current_expected_room_vnum};
+        #if {$current_room_vnum == 0 && $current_expected_room_vnum < 1000}
+        {
+            #map vnum $current_coordinate_padded;
             #map get roomvnum {current_room_vnum} $current_coordinate_padded;
-            #map get roomvnum {current_expected_room_vnum};
-            #if {$current_room_vnum == 0 && $current_expected_room_vnum < 1000} 
-            {
-                #map vnum $current_coordinate_padded;
-                #map get roomvnum {current_room_vnum} $current_coordinate_padded;
-                #map get roomvnum {current_expected_room_vnum};
-            };
+            #map get roomvnum {current_expected_room_vnum}
+        };
+        #if {!$mine_farm_is_entrance_set}
+        {
+            #variable {farm_mine_entrance} {$current_coordinate_padded};
+            #variable {mine_farm_is_entrance_set} {1}
+        };
+        #if {$current_expected_room_vnum != $current_room_vnum}
+        {
+            #map roomflag block on;
+            #map goto $current_room_vnum
+        };
+        #variable {farm_mine_ready_for_move} {0};
+        farm_mine_next_move
+    }
+}
 
-            #if {!$mine_farm_is_entrance_set}
-            {
-                #variable {farm_mine_entrance} {$current_coordinate_padded}; 
-                #variable {mine_farm_is_entrance_set} {1}; 
-            };
+#ALIAS {dump_items_and_go_to_obelisk_count_plus_one}
+{
+    #if {$state_dump_items_and_go_to_obelisk}
+    {
+        #send ${dump_items_and_go_to_obelisk_path[${dump_items_and_go_to_obelisk_path_count}]};
+        #math {dump_items_and_go_to_obelisk_path_count} {$dump_items_and_go_to_obelisk_path_count + 1};
+        #if {${dump_items_and_go_to_obelisk_path_count} >= ${dump_items_and_go_to_obelisk_path_max_count}}
+        {
+            #variable state_dump_items_and_go_to_obelisk {0}
+        }
+    }
+}
 
-            #if {$current_expected_room_vnum != $current_room_vnum}
-            {
-                #map roomflag block on;
-                #map goto $current_room_vnum;
-            };
-            
-            #variable {farm_mine_ready_for_move} {0};
-            farm_mine_next_move;
+#ALIAS {farm_mine_next_move}
+{
+    #if {$state_farm_mine_restart}
+    {
+        enter;
+        #variable {state_farm_mine_restart} {0};
+        #map create;
+        #map goto 1;
+        #variable {state_farm_mine} {1};
+        #variable {mine_farm_is_entrance_set} {0};
+        look
     };
+    #else
+    {
+        #map get roomexits current_known_room_exits;
+        #variable {next_unknown_direction} {0};
+        #foreach {n;ne;e;se;s;sw;w;nw} {next_direction}
+        {
+            #if {$current_known_room_exits[$next_direction] > 0}
+            {
+                
+            };
+            #else
+            {
+                #variable {next_unknown_direction} {$next_direction};
+                #break
+            }
+        };
+        #if {$next_unknown_direction == 0}
+        {
+            #list {farm_mine_rooms_unexplored_exits} {filter} {{.*}} {$current_coordinate_padded};
+            #list {farm_mine_rooms_unexplored_exits} {numerate};
+            #list {farm_mine_rooms_unexplored_exits} {size} {farm_mine_rooms_index_of_last_unexplored_room};
+            #if {$farm_mine_rooms_index_of_last_unexplored_room > 0}
+            {
+                #list {farm_mine_rooms_unexplored_exits} {get} {$farm_mine_rooms_index_of_last_unexplored_room} {farm_mine_rooms_last_unexplored_room};
+                #map find $farm_mine_rooms_last_unexplored_room
+            };
+            #else
+            {
+                #map find $farm_mine_entrance
+            };
+            #path walk
+        };
+        #else
+        {
+            #list farm_mine_rooms_unexplored_exits add $current_coordinate_padded;
+            $next_unknown_direction
+        }
+    }
 }
-
-#ALIAS {calculate_current_coordinate_padded} 
-{
-    #math {current_coordinate_padded} {$coordinate_x*1000 + $coordinate_y};
-};
-
-#ACTION {autobattle turned off}
-{
-    #variable state_autokill_enabled {0};
-    #variable {autokill_is_walking} {0} 
-}
-
 
 #ALIAS {greenhouse_action_count_plus_one}
 {
@@ -358,7 +438,60 @@
     }
 }
 
-#split
+#ALIAS {if_autokill_then_walk_second_target}
+{
+    #if {$state_autokill_enabled && !$autokill_is_walking}
+    {
+        #showme {went for second target};
+        #variable {autokill_is_walking} {1};
+        #send walk @2
+    }
+}
+
+#ALIAS {pr}
+{
+    #session pr proceduralrealms.com 3000;
+    robbingdahood;
+    Christcore1
+}
+
+#ALIAS {restart_autokill}
+{
+    #if {$state_autokill_enabled}
+    {
+        #variable {autokill_is_walking} {0};
+        #showme {restarded autokill};
+        #if {$wounded || $current_stamina < 80}
+        {
+            prospect
+        };
+        #else
+        {
+            scan
+        }
+    }
+}
+
+#ALIAS {start_dump_items_and_go_to_obelisk_path}
+{
+    #variable greenhouse_sowing {%1};
+    #variable state_dump_items_and_go_to_obelisk {1};
+    #variable dump_items_and_go_to_obelisk_path_count {0};
+    dump_items_and_go_to_obelisk_count_plus_one
+}
+
+#ALIAS {try_to_restart}
+{
+    #if {$state_autokill_enabled}
+    {
+        restart_autokill
+    };
+    #else
+    {
+        look
+    }
+}
+
 
 #CONFIG {AUTO TAB} {5000}
 #CONFIG {BUFFER SIZE} {10000}
@@ -398,6 +531,28 @@
 #PATHDIR {u} {d} {16}
 #PATHDIR {w} {e} {8}
 
+#VARIABLE {content_of_equip}
+{
+    {1} {Items: [0mL[1;37m1 [1;36mworkbench[0m[0m, [0mL[1;37m1 [1;36manvil[0m [0mand [0mL[1;37m1 [1;36msmelter[0m are on the ground.}
+}
+#VARIABLE {coordinate_x} {25}
+#VARIABLE {coordinate_y} {27}
+#VARIABLE {current_coordinate_padded} {25027}
+#VARIABLE {current_energy} {190}
+#VARIABLE {current_food} {107}
+#VARIABLE {current_inv_slots} {1275}
+#VARIABLE {current_life} {441}
+#VARIABLE {current_stamina} {225}
+#VARIABLE {current_weight} {483}
+#VARIABLE {dump_items_and_go_to_obelisk_path}
+{
+    {0} {travel 4}
+    {1} {n}
+    {2} {drop all}
+    {3} {travel 9}
+    {4} {say start autokill}
+}
+#VARIABLE {dump_items_and_go_to_obelisk_path_max_count} {5}
 #VARIABLE {greenhouse_action_count_max} {13}
 #VARIABLE {greenhouse_path}
 {
@@ -415,94 +570,16 @@
     {11} {n}
     {12} {w}
 }
+#VARIABLE {is_enemy_present} {0}
+#VARIABLE {location_of_end_equip} {6}
+#VARIABLE {location_of_room} {5}
+#VARIABLE {location_of_start_equip} {6}
+#VARIABLE {max_inv_slots} {135}
+#VARIABLE {max_life} {441}
+#VARIABLE {max_weight} {.85}
 #VARIABLE {state_autokill_enabled} {0}
+#VARIABLE {state_farm_mine} {0}
+#VARIABLE {state_farm_mine_restart} {0}
 #VARIABLE {state_greenhouse_harvest_and_sow} {0}
+#VARIABLE {wounded} {0}
 
-#VARIABLE {dump_items_and_go_to_obelisk_path_max_count} {5}
-#VARIABLE {dump_items_and_go_to_obelisk_path}
-{
-    {0} {travel 4}
-    {1} {n}
-    {2} {drop all}
-    {3} {travel 9}
-    {4} {say start autokill}
-}
-#ALIAS {start_dump_items_and_go_to_obelisk_path}
-{
-    #variable greenhouse_sowing {%1};
-    #variable state_dump_items_and_go_to_obelisk {1};
-    #variable dump_items_and_go_to_obelisk_path_count {0};
-    dump_items_and_go_to_obelisk_count_plus_one
-}
-#ALIAS {dump_items_and_go_to_obelisk_count_plus_one}
-{
-    #if {$state_dump_items_and_go_to_obelisk} 
-    {
-        #send ${dump_items_and_go_to_obelisk_path[${dump_items_and_go_to_obelisk_path_count}]};
-        #math {dump_items_and_go_to_obelisk_path_count} {$dump_items_and_go_to_obelisk_path_count + 1};
-        #if {${dump_items_and_go_to_obelisk_path_count} >= ${dump_items_and_go_to_obelisk_path_max_count}}
-        {
-            #variable state_dump_items_and_go_to_obelisk {0};
-        };
-    }
-}
-
-#ACTION {Robbingdahood leaves through a portal} 
-{
-    dump_items_and_go_to_obelisk_count_plus_one;
-}
-
-#ACTION {You say, 'there is more than three items so will not pick anything up.'} 
-{
-    dump_items_and_go_to_obelisk_count_plus_one;
-}
-
-#READ {pr_login.tin}
-
-#variable {state_farm_mine} {0}; 
-#ACTION {You say, 'start farm mine'$}
-{
-    #map create;
-    #map goto 1;
-    #variable {state_farm_mine} {1}; 
-    #variable {mine_farm_is_entrance_set} {0}; 
-    look;
-}
-
-#ACTION {You say, 'stop farm mine'$}
-{
-    #variable {state_farm_mine} {0}; 
-    #map destroy world
-}
-
-#variable {state_farm_mine_restart} {0}; 
-#ACTION {You say, 'restart farm mine'$}
-{
-    #map destroy world;
-    #variable {state_farm_mine_restart} {1}; 
-    enter;
-}
-
-#Action {You can't move } 
-{
-    #if {$state_farm_mine} {#variable {farm_mine_ready_for_move} {1};};
-}
-
-#Action { initiates combat!} 
-{
-    #variable {farm_mine_ready_for_move} {0};
-}
-
-#Action {You gather your party and prepare for battle!} 
-{
-    #variable {farm_mine_ready_for_move} {0};
-}
-
-#Action {arrives from the} 
-{
-    #variable {farm_mine_ready_for_move} {0};
-}
-
-#ACTION {The line broke!} {fish cast;}
-#ACTION {You catch a } {fish cast;}
-#ACTION {The fish got away!} {fish cast;}
