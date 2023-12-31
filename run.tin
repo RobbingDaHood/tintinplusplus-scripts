@@ -502,3 +502,7 @@
 {
     #variable {farm_mine_ready_for_move} {0};
 }
+
+#ACTION {The line broke!} {fish cast;}
+#ACTION {You catch a } {fish cast;}
+#ACTION {The fish got away!} {fish cast;}
