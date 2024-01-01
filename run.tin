@@ -112,10 +112,7 @@
     fish cast
 }
 
-#ACTION {The {.*?} is broken.$}
-{
-    #variable state_greenhouse_harvest_and_sow {0}
-}
+#ACTION {The {.*?} is broken.$} { repair; }
 
 #ACTION {There is nobody here to battle}
 {
@@ -448,6 +445,8 @@
     }
 }
 
+#ACTION {You need basic crafting at level} {if_autokill_then_walk_second_target}
+
 #ALIAS {pr}
 {
     #session pr proceduralrealms.com 3000;
@@ -584,3 +583,7 @@
 #VARIABLE {wounded} {0}
 
 #READ {pr_login.tin}
+#split
+
+#ACTION {has been fully repaired} {repair; #VAR {state_autorepair} {1}:}
+#ACTION {You don't see that here.} {#IF {state_autorepair} {look; #VAR {state_autorepair} {1}:}
