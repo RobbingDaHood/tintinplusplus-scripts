@@ -583,3 +583,4 @@
 #VARIABLE {state_greenhouse_harvest_and_sow} {0}
 #VARIABLE {wounded} {0}
 
+#READ {pr_login.tin}
