@@ -20,12 +20,12 @@
     {
         #if {$is_enemy_present}
         {
-            kill
+            kill;
         };
         #else
         {
             get all;
-            harvest
+            harvest;
         }
     };
     #elseif {$state_greenhouse_harvest_and_sow || !$is_enemy_present}
@@ -43,43 +43,58 @@
             #else
             {
                 get all;
-                harvest
+                harvest;
             }
         };
         #else
         {
             #variable {content_of_equip}{};
-            #if {!$autokill_is_walking}
-            {
-                restart_autokill
-            }
+            get all;
+            harvest;
         }
     };
     #elseif {$state_autokill_enabled && $is_enemy_present}
     {
-        kill
+        kill;
     }
 }
 
 #ACTION {Nothing to chop here.}
 {
-    loot
+    #IF {!$state_chop_were_activated}
+    {
+        #var {state_chop_were_activated} {1};
+        loot;
+    }
 }
 
+        #var {state_chop_were_activated} {0}
+        #var {state_harvest_were_activated} {0}
 #ACTION {Nothing to harvest here.}
 {
-    chop
+    #IF {!$state_harvest_were_activated}
+    {
+        #var {state_harvest_were_activated} {1};
+        chop;
+    }
 }
 
 #ACTION {Nothing to loot here.}
 {
-    #if {$state_greenhouse_harvest_and_sow}
+    #var {state_chop_were_activated} {0};
+    #var {state_harvest_were_activated} {0};
+    #if {state_should_repair_tools}
     {
-        plant ${greenhouse_sowing}
+        #VAR {state_should_repair_tools} {0};
+        repair;
+    };
+    #elseif {$state_greenhouse_harvest_and_sow}
+    {
+        plant ${greenhouse_sowing};
     };
     #elseif {$state_autokill_enabled}
     {
-        restart_autokill
+        restart_autokill;
     };
     #elseif {$state_farm_mine}
     {
@@ -112,7 +127,7 @@
     fish cast
 }
 
-#ACTION {The {.*?} is broken.$} { repair; }
+#ACTION {The {.*?} is broken.} { #VAR {state_should_repair_tools} {1}; }
 
 #ACTION {There is nobody here to battle}
 {
@@ -288,7 +303,7 @@
     try_to_restart
 }
 
-#ACTION {^@1}
+#ACTION {^@1 }
 {
     #if {$state_autokill_enabled && !$autokill_is_walking}
     {
@@ -447,13 +462,6 @@
 
 #ACTION {You need basic crafting at level} {if_autokill_then_walk_second_target}
 
-#ALIAS {pr}
-{
-    #session pr proceduralrealms.com 3000;
-    robbingdahood;
-    Christcore1
-}
-
 #ALIAS {restart_autokill}
 {
     #if {$state_autokill_enabled}
@@ -581,9 +589,12 @@
 #VARIABLE {state_farm_mine_restart} {0}
 #VARIABLE {state_greenhouse_harvest_and_sow} {0}
 #VARIABLE {wounded} {0}
+#VARIABLE {state_should_repair_tools} {0}
+#VARIABLE {state_autorepair} {0}
 
 #READ {pr_login.tin}
 #split
 
 #ACTION {has been fully repaired} {repair; #VAR {state_autorepair} {1}:}
-#ACTION {You don't see that here.} {#IF {state_autorepair} {look; #VAR {state_autorepair} {1}:}
+#ACTION {You don't see that here.} {#IF {state_autorepair} {#VAR {state_autorepair} {0}; look;}}
+#ACTION {Done with planting loop greenhouse} {say start greenhouse $greenhouse_sowing}
