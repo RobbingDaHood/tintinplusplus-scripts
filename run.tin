@@ -16,7 +16,12 @@
 
 #ACTION {Minimap:}
 {
-    #if {$state_farm_mine}
+    #if {$state_should_repair_tools}
+    {
+        #VAR {state_should_repair_tools} {0};
+        repair;
+    };
+    #elseif {$state_farm_mine}
     {
         #if {$is_enemy_present}
         {
@@ -83,12 +88,7 @@
 {
     #var {state_chop_were_activated} {0};
     #var {state_harvest_were_activated} {0};
-    #if {state_should_repair_tools}
-    {
-        #VAR {state_should_repair_tools} {0};
-        repair;
-    };
-    #elseif {$state_greenhouse_harvest_and_sow}
+    #if {$state_greenhouse_harvest_and_sow}
     {
         plant ${greenhouse_sowing};
     };
@@ -491,12 +491,8 @@
 {
     #if {$state_autokill_enabled}
     {
-        restart_autokill
+        restart_autokill;
     };
-    #else
-    {
-        look
-    }
 }
 
 
@@ -596,5 +592,5 @@
 #split
 
 #ACTION {has been fully repaired} {repair; #VAR {state_autorepair} {1}:}
-#ACTION {You don't see that here.} {#IF {state_autorepair} {#VAR {state_autorepair} {0}; look;}}
+#ACTION {You don't see that here.} {#IF {$state_autorepair} {#VAR {state_autorepair} {0}; look;}}
 #ACTION {Done with planting loop greenhouse} {say start greenhouse $greenhouse_sowing}
