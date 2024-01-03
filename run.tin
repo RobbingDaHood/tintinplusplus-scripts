@@ -127,7 +127,7 @@
     fish cast
 }
 
-#ACTION {The {.*?} is broken.} { #VAR {state_should_repair_tools} {1}; }
+#ACTION {The {.*?} is broken.} { #VAR {state_should_repair_tools} {1}; look;}
 
 #ACTION {There is nobody here to battle}
 {
@@ -591,6 +591,6 @@
 #READ {pr_login.tin}
 #split
 
-#ACTION {has been fully repaired} {repair; #VAR {state_autorepair} {1}:}
+#ACTION {has been fully repaired} {repair; #VAR {state_autorepair} {1};}
 #ACTION {You don't see that here.} {#IF {$state_autorepair} {#VAR {state_autorepair} {0}; look;}}
 #ACTION {Done with planting loop greenhouse} {say start greenhouse $greenhouse_sowing}
