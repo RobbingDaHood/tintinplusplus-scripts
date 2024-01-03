@@ -21,6 +21,10 @@
         #VAR {state_should_repair_tools} {0};
         repair;
     };
+    #elseif {$state_autocraft}
+    {
+        #send {craft $autocraft_item};
+    };
     #elseif {$state_farm_mine}
     {
         #if {$is_enemy_present}
@@ -594,3 +598,21 @@
 #ACTION {has been fully repaired} {repair; #VAR {state_autorepair} {1};}
 #ACTION {You don't see that here.} {#IF {$state_autorepair} {#VAR {state_autorepair} {0}; look;}}
 #ACTION {Done with planting loop greenhouse} {say start greenhouse $greenhouse_sowing}
+
+#ACTION {You say, 'start autocraft {.*?}'}
+{
+    #variable autocraft_item {%1};
+    #variable state_autocraft {1};
+    #send {craft $autocraft_item};
+}
+#ACTION {You say, 'stop autocraft'}
+{
+    #variable state_autocraft {0};
+}
+#ACTION {You craft }
+{
+    #if {$state_autocraft}
+    {
+        #send {craft $autocraft_item};
+    }
+}
