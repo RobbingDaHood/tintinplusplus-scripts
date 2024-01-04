@@ -18,14 +18,7 @@
 {
     #if {$state_should_repair_hammer}
     {
-        #VAR {state_should_repair_hammer} {0};
-        #VAR {state_should_repair_tools} {1};
         repair hammer;
-    };
-    #elseif {$state_should_repair_tools}
-    {
-        #VAR {state_should_repair_tools} {0};
-        repair;
     };
     #elseif {$state_autofish}
     {
@@ -586,14 +579,26 @@
 #VARIABLE {state_farm_mine_restart} {0}
 #VARIABLE {state_greenhouse_harvest_and_sow} {0}
 #VARIABLE {wounded} {0}
-#VARIABLE {state_should_repair_tools} {0}
 #VARIABLE {state_autorepair} {0}
 
 #READ {pr_login.tin}
 #split
 
 #ACTION {has been fully repaired} {repair; #VAR {state_autorepair} {1};}
-#ACTION {You don't see that here.} {#IF {$state_autorepair} {#VAR {state_autorepair} {0}; look;}}
+#ACTION {You don't see that here.} 
+{
+    #IF {$state_autorepair} 
+    {
+        #VAR {state_autorepair} {0}; 
+        #VAR {state_should_repair_hammer} {0};
+        look;
+    };
+    #ELSEIF {$state_should_repair_hammer} 
+    {
+        #VAR {state_should_repair_hammer} {0};
+        repair;
+    }
+}
 #ACTION {Done with planting loop greenhouse} {say start greenhouse $greenhouse_sowing}
 
 #ACTION {You say, 'start autocraft {.*?}'}
