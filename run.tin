@@ -21,6 +21,10 @@
         #VAR {state_should_repair_tools} {0};
         repair;
     };
+    #elseif {$state_autofish}
+    {
+        fish cast
+    }
     #elseif {$state_autocraft}
     {
         #send {craft $autocraft_item};
@@ -121,15 +125,6 @@
     #variable {content_of_equip}{}
 }
 
-#ACTION {The fish got away!}
-{
-    fish cast
-}
-
-#ACTION {The line broke!}
-{
-    fish cast
-}
 
 #ACTION {The {.*?} is broken.} { #VAR {state_should_repair_tools} {1}; look;}
 
@@ -203,10 +198,6 @@
     try_to_restart
 }
 
-#ACTION {You catch a }
-{
-    fish cast
-}
 
 #ACTION {You chop down}
 {
@@ -614,5 +605,37 @@
     #if {$state_autocraft}
     {
         #send {craft $autocraft_item};
+    }
+}
+
+#ACTION {You say, 'start autofish'}
+{
+    #variable state_autofish {1};
+    #send {fish cast};
+}
+#ACTION {You say, 'stop autofish'}
+{
+    #variable state_autofish {0};
+}
+#ACTION {The fish got away!}
+{
+    #if {$state_autofish}
+    {
+        fish cast
+    }
+}
+
+#ACTION {The line broke!}
+{
+    #if {$state_autofish}
+    {
+        fish cast
+    }
+}
+#ACTION {You catch a }
+{
+    #if {$state_autofish}
+    {
+        fish cast
     }
 }
