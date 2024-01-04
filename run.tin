@@ -16,7 +16,13 @@
 
 #ACTION {Minimap:}
 {
-    #if {$state_should_repair_tools}
+    #if {$state_should_repair_hammer}
+    {
+        #VAR {state_should_repair_hammer} {0};
+        #VAR {state_should_repair_tools} {1};
+        repair hammer;
+    };
+    #elseif {$state_should_repair_tools}
     {
         #VAR {state_should_repair_tools} {0};
         repair;
@@ -126,7 +132,7 @@
 }
 
 
-#ACTION {The {.*?} is broken.} { #VAR {state_should_repair_tools} {1}; look;}
+#ACTION {The {.*?} is broken.} { #VAR {state_should_repair_hammer} {1}; look;}
 
 #ACTION {There is nobody here to battle}
 {
