@@ -47,7 +47,12 @@
             harvest;
         }
     };
-    #elseif {$state_greenhouse_harvest_and_sow || !$is_enemy_present}
+    #elseif {$state_greenhouse_harvest_and_sow}
+    {
+        get all;
+        harvest;
+    };
+    #elseif {!$is_enemy_present}
     {
         #buffer {find} {Room: } {location_of_room};
         #buffer {find} {ground} {location_of_end_equip};
@@ -74,7 +79,14 @@
     };
     #elseif {$state_autokill_enabled && $is_enemy_present}
     {
-        kill;
+        #if {!$wounded}
+        {
+            kill;
+        };
+        #else
+        {
+            prospect; 
+        }
     }
 }
 
@@ -87,8 +99,8 @@
     }
 }
 
-        #var {state_chop_were_activated} {0}
-        #var {state_harvest_were_activated} {0}
+#var {state_chop_were_activated} {0}
+#var {state_harvest_were_activated} {0}
 #ACTION {Nothing to harvest here.}
 {
     #IF {!$state_harvest_were_activated}
@@ -102,21 +114,22 @@
 {
     #var {state_chop_were_activated} {0};
     #var {state_harvest_were_activated} {0};
+    #variable {autokill_is_walking} {0};
     #if {$state_greenhouse_harvest_and_sow}
     {
         plant ${greenhouse_sowing};
-    };
-    #elseif {$state_autokill_enabled}
-    {
-        restart_autokill;
     };
     #elseif {$state_farm_mine}
     {
         #variable {farm_mine_ready_for_move} {1}
     };
+    #elseif {$state_autokill_enabled && !$wounded}
+    {
+        scan;
+    };
     #else
     {
-        prospect
+        prospect;
     }
 }
 
@@ -252,7 +265,7 @@
     #variable state_autokill_enabled {1};
     #variable {autokill_is_walking} {0};
     config autobattle on;
-    restart_autokill
+    look;
 }
 
 #ACTION {You say, 'start farm mine'$}
@@ -296,7 +309,10 @@
 
 #ACTION {You stop walking}
 {
-    restart_autokill 
+    #if {$state_autokill_enabled}
+    {
+        look;
+    }
 }
 
 #ACTION {Your action was interrupted}
@@ -324,7 +340,7 @@
     #variable {autokill_is_walking} {0}
 }
 
-#ACTION {{\d+}, {\d+} {\d+}/{\d+}hp {\d+}en {\d+}st {\d+}food {\d+}{(.\d+)?}/{\d+} {\d+}/{\d+}}
+#ACTION {{\d+}, {\d+} {\d+}/{\d+}hp {\d+}en {\d+}st {\d+}food {\d+(.\d+)?}/{\d+} {\d+}/{\d+}}
 {
     #variable {coordinate_x} {%1};
     #variable {coordinate_y} {%2};
@@ -335,6 +351,7 @@
     #variable {current_stamina} {%6};
     #variable {current_food} {%7};
     #variable {current_weight} {%8};
+    #regexp {$current_weight} {{\d+}{.*}} {#var {current_weight} {&1}};
     #variable {max_weight} {%10};
     #variable {current_inv_slots} {%11};
     #variable {max_inv_slots} {%12};
@@ -463,23 +480,6 @@
 
 #ACTION {You need basic crafting at level} {if_autokill_then_walk_second_target}
 
-#ALIAS {restart_autokill}
-{
-    #if {$state_autokill_enabled}
-    {
-        #variable {autokill_is_walking} {0};
-        #showme {restarded autokill};
-        #if {$wounded || $current_stamina < 80}
-        {
-            prospect
-        };
-        #else
-        {
-            scan
-        }
-    }
-}
-
 #ALIAS {start_dump_items_and_go_to_obelisk_path}
 {
     #variable greenhouse_sowing {%1};
@@ -492,7 +492,7 @@
 {
     #if {$state_autokill_enabled}
     {
-        restart_autokill;
+        look;
     };
 }
 
@@ -613,6 +613,20 @@
         #send {craft $autocraft_item};
     }
 }
+#ACTION {You can't craft}
+{
+    #if {$state_autocraft}
+    {
+        #variable state_autocraft {0};
+    }
+}
+#ACTION {You need }
+{
+    #if {$state_autocraft}
+    {
+        #variable state_autocraft {0};
+    }
+}
 
 #ACTION {You say, 'start autofish'}
 {
@@ -645,3 +659,5 @@
         fish cast
     }
 }
+#ACTION {You are now affected by moderate critical potion} { look; }
+#ACTION {You are DEAD!} {#var {state_autokill_enabled} {0};}
