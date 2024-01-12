@@ -1,3 +1,4 @@
+#variable {my_entity_id} {111622;1};
 #READ {pr_login.tin}
 #split
 
@@ -38,13 +39,33 @@
 #EVENT {IAC SB GMCP Char.Output IAC SE}
 {
     #variable {latest_gmcp_output} {%0};
-    #showme {Char.Output: %0};
+    #regex {$latest_gmcp_output[output]} {31m{[^\*]*?}u001b[0m} {#showme {enemy in the room!}};
+    
+    #if {"%0[id]" == "look_at_entity"}
+    {
+        #showme {%0[output]};
+    };
+}
+
+#ALIAS {look_at_all_entities}
+{
+    #foreach {$room_info[entities]} {entity} 
+    {
+        #send {gmcp cmd look_at_entity look eid:$entity}; 
+    }
+}
+
+#ALIAS {reload_configs}
+{
+    #kill; 
+    #read gmcp_test_script_simple.run;
 }
 
 #EVENT {IAC SB GMCP Char.State IAC SE}
 {
     #variable gmcp_char_state {%0};
     
+    store_if_exist gmcp_char_state[update][room] room_info;
     store_if_exist gmcp_char_state[update][room][id] room_id;
     store_if_exist gmcp_char_state[update][room][x] room_x;
     store_if_exist gmcp_char_state[update][room][y] room_y;
@@ -55,13 +76,13 @@
     #variable {battle_info} {$gmcp_char_state[update][battle]};
 }
 
-#ALIAS {start_farm_mine}
+#ALIAS {start_autoexplore}
 {
     #map destroy world;
     #map create 999999;
     #map goto 1;
-    #variable {state_farm_mine} {1};
-    #variable {farm_mine_start_room_id} {$room_id};
+    #variable {state_autoexplore} {1};
+    #variable {autoexplore_start_room_id} {$room_id};
     register_current_room_in_map;
 }
 
@@ -105,13 +126,9 @@
 
 #EVENT {MAP CREATE ROOM}
 {
-    #if {$state_farm_mine}
+    #if {$state_autoexplore}
     {
-        #map get {roomdesc} {roomdesc_at_dir} {%0};
-        #if {"$roomdesc_at_dir" != "explored"}
-        {
-            #map set {roomdesc} {unexplored} {%0};
-        };
+        #map set {roomdesc} {unexplored} {%0};
     }
 }
 
@@ -137,5 +154,3 @@
         walk_towards_unexplored;
     };
 }
-
-
