@@ -1,0 +1,141 @@
+#READ {pr_login.tin}
+#split
+
+#ALIAS {start_gmcp}
+{
+    config gmcp on; 
+    config gmcpseenrooms on;
+}
+
+#ALIAS {store_if_exist} 
+{
+    #if {&%1 != 0}
+    {
+        #variable {%2} {$%1};
+    } 
+}
+
+#EVENT {IAC SB GMCP}
+{
+    #nop {Just contains the next GMCP event name, so not interesting.};
+    
+    #if {"%0" != "Char.Vitals" && "%0" != "Char.State" && "%0" != "room.info" && "%0" != "Char.Output" && "%0" != "Client.Media.Stop" && "%0" != "Client.Media.Play"}
+    {
+        #showme {GMCP: %0};
+    }
+}
+
+#EVENT {IAC SB GMCP Char.Vitals IAC SE}
+{
+    #nop {Example values: gmcp_vitals: {combo}{0}{en}{162}{food}{78}{hp}{437}{level}{30}{maxcombo}{100}{maxen}{187}{maxfood}{110}{maxhp}{437}{maxrage}{100}{maxst}{208}{nl}{531050}{rage}{0}{st}{201}{xp}{492243}}
+}
+
+#EVENT {IAC SB GMCP room.info IAC SE}
+{
+    #nop {Example values for each room in range: gmcp_room_info: {exits}{{e}{1938569184}{n}{582155329}{ne}{254486512}{nw}{46100561}{s}{1161239236}{se}{7612 82581}{sw}{1121466420}{w}{1730183233}}{generated}{true}{name}{Gold Mine Tailings}{num}{1194128465}{terrain }{Gold Mine Tailings}{x}{265}{y}{359}{zone}{The Great Plains}{zoneId}{plains}}
+}
+
+#EVENT {IAC SB GMCP Char.Output IAC SE}
+{
+    #variable {latest_gmcp_output} {%0};
+    #showme {Char.Output: %0};
+}
+
+#EVENT {IAC SB GMCP Char.State IAC SE}
+{
+    #variable gmcp_char_state {%0};
+    
+    store_if_exist gmcp_char_state[update][room][id] room_id;
+    store_if_exist gmcp_char_state[update][room][x] room_x;
+    store_if_exist gmcp_char_state[update][room][y] room_y;
+    store_if_exist gmcp_char_state[update][room][exits] room_exits;
+    store_if_exist gmcp_char_state[update][room][items] room_items;
+    store_if_exist gmcp_char_state[update][skills] skills;
+    store_if_exist gmcp_char_state[update][affects] affects;
+    #variable {battle_info} {$gmcp_char_state[update][battle]};
+}
+
+#ALIAS {start_farm_mine}
+{
+    #map destroy world;
+    #map create 999999;
+    #map goto 1;
+    #variable {state_farm_mine} {1};
+    #variable {farm_mine_start_room_id} {$room_id};
+    register_current_room_in_map;
+}
+
+#ALIAS {register_current_room_in_map} 
+{
+    #map vnum $room_id;
+}
+
+#VARIABLE {short_to_long_exit_name} 
+{
+    {e}{east}
+    {ne}{northeast}
+    {n}{north}
+    {nw}{northwest}
+    {w}{west}
+    {sw}{southwest}
+    {s}{south}
+    {se}{southeast}
+}
+
+#VARIABLE {long_to_short_exit_name} 
+{
+    {east}{e}
+    {northeast}{ne}
+    {north}{n}
+    {northwest}{nw}
+    {west}{w}
+    {southwest}{sw}
+    {south}{s}
+    {southeast}{se}
+}
+
+#ALIAS {map_all_exits}
+{
+    #foreach {$room_exits[%*]} {room_exit}
+    {
+        #map dig {$long_to_short_exit_name[$room_exit]}; 
+    };
+    #map set {roomdesc} {explored};
+}
+
+#EVENT {MAP CREATE ROOM}
+{
+    #if {$state_farm_mine}
+    {
+        #map get {roomdesc} {roomdesc_at_dir} {%0};
+        #if {"$roomdesc_at_dir" != "explored"}
+        {
+            #map set {roomdesc} {unexplored} {%0};
+        };
+    }
+}
+
+#ALIAS {walk_towards_unexplored}
+{
+    #map find {roomdesc} {unexplored};
+    #path get length length_of_path;
+    #if {$length_of_path > 0} 
+    {
+        #path walk;
+    };
+    #else 
+    {
+        #showme {There are no more unexplored rooms: Congrats!};
+    };
+}
+
+#ALIAS {next_step}
+{
+    #if {!$performing_action}
+    {
+        map_all_exits;
+        walk_towards_unexplored;
+    };
+}
+
+
