@@ -29,6 +29,7 @@
         };
         #IF {"%2" == "room_id"}
         {
+            #variable {nothing_left_to_gather} {0};
             #variable {did_any_data_change} {1};
         };
     } 
@@ -56,8 +57,33 @@
 
 #EVENT {IAC SB GMCP Char.Output IAC SE}
 {
-    #variable {latest_gmcp_output} {%0};
+    #local {latest_gmcp_output} {%0};
+    #variable {latest_latest_gmcp_output} {%0};
 
+    #regex {$latest_gmcp_output[id]} {look_at_item}
+    {
+        #cat {items_looked_at_in_the_room[$latest_gmcp_output[id]]} {$latest_gmcp_output[output]};
+        
+        #regex {$latest_gmcp_output[output]} {harvest} {#variable {gather_from_ground_action} {harvest}}
+        {
+            #regex {$latest_gmcp_output[output]} {chop} {#variable {gather_from_ground_action} {chop}}
+            {
+                #regex {$latest_gmcp_output[output]} {loot} 
+                {
+                    #if {$state_autokill || !$enemy_present_in_room}
+                    {
+                        #variable {gather_from_ground_action} {loot};
+                    }
+                    {
+                        #variable {nothing_left_to_gather} {1};
+                    };
+                }
+                {
+                    #variable {nothing_left_to_gather} {1};
+                };
+            };
+        };
+    };
     #regex {$latest_gmcp_output[id]} {look_at_entity}
     {
         #cat {entities_looked_at_in_the_room[$latest_gmcp_output[id]]} {$latest_gmcp_output[output]};
@@ -101,7 +127,6 @@
 #EVENT {IAC SB GMCP Char.State IAC SE}
 {
     #variable {updated_charstate}{0};
-    #variable {did_any_data_change} {0};
     #variable gmcp_char_state {%0};
     
     store_if_exist gmcp_char_state[update][room] room_info;
@@ -121,12 +146,18 @@
 
 #ALIAS {start_autoexplore}
 {
+    #variable {state_autoexplore} {0};
+}
+
+#ALIAS {start_autoexplore}
+{
     #map destroy world;
     #map create 999999;
     #map goto 1;
     #variable {state_autoexplore} {1};
     #variable {autoexplore_start_room_id} {$room_id};
     register_current_room_in_map;
+    #send {gmcp refresh};
 }
 
 #ALIAS {register_current_room_in_map} 
@@ -189,13 +220,10 @@
     };
 }
 
-#ALIAS {next_step}
+#ALIAS {autoexplore_next_step}
 {
-    #if {!$performing_action}
-    {
-        map_all_exits;
-        walk_towards_unexplored;
-    };
+    map_all_exits;
+    walk_towards_unexplored;
 }
 
 #ALIAS {start_autokill}
@@ -209,17 +237,12 @@
     #var {state_autokill} {0};
 }
 
-#variable {is_updated_all_data} {0};
 #ALIAS {updated_all_data}
 {
-    #IF {$entities_looking_at_in_the_room == &entities_looked_at_in_the_room[] && $updated_charstate && $did_any_data_change}
+    #IF {!$gathering_from_ground && &battle_info[] == 0 && $entities_looking_at_in_the_room == &entities_looked_at_in_the_room[] && $updated_charstate && $did_any_data_change}
     {
-        #variable {is_updated_all_data} {1};
+        #variable {did_any_data_change} {0};
         #delay {doing_next_delay} {do_next_action} {1};
-    };
-    #else
-    {
-        #variable {is_updated_all_data} {0};
     };
 }
 
@@ -231,15 +254,55 @@
             {
                 kill;
             };
-            #elseif {$room_item_number < 7 && !$enemy_present_in_room} 
+            #elseif {!$nothing_left_to_gather && $room_item_number > 0 && $room_item_number < 7} 
             {
-                #showme {$room_item_number};
+                gather_from_ground;
+            };
+            #else
+            {
+                consider_moving;
             };
     };
-    #else 
+}
+
+#ALIAS {consider_moving} 
+{
+            #if {$state_autoexplore}
+            {
+                autoexplore_next_step;
+            };
+            #else 
+            {
+                #showme {nothing left to do};
+            };
+}
+
+#ALIAS {execute_gather_from_ground}
+{
+    #IF {!$nothing_left_to_gather || "$gather_from_ground_action" != "get all"}
     {
-        #showme {I am in battle!};
+        #send {$gather_from_ground_action};
     };
+            #else
+            {
+                consider_moving;
+            };
+    #variable {gathering_from_ground} {0};
+}
+
+#variable {gathering_from_ground} {0};
+#variable {nothing_left_to_gather} {0};
+#ALIAS {gather_from_ground}
+{
+    #variable {gathering_from_ground} {1};
+    #variable {gather_from_ground_action} {get all};
+    #variable {items_looked_at_in_the_room} {};
+    #variable {items_looking_at_in_the_room} {&room_info[items][]};
+    #foreach {$room_info[items][]} {item} 
+    {
+        #send {gmcp cmd look_at_item$item look iid:$item}; 
+    };
+    #delay {execute_gather_from_ground} {execute_gather_from_ground} {1};
 }
 
 start_gmcp;
