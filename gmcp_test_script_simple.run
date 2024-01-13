@@ -1,6 +1,5 @@
-#variable {my_entity_id} {111622;1};
-#READ {pr_login.tin}
-#split
+#READ {pr_login.tin};
+#split;
 
 #ALIAS {start_gmcp}
 {
@@ -10,9 +9,28 @@
 
 #ALIAS {store_if_exist} 
 {
-    #if {&%1 != 0}
+    #nop {the variable is not empty and is not the same as currently stored value};
+    #if {&%1 != 0 && "$%1" != "$%2"}
     {
         #variable {%2} {$%1};
+        #IF {"%2" != "affects" && "%2" != "skills"}
+        {
+            #nop {#showme {changing %2 from $%2 to $%1};};
+        };
+        #IF {"%2" == "room_entities"}
+        {
+            look_at_all_entities;
+            #variable {did_any_data_change} {1};
+        };
+        #IF {"%2" == "room_items"}
+        {
+            #variable {room_item_number} {&room_items[]};
+            #variable {did_any_data_change} {1};
+        };
+        #IF {"%2" == "room_id"}
+        {
+            #variable {did_any_data_change} {1};
+        };
     } 
 }
 
@@ -39,20 +57,39 @@
 #EVENT {IAC SB GMCP Char.Output IAC SE}
 {
     #variable {latest_gmcp_output} {%0};
-    #regex {$latest_gmcp_output[output]} {31m{[^\*]*?}u001b[0m} {#showme {enemy in the room!}};
-    
-    #if {"%0[id]" == "look_at_entity"}
+
+    #regex {$latest_gmcp_output[id]} {look_at_entity}
     {
-        #showme {%0[output]};
+        #cat {entities_looked_at_in_the_room[$latest_gmcp_output[id]]} {$latest_gmcp_output[output]};
+        #regexp {$latest_gmcp_output[output]} {Robbingdahood}
+        {}
+        {
+            #regexp {$latest_gmcp_output[output]} {You are using}
+            {}
+            {
+                #regex {$latest_gmcp_output[output]} {31m{[^\*]*?}u001b[0m} 
+                {
+                    #variable {enemy_present_in_room} {1}
+                };
+            }
+        }
     };
+
+    updated_all_data;
 }
 
+#variable {enemy_present_in_room} {0};
+#variable {entities_looked_at_in_the_room} {};
+#variable {entities_looking_at_in_the_room} {0};
 #ALIAS {look_at_all_entities}
 {
-    #foreach {$room_info[entities]} {entity} 
+    #variable {enemy_present_in_room} {0};
+    #variable {entities_looked_at_in_the_room} {};
+    #variable {entities_looking_at_in_the_room} {&room_info[entities][]};
+    #foreach {$room_info[entities][]} {entity} 
     {
-        #send {gmcp cmd look_at_entity look eid:$entity}; 
-    }
+        #send {gmcp cmd look_at_entity$entity look eid:$entity}; 
+    };
 }
 
 #ALIAS {reload_configs}
@@ -63,6 +100,8 @@
 
 #EVENT {IAC SB GMCP Char.State IAC SE}
 {
+    #variable {updated_charstate}{0};
+    #variable {did_any_data_change} {0};
     #variable gmcp_char_state {%0};
     
     store_if_exist gmcp_char_state[update][room] room_info;
@@ -73,7 +112,11 @@
     store_if_exist gmcp_char_state[update][room][items] room_items;
     store_if_exist gmcp_char_state[update][skills] skills;
     store_if_exist gmcp_char_state[update][affects] affects;
+    store_if_exist gmcp_char_state[update][room][entities] room_entities;
     #variable {battle_info} {$gmcp_char_state[update][battle]};
+
+    #variable {updated_charstate}{1};
+    updated_all_data;
 }
 
 #ALIAS {start_autoexplore}
@@ -91,7 +134,7 @@
     #map vnum $room_id;
 }
 
-#VARIABLE {short_to_long_exit_name} 
+ #VARIABLE {short_to_long_exit_name} 
 {
     {e}{east}
     {ne}{northeast}
@@ -154,3 +197,49 @@
         walk_towards_unexplored;
     };
 }
+
+#ALIAS {start_autokill}
+{
+    #var {state_autokill} {1};
+    config autobattle on;
+}
+
+#ALIAS {stop_autokill}
+{
+    #var {state_autokill} {0};
+}
+
+#variable {is_updated_all_data} {0};
+#ALIAS {updated_all_data}
+{
+    #IF {$entities_looking_at_in_the_room == &entities_looked_at_in_the_room[] && $updated_charstate && $did_any_data_change}
+    {
+        #variable {is_updated_all_data} {1};
+        #delay {doing_next_delay} {do_next_action} {1};
+    };
+    #else
+    {
+        #variable {is_updated_all_data} {0};
+    };
+}
+
+#ALIAS {do_next_action} 
+{
+    #if {&battle_info[] == 0}
+    {
+            #IF {$state_autokill && $enemy_present_in_room} 
+            {
+                kill;
+            };
+            #elseif {$room_item_number < 7 && !$enemy_present_in_room} 
+            {
+                #showme {$room_item_number};
+            };
+    };
+    #else 
+    {
+        #showme {I am in battle!};
+    };
+}
+
+start_gmcp;
