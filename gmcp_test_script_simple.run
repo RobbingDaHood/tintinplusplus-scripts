@@ -88,17 +88,17 @@
     {
         #cat {entities_looked_at_in_the_room[$latest_gmcp_output[id]]} {$latest_gmcp_output[output]};
         #regexp {$latest_gmcp_output[output]} {Robbingdahood}
-        {}
+        {#nop {Else I get syntax warning}}
         {
             #regexp {$latest_gmcp_output[output]} {You are using}
-            {}
+            {#nop {Else I get syntax warning}}
             {
                 #regex {$latest_gmcp_output[output]} {31m{[^\*]*?}u001b[0m} 
                 {
                     #variable {enemy_present_in_room} {1}
                 };
-            }
-        }
+            };
+        };
     };
 
     updated_all_data;
