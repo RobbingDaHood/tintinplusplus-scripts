@@ -53,8 +53,7 @@
                     #variable {damage_over_time_in_effect} {1};
                     #delay {damage_over_time_in_effect_remover} 
                     {
-                        #variable {damage_over_time_in_effect} {0}; 
-                        updated_all_data;
+                        gmcp refresh;
                     } {2};
                 }
             };
@@ -177,15 +176,42 @@
     #map destroy world;
 }
 
+#ALIAS {restart_autoexplore}
+{
+    #variable {state_autoexplore} {0};
+    stop_autokill;
+    #map run $autoexplore_start_room_id;
+    #delay {restart_autoexplore} 
+    {
+        #if {"$room_info[canEnter]" == "true"}
+        {
+            enter;
+            #delay {restart_autoexplore} 
+            {
+                enter;
+                #delay {restart_autoexplore} 
+                {
+                    start_autoexplore;
+                } {0.5};
+            } {0.5};
+        };
+        #else 
+        {
+            #showme {The "entrance" cannot be entered.};
+        }
+    } {10};
+}
+
 #ALIAS {start_autoexplore}
 {
+    start_autokill;
     #send {gmcp refresh};
     #map destroy world;
     #map create 999999;
     #map goto 1;
-    #variable {state_autoexplore} {1};
-    #variable {autoexplore_start_room_id} {$room_id};
     #map vnum $room_id;
+    #variable {autoexplore_start_room_id} {$room_id};
+    #variable {state_autoexplore} {1};
 }
 
  #VARIABLE {short_to_long_exit_name} 
@@ -239,7 +265,7 @@
     };
     #else 
     {
-        #showme {There are no more unexplored rooms: Congrats!};
+        restart_autoexplore;
     };
 }
 
