@@ -87,6 +87,14 @@
     #local {latest_gmcp_output} {%0};
     #variable {latest_latest_gmcp_output} {%0};
 
+    #regex {$latest_gmcp_output[id]} {status_on_tools}
+    {
+        #variable tool_needs_repair 0;
+        #regex {$latest_gmcp_output[output]} {{\D}{\d{1}}\%}
+        {
+            #variable tool_needs_repair 1;
+        };
+    };
     #regex {$latest_gmcp_output[id]} {look_at_item}
     {
         #cat {items_looked_at_in_the_room[$latest_gmcp_output[id]]} {$latest_gmcp_output[output]};
@@ -289,7 +297,7 @@
 
 #ALIAS {updated_all_data}
 {
-    #IF {!$damage_over_time_in_effect && !$gathering_from_ground && &battle_info[] == 0 && $entities_looking_at_in_the_room == &entities_looked_at_in_the_room[] && $updated_charstate && $did_any_data_change}
+    #IF {$tool_needs_repair && !$damage_over_time_in_effect && !$gathering_from_ground && &battle_info[] == 0 && $entities_looking_at_in_the_room == &entities_looked_at_in_the_room[] && $updated_charstate && $did_any_data_change}
     {
         #variable {did_any_data_change} {0};
         #delay {doing_next_delay} {do_next_action} {0.5};
@@ -307,6 +315,10 @@
 {
     #if {&battle_info[] == 0}
     {
+            #if {$tool_needs_repair}
+            {
+                repair;
+            }
             #IF {$state_autokill && $enemy_present_in_room} 
             {
                 kill;
@@ -372,5 +384,7 @@
 {
     read recipe
 }
+
+#ticker {status_on_tools} {gmcp cmd status_on_tools tool} {5};
 
 start_gmcp;
