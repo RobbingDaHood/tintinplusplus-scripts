@@ -315,10 +315,14 @@
 {
     #if {&battle_info[] == 0}
     {
+            #if {$state_autofish}
+            {
+                fish cast;
+            };
             #if {$tool_needs_repair}
             {
                 repair;
-            }
+            };
             #IF {$state_autokill && $enemy_present_in_room} 
             {
                 kill;
@@ -386,5 +390,37 @@
 }
 
 #ticker {status_on_tools} {gmcp cmd status_on_tools tool} {5};
+
+#ALIAS {start_autofish}
+{
+    #variable state_autofish {1};
+    fish cast;
+}
+#ALIAS {stop_autofish}
+{
+    #variable state_autofish {0};
+}
+#ACTION {The fish got away!}
+{
+    #if {$state_autofish}
+    {
+        fish cast
+    }
+}
+
+#ACTION {The line broke!}
+{
+    #if {$state_autofish}
+    {
+        fish cast
+    }
+}
+#ACTION {You catch a }
+{
+    #if {$state_autofish}
+    {
+        fish cast
+    }
+}
 
 start_gmcp;
