@@ -26,23 +26,35 @@
         {
             #variable {room_item_number} {&room_items[]};
             #variable {did_any_data_change} {1};
+            look_at_all_items;
         };
         #IF {"%2" == "room_info"}
         {
-            #if {$state_autoexplore}
+            #if {"$room_info[canEnter]" == "true"}
             {
-                #if {"$room_info[canEnter]" == "true"}
+                #if {$state_autoexplore}
                 {
                     #variable {autoexplore_start_room_id} {$room_id};
                     #map vnum $room_id;
-                }
+                };
+                #variable {room_can_enter} {1};
+            };
+            #else
+            {
+                #variable {room_can_enter} {0};
             }
         };
         #IF {"%2" == "room_id"}
         {
-            #showme {changed room!};
-            #variable {nothing_left_to_gather} {0};
-            #variable {did_any_data_change} {1};
+            #if {&battle_info[] == 0}
+            {
+                #showme {changed room!};
+                #variable {nothing_left_to_gather} {0};
+                #variable {did_any_data_change} {1};
+                #variable {seeds_in_the_room} {};
+                #variable {number_of_planted_before_planting} {-1};
+                #variable {number_of_items_before_gathering} {-1};
+            }
         };
         #IF {"%2" == "affects"}
         {
@@ -84,9 +96,20 @@
 
 #EVENT {IAC SB GMCP Char.Output IAC SE}
 {
-    #local {latest_gmcp_output} {%0};
-    #variable {latest_latest_gmcp_output} {%0};
+    #variable {latest_gmcp_output} {%0};
 
+    #regex {$latest_gmcp_output[id]} {greenhourse_seed_count}
+    {
+        #variable greenhouse_more_seeds_output $latest_gmcp_output[output];
+        #regex {$latest_gmcp_output[output]} {$greenhouse_sowing}
+        {
+            #variable greenhouse_more_seeds 1;
+        };
+        #else 
+        {
+            #variable greenhouse_more_seeds 0;
+        };
+    };
     #regex {$latest_gmcp_output[id]} {status_on_tools}
     {
         #variable tool_needs_repair 0;
@@ -99,22 +122,29 @@
     {
         #cat {items_looked_at_in_the_room[$latest_gmcp_output[id]]} {$latest_gmcp_output[output]};
         
-        #regex {$latest_gmcp_output[output]} {harvest} {#variable {gather_from_ground_action} {harvest}}
+        #regex {$latest_gmcp_output[output]} {seedling} 
         {
-            #regex {$latest_gmcp_output[output]} {chop} {#variable {gather_from_ground_action} {chop}}
+            #cat {seeds_in_the_room[$latest_gmcp_output[id]]} {$latest_gmcp_output[output]};
+            #variable {nothing_left_to_gather} {1};
+        }
+        {
+            #regex {$latest_gmcp_output[output]} {harvest} {#variable {gather_from_ground_action} {harvest}}
             {
-                #regex {$latest_gmcp_output[output]} {loot} 
+                #regex {$latest_gmcp_output[output]} {chop} {#variable {gather_from_ground_action} {chop}}
                 {
-                    #if {$state_autokill || !$enemy_present_in_room}
+                    #regex {$latest_gmcp_output[output]} {loot} 
                     {
-                        #variable {gather_from_ground_action} {loot};
+                        #if {$state_autokill || !$enemy_present_in_room}
+                        {
+                            #variable {gather_from_ground_action} {loot};
+                        }
+                        {
+                            #variable {nothing_left_to_gather} {1};
+                        };
                     }
                     {
                         #variable {nothing_left_to_gather} {1};
                     };
-                }
-                {
-                    #variable {nothing_left_to_gather} {1};
                 };
             };
         };
@@ -297,7 +327,7 @@
 
 #ALIAS {updated_all_data}
 {
-    #IF {$tool_needs_repair && !$damage_over_time_in_effect && !$gathering_from_ground && &battle_info[] == 0 && $entities_looking_at_in_the_room == &entities_looked_at_in_the_room[] && $updated_charstate && $did_any_data_change}
+    #IF {$state_greenhouse_harvest_and_sow || $tool_needs_repair || !$damage_over_time_in_effect && &battle_info[] == 0 && $items_looking_at_in_the_room == &items_looked_at_in_the_room[] && $entities_looking_at_in_the_room == &entities_looked_at_in_the_room[] && $updated_charstate && $did_any_data_change}
     {
         #variable {did_any_data_change} {0};
         #delay {doing_next_delay} {do_next_action} {0.5};
@@ -315,15 +345,11 @@
 {
     #if {&battle_info[] == 0}
     {
-            #if {$state_autofish}
-            {
-                fish cast;
-            };
             #if {$tool_needs_repair}
             {
                 repair;
             };
-            #IF {$state_autokill && $enemy_present_in_room} 
+            #elseif {$state_autokill && $enemy_present_in_room} 
             {
                 kill;
             };
@@ -331,10 +357,25 @@
             {
                 gather_from_ground;
             };
+            #elseif {$greenhouse_more_seeds && !$room_can_enter && $state_greenhouse_harvest_and_sow && &seeds_in_the_room[] < 3}
+            {
+                greenhouse_planting;
+            };
             #else
             {
                 consider_moving;
             };
+    };
+}
+
+#ALIAS {greenhouse_planting}
+{
+    #send {gmcp cmd greenhourse_seed_count inv $greenhouse_sowing};
+    #if {$number_of_planted_before_planting != &seeds_in_the_room[]}
+    {
+        #variable {number_of_planted_before_planting} {&seeds_in_the_room[]};
+        #delay {planting} {#send {plant $greenhouse_sowing}} {0.2};
+        #delay {reset_number_of_planted_before_planting} {#variable {number_of_planted_before_planting} {-1};} {10};
     };
 }
 
@@ -344,30 +385,30 @@
             {
                 autoexplore_next_step;
             };
+            #elseif {$state_greenhouse_harvest_and_sow}
+            {
+                greenhouse_action_count_plus_one;
+            };
             #else 
             {
                 #showme {nothing left to do};
             };
 }
 
-#ALIAS {execute_gather_from_ground}
-{
-    #IF {!$nothing_left_to_gather || "$gather_from_ground_action" != "get all"}
-    {
-        #send {$gather_from_ground_action};
-    };
-    #else
-    {
-        consider_moving;
-    };
-    #variable {gathering_from_ground} {0};
-}
-
-#variable {gathering_from_ground} {0};
 #variable {nothing_left_to_gather} {0};
+#variable {number_of_items_before_gathering} {-1};
 #ALIAS {gather_from_ground}
 {
-    #variable {gathering_from_ground} {1};
+    #IF {$number_of_items_before_gathering != $room_item_number && (!$nothing_left_to_gather || "$gather_from_ground_action" != "get all")}
+    {
+        #variable {number_of_items_before_gathering} {$room_item_number};
+        #delay {gather} {#send {$gather_from_ground_action};} {0.2};
+        #delay {reset_number_of_items_before_gathering} {#variable {number_of_items_before_gathering} {-1};} {10};
+    };
+}
+
+#ALIAS {look_at_all_items}
+{
     #variable {gather_from_ground_action} {get all};
     #variable {items_looked_at_in_the_room} {};
     #variable {items_looking_at_in_the_room} {&room_info[items][]};
@@ -375,7 +416,6 @@
     {
         #send {gmcp cmd look_at_item$item look iid:$item}; 
     };
-    #delay {execute_gather_from_ground} {execute_gather_from_ground} {1};
 }
 
 #ACTION {You already know the {.*?} recipe.}
@@ -394,7 +434,7 @@
 #ALIAS {start_autofish}
 {
     #variable state_autofish {1};
-    fish cast;
+    cast_fish;
 }
 #ALIAS {stop_autofish}
 {
@@ -402,25 +442,71 @@
 }
 #ACTION {The fish got away!}
 {
-    #if {$state_autofish}
-    {
-        fish cast
-    }
+    cast_fish;
 }
-
 #ACTION {The line broke!}
 {
-    #if {$state_autofish}
-    {
-        fish cast
-    }
+    cast_fish;
 }
 #ACTION {You catch a }
 {
+    cast_fish;
+}
+
+#ALIAS {cast_fish}
+{
     #if {$state_autofish}
     {
-        fish cast
+        fish cast;
+        #delay {cast_fish} {cast fish} {30};
     }
+}
+
+#ALIAS {start_greenhouse {.*}}
+{
+    #variable greenhouse_sowing {%1};
+    #variable state_greenhouse_harvest_and_sow {1};
+    #variable greenhouse_action_count {0};
+    #send {gmcp cmd greenhourse_seed_count inv $greenhouse_sowing};
+    greenhouse_action_count_plus_one
+}
+
+#ALIAS {stop_greenhouse}
+{
+    #variable state_greenhouse_harvest_and_sow {0}
+}
+
+#ALIAS {greenhouse_action_count_plus_one}
+{
+    #if {$state_greenhouse_harvest_and_sow}
+    {
+        #send ${greenhouse_path[${greenhouse_action_count}]};
+        #math {greenhouse_action_count} {$greenhouse_action_count + 1};
+        #if {${greenhouse_action_count} >= ${greenhouse_action_count_max}}
+        {
+            #showme {Done with planting loop greenhouse};
+            #send {start_greenhouse $greenhouse_sowing};
+        };
+    }
+}
+
+#VARIABLE {state_greenhouse_harvest_and_sow} {0}
+#VARIABLE {greenhouse_action_count_max} {13}
+#VARIABLE {greenhouse_path}
+{
+    {0} {ne}
+    {1} {ne}
+    {2} {s}
+    {3} {e}
+    {4} {se}
+    {5} {w}
+    {6} {w}
+    {7} {se}
+    {8} {w}
+    {9} {s}
+    {10} {nw}
+    {11} {n}
+    {12} {w}
 }
 
 start_gmcp;
