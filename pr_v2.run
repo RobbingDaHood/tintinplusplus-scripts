@@ -48,8 +48,7 @@
         {
             #if {&battle_info[] == 0}
             {
-                #showme {changed room!};
-                #variable {nothing_left_to_gather} {0};
+                #variable {nothing_left_to_gather} {};
                 #variable {did_any_data_change} {1};
                 #variable {seeds_in_the_room} {};
                 #variable {number_of_planted_before_planting} {-1};
@@ -125,7 +124,7 @@
         #regex {$latest_gmcp_output[output]} {seedling} 
         {
             #cat {seeds_in_the_room[$latest_gmcp_output[id]]} {$latest_gmcp_output[output]};
-            #variable {nothing_left_to_gather} {1};
+            #cat {nothing_left_to_gather[$latest_gmcp_output[id]]} {$latest_gmcp_output[output]};
         }
         {
             #regex {$latest_gmcp_output[output]} {harvest} {#variable {gather_from_ground_action} {harvest}}
@@ -139,11 +138,11 @@
                             #variable {gather_from_ground_action} {loot};
                         }
                         {
-                            #variable {nothing_left_to_gather} {1};
+                            #cat {nothing_left_to_gather[$latest_gmcp_output[id]]} {$latest_gmcp_output[output]};
                         };
                     }
                     {
-                        #variable {nothing_left_to_gather} {1};
+                        #cat {nothing_left_to_gather[$latest_gmcp_output[id]]} {$latest_gmcp_output[output]};
                     };
                 };
             };
@@ -320,6 +319,7 @@
     config autobattle on;
 }
 
+#var {state_autokill} {0};
 #ALIAS {stop_autokill}
 {
     #var {state_autokill} {0};
@@ -353,7 +353,7 @@
             {
                 kill;
             };
-            #elseif {!$nothing_left_to_gather && $room_item_number > 0 && $room_item_number < 7} 
+            #elseif {&nothing_left_to_gather[] != $room_item_number && $room_item_number > 0 && $room_item_number < 7} 
             {
                 gather_from_ground;
             };
@@ -395,11 +395,11 @@
             };
 }
 
-#variable {nothing_left_to_gather} {0};
+#variable {nothing_left_to_gather} {};
 #variable {number_of_items_before_gathering} {-1};
 #ALIAS {gather_from_ground}
 {
-    #IF {$number_of_items_before_gathering != $room_item_number && (!$nothing_left_to_gather || "$gather_from_ground_action" != "get all")}
+    #IF {$number_of_items_before_gathering != $room_item_number && (&nothing_left_to_gather[] != $room_item_number || "$gather_from_ground_action" != "get all")}
     {
         #variable {number_of_items_before_gathering} {$room_item_number};
         #delay {gather} {#send {$gather_from_ground_action};} {0.2};
@@ -412,9 +412,13 @@
     #variable {gather_from_ground_action} {get all};
     #variable {items_looked_at_in_the_room} {};
     #variable {items_looking_at_in_the_room} {&room_info[items][]};
-    #foreach {$room_info[items][]} {item} 
+
+    #if {&room_info[items][] < 10} 
     {
-        #send {gmcp cmd look_at_item$item look iid:$item}; 
+        #foreach {$room_info[items][]} {item} 
+        {
+            #send {gmcp cmd look_at_item$item look iid:$item}; 
+        };
     };
 }
 
