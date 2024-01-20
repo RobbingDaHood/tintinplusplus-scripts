@@ -100,6 +100,14 @@
 {
     #variable {latest_gmcp_output} {%0};
 
+    #if {"$latest_gmcp_output[id]" == "result_scan"}
+    {
+        #variable {result_scan_output} {$latest_gmcp_output[output]};
+        #regex {$result_scan_output} {{@[^@]*?([0-9]+)[^@]*\\\;31m[^@]*}}
+        {
+            #variable {result_scan_first_enemy_number} {&2};
+        };
+    };
     #regex {$latest_gmcp_output[id]} {greenhourse_seed_count}
     {
         #variable greenhouse_more_seeds_output $latest_gmcp_output[output];
@@ -250,6 +258,19 @@
     #variable {state_autoexplore} {1};
 }
 
+#variable {state_searchandkill} {0};
+#ALIAS {start_searchandkill}
+{
+    start_autokill;
+    #variable {state_searchandkill} {1};
+}
+
+#ALIAS {stop_searchandkill}
+{
+    stop_autokill;
+    #variable {state_searchandkill} {0};
+}
+
  #VARIABLE {short_to_long_exit_name} 
 {
     {e}{east}
@@ -353,6 +374,7 @@
     {
             #if {$tool_needs_repair}
             {
+                #variable tool_needs_repair 0;
                 repair;
             };
             #elseif {$state_autokill && $enemy_present_in_room} 
@@ -385,6 +407,7 @@
     };
 }
 
+#variable {result_scan_first_enemy_number} {-1};
 #ALIAS {consider_moving} 
 {
             #if {$state_autoexplore}
@@ -395,6 +418,18 @@
             {
                 greenhouse_action_count_plus_one;
             };
+            #elseif {$state_searchandkill}
+            {
+                #if {$result_scan_first_enemy_number == -1}
+                {
+                    gmcp cmd result_scan scan;
+                };
+                #else
+                {
+                    #send {walk @$result_scan_first_enemy_number};
+                    #variable {result_scan_first_enemy_number} {-1};
+                };
+            }
             #else 
             {
                 #showme {nothing left to do};
