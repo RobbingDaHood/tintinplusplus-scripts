@@ -10,7 +10,7 @@
 #ALIAS {store_if_exist} 
 {
     #nop {the variable is not empty and is not the same as currently stored value};
-    #if {&%1 != 0 && "$%1" != "$%2"}
+    #if {&%1 != 0 && "$%2" != "$%1"}
     {
         #variable {%2} {$%1};
         #IF {"%2" != "affects" && "%2" != "skills"}
@@ -24,11 +24,8 @@
         };
         #IF {"%2" == "room_items"}
         {
-            #variable {room_item_number} {&room_items[]};
-            #variable {did_any_data_change} {1};
-            #variable {item_that_can_be_looted} {};
-            #variable {nothing_left_to_gather} {};
             look_at_all_items;
+            #variable {did_any_data_change} {1};
         };
         #IF {"%2" == "room_info"}
         {
@@ -44,19 +41,19 @@
             #else
             {
                 #variable {room_can_enter} {0};
-            }
+            };
         };
         #IF {"%2" == "room_id"}
         {
-            #if {&battle_info[] == 0}
+            #if {"$battle_info" == ""}
             {
                 #variable {item_that_can_be_looted} {};
                 #variable {nothing_left_to_gather} {};
-                #variable {did_any_data_change} {1};
                 #variable {seeds_in_the_room} {};
                 #variable {number_of_planted_before_planting} {-1};
                 #variable {number_of_items_before_gathering} {-1};
-            }
+            };
+            #variable {did_any_data_change} {1};
         };
         #IF {"%2" == "affects"}
         {
@@ -106,6 +103,7 @@
         #regex {$result_scan_output} {{@[^@]*?\\\;35m([0-9]+)[^@]*\\\;31m[^@]*}}
         {
             #variable {result_scan_first_enemy_number} {&2};
+            #variable {did_any_data_change} {1};
         };
     };
     #elseif {"$latest_gmcp_output[id]" == "result_prospect"}
@@ -129,20 +127,23 @@
         #list {result_prospect_parsed_without_corpses} clear;
         #loop 1 &result_prospect_parsed[] {count}
         {
-            #regex {$result_prospect_parsed[count]} {corpse} 
+            #regex {$result_prospect_parsed[$count]} {corpse} 
             {#nop {else I get parse exceptions}}
             {
-                #list {result_prospect_parsed_without_corpses} add $result_prospect_parsed[count];
+                #list {result_prospect_parsed_without_corpses} add $result_prospect_parsed[$count];
             };
         };
 
-        #variable {result_prospect_first_item_number} {-1};
         #foreach {$result_prospect_parsed_without_corpses[]} {line}
         {
-            #regex {$result_scan_prospect} {{\\\;35m([0-9]+)}}
+            #regex {$line} {{\\\;35m([0-9]+)}}
             {
-                #variable {result_prospect_first_item_number} {&2};
-                #break;
+                #if {$result_prospect_first_item_number < 0}
+                {
+                    #showme {no corpse: &2};
+                    #variable {result_prospect_first_item_number} {&2};
+                    #variable {did_any_data_change} {1};
+                };
             };
         };
     };
@@ -176,13 +177,22 @@
             #cat {nothing_left_to_gather[$latest_gmcp_output[id]]} {$latest_gmcp_output[output]};
         }
         {
-            #regex {$latest_gmcp_output[output]} {chop{.*?}It looks recently harvested} {#variable {gather_from_ground_action} {chop}}
+            #regex {$latest_gmcp_output[output]} {chop{.*?}It looks recently harvested} 
             {
-                #regex {$latest_gmcp_output[output]} {harvest} {#variable {gather_from_ground_action} {harvest}}
+                #variable {gather_from_ground_action} {chop};
+                #variable {did_any_data_change} {1};
+            }
+            {
+                #regex {$latest_gmcp_output[output]} {harvest} 
+                {
+                    #variable {gather_from_ground_action} {harvest};
+                    #variable {did_any_data_change} {1};
+                }
                 {
                     #regex {$latest_gmcp_output[output]} {loot} 
                     {
                         #variable {gather_from_ground_action} {loot};
+                        #variable {did_any_data_change} {1};
                         #cat {item_that_can_be_looted[$latest_gmcp_output[id]]} {$latest_gmcp_output[output]};
                     }
                     {
@@ -203,7 +213,8 @@
             {
                 #regex {$latest_gmcp_output[output]} {31m{[^\*]*?}u001b[0m} 
                 {
-                    #variable {enemy_present_in_room} {1}
+                    #variable {enemy_present_in_room} {1};
+                    #variable {did_any_data_change} {1};
                 };
             };
         };
@@ -261,7 +272,7 @@
 #ALIAS {restart_autoexplore}
 {
     #variable {state_autoexplore} {0};
-    stop_autokill;
+    #send {stop_autokill};
     #map run $autoexplore_start_room_id;
     #delay {restart_autoexplore} 
     {
@@ -301,11 +312,12 @@
 {
     start_autokill;
     #variable {state_searchandkill} {1};
+    gmcp refresh;
 }
 
 #ALIAS {stop_searchandkill}
 {
-    stop_autokill;
+    #send {stop_autokill};
     #variable {state_searchandkill} {0};
 }
 
@@ -385,10 +397,11 @@
 
 #ALIAS {updated_all_data}
 {
-    #IF {$state_searchandkill ||  $state_greenhouse_harvest_and_sow || $tool_needs_repair || !$damage_over_time_in_effect && &battle_info[] == 0 && $items_looking_at_in_the_room == &items_looked_at_in_the_room[] && $entities_looking_at_in_the_room == &entities_looked_at_in_the_room[] && $updated_charstate && $did_any_data_change}
+    #IF {$state_greenhouse_harvest_and_sow || $tool_needs_repair || !$damage_over_time_in_effect && "$battle_info" == "" && $items_looking_at_in_the_room == &items_looked_at_in_the_room[] && $entities_looking_at_in_the_room == &entities_looked_at_in_the_room[] && $updated_charstate && $did_any_data_change}
     {
+        #showme {$state_greenhouse_harvest_and_sow || $tool_needs_repair || !$damage_over_time_in_effect && "$battle_info" == "" && $items_looking_at_in_the_room == &items_looked_at_in_the_room[] && $entities_looking_at_in_the_room == &entities_looked_at_in_the_room[] && $updated_charstate && $did_any_data_change};
         #variable {did_any_data_change} {0};
-        #if {&battle_info[] == 0}
+        #if {"$battle_info" == ""}
         {
             #delay {doing_next_delay} {do_next_action} {0.5};
         };
@@ -397,6 +410,12 @@
             #delay {doing_next_delay} {do_next_action} {1};
         };
         #delay {updated_all_data_backup_pulse} {updated_all_data_pulse_backup} {60};
+    };
+    #elseif {$state_searchandkill && "$battle_info" == "" && $did_any_data_change}
+    {
+        #showme {$state_searchandkill && "$battle_info" == ""};
+        #variable {did_any_data_change} {0};
+        #delay {doing_next_delay} {consider_moving} {0.5};
     };
 }
 
@@ -408,7 +427,7 @@
 
 #ALIAS {do_next_action} 
 {
-    #if {&battle_info[] == 0}
+    #if {"$battle_info" == ""}
     {
             #if {$tool_needs_repair}
             {
@@ -432,6 +451,10 @@
                 consider_moving;
             };
     };
+    #else 
+    {
+        #showme {Did no action because is in battle.};
+    };
 }
 
 #ALIAS {greenhouse_planting}
@@ -447,8 +470,10 @@
 
 #variable {result_prospect_first_item_number} {-1};
 #variable {result_scan_first_enemy_number} {-1};
+#variable {state_autoexplore} {0};
 #ALIAS {consider_moving} 
 {
+            #showme {consider_moving};
             #if {$state_autoexplore}
             {
                 autoexplore_next_step;
@@ -460,27 +485,39 @@
             #elseif {$state_searchandkill}
             {
                 #math {lost_life} {$gmcp_char_vitals[maxhp] -  $gmcp_char_vitals[hp]};
-                #if {$lost_life > 150}
+                #if {$result_scan_first_enemy_number == -2 && $result_prospect_first_item_number == -2}
+                {
+                    #showme {Nothing to kill or loot.};
+                };
+                #elseif {$lost_life > 150 || $result_scan_first_enemy_number == -2}
                 {
                     #if {$result_prospect_first_item_number == -1}
                     {
-                        gmcp cmd result_prospect prospect;
+                        #variable {result_prospect_first_item_number} {-2};
+                        #showme {gmcp cmd result_prospect prospect};
+                        #send {gmcp cmd result_prospect prospect};
                     };
                     #else
                     {
+                        #showme {prospect walk @$result_prospect_first_item_number};
                         #send {walk @$result_prospect_first_item_number};
                         #variable {result_prospect_first_item_number} {-1};
+                        #variable {result_scan_first_enemy_number} {-1};
                     };
-                }
+                };
+                #else
                 {
                     #if {$result_scan_first_enemy_number == -1}
                     {
-                        gmcp cmd result_scan scan;
+                        #variable {result_scan_first_enemy_number} {-2};
+                        #send {gmcp cmd result_scan scan};
                     };
                     #else
                     {
+                        #showme {scan walk @$result_scan_first_enemy_number};
                         #send {walk @$result_scan_first_enemy_number};
                         #variable {result_scan_first_enemy_number} {-1};
+                        #variable {result_prospect_first_item_number} {-1};
                     };
                 }
             };
@@ -505,9 +542,14 @@
         {
             #variable {number_of_items_before_gathering} {$room_item_number};
         };
+        #showme {Gather action: $gather_from_ground_action};
         #delay {gather} {#send {$gather_from_ground_action};} {0.2};
         #delay {reset_number_of_items_before_gathering} {#variable {number_of_items_before_gathering} {-1};} {10};
     };
+    #else
+    {
+        #showme {Tried to gather but no valid state};
+    }
 }
 
 #ACTION {You finish harvesting the}
@@ -520,6 +562,10 @@
 
 #ALIAS {look_at_all_items}
 {
+    #variable {room_item_number} {&room_items[]};
+    #variable {item_that_can_be_looted} {};
+    #variable {nothing_left_to_gather} {};
+
     #variable {gather_from_ground_action} {get all};
     #variable {items_looked_at_in_the_room} {};
     #variable {items_looking_at_in_the_room} {&room_info[items][]};
