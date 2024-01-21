@@ -110,7 +110,7 @@
     };
     #elseif {"$latest_gmcp_output[id]" == "result_prospect"}
     {
-        #nop {First get each line of the input split by @, then remove lines that has corpse, then find first target.}
+        #nop {First get each line of the input split by @, then remove lines that has corpse, then find first target.};
         #variable {result_scan_prospect} {$latest_gmcp_output[output]};
         #variable {result_prospect_parsed} {};
         #variable {line_count} {0};
@@ -176,9 +176,9 @@
             #cat {nothing_left_to_gather[$latest_gmcp_output[id]]} {$latest_gmcp_output[output]};
         }
         {
-            #regex {$latest_gmcp_output[output]} {harvest} {#variable {gather_from_ground_action} {harvest}}
+            #regex {$latest_gmcp_output[output]} {chop{.*?}It looks recently harvested} {#variable {gather_from_ground_action} {chop}}
             {
-                #regex {$latest_gmcp_output[output]} {chop} {#variable {gather_from_ground_action} {chop}}
+                #regex {$latest_gmcp_output[output]} {harvest} {#variable {gather_from_ground_action} {harvest}}
                 {
                     #regex {$latest_gmcp_output[output]} {loot} 
                     {
@@ -445,6 +445,7 @@
     };
 }
 
+#variable {result_prospect_first_item_number} {-1};
 #variable {result_scan_first_enemy_number} {-1};
 #ALIAS {consider_moving} 
 {
@@ -458,15 +459,30 @@
             };
             #elseif {$state_searchandkill}
             {
-                #if {$result_scan_first_enemy_number == -1}
+                #math {lost_life} {$gmcp_char_vitals[maxhp] -  $gmcp_char_vitals[hp]};
+                #if {$lost_life > 150}
                 {
-                    gmcp cmd result_scan scan;
-                };
-                #else
+                    #if {$result_prospect_first_item_number == -1}
+                    {
+                        gmcp cmd result_prospect prospect;
+                    };
+                    #else
+                    {
+                        #send {walk @$result_prospect_first_item_number};
+                        #variable {result_prospect_first_item_number} {-1};
+                    };
+                }
                 {
-                    #send {walk @$result_scan_first_enemy_number};
-                    #variable {result_scan_first_enemy_number} {-1};
-                };
+                    #if {$result_scan_first_enemy_number == -1}
+                    {
+                        gmcp cmd result_scan scan;
+                    };
+                    #else
+                    {
+                        #send {walk @$result_scan_first_enemy_number};
+                        #variable {result_scan_first_enemy_number} {-1};
+                    };
+                }
             };
             #else 
             {
@@ -485,10 +501,21 @@
     };
     #elseIF {$number_of_items_before_gathering != $room_item_number && (&nothing_left_to_gather[] != $room_item_number || "$gather_from_ground_action" != "get all")}
     {
-        #variable {number_of_items_before_gathering} {$room_item_number};
+        #if {"$gather_from_ground_action" != "harvest"}
+        {
+            #variable {number_of_items_before_gathering} {$room_item_number};
+        };
         #delay {gather} {#send {$gather_from_ground_action};} {0.2};
         #delay {reset_number_of_items_before_gathering} {#variable {number_of_items_before_gathering} {-1};} {10};
     };
+}
+
+#ACTION {You finish harvesting the}
+{
+        #if {"$gather_from_ground_action" == "harvest"}
+        {
+            gmcp refresh;
+        };
 }
 
 #ALIAS {look_at_all_items}
