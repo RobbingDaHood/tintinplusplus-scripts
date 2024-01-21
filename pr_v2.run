@@ -88,7 +88,7 @@
 
 #EVENT {IAC SB GMCP Char.Vitals IAC SE}
 {
-    #nop {Example values: gmcp_vitals: {combo}{0}{en}{162}{food}{78}{hp}{437}{level}{30}{maxcombo}{100}{maxen}{187}{maxfood}{110}{maxhp}{437}{maxrage}{100}{maxst}{208}{nl}{531050}{rage}{0}{st}{201}{xp}{492243}}
+    #variable gmcp_char_vitals {%0};
 }
 
 #EVENT {IAC SB GMCP room.info IAC SE}
@@ -103,9 +103,47 @@
     #if {"$latest_gmcp_output[id]" == "result_scan"}
     {
         #variable {result_scan_output} {$latest_gmcp_output[output]};
-        #regex {$result_scan_output} {{@[^@]*?([0-9]+)[^@]*\\\;31m[^@]*}}
+        #regex {$result_scan_output} {{@[^@]*?\\\;35m([0-9]+)[^@]*\\\;31m[^@]*}}
         {
             #variable {result_scan_first_enemy_number} {&2};
+        };
+    };
+    #elseif {"$latest_gmcp_output[id]" == "result_prospect"}
+    {
+        #nop {First get each line of the input split by @, then remove lines that has corpse, then find first target.}
+        #variable {result_scan_prospect} {$latest_gmcp_output[output]};
+        #variable {result_prospect_parsed} {};
+        #variable {line_count} {0};
+        #parse {$result_scan_prospect} {current_char} 
+        {
+            #if {"$current_char" == "@"}
+            {
+                #math {line_count} {$line_count + 1};
+            };
+            #else
+            {
+                #cat {result_prospect_parsed[$line_count]} {$current_char};
+            };
+        };
+
+        #list {result_prospect_parsed_without_corpses} clear;
+        #loop 1 &result_prospect_parsed[] {count}
+        {
+            #regex {$result_prospect_parsed[count]} {corpse} 
+            {#nop {else I get parse exceptions}}
+            {
+                #list {result_prospect_parsed_without_corpses} add $result_prospect_parsed[count];
+            };
+        };
+
+        #variable {result_prospect_first_item_number} {-1};
+        #foreach {$result_prospect_parsed_without_corpses[]} {line}
+        {
+            #regex {$result_scan_prospect} {{\\\;35m([0-9]+)}}
+            {
+                #variable {result_prospect_first_item_number} {&2};
+                #break;
+            };
         };
     };
     #regex {$latest_gmcp_output[id]} {greenhourse_seed_count}
@@ -347,7 +385,7 @@
 
 #ALIAS {updated_all_data}
 {
-    #IF {$state_greenhouse_harvest_and_sow || $tool_needs_repair || !$damage_over_time_in_effect && &battle_info[] == 0 && $items_looking_at_in_the_room == &items_looked_at_in_the_room[] && $entities_looking_at_in_the_room == &entities_looked_at_in_the_room[] && $updated_charstate && $did_any_data_change}
+    #IF {$state_searchandkill ||  $state_greenhouse_harvest_and_sow || $tool_needs_repair || !$damage_over_time_in_effect && &battle_info[] == 0 && $items_looking_at_in_the_room == &items_looked_at_in_the_room[] && $entities_looking_at_in_the_room == &entities_looked_at_in_the_room[] && $updated_charstate && $did_any_data_change}
     {
         #variable {did_any_data_change} {0};
         #if {&battle_info[] == 0}
@@ -429,7 +467,7 @@
                     #send {walk @$result_scan_first_enemy_number};
                     #variable {result_scan_first_enemy_number} {-1};
                 };
-            }
+            };
             #else 
             {
                 #showme {nothing left to do};
