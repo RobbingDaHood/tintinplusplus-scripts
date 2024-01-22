@@ -21,11 +21,15 @@
         {
             look_at_all_entities;
             #variable {did_any_data_change} {1};
+            #variable {result_prospect_first_item_number} {-1};
+            #variable {result_scan_first_enemy_number} {-1};
         };
         #IF {"%2" == "room_items"}
         {
             look_at_all_items;
             #variable {did_any_data_change} {1};
+            #variable {result_prospect_first_item_number} {-1};
+            #variable {result_scan_first_enemy_number} {-1};
         };
         #IF {"%2" == "room_info"}
         {
@@ -52,6 +56,8 @@
                 #variable {seeds_in_the_room} {};
                 #variable {number_of_planted_before_planting} {-1};
                 #variable {number_of_items_before_gathering} {-1};
+                #variable {result_prospect_first_item_number} {-1};
+                #variable {result_scan_first_enemy_number} {-1};
             };
             #variable {did_any_data_change} {1};
         };
@@ -102,9 +108,16 @@
         #variable {result_scan_output} {$latest_gmcp_output[output]};
         #regex {$result_scan_output} {{@[^@]*?\\\;35m([0-9]+)[^@]*\\\;31m[^@]*}}
         {
+            #showme {Enemy found: &1};
             #variable {result_scan_first_enemy_number} {&2};
-            #variable {did_any_data_change} {1};
         };
+
+        #if {$result_scan_first_enemy_number == -2}
+        {
+            #showme {Could not find any scan};
+            #showme {result_scan_output: $result_scan_output};
+        };
+        #variable {did_any_data_change} {1};
     };
     #elseif {"$latest_gmcp_output[id]" == "result_prospect"}
     {
@@ -140,12 +153,19 @@
             {
                 #if {$result_prospect_first_item_number < 0}
                 {
-                    #showme {no corpse: &2};
+                    #showme {no corpse: $line};
                     #variable {result_prospect_first_item_number} {&2};
-                    #variable {did_any_data_change} {1};
                 };
             };
         };
+
+        #if {$result_prospect_first_item_number == -2}
+        {
+            #showme {Could not find any prospect};
+            #showme {result_prospect_parsed: $result_prospect_parsed };
+            #showme {without corpse: $result_prospect_parsed_without_corpses};
+        };
+        #variable {did_any_data_change} {1};
     };
     #regex {$latest_gmcp_output[id]} {greenhourse_seed_count}
     {
@@ -317,7 +337,7 @@
 
 #ALIAS {stop_searchandkill}
 {
-    #send {stop_autokill};
+    stop_autokill;
     #variable {state_searchandkill} {0};
 }
 
