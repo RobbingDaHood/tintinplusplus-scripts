@@ -185,6 +185,7 @@
         #regex {$latest_gmcp_output[output]} {{\D}{\d{1}}\%}
         {
             #variable tool_needs_repair 1;
+            #variable {did_any_data_change} {1};
         };
     };
     #regex {$latest_gmcp_output[id]} {look_at_item}
@@ -417,9 +418,8 @@
 
 #ALIAS {updated_all_data}
 {
-    #IF {$state_greenhouse_harvest_and_sow || $tool_needs_repair || !$damage_over_time_in_effect && "$battle_info" == "" && $items_looking_at_in_the_room == &items_looked_at_in_the_room[] && $entities_looking_at_in_the_room == &entities_looked_at_in_the_room[] && $updated_charstate && $did_any_data_change}
+    #IF {$state_greenhouse_harvest_and_sow || !$damage_over_time_in_effect && "$battle_info" == "" && $items_looking_at_in_the_room == &items_looked_at_in_the_room[] && $entities_looking_at_in_the_room == &entities_looked_at_in_the_room[] && $updated_charstate && $did_any_data_change}
     {
-        #showme {$state_greenhouse_harvest_and_sow || $tool_needs_repair || !$damage_over_time_in_effect && "$battle_info" == "" && $items_looking_at_in_the_room == &items_looked_at_in_the_room[] && $entities_looking_at_in_the_room == &entities_looked_at_in_the_room[] && $updated_charstate && $did_any_data_change};
         #variable {did_any_data_change} {0};
         #if {"$battle_info" == ""}
         {
@@ -433,7 +433,6 @@
     };
     #elseif {$state_searchandkill && "$battle_info" == "" && $did_any_data_change}
     {
-        #showme {$state_searchandkill && "$battle_info" == ""};
         #variable {did_any_data_change} {0};
         #delay {doing_next_delay} {consider_moving} {0.5};
     };
@@ -445,14 +444,19 @@
     gmcp refresh;
 }
 
+#ACTION {has been fully repaired.}
+{
+    gmcp refresh;
+}
+
 #ALIAS {do_next_action} 
 {
     #if {"$battle_info" == ""}
     {
             #if {$tool_needs_repair}
             {
-                #variable tool_needs_repair 0;
                 repair;
+                #variable {tool_needs_repair} {0};
             };
             #elseif {$state_autokill && $enemy_present_in_room} 
             {
@@ -558,18 +562,11 @@
     };
     #elseIF {$number_of_items_before_gathering != $room_item_number && (&nothing_left_to_gather[] != $room_item_number || "$gather_from_ground_action" != "get all")}
     {
-        #if {"$gather_from_ground_action" != "harvest"}
-        {
-            #variable {number_of_items_before_gathering} {$room_item_number};
-        };
         #showme {Gather action: $gather_from_ground_action};
+        #variable {number_of_items_before_gathering} {$room_item_number};
         #delay {gather} {#send {$gather_from_ground_action};} {0.2};
         #delay {reset_number_of_items_before_gathering} {#variable {number_of_items_before_gathering} {-1};} {10};
     };
-    #else
-    {
-        #showme {Tried to gather but no valid state};
-    }
 }
 
 #ACTION {You finish harvesting the}
@@ -646,15 +643,20 @@
 #ALIAS {start_greenhouse {.*}}
 {
     #variable greenhouse_sowing {%1};
-    #variable state_greenhouse_harvest_and_sow {1};
-    #variable greenhouse_action_count {0};
-    #send {gmcp cmd greenhourse_seed_count inv $greenhouse_sowing};
-    greenhouse_action_count_plus_one
+    restart_greenhouse;
 }
 
 #ALIAS {stop_greenhouse}
 {
     #variable state_greenhouse_harvest_and_sow {0}
+}
+
+#ALIAS {restart_greenhouse}
+{
+    #variable state_greenhouse_harvest_and_sow {1};
+    #variable greenhouse_action_count {0};
+    #send {gmcp cmd greenhourse_seed_count inv $greenhouse_sowing};
+    greenhouse_action_count_plus_one
 }
 
 #ALIAS {greenhouse_action_count_plus_one}
@@ -666,7 +668,7 @@
         #if {${greenhouse_action_count} >= ${greenhouse_action_count_max}}
         {
             #showme {Done with planting loop greenhouse};
-            #send {start_greenhouse $greenhouse_sowing};
+            start_greenhouse $greenhouse_sowing;
         };
     }
 }
