@@ -1,0 +1,127 @@
+#ALIAS {reload_configs}
+{
+    #kill; 
+    #read ls_v1.tin;
+}
+
+#variable {state_room_desription_detailed} {1}; 
+#action {Your Detailed Rooms depiction is now off.}
+{
+    #variable {state_room_desription_detailed} {0}; 
+};
+#action {Your Detailed Rooms depiction is now on.}
+{
+    #variable {state_room_desription_detailed} {1}; 
+};
+
+#variable {map_long_direction_names_to_short}
+{
+    {upward}{u}
+    {downward}{d}
+    {northward}{n}
+    {southward}{s}
+    {westward}{w}
+    {eastward}{e}
+}
+#action {You {walk|run|climb} {.*?}{ |\.}} {
+    #if {&map_long_direction_names_to_short[%2] != 0}
+    {
+        #variable {short_direction_name} {$map_long_direction_names_to_short[%2]};
+        #map dig {$short_direction_name};
+        #map get roomexits current_room_exits;
+        #map goto {$current_room_exits[$short_direction_name]};
+        listen_to_room_description;
+        #map set roomname explored;
+    };
+    #else
+    {
+        #showme {ERROR: cannot map the %2 direction! Mapper will not update!};
+    }
+}
+
+#alias {listen_to_room_description}
+{
+    #if {$state_room_desription_detailed}
+    {
+        #action {This is {.*}}
+        {
+            #map set roomdesc %%1;
+            #unaction {This is {.*}};
+        };
+    };
+}
+
+#alias {add_tag_to_room_data {(.*?)( (.*))?$}}
+{
+    #nop {Only the description seems to be searchable using regular expressions};
+    #map get roomdata current_room_data %4;
+    #variable {current_room_data[tags][%2]} {1};
+    #map set roomdata {$current_room_data} {%4};
+}
+
+#alias {remove_tag_from_room_data {(.*?)( (.*))?$}}
+{
+    #map get roomdata current_room_data %4;
+    #variable {current_room_data[tags][%2]} {0};
+    #map set roomdata {$current_room_data} {%4};
+}
+
+#action {Obvious exits are {.*?}.}
+{
+    #variable obvious_exits %1;
+    #replace {obvious_exits} {,} {};
+    #list obvious_exits explode { };
+    #list obvious_exits filter {{.*}} {and};
+    #list obvious_exits numerate;
+    
+    #foreach {$obvious_exits[]} {direction}
+    {
+        add_unexplored_room $direction;
+    };
+}
+
+#action {The only obvious exit is {.*?}.}
+{
+    add_unexplored_room %1;
+}
+
+#variable {map_direction_names_to_short}
+{
+    {up}{u}
+    {down}{d}
+    {north}{n}
+    {south}{s}
+    {west}{w}
+    {east}{e}
+}
+#alias {add_unexplored_room {.*}}
+{
+    #showme {add new room in direction %1};
+    #variable {room_direction_name} {$map_direction_names_to_short[%1]};
+    #map dig {$room_direction_name};
+    #map get roomexits current_room_exits;
+
+    #variable {vnum_of_new_room} {$current_room_exits[$room_direction_name]};
+    #map get {roomname} {current_roomname} {$vnum_of_new_room};
+    #if {"$current_roomname" == ""}
+    {
+        #map set {roomname} {unexplored} {$vnum_of_new_room};
+    };
+}
+
+#alias {setup_map} 
+{
+    #map read $mapname;
+    #map flag nofollow;
+    #map return;
+}
+
+#alias {save_map}
+{
+    #map write $mapname;
+}
+
+#READ {ls_login.tin};
+#split;
+#variable {mapname} {lost_soul.map};
+setup_map;
