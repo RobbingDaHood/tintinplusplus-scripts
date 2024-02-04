@@ -14,36 +14,289 @@
     #variable {state_room_desription_detailed} {1}; 
 };
 
-#variable {map_long_direction_names_to_short}
+#variable {areas_without_euclidian_map}
 {
-    {upward}{u}
-    {downward}{d}
-    {northward}{n}
-    {southward}{s}
-    {westward}{w}
-    {eastward}{e}
+    {Losthaven}{1}
 }
-#action {You {walk|run|climb} {.*?}{ |\.}} {
+
+#alias {disable_euclidian_map}
+{
+    #variable direction_spatial_coordinate 
+    {
+        {out}{o}
+        {in}{0}
+        {down}{0}
+        {up}{0}
+        {west}{0}
+        {south}{0}
+        {east}{0}
+        {north}{0}
+        {none}{0}
+    };
+    setup_all_paths;
+}
+
+#alias {enable_euclidian_map}
+{
+    #nop {the minus value shows that we should manually handle the direction instead of leaving it to pathdir: because pathdir has a limit of 64 unique sums};
+    #variable direction_spatial_coordinate 
+    {
+        {out}{1000}
+        {in}{1000}
+        {down}{32}
+        {up}{16}
+        {west}{8}
+        {south}{4}
+        {east}{2}
+        {north}{1}
+        {none}{0}
+    };
+    setup_all_paths;
+}
+
+#alias {setup_all_paths}
+{
+    #variable y_axis_dirs {north; none};
+    #variable x_axis_dirs {west; east; none};
+    #variable z_axis_dirs {up; in; down; out; none};
+
+    #nop {The directions not handled by the pathdir will get a bosted z axis that I need to handle, so they can still be presented correct};
+    #variable {z_axis_boost} 
+    {
+        {out}{10000}
+        {in}{-10000}
+        {down}{0}
+        {up}{0}
+        {west}{0}
+        {south}{0}
+        {east}{0}
+        {north}{0}
+        {none}{0}
+    };
+
+    #variable direction_opposites
+    {
+        {up}{down}
+        {down}{up}
+        {west}{east}
+        {east}{west}
+        {north}{south}
+        {south}{north}
+        {in}{out}
+        {out}{in}
+        {none}{none}
+    };
+
+    #variable {translate_dir_to_short}
+    {
+        {in}{i}
+        {out}{o}
+        {up}{u}
+        {down}{d}
+        {north}{n}
+        {south}{s}
+        {west}{w}
+        {east}{e}
+        {none}{none}
+    };
+    
+    #variable {map_direction_names_to_short} {};
+    #variable {map_long_direction_names_to_short} {};
+    
+    #foreach {$z_axis_dirs} {z_direction}
+    {
+        #foreach {$x_axis_dirs} {x_direction}
+        {
+            #foreach {$y_axis_dirs} {y_direction}
+            {
+                #variable normal_dir {$y_direction};
+                #cat normal_dir {$x_direction};
+                #cat normal_dir {$z_direction};
+                #replace normal_dir {none} {};
+
+                    #if {"$normal_dir" != ""}
+                    {
+                        #math {direction_coordinate_value}
+                        {
+                            $direction_spatial_coordinate[$z_direction] +
+                            $direction_spatial_coordinate[$x_direction] +
+                            $direction_spatial_coordinate[$y_direction]
+                        };
+
+                        #variable y_direction_short {$translate_dir_to_short[$y_direction]};
+                        #variable x_direction_short {$translate_dir_to_short[$x_direction]};
+                        #variable z_direction_short {$translate_dir_to_short[$z_direction]};
+
+                        #variable normal_dir_short {$y_direction_short};
+                        #cat normal_dir_short {$x_direction_short};
+                        #cat normal_dir_short {$z_direction_short};
+                        #replace normal_dir_short {none} {};
+                        
+                        #variable normal_dir_long {$y_direction};
+                        #cat normal_dir_long {$x_direction};
+                        #if {"$y_direction" != "none" || "$x_direction" != "none"}
+                        {
+                            #cat normal_dir_long {ward};
+                            #if {"$z_direction" != "none"} 
+                            {
+                                #cat normal_dir_long { and };
+                            };
+                        };
+                        #if {"$z_direction" != "none"} 
+                        {
+                            #cat normal_dir_long {$z_direction};
+                            #cat normal_dir_long {ward};
+                        };
+                        #replace normal_dir_long {none} {};
+
+
+
+
+                        #variable y_direction_opposite {$direction_opposites[$y_direction]};
+                        #variable x_direction_opposite {$direction_opposites[$x_direction]};
+                        #variable z_direction_opposite {$direction_opposites[$z_direction]};
+
+                        #variable normal_dir_opposite {$y_direction_opposite};
+                        #cat normal_dir_opposite {$x_direction_opposite};
+                        #cat normal_dir_opposite {$z_direction_opposite};
+                        #replace normal_dir_opposite {none} {};
+
+                        #math {direction_coordinate_value_opposite}
+                        {
+                            $direction_spatial_coordinate[$z_direction_opposite] +
+                            $direction_spatial_coordinate[$x_direction_opposite] +
+                            $direction_spatial_coordinate[$y_direction_opposite]
+                        };
+
+                        #variable y_direction_short_opposite {$translate_dir_to_short[$y_direction_opposite]};
+                        #variable x_direction_short_opposite {$translate_dir_to_short[$x_direction_opposite]};
+                        #variable z_direction_short_opposite {$translate_dir_to_short[$z_direction_opposite]};
+
+                        #variable normal_dir_short_opposite {$y_direction_short_opposite};
+                        #cat normal_dir_short_opposite {$x_direction_short_opposite};
+                        #cat normal_dir_short_opposite {$z_direction_short_opposite};
+                        #replace normal_dir_short_opposite {none} {};
+                        
+                        #variable normal_dir_long_opposite {$y_direction_opposite};
+                        #cat normal_dir_long_opposite {$x_direction_opposite};
+                        #if {"$y_direction_opposite" != "none" || "$x_direction_opposite" != "none"}
+                        {
+                            #cat normal_dir_long_opposite {ward};
+                            #if {"$z_direction_opposite" != "none"} 
+                            {
+                                #cat normal_dir_long_opposite { and };
+                            };
+                        };
+                        #if {"$z_direction_opposite" != "none"} 
+                        {
+                            #cat normal_dir_long_opposite {$z_direction_opposite};
+                            #cat normal_dir_long_opposite {ward};
+                        };
+                        #replace normal_dir_long_opposite {none} {};
+
+                        #variable {map_direction_names_to_short[$normal_dir]} {$normal_dir_short};
+                        #variable {map_long_direction_names_to_short[$normal_dir_long]} {$normal_dir_short};
+
+                        #variable {map_direction_names_to_short[$normal_dir_opposite]} {$normal_dir_short_opposite};
+                        #variable {map_long_direction_names_to_short[$normal_dir_long_opposite]} {$normal_dir_short_opposite};
+                        
+                        #if {$direction_coordinate_value < 64 && $direction_coordinate_value > -1}
+                        {
+                            #pathdir {$normal_dir_short} {$normal_dir_short_opposite} {$direction_coordinate_value};
+                            #pathdir {$normal_dir_short_opposite} {$normal_dir_short} {$direction_coordinate_value_opposite};
+                        };
+
+                        #variable {direction_opposites[$normal_dir]} {$normal_dir_opposite};
+                        #variable {direction_opposites[$normal_dir_opposite]} {$normal_dir};
+                        #variable {direction_opposites_long[$normal_dir_long]} {$normal_dir_long_opposite};
+                        #variable {direction_opposites_long[$normal_dir_long_opposite]} {$normal_dir_long};
+
+                        #math {z_axis_boost[$normal_dir]}
+                        {
+                            $z_axis_boost[$z_direction] +
+                            $z_axis_boost[$x_direction] +
+                            $z_axis_boost[$y_direction]
+                        };
+                        #math {z_axis_boost[$normal_dir_opposite]}
+                        {
+                            $z_axis_boost[$z_direction_opposite] +
+                            $z_axis_boost[$x_direction_opposite] +
+                            $z_axis_boost[$y_direction_opposite]
+                        };
+
+                            #variable {debug_pathdirs[$normal_dir_short][$normal_dir_short_opposite]} {$direction_coordinate_value};
+                            #variable {debug_pathdirs[$normal_dir_short_opposite][$normal_dir_short]} {$direction_coordinate_value_opposite};
+                    };
+            }
+        }
+    }
+}
+
+#action {You {walk|run|climb} {.*?( and .*?)?}{ |\.}} {
+    update_area_name;
     #if {&map_long_direction_names_to_short[%2] != 0}
     {
         #variable {short_direction_name} {$map_long_direction_names_to_short[%2]};
+
+        #map get roomvnum current_room_vnum;
         #map dig {$short_direction_name};
         #map get roomexits current_room_exits;
         #map goto {$current_room_exits[$short_direction_name]};
+        #if {$z_axis_boost[%2] > 0}
+        {
+            #variable direction_name_opposite {$direction_opposites_long[%2]};
+            #variable {short_direction_name_opposite} {$map_long_direction_names_to_short[$direction_name_opposite]};
+            #map dig {$short_direction_name_opposite} {$current_room_vnum};
+        };
         listen_to_room_description;
-        #map set roomname explored;
+        #if {$state_room_desription_detailed}
+        {
+            #map set roomname explored;
+        };
     };
     #else
     {
-        #showme {ERROR: cannot map the %2 direction! Mapper will not update!};
+        #showme {ERROR: cannot map the %2 long direction! Mapper will not update!};
     }
 }
+
+#alias {check_if_room_descriptio_exist}
+{
+    #map get roomdesc tmp_room_description;
+    #map set roomdesc {};
+    #map find roomdesc {{.*?}$tmp_room_description{.*}};
+    #map set roomdesc {$tmp_room_description};
+}
+
+#alias {update_area_name}
+{
+    #map get roomarea current_known_roomarea;
+    #if {"$current_known_roomarea" == ""}
+    {
+        determine location;
+    };
+}
+
+#action {You determine that you are in {.*?}.}
+{
+    #variable {current_area_name} {%1};
+    #map set roomarea %1;
+
+    #if {areas_without_euclidian_map[%1]} 
+    {
+        disable_euclidian_map;
+    };
+    #else 
+    {
+        enable_euclidian_map;
+    };
+};
 
 #alias {listen_to_room_description}
 {
     #if {$state_room_desription_detailed}
     {
-        #action {This is {.*}}
+        #action {This {.*}}
         {
             #map set roomdesc %%1;
             #unaction {This is {.*}};
@@ -85,28 +338,36 @@
     add_unexplored_room %1;
 }
 
-#variable {map_direction_names_to_short}
-{
-    {up}{u}
-    {down}{d}
-    {north}{n}
-    {south}{s}
-    {west}{w}
-    {east}{e}
-}
+
 #alias {add_unexplored_room {.*}}
 {
-    #showme {add new room in direction %1};
-    #variable {room_direction_name} {$map_direction_names_to_short[%1]};
-    #map dig {$room_direction_name};
-    #map get roomexits current_room_exits;
-
-    #variable {vnum_of_new_room} {$current_room_exits[$room_direction_name]};
-    #map get {roomname} {current_roomname} {$vnum_of_new_room};
-    #if {"$current_roomname" == ""}
+    #if {&map_direction_names_to_short[%1] != 0}
     {
-        #map set {roomname} {unexplored} {$vnum_of_new_room};
+        #variable {room_direction_name} {$map_direction_names_to_short[%1]};
+        #map dig {$room_direction_name};
+        #map get roomexits current_room_exits;
+
+        #variable {vnum_of_new_room} {$current_room_exits[$room_direction_name]};
+        #map get {roomname} {current_roomname} {$vnum_of_new_room};
+        #if {"$current_roomname" == ""}
+        {
+            #map set {roomname} {unexplored} {$vnum_of_new_room};
+            #if {$z_axis_boost[%1] != 0}
+            {
+                #variable {direction_name_opposite} {$direction_opposites[%1]};
+                #variable {short_direction_name_opposite} {$map_direction_names_to_short[$direction_name_opposite]};
+                #map get {roomvnum} {current_room_vnum};
+                #map get roomexits current_room_exits;
+                #map goto {$current_room_exits[$room_direction_name]};
+                #map dig {$short_direction_name_opposite} {$current_room_vnum};
+                #map goto $current_room_vnum;
+            };
+        };
     };
+    #else
+    {
+        #showme {ERROR: cannot map the %1 direction! Mapper will not update!};
+    }
 }
 
 #alias {setup_map} 
@@ -121,7 +382,16 @@
     #map write $mapname;
 }
 
+#alias {setup_logs} 
+{
+    #format {todays_logfile_name} {%t} {%Y-%m-%d-logfile.log};
+    #log timestamp {%Y-%m-%d-%H:%M:%S};
+    #log append $todays_logfile_name;
+}
+
+setup_all_paths;
 #READ {ls_login.tin};
 #split;
 #variable {mapname} {lost_soul.map};
 setup_map;
+setup_logs;

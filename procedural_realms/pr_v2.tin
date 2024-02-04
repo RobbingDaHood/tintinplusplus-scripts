@@ -261,7 +261,7 @@
 #ALIAS {reload_configs}
 {
     #kill; 
-    #read pr_v2.run;
+    #read pr_v2.tin;
 }
 
 #EVENT {IAC SB GMCP Char.State IAC SE}
