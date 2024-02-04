@@ -31,3 +31,9 @@ Suprisingly there were no answers.
 # Lost Souls
 
 Needs a mapper but else it looks like it could be very good. 
+
+I used 2 days on the mapper and it still did not work :( 
+
+They stated on their Discord the GMCP is planned soon: I think I will wait for that before coming back. 
+
+
