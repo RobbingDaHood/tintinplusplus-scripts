@@ -260,14 +260,6 @@
     }
 }
 
-#alias {check_if_room_descriptio_exist}
-{
-    #map get roomdesc tmp_room_description;
-    #map set roomdesc {};
-    #map find roomdesc {{.*?}$tmp_room_description{.*}};
-    #map set roomdesc {$tmp_room_description};
-}
-
 #alias {update_area_name}
 {
     #map get roomarea current_known_roomarea;
