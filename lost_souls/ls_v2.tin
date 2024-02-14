@@ -1,0 +1,311 @@
+#ALIAS {reload_configs}
+{
+    #kill; 
+    #read ls_v2.tin;
+}
+
+#variable {state_room_desription_detailed} {1}; 
+#action {Your Detailed Rooms depiction is now off.}
+{
+    #variable {state_room_desription_detailed} {0}; 
+};
+#action {Your Detailed Rooms depiction is now on.}
+{
+    #variable {state_room_desription_detailed} {1}; 
+};
+
+#alias {setup_all_paths}
+{
+    #variable y_axis_dirs {north; none};
+    #variable x_axis_dirs {west; east; none};
+    #variable z_axis_dirs {up; in; down; out; none};
+
+    #variable direction_opposites
+    {
+        {up}{down}
+        {down}{up}
+        {west}{east}
+        {east}{west}
+        {north}{south}
+        {south}{north}
+        {in}{out}
+        {out}{in}
+        {none}{none}
+    };
+
+    #variable {translate_dir_to_short}
+    {
+        {in}{i}
+        {out}{o}
+        {up}{u}
+        {down}{d}
+        {north}{n}
+        {south}{s}
+        {west}{w}
+        {east}{e}
+        {none}{none}
+    };
+    
+    #variable {map_direction_names_to_short} {};
+    #variable {map_long_direction_names_to_short} {};
+    
+    #foreach {$z_axis_dirs} {z_direction}
+    {
+        #foreach {$x_axis_dirs} {x_direction}
+        {
+            #foreach {$y_axis_dirs} {y_direction}
+            {
+                #variable normal_dir {$y_direction};
+                #cat normal_dir {$x_direction};
+                #cat normal_dir {$z_direction};
+                #replace normal_dir {none} {};
+
+                    #if {"$normal_dir" != ""}
+                    {
+
+                        #variable y_direction_short {$translate_dir_to_short[$y_direction]};
+                        #variable x_direction_short {$translate_dir_to_short[$x_direction]};
+                        #variable z_direction_short {$translate_dir_to_short[$z_direction]};
+
+                        #variable normal_dir_short {$y_direction_short};
+                        #cat normal_dir_short {$x_direction_short};
+                        #cat normal_dir_short {$z_direction_short};
+                        #replace normal_dir_short {none} {};
+                        
+                        #variable normal_dir_long {$y_direction};
+                        #cat normal_dir_long {$x_direction};
+                        #if {"$y_direction" != "none" || "$x_direction" != "none"}
+                        {
+                            #cat normal_dir_long {ward};
+                            #if {"$z_direction" != "none"} 
+                            {
+                                #cat normal_dir_long { and };
+                            };
+                        };
+                        #if {"$z_direction" != "none"} 
+                        {
+                            #cat normal_dir_long {$z_direction};
+                            #cat normal_dir_long {ward};
+                        };
+                        #replace normal_dir_long {none} {};
+
+
+
+
+                        #variable y_direction_opposite {$direction_opposites[$y_direction]};
+                        #variable x_direction_opposite {$direction_opposites[$x_direction]};
+                        #variable z_direction_opposite {$direction_opposites[$z_direction]};
+
+                        #variable normal_dir_opposite {$y_direction_opposite};
+                        #cat normal_dir_opposite {$x_direction_opposite};
+                        #cat normal_dir_opposite {$z_direction_opposite};
+                        #replace normal_dir_opposite {none} {};
+
+                        #variable y_direction_short_opposite {$translate_dir_to_short[$y_direction_opposite]};
+                        #variable x_direction_short_opposite {$translate_dir_to_short[$x_direction_opposite]};
+                        #variable z_direction_short_opposite {$translate_dir_to_short[$z_direction_opposite]};
+
+                        #variable normal_dir_short_opposite {$y_direction_short_opposite};
+                        #cat normal_dir_short_opposite {$x_direction_short_opposite};
+                        #cat normal_dir_short_opposite {$z_direction_short_opposite};
+                        #replace normal_dir_short_opposite {none} {};
+                        
+                        #variable normal_dir_long_opposite {$y_direction_opposite};
+                        #cat normal_dir_long_opposite {$x_direction_opposite};
+                        #if {"$y_direction_opposite" != "none" || "$x_direction_opposite" != "none"}
+                        {
+                            #cat normal_dir_long_opposite {ward};
+                            #if {"$z_direction_opposite" != "none"} 
+                            {
+                                #cat normal_dir_long_opposite { and };
+                            };
+                        };
+                        #if {"$z_direction_opposite" != "none"} 
+                        {
+                            #cat normal_dir_long_opposite {$z_direction_opposite};
+                            #cat normal_dir_long_opposite {ward};
+                        };
+                        #replace normal_dir_long_opposite {none} {};
+
+                        
+
+                        #variable {map_direction_names_to_short[$normal_dir]} {$normal_dir_short};
+                        #variable {map_long_direction_names_to_short[$normal_dir_long]} {$normal_dir_short};
+
+                        #variable {map_direction_names_to_short[$normal_dir_opposite]} {$normal_dir_short_opposite};
+                        #variable {map_long_direction_names_to_short[$normal_dir_long_opposite]} {$normal_dir_short_opposite};
+
+                        #variable {direction_opposites[$normal_dir]} {$normal_dir_opposite};
+                        #variable {direction_opposites[$normal_dir_opposite]} {$normal_dir};
+                        #variable {direction_opposites_long[$normal_dir_long]} {$normal_dir_long_opposite};
+                        #variable {direction_opposites_long[$normal_dir_long_opposite]} {$normal_dir_long};
+                    };
+            }
+        }
+    }
+}
+
+#action {You {walk|run|climb} {.*?( and .*?)?}{ |\.}} {
+    send_query
+    listen_to_room_description;
+    #if {&map_long_direction_names_to_short[%2] != 0}
+    {
+        #variable {short_direction_name} {$map_long_direction_names_to_short[%2]};
+        add_move_to_neo4j $short_direction_name;
+        #if {$state_room_desription_detailed}
+        {
+            determine location;
+        };
+    };
+    #else
+    {
+        #showme {ERROR: cannot map the %2 long direction! Mapper will not update!};
+    }
+}
+
+#action {You determine that you are in {.*?}.}
+{
+    add_areaname_to_neo4j %1
+};
+
+#alias {listen_to_room_description}
+{
+    #if {$state_room_desription_detailed}
+    {
+        #action {This {.*}}
+        {
+            add_roomdesc_to_neo4j %%1;
+            #unaction {This is {.*}};
+        };
+    };
+}
+
+#action {Obvious exits are {.*?}.}
+{
+    #variable obvious_exits %1;
+    #replace {obvious_exits} {,} {};
+    #list obvious_exits explode { };
+    #list obvious_exits filter {{.*}} {and};
+    #list obvious_exits numerate;
+    
+    #foreach {$obvious_exits[]} {direction}
+    {
+        add_unexplored_room $direction;
+    };
+}
+
+#action {The only obvious exit is {.*?}.}
+{
+    add_unexplored_room %1;
+}
+
+
+#alias {add_unexplored_room {.*}}
+{
+    #if {&map_direction_names_to_short[%1] != 0}
+    {
+        #variable {direction_name_short} {$map_direction_names_to_short[%1]};
+        #variable {direction_name_opposite} {$direction_opposites[%1]};
+        #variable {direction_name_short_opposite} {$map_direction_names_to_short[$direction_name_opposite]};
+        add_unexplored_room_to_neo4j $direction_name_short $direction_name_short_opposite;
+    };
+    #else
+    {
+        #showme {ERROR: cannot map the %1 direction! Mapper will not update!};
+    }
+}
+
+#alias {setup_logs} 
+{
+    #format {todays_logfile_name} {%t} {%Y-%m-%d-logfile.log};
+    #log timestamp {%Y-%m-%d-%H:%M:%S};
+    #log append $todays_logfile_name;
+}
+
+#alias {add_move_to_neo4j {.*}}
+{
+    #list {statments_for_neo4j} {add} 
+    {
+        MATCH (a:Player)-[r:located_at]->(b:Room)-[r2:direction {name: '%1'}]->(c:Room) 
+        SET c.updated_time = dateTime() 
+        CREATE (a)-[:located_at {updated_time: dateTime()}]->(c)
+        REMOVE c.explored 
+        DELETE r
+        RETURN c
+    };
+}
+
+#alias {add_areaname_to_neo4j {.*}}
+{
+    #list {statments_for_neo4j} {add} 
+    {
+        MATCH (a:Player)-[r:located_at]->(b:Room) 
+        SET b.areaname = '%1', b.updated_time = dateTime() 
+        RETURN b
+    }
+}
+
+#alias {add_roomdesc_to_neo4j {.*}}
+{
+    #list {statments_for_neo4j} {add} 
+    {
+        MATCH (a:Player)-[r:located_at]->(b:Room) 
+        WHERE NOT (b)-[:roomdescription {desc:'%1'}]->(b)
+        CREATE (b)-[:roomdescription {desc:'%1', updated_time: dateTime()}]->(b) 
+        RETURN b
+    }
+}
+
+#alias {add_unexplored_room_to_neo4j {.*?} {.*}}
+{
+    #list {statments_for_neo4j} {add} 
+    {
+        MATCH (a:Player)-[r:located_at]->(b:Room) 
+        WHERE NOT (b)-[:direction {name: '%1'}]->()
+        CREATE (b)-[:direction {name:'%1', updated_time: dateTime()}]->(c:Room {explored: false, updated_time: dateTime()})-[:direction {name:'%2', unconfirmed: 'true', updated_time: dateTime()}]->(b)
+        RETURN b
+    }
+}
+
+#alias {reset_everything_neo4j_WARNING_CAREFULL}
+{
+    #list {statments_for_neo4j} {add} 
+    {
+        match (a) -[r] -> () delete a, r return r
+    };
+    #list {statments_for_neo4j} {add} 
+    {
+        match (a) delete a return a
+    };
+    #list {statments_for_neo4j} {add} 
+    {
+        CREATE (a:Player)-[:located_at]->(b:Room)
+        RETURN b
+    };
+    send_query;
+}
+
+#alias {send_query}
+{
+    #variable {statements} {};
+    #foreach {$statments_for_neo4j[]} {neo4j_statement}
+    {
+        #cat {statements} {"$neo4j_statement" };
+    };
+    #script {neo4j_response} {./send_query_to_neo4j.sh $statements};
+
+    #foreach {$neo4j_response[]} {neo4j_response_part}
+    {
+        #if {"$neo4j_response_part" != "LostSoulNeo4j" && "$neo4j_response_part" != "SUCCESS"}
+        {
+            #showme {$neo4j_response_part : You can look at neo4j_response};
+            #break;
+        }
+    };
+    #variable {statments_for_neo4j} {};
+}
+
+setup_all_paths;
+#READ {ls_login.tin};
+#split;
+setup_logs;
