@@ -180,6 +180,33 @@
     };
 }
 
+#variable {known_map_features}
+{
+    trail, 
+    road,
+    street, 
+    bignird, 
+    biglong,
+    bigrodz
+}
+
+#action {{.*?} [{.*?}]$}
+{
+    #variable obvious_exits %2;
+    #replace {obvious_exits} {,} {};
+    #list obvious_exits explode { };
+    #list obvious_exits numerate;
+
+    #foreach {$obvious_exits[]} {direction}
+    {
+        #list obvious_exits filter {{.*}} {and};
+
+
+
+        add_unexplored_room $direction;
+    };
+}
+
 #action {Obvious exits are {.*?}.}
 {
     #variable obvious_exits %1;
@@ -219,7 +246,7 @@
 {
     #format {todays_logfile_name} {%t} {%Y-%m-%d-logfile.log};
     #log timestamp {%Y-%m-%d-%H:%M:%S};
-    #log append $todays_logfile_name;
+    #log append {logs/$todays_logfile_name};
 }
 
 #alias {add_move_to_neo4j {.*}}
@@ -309,3 +336,4 @@ setup_all_paths;
 #READ {ls_login.tin};
 #split;
 setup_logs;
+#config {packet patch} 0.2
