@@ -1,8 +1,21 @@
-1. Move logfiles to folder
-1. Enabled tabs for text and use that to get roomdescriptions etc. 
 1. Test more automap 
 1. Implement more functions:
     1. See the testing sql bash script. 
     1. Unmark unconfirmed directions
     1. Mark directions as temporary
     1. etc.
+1. Store previous room.
+1. Add direction from previous room: manual command.
+1. 'set status bar on' then configure it and the actions so they do not interfere. 
+    1. Maybe consider a split screen with some info on instead.
+1. Handle chats
+    1. Maybe they are not a problem
+
+
+1. Handle these texts as json
+    1.  This is Main Street, on the east side of Losthaven.  To the north, a wooden sign bearing a picture of a bow and arrow on it hangs over an open door; southward, another door is marked by a sign shaped like a scroll, with what looks like a map etched onto it.
+1. How compas is precise! 
+    You peer at your surroundings and your oaken compass.
+    You determine that you are at the coordinates -21, -24, 0 in Cimbra, and so at global coordinates -21, 57, 0.
+1. Wow so many directions: 
+    1. [compass, compass:up, u, ei, wi, road:e/w]

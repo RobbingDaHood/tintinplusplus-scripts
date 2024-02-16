@@ -30,12 +30,8 @@ body="$(printf '{"statements":[{"statement":"%s"}]}' "$(join_by '"}, { "statemen
 # echo $body
 output="$(curl -X POST -H Accept:application/json -H Content-Type:application/json -u neo4j:testneo4j http://localhost:7474/db/neo4j/tx/commit -d "$body" 2> /dev/null)"
 
-noData='"data":[]'
 errorsPresent='"errors":[]'
-if [[ $output == *"$noData"* ]]
-then
-  echo "NO_DATA"
-elif [[ $output == *"$errorsPresent"* ]]
+if [[ $output == *"$errorsPresent"* ]]
 then
   echo "SUCCESS"
 else

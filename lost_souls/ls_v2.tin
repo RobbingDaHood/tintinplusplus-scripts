@@ -12,7 +12,11 @@
 #action {Your Detailed Rooms depiction is now on.}
 {
     #variable {state_room_desription_detailed} {1}; 
+    listen_roomname_and_directions;
+    look;
 };
+
+#variable compass_directions {n;ne;e;se;s;sw;w;nw};
 
 #alias {setup_all_paths}
 {
@@ -48,6 +52,7 @@
     
     #variable {map_direction_names_to_short} {};
     #variable {map_long_direction_names_to_short} {};
+    #variable direction_short_opposites {};
     
     #foreach {$z_axis_dirs} {z_direction}
     {
@@ -88,7 +93,6 @@
                             #cat normal_dir_long {ward};
                         };
                         #replace normal_dir_long {none} {};
-
 
 
 
@@ -137,17 +141,20 @@
 
                         #variable {direction_opposites[$normal_dir]} {$normal_dir_opposite};
                         #variable {direction_opposites[$normal_dir_opposite]} {$normal_dir};
+                        #variable {direction_short_opposites[$normal_dir_short]} {$normal_dir_short_opposite};
+                        #variable {direction_short_opposites[$normal_dir_short_opposite]} {$normal_dir_short};
                         #variable {direction_opposites_long[$normal_dir_long]} {$normal_dir_long_opposite};
                         #variable {direction_opposites_long[$normal_dir_long_opposite]} {$normal_dir_long};
+                        
+                        
                     };
             }
         }
     }
 }
 
-#action {You {walk|run|climb} {.*?( and .*?)?}{ |\.}} {
-    send_query
-    listen_to_room_description;
+#action {You {walk|run|climb|flop|slither|flow|fly|gallop|canter|hop|roll|flee|fall} {.*?( and .*?)?}{ |\.}} {
+    listen_roomname_and_directions;
     #if {&map_long_direction_names_to_short[%2] != 0}
     {
         #variable {short_direction_name} {$map_long_direction_names_to_short[%2]};
@@ -172,127 +179,245 @@
 {
     #if {$state_room_desription_detailed}
     {
-        #action {This {.*}}
+        #action {{.+}}
         {
+            #variable {roomdesc} {%%1};
             add_roomdesc_to_neo4j %%1;
-            #unaction {This is {.*}};
+            #unaction {{.+}};
         };
     };
-}
+};
 
-#variable {known_map_features}
+#alias {listen_roomname_and_directions}
 {
-    trail, 
-    road,
-    street, 
-    bignird, 
-    biglong,
-    bigrodz
-}
-
-#action {{.*?} [{.*?}]$}
-{
-    #variable obvious_exits %2;
-    #replace {obvious_exits} {,} {};
-    #list obvious_exits explode { };
-    #list obvious_exits numerate;
-
-    #foreach {$obvious_exits[]} {direction}
+    #action {{^([',.A-Za-z-][ ',.A-Za-z-]*) \[([^]]+)\]$}}
     {
-        #list obvious_exits filter {{.*}} {and};
-
-
-
-        add_unexplored_room $direction;
-    };
-}
-
-#action {Obvious exits are {.*?}.}
-{
-    #variable obvious_exits %1;
-    #replace {obvious_exits} {,} {};
-    #list obvious_exits explode { };
-    #list obvious_exits filter {{.*}} {and};
-    #list obvious_exits numerate;
+        #unaction {{.*?} [{.*?}]$};
+        listen_to_room_description;
     
-    #foreach {$obvious_exits[]} {direction}
-    {
-        add_unexplored_room $direction;
+        #variable obvious_exits %%3;
+        #replace {obvious_exits} {,} {};
+        #list obvious_exits explode { };
+        #list obvious_exits numerate;
+        
+        #variable {directional_map_features} {};
+    
+        #variable formatted_listed_room_exits {'};
+        #foreach {$obvious_exits[]} {direction}
+        {
+            #regex {$direction} {compass}
+            {
+                check_for_custom_compass_directions $direction;
+            }
+            {
+                #regex {$direction} {{road|trail|street}:}
+                {
+                    check_for_map_direction_features $direction;
+                }
+                {
+                    add_unexplored_room $direction;
+                    #cat formatted_listed_room_exits {$direction','}
+                };
+            };
+        };
+    
+        #regex {$formatted_listed_room_exits} {{.*?},'$} {#variable formatted_listed_room_exits &1};
+        #replace {formatted_listed_room_exits} {'} {¤};
+        confirm_unconfirmed_exits $formatted_listed_room_exits;
+        mark_exits_temporary $formatted_listed_room_exits;
+    
+        add_roomname_to_neo4j %%2;
+
+        #foreach {*directional_map_features[%*]} {map_feature_direction}
+        {
+            #variable map_feature_for_direction $directional_map_features[$map_feature_direction];
+            add_map_directional_feature_query $map_feature_direction $map_feature_for_direction;
+        };
+
+        send_query;
     };
-}
+};
 
-#action {The only obvious exit is {.*?}.}
+#alias {check_for_map_direction_features {.*}}
 {
-    add_unexplored_room %1;
-}
+    #regex {%1} {{road|trail|street}:{.*}}
+    {
+        #variable {all_map_feature_directions} {&2};
+        #list all_map_feature_directions explode {/};
+        #foreach {$all_map_feature_directions[]} {map_feature_direction}
+        {
+            #variable {directional_map_features[$map_feature_direction]} {&1};
+        };
+    };
+};
 
+#alias {check_for_custom_compass_directions {.*}}
+{
+    #regex {%1} {^compass:{.*}$}
+    {
+        #variable {all_custom_compass_directions} {&1};
+        #list all_custom_compass_directions explode {/};
+        
+        #foreach {$all_custom_compass_directions[]} {compass_direction_custom}
+        {
+            #foreach {$compass_directions} {compass_direction}
+            {
+                #variable custom_direction {$compass_direction};
+                #if {&map_direction_names_to_short[$compass_direction_custom] != 0}
+                {
+                    #variable compass_direction_short {$map_direction_names_to_short[$compass_direction_custom]};
+                    #cat custom_direction {$compass_direction_short};
+                };
+                #else
+                {
+                    #cat custom_direction {$compass_direction_custom};
+                }
+                add_unexplored_room $custom_direction;
+                #cat formatted_listed_room_exits {$custom_direction','}
+            };
+        };
+    } 
+    {
+        #foreach {$compass_directions} {compass_direction}
+        {
+            add_unexplored_room $compass_direction;
+            #cat formatted_listed_room_exits {$compass_direction','}
+        };
+    }
+};
 
 #alias {add_unexplored_room {.*}}
 {
-    #if {&map_direction_names_to_short[%1] != 0}
+    #if {&direction_short_opposites[%1] != 0}
     {
-        #variable {direction_name_short} {$map_direction_names_to_short[%1]};
-        #variable {direction_name_opposite} {$direction_opposites[%1]};
-        #variable {direction_name_short_opposite} {$map_direction_names_to_short[$direction_name_opposite]};
-        add_unexplored_room_to_neo4j $direction_name_short $direction_name_short_opposite;
+        #variable {direction_name_short_opposite} {$direction_short_opposites[%1]};
+        add_unexplored_room_to_neo4j %1 $direction_name_short_opposite;
     };
     #else
     {
-        #showme {ERROR: cannot map the %1 direction! Mapper will not update!};
+        add_unknown_exit_type %1;
     }
-}
+};
 
 #alias {setup_logs} 
 {
     #format {todays_logfile_name} {%t} {%Y-%m-%d-logfile.log};
     #log timestamp {%Y-%m-%d-%H:%M:%S};
     #log append {logs/$todays_logfile_name};
-}
+};
 
 #alias {add_move_to_neo4j {.*}}
 {
+    #variable input {%1};
+    #replace {input} {'} {};
     #list {statments_for_neo4j} {add} 
     {
-        MATCH (a:Player)-[r:located_at]->(b:Room)-[r2:direction {name: '%1'}]->(c:Room) 
+        MATCH (a:Player)-[r:located_at]->(b:Room)-[r2:direction {name: '$input'}]->(c:Room) 
         SET c.updated_time = dateTime() 
         CREATE (a)-[:located_at {updated_time: dateTime()}]->(c)
-        REMOVE c.explored 
         DELETE r
-        RETURN c
     };
-}
+};
 
 #alias {add_areaname_to_neo4j {.*}}
 {
+    #variable input {%1};
+    #replace {input} {'} {};
     #list {statments_for_neo4j} {add} 
     {
         MATCH (a:Player)-[r:located_at]->(b:Room) 
-        SET b.areaname = '%1', b.updated_time = dateTime() 
-        RETURN b
+        SET b.areaname = '$input', b.updated_time = dateTime() 
     }
-}
+};
 
 #alias {add_roomdesc_to_neo4j {.*}}
 {
+    #variable input {%1};
+    #replace {input} {'} {};
     #list {statments_for_neo4j} {add} 
     {
         MATCH (a:Player)-[r:located_at]->(b:Room) 
-        WHERE NOT (b)-[:roomdescription {desc:'%1'}]->(b)
-        CREATE (b)-[:roomdescription {desc:'%1', updated_time: dateTime()}]->(b) 
-        RETURN b
+        WHERE NOT (b)-[:roomdescription {desc:'$input'}]->(b)
+        CREATE (b)-[:roomdescription {desc:'$input', updated_time: dateTime()}]->(b) 
+        REMOVE b.explored
     }
-}
+};
+
+#alias {add_roomname_to_neo4j {.*}}
+{
+    #variable input {%1};
+    #replace {input} {'} {};
+    #list {statments_for_neo4j} {add} 
+    {
+        MATCH (a:Player)-[r:located_at]->(b:Room) 
+        WHERE NOT (b)-[:roomname {desc:'$input'}]->(b)
+        CREATE (b)-[:roomname {desc:'$input', updated_time: dateTime()}]->(b) 
+    }
+};
 
 #alias {add_unexplored_room_to_neo4j {.*?} {.*}}
 {
+    #variable input {%1};
+    #replace {input} {'} {};
+    #variable input2 {%2};
+    #replace {input2} {'} {};
     #list {statments_for_neo4j} {add} 
     {
         MATCH (a:Player)-[r:located_at]->(b:Room) 
-        WHERE NOT (b)-[:direction {name: '%1'}]->()
-        CREATE (b)-[:direction {name:'%1', updated_time: dateTime()}]->(c:Room {explored: false, updated_time: dateTime()})-[:direction {name:'%2', unconfirmed: 'true', updated_time: dateTime()}]->(b)
-        RETURN b
+        WHERE NOT (b)-[:direction {name: '$input'}]->()
+        CREATE (b)-[:direction {name:'$input', updated_time: dateTime()}]->(c:Room {explored: false, updated_time: dateTime()})-[:direction {name:'$input2', unconfirmed: 'true', updated_time: dateTime()}]->(b)
     }
-}
+};
+
+#alias {add_unknown_exit_type {.*}}
+{
+    #variable input {%1};
+    #replace {input} {'} {};
+    #list {statments_for_neo4j} {add} 
+    {
+        MATCH (a:Player)-[r:located_at]->(b:Room) 
+        WHERE NOT (b)-[:direction_unknown {name: '$input'}]->()
+        CREATE (b)-[:direction_unknown {name:'$input', updated_time: dateTime()}]->(b)
+    }
+};
+
+#alias {add_map_directional_feature_query {.*?} {.*}}
+{
+    #list {statments_for_neo4j} {add} 
+    {
+        MATCH (a:Player)-[:located_at]->(:Room)-[r:direction {name: '%1'}]->()
+        SET r.map_feature = '%2'
+    }
+};
+
+#alias {confirm_unconfirmed_exits {.*}}
+{
+    #variable input {%1};
+    #replace {input} {'} {};
+    #variable {temp_listed_statement} 
+    {
+        MATCH (c:Player)-[located_at]->(a:Room) -[r:direction {unconfirmed: 'true'}]-> () 
+        WHERE r.name in [$input]
+        Remove r.unconfirmed 
+        SET r.updated_time = dateTime()
+    };
+    #replace {temp_listed_statement} {¤} {'};
+    #list {statments_for_neo4j} {add} {$temp_listed_statement};
+};
+
+#alias {mark_exits_temporary {.*}}
+{
+    #variable input {%1};
+    #replace {input} {'} {};
+    #variable {temp_listed_statement} 
+    {
+        MATCH (c:Player)-[located_at]->(a:Room) -[r:direction]-> () 
+        WHERE NOT r.name in [$input]
+        SET r.temporary = 'true', r.updated_time = dateTime()
+    };
+    #replace {temp_listed_statement} {¤} {'};
+    #list {statments_for_neo4j} {add} {$temp_listed_statement};
+};
 
 #alias {reset_everything_neo4j_WARNING_CAREFULL}
 {
@@ -309,8 +434,9 @@
         CREATE (a:Player)-[:located_at]->(b:Room)
         RETURN b
     };
-    send_query;
-}
+    listen_roomname_and_directions;
+    look;
+};
 
 #alias {send_query}
 {
@@ -330,10 +456,12 @@
         }
     };
     #variable {statments_for_neo4j} {};
-}
+};
 
 setup_all_paths;
 #READ {ls_login.tin};
 #split;
 setup_logs;
-#config {packet patch} 0.2
+#config {packet patch} 0.2;
+listen_roomname_and_directions;
+look;
