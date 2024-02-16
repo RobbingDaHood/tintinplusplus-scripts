@@ -170,9 +170,21 @@
     }
 }
 
-#action {You determine that you are in {.*?}.}
+#action {You determine that you are {(at|in).*?}.}
 {
-    add_areaname_to_neo4j %1
+    #variable full_string_of_determined_location {%0};
+    #regex {%0} {you are at the coordinates {.*?} in}
+    {
+        add_local_coordinate_to_neo4j &1;
+    };
+    #regex {%0} {you are {.*?}in {.*?}{\.|,}}
+    {
+        add_areaname_to_neo4j &2;
+    };
+    #regex {%0} {you are {.*?}at global coordinates {.*?}.}
+    {
+        add_global_coordinate_to_neo4j &2;
+    };
 };
 
 #alias {listen_to_room_description}
@@ -327,6 +339,28 @@
     {
         MATCH (a:Player)-[r:located_at]->(b:Room) 
         SET b.areaname = '$input', b.updated_time = dateTime() 
+    }
+};
+
+#alias {add_local_coordinate_to_neo4j {.*}}
+{
+    #variable input {%1};
+    #replace {input} {'} {};
+    #list {statments_for_neo4j} {add} 
+    {
+        MATCH (a:Player)-[r:located_at]->(b:Room) 
+        SET b.local_coordinate = '$input', b.updated_time = dateTime() 
+    }
+};
+
+#alias {add_global_coordinate_to_neo4j {.*}}
+{
+    #variable input {%1};
+    #replace {input} {'} {};
+    #list {statments_for_neo4j} {add} 
+    {
+        MATCH (a:Player)-[r:located_at]->(b:Room) 
+        SET b.global_coordinate = '$input', b.updated_time = dateTime() 
     }
 };
 

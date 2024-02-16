@@ -14,8 +14,3 @@
 
 1. Handle these texts as json
     1.  This is Main Street, on the east side of Losthaven.  To the north, a wooden sign bearing a picture of a bow and arrow on it hangs over an open door; southward, another door is marked by a sign shaped like a scroll, with what looks like a map etched onto it.
-1. How compas is precise! 
-    You peer at your surroundings and your oaken compass.
-    You determine that you are at the coordinates -21, -24, 0 in Cimbra, and so at global coordinates -21, 57, 0.
-1. Wow so many directions: 
-    1. [compass, compass:up, u, ei, wi, road:e/w]
