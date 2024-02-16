@@ -1992,3 +1992,224 @@
 2024-02-16-21:14:01[38;5;188m[38;5;164m    {[38;5;188m1[38;5;164m} [38;5;164m{[38;5;188mMATCH (a:Player)-[r:located_at]->(b:Room) WHERE NOT (b)-[:roomdescription {desc:'    The city of Losthaven looms to the east past a huge worked-iron gate.  Southward is a guardpost, and to the west is a marble archway.  There is a closed rusty iron sewer grate here.  There is an open iron gate to the east.  '}]->(b) CREATE (b)-[:roomdescription {desc:'    The city of Losthaven looms to the east past a huge worked-iron gate.  Southward is a guardpost, and to the west is a marble archway.  There is a closed rusty iron sewer grate here.  There is an open iron gate to the east.  ', updated_time: dateTime()}]->(b) REMOVE b.explored[38;5;164m}
 2024-02-16-21:14:01[38;5;164m    {[38;5;188m2[38;5;164m} [38;5;164m{[38;5;188mMATCH (a:Player)-[r:located_at]->(b:Room) SET b.areaname = 'Losthaven', b.updated_time = dateTime()[38;5;164m}
 2024-02-16-21:14:01[38;5;164m}[0m
+2024-02-16-21:17:16[0;37m[0m
+2024-02-16-21:17:16[0;37m[0m
+2024-02-16-21:17:17> > [0;37mlook[0m
+2024-02-16-21:17:17the west gate of Losthaven [1;34m[s, e, w, d, street][0m
+2024-02-16-21:17:17    The city of Losthaven looms to the east past a huge worked-iron gate.  Southward is a guardpost, and to the west is a marble archway.  There is a [31mcl[0;1;30mo[0;31msed [0;1;30mr[0;31must[0;1;30my [0;31miro[0;1;30mn [0;31msew[0;1;30me[0;31mr gr[0;1;30ma[0;31mte[0m here.  There is an [1;30mopen iron gate[0m to the east.  
+2024-02-16-21:17:17    The area is reasonably well-lit.  
+2024-02-16-21:17:17    Above you is a still, clear night sky.  A waxing gibbous moon hangs in the sky.  
+2024-02-16-21:17:17    Obvious exits are south, east, west, and down.
+2024-02-16-21:17:17You are now familiar with the characteristics of the west gate of Losthaven.
+2024-02-16-21:17:21> [36mThakra[0m walks in from the south.
+2024-02-16-21:17:22[0;37me[0m
+2024-02-16-21:17:23You walk eastward through the [1;30mopen iron gate[0m.
+2024-02-16-21:17:23Main Street [1;34m[n, s, e, w, street][0m
+2024-02-16-21:17:23    This is Main street, on the west side of Losthaven.  To the north is the broad entryway of a stable.  Southward lies the sturdy log structure of Hackmore Johnson's Trading Post.  There is an [1;30mopen iron gate[0m to the west.  
+2024-02-16-21:17:23    The area is reasonably well-lit.  
+2024-02-16-21:17:23    You see [1;37mAg[0;37mda[0;1;36mr t[0;1;37mhe [0;37mHo[0;1;37msp[0;37mit[0;1;36mal[0;1;37mle[0;37mr[0m.
+2024-02-16-21:17:23    You see [1;37mTo[0;37mti [0;1;36mon[0;1;37md T[0;37mho[0;1;37mra[0;37mma [0;1;36mth[0;1;37me H[0;37mos[0;1;37mpi[0;37mta[0;1;36mll[0;1;37mer[0m.  
+2024-02-16-21:17:23    Above you is a still, clear night sky.  A waxing gibbous moon hangs in the sky.  
+2024-02-16-21:17:23    Obvious exits are north, south, east, and west.
+2024-02-16-21:17:25> > You peer at your surroundings and your [33moaken compass[0m.
+2024-02-16-21:17:25You determine that you are in Losthaven.
+2024-02-16-21:17:40[1;37mProfessor Armitage[0m runs in from the east.
+2024-02-16-21:17:42[1;37mProfessor Armitage[0m runs westward through the [1;30mopen iron gate[0m.
+2024-02-16-21:17:51[1;37mAg[0;37mda[0;1;36mr[0m exclaims, [1;36m-->[0m Blessed be His holy light and His divine grace! [1;36m<--[0m in starkly-accented Anglic.
+2024-02-16-21:18:14[0;37mlook[0m
+2024-02-16-21:18:14Main Street [1;34m[n, s, e, w, street][0m
+2024-02-16-21:18:14    This is Main street, on the west side of Losthaven.  To the north is the broad entryway of a stable.  Southward lies the sturdy log structure of Hackmore Johnson's Trading Post.  There is an [1;30mopen iron gate[0m to the west.  
+2024-02-16-21:18:14    The area is reasonably well-lit.  
+2024-02-16-21:18:14    You see [1;37mAg[0;37mda[0;1;36mr t[0;1;37mhe [0;37mHo[0;1;37msp[0;37mit[0;1;36mal[0;1;37mle[0;37mr[0m.
+2024-02-16-21:18:14    You see [1;37mTo[0;37mti [0;1;36mon[0;1;37md T[0;37mho[0;1;37mra[0;37mma [0;1;36mth[0;1;37me H[0;37mos[0;1;37mpi[0;37mta[0;1;36mll[0;1;37mer[0m.  
+2024-02-16-21:18:14    Above you is a still, clear night sky.  A waxing gibbous moon hangs in the sky.  
+2024-02-16-21:18:14    Obvious exits are north, south, east, and west.
+2024-02-16-21:18:26> [0;37m5e[0m
+2024-02-16-21:18:27Your [1;37mDetailed Rooms[0m depiction is now [1;37moff[0m.
+2024-02-16-21:18:27You walk eastward.
+2024-02-16-21:18:27Main Street, with Arena Lane to the north [1;34m[n, s, e, w, d, street][0m
+2024-02-16-21:18:27    You see a [33mgiant leather-wrapped wooden-barbed oaken club[0m.
+2024-02-16-21:18:27    You see a [37msteel scourge[0m.
+2024-02-16-21:18:27    You see [33mNafhamus the guard[0m.
+2024-02-16-21:18:27    You see [1;37mDurend the guard[0m.
+2024-02-16-21:18:27You run eastward.
+2024-02-16-21:18:27Main Street [1;34m[n, s, e, w, street][0m
+2024-02-16-21:18:27    You see [1;37mCe[0;37mla[0;1;36mlu[0;1;37ms the Hospitaller[0m.
+2024-02-16-21:18:27> You run eastward.
+2024-02-16-21:18:27Main Street [1;34m[n, e, w, street][0m
+2024-02-16-21:18:27You run eastward.
+2024-02-16-21:18:27Main Street [1;34m[n, s, e, w, street][0m
+2024-02-16-21:18:27You run eastward.
+2024-02-16-21:18:27the Losthaven square [1;34m[n, s, e, w, d, street][0m
+2024-02-16-21:18:27    You see a [1;37mwhite stone statue of Erur[0m.
+2024-02-16-21:18:27    You see a clock tower.
+2024-02-16-21:18:27    You see [1;35mMernie[0m.
+2024-02-16-21:18:27    You see [1;33mCais[0m.
+2024-02-16-21:18:27    You see [33mVerindan the town cryer[0m.
+2024-02-16-21:18:27    You see [1;37mBill the town fool[0m.
+2024-02-16-21:18:27Your [1;37mDetailed Rooms[0m depiction is now [1;37mon[0m.
+2024-02-16-21:18:27the Losthaven square [1;34m[n, s, e, w, d, street][0m
+2024-02-16-21:18:27    This is the Losthaven city square, and the intersection of Main Street and Courtly Way.  Main Street runs east and west through the center of town, and Courtly Way runs from the palace to the north to the docks on the river, beside which Losthaven has been built, to the south.  To the immediate south is a tavern and an inn, while to the immediate north is a temple.  Just to the east is a shop and Losthaven's city hall, and west is a cathedral and a healer's place of business.  There is a [31mcl[0;1;30mo[0;31msed [0;1;30mr[0;31must[0;1;30my [0;31miro[0;1;30mn [0;31msew[0;1;30me[0;31mr gr[0;1;30ma[0;31mte[0m here.  
+2024-02-16-21:18:27    The area is reasonably well-lit.  
+2024-02-16-21:18:27    You see a [1;37mwhite stone statue of Erur[0m.
+2024-02-16-21:18:27    You see a clock tower.
+2024-02-16-21:18:27    You see [1;35mMernie[0m.
+2024-02-16-21:18:27    You see [1;33mCais[0m.
+2024-02-16-21:18:27    You see [33mVerindan the town cryer[0m.
+2024-02-16-21:18:27    You see [1;37mBill the town fool[0m.  
+2024-02-16-21:18:27    Above you is a still, clear night sky.  A waxing gibbous moon hangs in the sky.  
+2024-02-16-21:18:27    Obvious exits are north, south, east, west, and down.
+2024-02-16-21:18:27You are now familiar with the characteristics of the Losthaven square.
+2024-02-16-21:18:28> [1;37mBill[0m asks, "Hi, Robbingdahood!  Want to hear a good joke?"
+2024-02-16-21:18:32[0;37m[0m
+2024-02-16-21:18:34> [0;37mlook[0m
+2024-02-16-21:18:34the Losthaven square [1;34m[n, s, e, w, d, street][0m
+2024-02-16-21:18:34    This is the Losthaven city square, and the intersection of Main Street and Courtly Way.  Main Street runs east and west through the center of town, and Courtly Way runs from the palace to the north to the docks on the river, beside which Losthaven has been built, to the south.  To the immediate south is a tavern and an inn, while to the immediate north is a temple.  Just to the east is a shop and Losthaven's city hall, and west is a cathedral and a healer's place of business.  There is a [31mcl[0;1;30mo[0;31msed [0;1;30mr[0;31must[0;1;30my [0;31miro[0;1;30mn [0;31msew[0;1;30me[0;31mr gr[0;1;30ma[0;31mte[0m here.  
+2024-02-16-21:18:34    The area is reasonably well-lit.  
+2024-02-16-21:18:34    You see a [1;37mwhite stone statue of Erur[0m.
+2024-02-16-21:18:34    You see a clock tower.
+2024-02-16-21:18:34    You see [1;35mMernie[0m.
+2024-02-16-21:18:34    You see [1;33mCais[0m.
+2024-02-16-21:18:34    You see [33mVerindan the town cryer[0m.
+2024-02-16-21:18:34    You see [1;37mBill the town fool[0m.  
+2024-02-16-21:18:34    Above you is a still, clear night sky.  A waxing gibbous moon hangs in the sky.  
+2024-02-16-21:18:34    Obvious exits are north, south, east, west, and down.
+2024-02-16-21:18:43> [0;37m3e[0m
+2024-02-16-21:18:43Your [1;37mDetailed Rooms[0m depiction is now [1;37moff[0m.
+2024-02-16-21:18:43You walk eastward.
+2024-02-16-21:18:43Main Street [1;34m[n, s, e, w, street][0m
+2024-02-16-21:18:43You run eastward.
+2024-02-16-21:18:43Main Street [1;34m[n, s, e, w, d, street][0m
+2024-02-16-21:18:45> You run eastward.
+2024-02-16-21:18:45Main Street [1;34m[n, s, e, w, street][0m
+2024-02-16-21:18:45    You see [1;37mHo[0;37mdi[0;1;36mn d[0;1;37mau[0;37mgh[0;1;37mte[0;37mr o[0;1;36mf D[0;1;37mun[0;37mgond the Hospitaller[0m.
+2024-02-16-21:18:45    You see [1;37mJi[0;37mln[0;1;36mar[0;1;37misa the Hospitaller[0m.
+2024-02-16-21:18:45Your [1;37mDetailed Rooms[0m depiction is now [1;37mon[0m.
+2024-02-16-21:18:45Main Street [1;34m[n, s, e, w, street][0m
+2024-02-16-21:18:45    This is Main street, on the East side of the City.  North is a Weaponsmith and south is an armourer.  
+2024-02-16-21:18:45    The area is reasonably well-lit.  
+2024-02-16-21:18:45    You see [1;37mHo[0;37mdi[0;1;36mn d[0;1;37mau[0;37mgh[0;1;37mte[0;37mr o[0;1;36mf D[0;1;37mun[0;37mgo[0;1;37mnd [0;37mth[0;1;36me H[0;1;37mos[0;37mpi[0;1;37mta[0;37mll[0;1;36mer[0m.
+2024-02-16-21:18:45    You see [1;37mJi[0;37mln[0;1;36mar[0;1;37mis[0;37ma t[0;1;37mhe [0;37mHo[0;1;36msp[0;1;37mit[0;37mal[0;1;37mle[0;37mr[0m.  
+2024-02-16-21:18:45    Above you is a still, clear night sky.  A waxing gibbous moon hangs in the sky.  
+2024-02-16-21:18:45    Obvious exits are north, south, east, and west.
+2024-02-16-21:18:46> [0;37m[0m
+2024-02-16-21:18:47> [0;37m[0m
+2024-02-16-21:18:54> [0;37m#var statments_for_neo4j[0m
+2024-02-16-21:18:54[38;5;184m#[38;5;044mVARIABLE [38;5;164m{[38;5;188mstatments_for_neo4j[38;5;164m}
+2024-02-16-21:18:54[38;5;164m{
+2024-02-16-21:18:54[38;5;188m[38;5;164m    {[38;5;188m1[38;5;164m} [38;5;164m{[38;5;188mMATCH (a:Player)-[r:located_at]->(b:Room) WHERE NOT (b)-[:roomdescription {desc:'    This is Main street, on the East side of the City.  North is a Weaponsmith and south is an armourer.  '}]->(b) CREATE (b)-[:roomdescription {desc:'    This is Main street, on the East side of the City.  North is a Weaponsmith and south is an armourer.  ', updated_time: dateTime()}]->(b) REMOVE b.explored[38;5;164m}
+2024-02-16-21:18:54[38;5;164m}[0m
+2024-02-16-21:19:01[1;37mJi[0;37mln[0;1;36mar[0;1;37mis[0;37ma[0m fidgets with her rosary.
+2024-02-16-21:19:05[0;37msend_query[0m
+2024-02-16-21:19:15[1;37mJi[0;37mln[0;1;36mar[0;1;37misa[0m walks westward.
+2024-02-16-21:19:42[0;37me[0m
+2024-02-16-21:19:43You walk eastward.
+2024-02-16-21:19:43Main Street [1;34m[n, s, e, w, street][0m
+2024-02-16-21:19:43    This is Main Street, on the east side of Losthaven.  To the north, a wooden sign bearing a picture of a bow and arrow on it hangs over an open door; southward, another door is marked by a sign shaped like a scroll, with what looks like a map etched onto it.  
+2024-02-16-21:19:43    The area is reasonably well-lit.  
+2024-02-16-21:19:43    You see [33mVanurion Ryder the pickpocket[0m.
+2024-02-16-21:19:43    You see [1;33mWarirnity ta Victizg the guard[0m.  
+2024-02-16-21:19:43    Above you is a still, clear night sky.  A waxing gibbous moon hangs in the sky.  
+2024-02-16-21:19:43    Obvious exits are north, south, east, and west.
+2024-02-16-21:19:45> > You peer at your surroundings and your [33moaken compass[0m.
+2024-02-16-21:19:45You determine that you are in Losthaven.
+2024-02-16-21:19:56[0;37m#var statments_for_neo4j[0m
+2024-02-16-21:19:56[38;5;184m#[38;5;044mVARIABLE [38;5;164m{[38;5;188mstatments_for_neo4j[38;5;164m}
+2024-02-16-21:19:56[38;5;164m{
+2024-02-16-21:19:56[38;5;188m[38;5;164m    {[38;5;188m1[38;5;164m} [38;5;164m{[38;5;188mMATCH (a:Player)-[r:located_at]->(b:Room) WHERE NOT (b)-[:roomdescription {desc:'    This is Main Street, on the east side of Losthaven.  To the north, a wooden sign bearing a picture of a bow and arrow on it hangs over an open door\; southward, another door is marked by a sign shaped like a scroll, with what looks like a map etched onto it.  '}]->(b) CREATE (b)-[:roomdescription {desc:'    This is Main Street, on the east side of Losthaven.  To the north, a wooden sign bearing a picture of a bow and arrow on it hangs over an open door\; southward, another door is marked by a sign shaped like a scroll, with what looks like a map etched onto it.  ', updated_time: dateTime()}]->(b) REMOVE b.explored[38;5;164m}
+2024-02-16-21:19:56[38;5;164m    {[38;5;188m2[38;5;164m} [38;5;164m{[38;5;188mMATCH (a:Player)-[r:located_at]->(b:Room) SET b.areaname = 'Losthaven', b.updated_time = dateTime()[38;5;164m}
+2024-02-16-21:19:56[38;5;164m}[0m
+2024-02-16-21:20:00[0;37msend_query[0m
+2024-02-16-21:20:00[0mERRORS : You can look at neo4j_response[0m
+2024-02-16-21:21:05[1;33mWarirnity[0m yawns tiredly.
+2024-02-16-21:21:47[1;33mWarirnity[0m walks southward.
+2024-02-16-21:23:02[0;37m#var neo4j_response[0m
+2024-02-16-21:23:02[38;5;184m#[38;5;044mVARIABLE [38;5;164m{[38;5;188mneo4j_response[38;5;164m}
+2024-02-16-21:23:02[38;5;164m{
+2024-02-16-21:23:02[38;5;188m[38;5;164m    {[38;5;188m1[38;5;164m} [38;5;164m{[38;5;188mERRORS[38;5;164m}
+2024-02-16-21:23:02[38;5;164m    {[38;5;188m2[38;5;164m} [38;5;164m{[38;5;188m\x7B"results":[],"errors":[\x7B"code":"Neo.ClientError.Request.InvalidFormat","message":"Could not parse the incoming JSON"\x7D]\x7D[38;5;164m}
+2024-02-16-21:23:02[38;5;164m    {[38;5;188m3[38;5;164m} [38;5;164m{[38;5;188m\x7B"statements":[\x7B"statement":"MATCH (a:Player)-[r:located_at]->(b:Room) WHERE NOT (b)-[:roomdescription \x7Bdesc:'    This is Main Street, on the east side of Losthaven.  To the north, a wooden sign bearing a picture of a bow and arrow on it hangs over an open door\\\; southward, another door is marked by a sign shaped like a scroll, with what looks like a map etched onto it.  '\x7D]->(b) CREATE (b)-[:roomdescription \x7Bdesc:'    This is Main Street, on the east side of Losthaven.  To the north, a wooden sign bearing a picture of a bow and arrow on it hangs over an open door\\\; southward, another door is marked by a sign shaped like a scroll, with what looks like a map etched onto it.  ', updated_time: dateTime()\x7D]->(b) REMOVE b.explored"\x7D, \x7B "statement": "MATCH (a:Player)-[r:located_at]->(b:Room) SET b.areaname = 'Losthaven', b.updated_time = dateTime()"\x7D]\x7D[38;5;164m}
+2024-02-16-21:23:02[38;5;164m}[0m
+2024-02-16-21:24:00[0;37mreload_configs[0m
+2024-02-16-21:24:01Main Street [1;34m[n, s, e, w, street][0m
+2024-02-16-21:24:01    This is Main Street, on the east side of Losthaven.  To the north, a wooden sign bearing a picture of a bow and arrow on it hangs over an open door; southward, another door is marked by a sign shaped like a scroll, with what looks like a map etched onto it.  
+2024-02-16-21:24:01    The area is reasonably well-lit.  
+2024-02-16-21:24:01    Above you is a still, clear night sky.  A waxing gibbous moon hangs in the sky.  
+2024-02-16-21:24:01    Obvious exits are north, south, east, and west.
+2024-02-16-21:24:03> [0;37mlook[0m
+2024-02-16-21:24:03[0mERRORS : You can look at neo4j_response[0m
+2024-02-16-21:24:03Main Street [1;34m[n, s, e, w, street][0m
+2024-02-16-21:24:03    This is Main Street, on the east side of Losthaven.  To the north, a wooden sign bearing a picture of a bow and arrow on it hangs over an open door; southward, another door is marked by a sign shaped like a scroll, with what looks like a map etched onto it.  
+2024-02-16-21:24:03    The area is reasonably well-lit.  
+2024-02-16-21:24:03    Above you is a still, clear night sky.  A waxing gibbous moon hangs in the sky.  
+2024-02-16-21:24:03    Obvious exits are north, south, east, and west.
+2024-02-16-21:24:07> [0;37m#var statments_for_neo4j[0m
+2024-02-16-21:24:07[0m[38;5;184m#[38;5;044mVARIABLE [38;5;164m{[38;5;188mstatments_for_neo4j[38;5;164m} {[38;5;188m[38;5;164m}[0m
+[0m
+2024-02-16-21:24:13[0;37mlook[0m
+2024-02-16-21:24:13Main Street [1;34m[n, s, e, w, street][0m
+2024-02-16-21:24:13    This is Main Street, on the east side of Losthaven.  To the north, a wooden sign bearing a picture of a bow and arrow on it hangs over an open door; southward, another door is marked by a sign shaped like a scroll, with what looks like a map etched onto it.  
+2024-02-16-21:24:13    The area is reasonably well-lit.  
+2024-02-16-21:24:13    Above you is a still, clear night sky.  A waxing gibbous moon hangs in the sky.  
+2024-02-16-21:24:13    Obvious exits are north, south, east, and west.
+2024-02-16-21:24:15> [0;37m#var statments_for_neo4j[0m
+2024-02-16-21:24:15[38;5;184m#[38;5;044mVARIABLE [38;5;164m{[38;5;188mstatments_for_neo4j[38;5;164m}
+2024-02-16-21:24:15[38;5;164m{
+2024-02-16-21:24:15[38;5;188m[38;5;164m    {[38;5;188m1[38;5;164m} [38;5;164m{[38;5;188mMATCH (a:Player)-[r:located_at]->(b:Room) WHERE NOT (b)-[:roomdescription {desc:'    This is Main Street, on the east side of Losthaven.  To the north, a wooden sign bearing a picture of a bow and arrow on it hangs over an open door\ southward, another door is marked by a sign shaped like a scroll, with what looks like a map etched onto it.  '}]->(b) CREATE (b)-[:roomdescription {desc:'    This is Main Street, on the east side of Losthaven.  To the north, a wooden sign bearing a picture of a bow and arrow on it hangs over an open door\ southward, another door is marked by a sign shaped like a scroll, with what looks like a map etched onto it.  ', updated_time: dateTime()}]->(b) REMOVE b.explored[38;5;164m}
+2024-02-16-21:24:15[38;5;164m}[0m
+2024-02-16-21:24:23[0;37msend_query[0m
+2024-02-16-21:24:23[0mERRORS : You can look at neo4j_response[0m
+2024-02-16-21:24:28[0;37m#var neo4j_response[0m
+2024-02-16-21:24:28[38;5;184m#[38;5;044mVARIABLE [38;5;164m{[38;5;188mneo4j_response[38;5;164m}
+2024-02-16-21:24:28[38;5;164m{
+2024-02-16-21:24:28[38;5;188m[38;5;164m    {[38;5;188m1[38;5;164m} [38;5;164m{[38;5;188mERRORS[38;5;164m}
+2024-02-16-21:24:28[38;5;164m    {[38;5;188m2[38;5;164m} [38;5;164m{[38;5;188m\x7B"results":[],"errors":[\x7B"code":"Neo.ClientError.Request.InvalidFormat","message":"Could not parse the incoming JSON"\x7D]\x7D[38;5;164m}
+2024-02-16-21:24:28[38;5;164m    {[38;5;188m3[38;5;164m} [38;5;164m{[38;5;188m\x7B"statements":[\x7B"statement":"MATCH (a:Player)-[r:located_at]->(b:Room) WHERE NOT (b)-[:roomdescription \x7Bdesc:'    This is Main Street, on the east side of Losthaven.  To the north, a wooden sign bearing a picture of a bow and arrow on it hangs over an open door\\ southward, another door is marked by a sign shaped like a scroll, with what looks like a map etched onto it.  '\x7D]->(b) CREATE (b)-[:roomdescription \x7Bdesc:'    This is Main Street, on the east side of Losthaven.  To the north, a wooden sign bearing a picture of a bow and arrow on it hangs over an open door\\ southward, another door is marked by a sign shaped like a scroll, with what looks like a map etched onto it.  ', updated_time: dateTime()\x7D]->(b) REMOVE b.explored"\x7D]\x7D[38;5;164m}
+2024-02-16-21:24:28[38;5;164m}[0m
+2024-02-16-21:24:33[1;33mWarirnity[0m walks in from the south.
+2024-02-16-21:24:54[0;37mreload_configs[0m
+2024-02-16-21:24:54Main Street [1;34m[n, s, e, w, street][0m
+2024-02-16-21:24:54    This is Main Street, on the east side of Losthaven.  To the north, a wooden sign bearing a picture of a bow and arrow on it hangs over an open door; southward, another door is marked by a sign shaped like a scroll, with what looks like a map etched onto it.  
+2024-02-16-21:24:54    The area is reasonably well-lit.  
+2024-02-16-21:24:54    You see [1;33mWarirnity ta Victizg the guard[0m.  
+2024-02-16-21:24:54    Above you is a still, clear night sky.  A waxing gibbous moon hangs in the sky.  
+2024-02-16-21:24:54    Obvious exits are north, south, east, and west.
+2024-02-16-21:24:57> [0;37msend_query[0m
+2024-02-16-21:24:57[0mERRORS : You can look at neo4j_response[0m
+2024-02-16-21:24:59[0;37mreload_configs[0m
+2024-02-16-21:25:00Main Street [1;34m[n, s, e, w, street][0m
+2024-02-16-21:25:00    This is Main Street, on the east side of Losthaven.  To the north, a wooden sign bearing a picture of a bow and arrow on it hangs over an open door; southward, another door is marked by a sign shaped like a scroll, with what looks like a map etched onto it.  
+2024-02-16-21:25:00    The area is reasonably well-lit.  
+2024-02-16-21:25:00    You see [1;33mWarirnity ta Victizg the guard[0m.  
+2024-02-16-21:25:00    Above you is a still, clear night sky.  A waxing gibbous moon hangs in the sky.  
+2024-02-16-21:25:00    Obvious exits are north, south, east, and west.
+2024-02-16-21:25:03> [0;37m#var statments_for_neo4j[0m
+2024-02-16-21:25:03[38;5;184m#[38;5;044mVARIABLE [38;5;164m{[38;5;188mstatments_for_neo4j[38;5;164m}
+2024-02-16-21:25:03[38;5;164m{
+2024-02-16-21:25:03[38;5;188m[38;5;164m    {[38;5;188m1[38;5;164m} [38;5;164m{[38;5;188mMATCH (a:Player)-[r:located_at]->(b:Room) WHERE NOT (b)-[:roomdescription {desc:'    This is Main Street, on the east side of Losthaven.  To the north, a wooden sign bearing a picture of a bow and arrow on it hangs over an open door\ southward, another door is marked by a sign shaped like a scroll, with what looks like a map etched onto it.  '}]->(b) CREATE (b)-[:roomdescription {desc:'    This is Main Street, on the east side of Losthaven.  To the north, a wooden sign bearing a picture of a bow and arrow on it hangs over an open door\ southward, another door is marked by a sign shaped like a scroll, with what looks like a map etched onto it.  ', updated_time: dateTime()}]->(b) REMOVE b.explored[38;5;164m}
+2024-02-16-21:25:03[38;5;164m}[0m
+2024-02-16-21:25:10[33mTorg[0m flies in from the east.
+2024-02-16-21:25:10A [1;37msp[0;37mec[0;1;36mtr[0;1;37mal [0;37mgi[0;1;37mant female eagle[0m flies in from the east.
+2024-02-16-21:25:10[33mTorg[0m flies westward.
+2024-02-16-21:25:10The [1;37msp[0;37mec[0;1;36mtr[0;1;37mal [0;37mgi[0;1;37mant female eagle[0m flies westward.
+2024-02-16-21:25:15[0;37mreload_configs[0m
+2024-02-16-21:25:15Main Street [1;34m[n, s, e, w, street][0m
+2024-02-16-21:25:15    This is Main Street, on the east side of Losthaven.  To the north, a wooden sign bearing a picture of a bow and arrow on it hangs over an open door; southward, another door is marked by a sign shaped like a scroll, with what looks like a map etched onto it.  
+2024-02-16-21:25:15    The area is reasonably well-lit.  
+2024-02-16-21:25:15    You see [1;33mWarirnity ta Victizg the guard[0m.  
+2024-02-16-21:25:15    Above you is a still, clear night sky.  A waxing gibbous moon hangs in the sky.  
+2024-02-16-21:25:15    Obvious exits are north, south, east, and west.
+2024-02-16-21:25:16> [0;37m#var statments_for_neo4j[0m
+2024-02-16-21:25:16[38;5;184m#[38;5;044mVARIABLE [38;5;164m{[38;5;188mstatments_for_neo4j[38;5;164m}
+2024-02-16-21:25:16[38;5;164m{
+2024-02-16-21:25:16[38;5;188m[38;5;164m    {[38;5;188m1[38;5;164m} [38;5;164m{[38;5;188mMATCH (a:Player)-[r:located_at]->(b:Room) WHERE NOT (b)-[:roomdescription {desc:'    This is Main Street, on the east side of Losthaven.  To the north, a wooden sign bearing a picture of a bow and arrow on it hangs over an open door southward, another door is marked by a sign shaped like a scroll, with what looks like a map etched onto it.  '}]->(b) CREATE (b)-[:roomdescription {desc:'    This is Main Street, on the east side of Losthaven.  To the north, a wooden sign bearing a picture of a bow and arrow on it hangs over an open door southward, another door is marked by a sign shaped like a scroll, with what looks like a map etched onto it.  ', updated_time: dateTime()}]->(b) REMOVE b.explored[38;5;164m}
+2024-02-16-21:25:16[38;5;164m}[0m
+2024-02-16-21:25:22[0;37msend_query[0m
+2024-02-16-21:25:31[33mTorg[0m flies in from the west.
+2024-02-16-21:25:31A [1;37msp[0;37mec[0;1;36mtr[0;1;37mal [0;37mgi[0;1;37mant female eagle[0m flies in from the west.
+2024-02-16-21:25:31[33mTorg[0m flies eastward.
+2024-02-16-21:25:31The [1;37msp[0;37mec[0;1;36mtr[0;1;37mal [0;37mgi[0;1;37mant female eagle[0m flies eastward.
+2024-02-16-21:25:57[1;33mWarirnity[0m yawns tiredly.
+2024-02-16-21:26:21[1;33mWarirnity[0m peers around.
+2024-02-16-21:27:20[1;33mWarirnity[0m walks eastward.
+2024-02-16-21:27:52[1;37mKo[0;37mru[0;1;36mr[0m walks in from the east.

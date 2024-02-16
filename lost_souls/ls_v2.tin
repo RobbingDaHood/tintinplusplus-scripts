@@ -368,6 +368,7 @@
 {
     #variable input {%1};
     #replace {input} {'} {};
+    #replace {input} {\\;} {};
     #list {statments_for_neo4j} {add} 
     {
         MATCH (a:Player)-[r:located_at]->(b:Room) 
@@ -381,6 +382,7 @@
 {
     #variable input {%1};
     #replace {input} {'} {};
+    #replace {input} {\\;} {};
     #list {statments_for_neo4j} {add} 
     {
         MATCH (a:Player)-[r:located_at]->(b:Room) 
@@ -428,6 +430,7 @@
 {
     #variable input {%1};
     #replace {input} {'} {};
+    #replace {input} {\\;} {};
     #variable {temp_listed_statement} 
     {
         MATCH (c:Player)-[located_at]->(a:Room) -[r:direction {unconfirmed: 'true'}]-> () 
