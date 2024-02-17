@@ -170,7 +170,7 @@
     }
 }
 
-#action {You determine that you are {(at|in).*?}.}
+#action {You determine that you are {(at|in|around).*?}.}
 {
     #variable full_string_of_determined_location {%0};
     #regex {%0} {you are at the coordinates {.*?} in}

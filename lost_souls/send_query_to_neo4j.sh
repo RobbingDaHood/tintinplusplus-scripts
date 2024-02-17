@@ -1,22 +1,27 @@
 #!/bin/bash
 
+exec 3>&1 1>/dev/null 2>/dev/null
+
 container_name="LostSoulNeo4j"
-while [ "$( docker container inspect -f '{{.State.Running}}' $container_name )" = "false" ]
+docker start $container_name || docker run \
+--publish=7474:7474 --publish=7687:7687 \
+--volume=$HOME/neo4j/data:/data \
+--env=NEO4J_AUTH=none \
+--name=$container_name \
+-e NEO4J_apoc_export_file_enabled=true \
+-e NEO4J_apoc_import_file_enabled=true \
+-e NEO4J_apoc_import_file_use__neo4j__config=true \
+-e NEO4J_PLUGINS='["apoc", "graph-data-science"]' \
+-d \
+neo4j 
+
+CONTAINER_ID=$(docker ps --all --filter name=$container_name --format="{{.ID}}" | head -n 1) 
+CONTAINER_STATUS=$(docker inspect --format "{{json .State.Status }}" $CONTAINER_ID)
+until [ $CONTAINER_STATUS == '"running"' ]
 do
-    docker start $container_name || docker run \
-    --publish=7474:7474 --publish=7687:7687 \
-    --volume=$HOME/neo4j/data:/data \
-    --env=NEO4J_AUTH=none \
-    --name=$container_name \
-    -e NEO4J_apoc_export_file_enabled=true \
-    -e NEO4J_apoc_import_file_enabled=true \
-    -e NEO4J_apoc_import_file_use__neo4j__config=true \
-    -e NEO4J_PLUGINS=\[\"apoc\"\] \
-    -d \
-    neo4j \
-    2> /dev/null \
-    1> /dev/null 
     sleep 2
+    CONTAINER_ID=$(docker ps --all --quiet --filter name=$container_name --format="{{.ID}}" | head -n 1)
+    CONTAINER_STATUS=$(docker inspect --format "{{json .State.Status }}" $CONTAINER_ID)
 done
 
 function join_by {
@@ -33,10 +38,13 @@ output="$(curl -X POST -H Accept:application/json -H Content-Type:application/js
 errorsPresent='"errors":[]'
 if [[ $output == *"$errorsPresent"* ]]
 then
-  echo "SUCCESS"
+  echo "SUCCESS" >&3
 else
-  echo "ERRORS"
+  echo "ERRORS" >&3
+  date >> logs/errors.log
+  echo "$body" >> logs/errors.log
+  echo "$output" >> logs/errors.log
 fi
 
-echo "$output"
-echo "$body"
+echo "$output" >&3
+echo "$body" >&3

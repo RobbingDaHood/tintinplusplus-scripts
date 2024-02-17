@@ -1,0 +1,31 @@
+CALL gds.graph.drop('shortestPathGraph') YIELD graphName;
+
+CALL gds.graph.project(
+  'shortestPathGraph',
+  'Room',
+  'direction'
+); 
+
+MATCH (:Player)-[:located_at]->(:Room)-[r:roomdescription]->()
+WITH r
+MATCH (source:Room)-[r1:roomdescription]->()
+WHERE r.desc = r1.desc
+WITH source
+MATCH (target:Room {areaname: 'Losthaven'})
+CALL gds.shortestPath.dijkstra.stream(
+  'shortestPathGrap',
+  {
+    sourceNode: source,
+    targetNode: target
+  }
+)
+YIELD path, nodeIds, totalCost
+return [nodeId IN gds.util.asNodes(nodeIds) | nodeId ] AS nodeNames, totalCost
+ORDER BY totalCost ASC
+LIMIT 1
+
+
+
+# Get the path
+https://www.reddit.com/r/Neo4j/comments/1at52g7/get_list_of_relation_property_values_form/
+
