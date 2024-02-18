@@ -1,0 +1,2 @@
+Stillwater: go 7e, 3se, in, 3e, n
+    Back: go s, 3w, out, 3nw, 7w

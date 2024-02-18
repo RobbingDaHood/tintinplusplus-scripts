@@ -1,3 +1,10 @@
+#variable bottom_bar_height {7};
+#variable right_column_start_line {-40};
+#math right_bar_left_start_column {$right_column_start_line + 2};
+#variable right_bar_padding_configuration {%};
+#cat right_bar_padding_configuration {$right_bar_left_start_column};
+#cat right_bar_padding_configuration {s};
+
 #ALIAS {reload_configs}
 {
     #kill; 
@@ -162,6 +169,9 @@
         #if {$state_room_desription_detailed}
         {
             determine location;
+            trigger_show_attacks;
+            listen_vitals;
+            listen_hunger_thirst_intoxication;
         };
     };
     #else
@@ -170,21 +180,30 @@
     }
 }
 
+#gag {You peer at your surroundings and your oaken compass.};
 #action {You determine that you are {(at|in|around).*?}.}
 {
     #variable full_string_of_determined_location {%0};
-    #regex {%0} {you are at the coordinates {.*?} in}
-    {
-        add_local_coordinate_to_neo4j &1;
-    };
+    #variable current_area_name {No current area name};
     #regex {%0} {you are {.*?}in {.*?}{\.|,}}
     {
+        #variable current_area_name {&2};
         add_areaname_to_neo4j &2;
+    };
+    #regex {%0} {you are at the coordinates {.*?} in}
+    {
+        #cat current_area_name {(L: &1)};
+        add_local_coordinate_to_neo4j &1;
     };
     #regex {%0} {you are {.*?}at global coordinates {.*?}.}
     {
+        #cat current_area_name {(G: &2)};
         add_global_coordinate_to_neo4j &2;
     };
+    
+    #format {current_area_name_formatted} {$right_bar_padding_configuration} {$current_area_name};
+    #math line_to_print {-$bottom_bar_height};
+    #showme {$current_area_name_formatted} {$line_to_print} {2};
 };
 
 #alias {listen_to_room_description}
@@ -198,6 +217,44 @@
             #unaction {{.+}};
         };
     };
+};
+
+#alias {listen_vitals}
+{
+    #substitute {[ Head:{\s+\d+(\.\d+)?\s+}Chest:{.*}} {};
+    #action {[ Head: {\d+(\.\d+)?}  Chest:{.*}}
+    {
+        #variable fetched_vitals {%%0};
+        #replace {fetched_vitals} {{\s+}} { };
+        #replace {fetched_vitals} {[ } {};
+        #replace {fetched_vitals} { ]} {};
+        #replace {fetched_vitals} { } {:};
+        #replace {fetched_vitals} {{:+}} {:};
+        #math line_to_print {-$bottom_bar_height + 1};
+        #showme {$fetched_vitals} {$line_to_print} {2};
+        #unaction {{[ Head: {\d+(\.\d+)?}  Chest: {\d+(\.\d+)?}}};
+        #unsubstitute {[ Head: {\d+(\.\d+)?}  Chest: {\d+(\.\d+)?}{.*}};
+    };
+    show vitals;
+};
+
+#alias {listen_hunger_thirst_intoxication}
+{
+    #nop {#substitute {^You are {.*?}.} {};};
+    #list all_body_stats clear;
+    #action {You are {.*?}.}
+    {
+        #list all_body_stats add {%%1};
+        #list all_body_stats size all_body_stats_size;
+        #if {$all_body_stats_size > 2}
+        {
+            #math line_to_print {-$bottom_bar_height + 2};
+            #showme {$all_body_stats[]} {$line_to_print} {2};
+            #unsubstitute {^You are {.*?}.} {};
+            #unaction {You are {.*?}.};
+        };
+    };
+    show thirst, hunger, intoxication;
 };
 
 #alias {listen_roomname_and_directions}
@@ -495,9 +552,131 @@
     #variable {statments_for_neo4j} {};
 };
 
+#alias {summon_warbreaker_sword}
+{
+    will a shadow of Auldirfeng to appear in my grasp;
+    will my starshadow blade to summon a protective aura;
+};
+
+#alias {start_aura}
+{
+    will my starshadow blade to summon a protective aura;
+};
+
+#alias {stop_aura}
+{
+    will my starshadow aura to dissipate;
+};
+
+#alias {trigger_show_attacks} 
+{
+    #variable listen_for_table_name {show_attacks_table};
+    #variable listen_for_table_trigger_alias {show_attacks_alias};
+    listen_for_table;
+    show attacks;
+};
+
+#alias {show_attacks_alias} 
+{
+    #variable header_lines_count {4};
+    #variable show_attacks_table_length {&show_attacks_table[]};
+    #math show_attacks_table_length {$show_attacks_table_length - 1};
+    
+    #variable line_to_write_on {$bottom_bar_height};
+    #math line_to_write_on {- $show_attacks_table_length + 1};
+    #loop $header_lines_count $show_attacks_table_length line_number 
+    {
+        #variable {show_attacks_table_line_content} {$show_attacks_table[$line_number]};
+        #regex {$show_attacks_table_line_content} {| {[^0-9]+?} {[0-9]+.*}} 
+        {
+            #format {text_formatted} {$right_bar_padding_configuration} {&1};
+            #showme {$text_formatted} {$line_to_write_on} {$right_column_start_line};
+            #math line_to_write_on {$line_to_write_on + 1};
+        };
+    };
+};
+
+#alias {listen_for_table}
+{
+    #substitute {/---{.*?}---\\} {};
+    #substitute {| {.*?} |} {};
+    #substitute {>{[-]+}<} {};
+    #substitute {\\---{.*?}---/} {};
+
+    #list {$listen_for_table_name} clear;
+    #action {/---{.*?}---\\} 
+    {
+        #list {$listen_for_table_name} add {%%0};
+    };
+    #action {| {.*?} |} 
+    {
+        #list {$listen_for_table_name} add {%%0};
+    };
+    #action {>{[-]+}<} 
+    {
+        #list {$listen_for_table_name} add {%%0};
+    };
+    #action {\---{.*?}---/}
+    {
+        #list {$listen_for_table_name} add {%%0};
+        #unaction {/---{.*?}---\\};
+        #unaction {| {.*?} |};
+        #unaction {>{[-]+}<};
+        #unaction {\---{.*?}---/};
+        #unsubstitute {/---{.*?}---\\};
+        #unsubstitute {| {.*?} |};
+        #unsubstitute {>{[-]+}<};
+        #delay {0.1} {#unsubstitute {\\---{.*?}---/};};
+        $listen_for_table_trigger_alias;
+    };
+};
+
+#alias {train_everything_from {.*}}
+{
+    #variable trainer_name {%1};
+    say %1, what skills do you train?;
+    #action {{.*?} says, "I can provide instruction in {.*?}." to you.}
+    {
+        #variable all_skills {%%2};
+        #list all_skills explode {, };
+        #unaction {{.*?} says, "I can provide instruction in {.*?}." to you.};
+        setup_train_everything_ticker;
+    };
+}
+
+#alias {setup_train_everything_ticker}
+{
+    #list trained_skills clear;
+    #ticker {train_everything_ticker} 
+    {
+        #list all_skills size {train_everything_size};
+        #if {$train_everything_size > 0}
+        {
+            #list all_skills get 1 {next_skill};
+            say $trainer_name, train me in $next_skill;
+            #list all_skills delete 1;
+            #action {haggle for a bit}
+            {
+                #list trained_skills add {$next_skill};
+            };
+        };
+        #else 
+        {
+            #showme {DONE TRAINING! Trained (call train_trained to train them again): $trained_skills[]};
+            #unticker {train_everything_ticker};
+        };
+    } {2};
+};
+
+#alias {train_trained}
+{
+    #variable all_skills {$trained_skills};
+    setup_train_everything_ticker;
+};
+
 setup_all_paths;
 #READ {ls_login.tin};
-#split;
+#split 0 $bottom_bar_height 0 0 1;
 setup_logs;
 #config {packet patch} 0.2;
 listen_roomname_and_directions;
