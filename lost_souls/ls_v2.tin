@@ -631,15 +631,54 @@
     };
 };
 
+#alias {teach_everything_from {.*}}
+{
+    #list ask_for_training clear; 
+    #variable trainer_name {%1};
+    say %1, what do you teach?;
+    say %1, what can you teach?;
+    #action {{.*?} says, {$ |"}I can provide instruction in {.*?}.{ $|"} to you.}
+    {
+        #variable all_skills {%%3};
+        #list all_skills explode {, };
+        #foreach {$all_skills[]} {next_skill}
+        {
+            #regex {$next_skill} {{.*?} and {.*}} 
+            {
+                #list ask_for_training add {say $trainer_name, teach me &1;}; 
+                #list ask_for_training add {say $trainer_name, teach me &2;}; 
+            }
+            {
+                #list ask_for_training add {say $trainer_name, teach me $next_skill;}; 
+            };
+        };
+        #unaction {{.*?} says, {$ |"}I can provide instruction in {.*?}.{ $|"} to you.};
+        setup_train_everything_ticker;
+    };
+}
+
 #alias {train_everything_from {.*}}
 {
+    #list ask_for_training clear; 
     #variable trainer_name {%1};
     say %1, what skills do you train?;
-    #action {{.*?} says, "I can provide instruction in {.*?}." to you.}
+    #action {{.*?} says, {\\\| |"}I can provide instruction in {.*?}.{ \|\/|"} to you.}
     {
-        #variable all_skills {%%2};
+        #variable all_skills {%%3};
         #list all_skills explode {, };
-        #unaction {{.*?} says, "I can provide instruction in {.*?}." to you.};
+        #list all_skills explode { and };
+        #foreach {$all_skills[]} {next_skill}
+        {
+            #regex {$next_skill} {{.*?} and {.*}} 
+            {
+                #list ask_for_training add {say $trainer_name, train me in &1;}; 
+                #list ask_for_training add {say $trainer_name, train me in &2;}; 
+            }
+            {
+                #list ask_for_training add {say $trainer_name, train me in $next_skill;}; 
+            };
+        };
+        #unaction {{.*?} says, {\\\| |"}I can provide instruction in {.*?}.{ \|\/|"} to you.};
         setup_train_everything_ticker;
     };
 }
@@ -649,12 +688,12 @@
     #list trained_skills clear;
     #ticker {train_everything_ticker} 
     {
-        #list all_skills size {train_everything_size};
+        #list ask_for_training size {train_everything_size};
         #if {$train_everything_size > 0}
         {
-            #list all_skills get 1 {next_skill};
-            say $trainer_name, train me in $next_skill;
-            #list all_skills delete 1;
+            #list ask_for_training get 1 {next_skill};
+            $next_skill;
+            #list ask_for_training delete 1;
             #action {haggle for a bit}
             {
                 #list trained_skills add {$next_skill};
@@ -670,7 +709,7 @@
 
 #alias {train_trained}
 {
-    #variable all_skills {$trained_skills};
+    #variable ask_for_training {$trained_skills};
     setup_train_everything_ticker;
 };
 
