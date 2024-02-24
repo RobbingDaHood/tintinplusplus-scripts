@@ -33,7 +33,16 @@ function join_by {
 
 body="$(printf '{"statements":[{"statement":"%s"}]}' "$(join_by '"}, { "statement": "' "$@")")"
 # echo $body
+start_nanoseconds=$(date +%s%3N)
 output="$(curl -X POST -H Accept:application/json -H Content-Type:application/json -u neo4j:testneo4j http://localhost:7474/db/neo4j/tx/commit -d "$body" 2> /dev/null)"
+end_nanoseconds=$(date +%s%3N)
+diff=$(($end_nanoseconds-$start_nanoseconds))
+
+if [ $diff -ge 500 ]; then 
+    date >> logs/timed_send_query.log
+    echo $diff >> logs/timed_send_query.log
+    echo "$body" >> logs/timed_send_query.log
+fi
 
 errorsPresent='"errors":[]'
 if [[ $output == *"$errorsPresent"* ]]

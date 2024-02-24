@@ -181,6 +181,7 @@
 }
 
 #gag {You peer at your surroundings and your oaken compass.};
+#gag {You determine that you are {(at|in|around).*?}.};
 #action {You determine that you are {(at|in|around).*?}.}
 {
     #variable full_string_of_determined_location {%0};
@@ -221,7 +222,7 @@
 
 #alias {listen_vitals}
 {
-    #substitute {[ Head:{\s+\d+(\.\d+)?\s+}Chest:{.*}} {};
+    #gag {[ Head:{\s+\d+(\.\d+)?\s+}Chest:{.*}};
     #action {[ Head: {\d+(\.\d+)?}  Chest:{.*}}
     {
         #variable fetched_vitals {%%0};
@@ -231,16 +232,17 @@
         #replace {fetched_vitals} { } {:};
         #replace {fetched_vitals} {{:+}} {:};
         #math line_to_print {-$bottom_bar_height + 1};
+        #format {fetched_vitals} {%-129s} {$fetched_vitals};
         #showme {$fetched_vitals} {$line_to_print} {2};
-        #unaction {{[ Head: {\d+(\.\d+)?}  Chest: {\d+(\.\d+)?}}};
-        #unsubstitute {[ Head: {\d+(\.\d+)?}  Chest: {\d+(\.\d+)?}{.*}};
+        #unaction {[ Head:{\s+\d+(\.\d+)?\s+}Chest:{.*}};
+        #delay {0.1} {#ungag {[ Head:{\s+\d+(\.\d+)?\s+}Chest:{.*}};};
     };
     show vitals;
 };
 
 #alias {listen_hunger_thirst_intoxication}
 {
-    #nop {#substitute {^You are {.*?}.} {};};
+    #gag {^You are {.*?}.};
     #list all_body_stats clear;
     #action {You are {.*?}.}
     {
@@ -249,8 +251,9 @@
         #if {$all_body_stats_size > 2}
         {
             #math line_to_print {-$bottom_bar_height + 2};
+            #format {all_body_stats} {%-240s} {$all_body_stats};
             #showme {$all_body_stats[]} {$line_to_print} {2};
-            #unsubstitute {^You are {.*?}.} {};
+            #delay {0.1} {#ungag {^You are {.*?}.};};
             #unaction {You are {.*?}.};
         };
     };
@@ -598,10 +601,10 @@
 
 #alias {listen_for_table}
 {
-    #substitute {/---{.*?}---\\} {};
-    #substitute {| {.*?} |} {};
-    #substitute {>{[-]+}<} {};
-    #substitute {\\---{.*?}---/} {};
+    #gag {/---{.*?}---\\};
+    #gag {| {.*?} |};
+    #gag {>{[-]+}<};
+    #gag {\\---{.*?}---/};
 
     #list {$listen_for_table_name} clear;
     #action {/---{.*?}---\\} 
@@ -623,10 +626,10 @@
         #unaction {| {.*?} |};
         #unaction {>{[-]+}<};
         #unaction {\---{.*?}---/};
-        #unsubstitute {/---{.*?}---\\};
-        #unsubstitute {| {.*?} |};
-        #unsubstitute {>{[-]+}<};
-        #delay {0.1} {#unsubstitute {\\---{.*?}---/};};
+        #delay {0.1} {#ungag {/---{.*?}---\\};};
+        #delay {0.1} {#ungag {| {.*?} |};};
+        #delay {0.1} {#ungag {>{[-]+}<};};
+        #delay {0.1} {#ungag {\\---{.*?}---/};};
         $listen_for_table_trigger_alias;
     };
 };
@@ -636,23 +639,28 @@
     #list ask_for_training clear; 
     #variable trainer_name {%1};
     say %1, what do you teach?;
+    say %1, what will you teach me?;
     say %1, what can you teach?;
-    #action {{.*?} says, {$ |"}I can provide instruction in {.*?}.{ $|"} to you.}
+    say %1, what skills do you teach?;
+    #action {{.*?} {states|says}, {--> |$ |"}I can provide instruction in {.*?}.{ <--| $|"} to you}
     {
-        #variable all_skills {%%3};
+        #variable all_skills {%%4};
         #list all_skills explode {, };
         #foreach {$all_skills[]} {next_skill}
         {
-            #regex {$next_skill} {{.*?} and {.*}} 
+            #regex {$next_skill} {and {.*}} 
             {
-                #list ask_for_training add {say $trainer_name, teach me &1;}; 
-                #list ask_for_training add {say $trainer_name, teach me &2;}; 
+                #list ask_for_training add {say $trainer_name, please teach me &1;}; 
+                #showme {Second skill is &2 :: &1 :: &3};
+                #variable second_skill &2;
+                #replace second_skill {and } {};
+                #list ask_for_training add {say $trainer_name, please teach me $second_skill;}; 
             }
             {
-                #list ask_for_training add {say $trainer_name, teach me $next_skill;}; 
+                #list ask_for_training add {say $trainer_name, please teach me $next_skill;}; 
             };
         };
-        #unaction {{.*?} says, {$ |"}I can provide instruction in {.*?}.{ $|"} to you.};
+        #unaction {{.*?} {states|says}, {--> |$ |"}I can provide instruction in {.*?}.{ <--| $|"} to you};
         setup_train_everything_ticker;
     };
 }
@@ -662,23 +670,25 @@
     #list ask_for_training clear; 
     #variable trainer_name {%1};
     say %1, what skills do you train?;
-    #action {{.*?} says, {\\\| |"}I can provide instruction in {.*?}.{ \|\/|"} to you.}
+    #action {{.*?} {states|says}, {--> |\\\| |"}I can provide instruction in {.*?}.{ <--| \|\/|"} to you}
     {
-        #variable all_skills {%%3};
+        #variable all_skills {%%4};
         #list all_skills explode {, };
-        #list all_skills explode { and };
         #foreach {$all_skills[]} {next_skill}
         {
-            #regex {$next_skill} {{.*?} and {.*}} 
+            #regex {$next_skill} {and {.*}} 
             {
                 #list ask_for_training add {say $trainer_name, train me in &1;}; 
-                #list ask_for_training add {say $trainer_name, train me in &2;}; 
+                #showme {Second skill is &2 :: &1 :: &3};
+                #variable second_skill &2;
+                #replace second_skill {and } {};
+                #list ask_for_training add {say $trainer_name, teach me $second_skill;}; 
             }
             {
                 #list ask_for_training add {say $trainer_name, train me in $next_skill;}; 
             };
         };
-        #unaction {{.*?} says, {\\\| |"}I can provide instruction in {.*?}.{ \|\/|"} to you.};
+        #unaction {{.*?} {states|says}, {--> |\\\| |"}I can provide instruction in {.*?}.{ <--| \|\/|"} to you};
         setup_train_everything_ticker;
     };
 }
@@ -717,6 +727,6 @@ setup_all_paths;
 #READ {ls_login.tin};
 #split 0 $bottom_bar_height 0 0 1;
 setup_logs;
-#config {packet patch} 0.2;
+#config {packet patch} 0.4;
 listen_roomname_and_directions;
 look;
