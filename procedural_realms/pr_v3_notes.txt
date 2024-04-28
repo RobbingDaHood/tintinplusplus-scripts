@@ -1,0 +1,61 @@
+# Setup neo4j 
+
+1. Copy some queries over
+    1. Just to check that it works and is usefull:
+    1. Goals:
+        1. Setup rooms and directions
+1. Setup instance farming 
+    1. As it works today
+1. Collect info on rooms
+1. Query shortest path to rooms
+1. Add travel notes. (Could be from "player" to locations)
+
+# Queries:
+
+1. Where can I find ressource x? 
+    1. The ressource gets farmed so likely I just need to find concentrations. 
+        1. Sorted list by distance could show concentration. 
+    1. The best is mines because I can rerun them and farm them very easy 
+        1. So if a ressource is found in instanced, then add them to a list and I can query that. Like how many times did we farm the place (unique area ids), and how many times did we find what we wanted. 
+    1. Ressource does not need to be named enemies, because their location is named in the quest. 
+1. [SOLVED] What are different units and plants dropping. 
+    1. And what type are they. 
+    1. Can use: almanac detail gelatinous
+1. Need to farm area and restart. 
+    1. Already implemented for instanced, but I can implement it in node for fun. 
+
+# Data structure 
+
+1. Room 
+    1. IGNORE: areaId starting with "battle"
+    1. Coordinate
+    1. Instanced 
+    1. Area
+    1. canEnter
+    1. doors?
+1. Relation 
+    1. Maybe just name of monster, harvestables: No duplicates. 
+        1. Almanac can find the monster/harvestable needed. 
+        1. Then I can search all rooms with those and find shortest paths to Player. 
+
+
+
+
+
+Sun Apr 28 02:51:29 PM CEST 2024
+
+I do not need to track movements 
+
+When I get a room update, then i move the pointer and update the map. 
+
+I can then have a update location command when i want to be sure. 
+
+
+Sun Apr 28 05:11:06 PM CEST 2024
+Newly created rooms could check if they can be connected to something known. But that can be quite cascading? 
+
+Hmmm... worst case it is 7 directions. 
+
+But I need to know if it were a new room or not. 
+
+Likely it is fine. A todo for the future.
