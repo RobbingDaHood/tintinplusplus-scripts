@@ -1,2 +1,7 @@
-Stillwater: go 7e, 3se, in, 3e, n
-    Back: go s, 3w, out, 3nw, 7w
+Stillwater: 
+go 7e, 3se, in, 3e, n
+Back: 
+go s, 3w, out, 3nw, 7w
+
+Berek to Stillwater
+go e, ne, n, 2e, 4s, 4e, 7e, 3se, in, 3e, n

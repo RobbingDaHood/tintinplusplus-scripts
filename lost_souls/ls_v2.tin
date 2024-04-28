@@ -232,7 +232,7 @@
         #replace {fetched_vitals} { } {:};
         #replace {fetched_vitals} {{:+}} {:};
         #math line_to_print {-$bottom_bar_height + 1};
-        #format {fetched_vitals} {%-129s} {$fetched_vitals};
+        #format {fetched_vitals} {%-180s} {$fetched_vitals};
         #showme {$fetched_vitals} {$line_to_print} {2};
         #unaction {[ Head:{\s+\d+(\.\d+)?\s+}Chest:{.*}};
         #delay {0.1} {#ungag {[ Head:{\s+\d+(\.\d+)?\s+}Chest:{.*}};};
@@ -251,7 +251,7 @@
         #if {$all_body_stats_size > 2}
         {
             #math line_to_print {-$bottom_bar_height + 2};
-            #format {all_body_stats} {%-240s} {$all_body_stats};
+            #format {all_body_stats} {%-120s} {$all_body_stats};
             #showme {$all_body_stats[]} {$line_to_print} {2};
             #delay {0.1} {#ungag {^You are {.*?}.};};
             #unaction {You are {.*?}.};
@@ -717,6 +717,8 @@
     } {2};
 };
 
+#highlight {Your starshadow blade glimmers with shadowy energy.} {orange};
+
 #alias {train_trained}
 {
     #variable ask_for_training {$trained_skills};
@@ -727,6 +729,6 @@ setup_all_paths;
 #READ {ls_login.tin};
 #split 0 $bottom_bar_height 0 0 1;
 setup_logs;
-#config {packet patch} 0.4;
+#config {packet patch} 0.6;
 listen_roomname_and_directions;
 look;

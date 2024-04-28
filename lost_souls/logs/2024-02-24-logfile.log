@@ -15093,3 +15093,892 @@
 2024-02-24-16:14:41> Your [1;37mstarshadow blade[0m glimmers with [1;30mshadow[0;36my [0;1;36menergy[0m.
 2024-02-24-16:14:42[0;37mshow vitals[0m
 2024-02-24-16:14:42[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.9[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m138.3[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m426/523[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m5.5/84.5[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m841[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:17:10> [0;37mstop rest[0m
+2024-02-24-16:17:10'rest' is not a valid stop syntax.  See 'help stop' for more information.
+2024-02-24-16:17:14> [0;37mstop resting[0m
+2024-02-24-16:17:14You stop resting.
+2024-02-24-16:17:14You feel a bit groggy, coming out of your resting state.
+2024-02-24-16:17:19> [0;37mshow effects[0m
+2024-02-24-16:17:19[1;35mYour willpower is being enhanced by your [0;35mviolet glyph[0;1;35m.[0m
+2024-02-24-16:17:19    [1;35mYour strength is being enhanced by your [0;31mred glyph[0;1;35m.[0m
+2024-02-24-16:17:19    [1;35mYour abilities in brawling, the ability to make a massive exertion, resilience, killer instinct, and antagonism are being enhanced by your [0;31mred glyph[0;1;35m.[0m
+2024-02-24-16:17:19    [1;35mYour abilities in courage are being enhanced by your [0;31mred glyph[0;1;35m.[0m
+2024-02-24-16:17:19    [1;35mYour abilities in wyrding and theology are being enhanced by your [0;35mviolet glyph[0;1;35m.[0m
+2024-02-24-16:17:19    [31mYour strength, vitality, and willpower are being degraded by loss of blood.[0m
+2024-02-24-16:17:19    [31mYou are moving at reduced speed from the effects of grogginess.[0m
+2024-02-24-16:17:24> [0;37mshow vitals[0m
+2024-02-24-16:17:24[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m138.1[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m452.6/520[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;33m12[0;1;34m ][0m
+2024-02-24-16:17:29> You feel less groggy.
+2024-02-24-16:17:35[0;37mshow vitals[0m
+2024-02-24-16:17:35[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m138.1[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m455.4/520[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:17:37> [0;37mlook[0m
+2024-02-24-16:17:37a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:17:37    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the east and west the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:17:37    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the north and south.  
+2024-02-24-16:17:37    You see a couple of [1;37mbone daggers[0m.  
+2024-02-24-16:17:37    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:17:37    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:17:43> [0;37ms[0m
+2024-02-24-16:17:44You walk southward.
+2024-02-24-16:17:44The [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me b[0;33mark[0;1;30ming spider[0m's mandibles [1;32mglances off the the left sleeve of your [0;1;30mparageos[0m.
+2024-02-24-16:17:44a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:17:44    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the east and west the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:17:44    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the north and south.  
+2024-02-24-16:17:44    You see a [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m.
+2024-02-24-16:17:44    You see a [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me b[0;33mark[0;1;30mi[0;33mng [0;1;30msp[0;33mide[0;1;30mr[0m.  
+2024-02-24-16:17:44    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:17:44    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:17:44> You are too occupied by combat to do that.
+2024-02-24-16:17:44> You are thoroughly quenched.
+2024-02-24-16:17:45> [1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m138.1[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m450.4/520[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m838.4/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:17:45The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m joins a [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbrown male barking spider[0m in battle against you.
+2024-02-24-16:17:46[0;37mperform starshadow healing[0m
+2024-02-24-16:17:46You raise your [1;37mstarshadow blade[0m and concentrate for a moment.
+2024-02-24-16:17:46You are not wounded.
+2024-02-24-16:17:47> [1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m138.1[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m450.4/520[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m838.4/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:17:47You attack the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33male barking spider[0m with your [1;37mstarshadow blade[0m, but it dodges.
+2024-02-24-16:17:47The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m stops resting.
+2024-02-24-16:17:47The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m opens her mouth wide, revealing her fangs, lunges for your body, but you deflect it with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:17:47The [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me b[0;33mark[0;1;30mi[0;33mng [0;1;30msp[0;33mide[0;1;30mr[0m opens its mouth wide, revealing its fangs, lunges for your body, but you deflect it with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:17:47The [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me b[0;33mark[0;1;30mi[0;33mng [0;1;30msp[0;33mide[0;1;30mr[0m releases a [1;32mcl[0;1;33mou[0;1;32md of n[0;1;33mox[0;1;32mious [0;1;33mga[0;1;32ms[0m at you with a loud barking sound and [1;32mpoisons your head, chest, and left leg slightly[0m, despite your attempt to dodge, though you resist the attack somewhat.
+2024-02-24-16:17:47You have been poisoned!
+2024-02-24-16:17:49[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m135.6/138.1[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.9/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0.1/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m450.4/520[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m833.9/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:17:49You attack the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33male barking spider[0m with your [1;37mstarshadow blade[0m, but it dodges.
+2024-02-24-16:17:49You swiftly lunge forward, thrusting your [1;37mstarshadow blade[0m towards the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me b[0;33mark[0;1;30mi[0;33mng spider[0m with a twisting motion and stab its left mid-hindleg and opisthosoma, despite its attempt to dodge.
+2024-02-24-16:17:49The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m spins a mass of [1;37mspidersilk webbing[0m from her opisthosoma at you, ensnaring you.
+2024-02-24-16:17:49The [1;37mspidersilk webbing[0m on you catches [31mf[0;1;31mi[0;1;33mr[0;1;31me[0m from your [32mherb-rol[0;33mled joint[0m.
+2024-02-24-16:17:49[31mF[0;1;31ml[0;1;33ma[0;1;31mm[0;31me[0m spreads rapidly through the [1;37mspidersilk webbing[0m on you, the entirety [31mbur[0;1;31mning[0;1;33m up in[0;1;31m mome[0;31mnts[0m.
+2024-02-24-16:17:49The [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me b[0;33mark[0;1;30mi[0;33mng [0;1;30msp[0;33mide[0;1;30mr[0m opens its mouth wide, revealing its fangs, lunges for your body, hitting you despite your attempt to deflect it with your [1;37msilvery steel target shield[0m, but its mouth glances off the the breastplate of your [1;33mparageos[0m.
+2024-02-24-16:17:49The [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med brown male barking spider[0m's mouth is thumped.
+2024-02-24-16:17:51[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m135.6/138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0.4/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.2/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0.1/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m457/520[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:17:51You feel sick.
+2024-02-24-16:17:51You attack the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33male barking spider[0m with your [1;37mstarshadow blade[0m, but it dodges.
+2024-02-24-16:17:51The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m opens her mouth wide, revealing her fangs, lunges for your body, hitting you despite your attempt to deflect her with your [1;37msilvery steel target shield[0m, but her mouth [1;30mfails to affect the the right boot of your [0;35mparageos[0m.
+2024-02-24-16:17:51A flash of fear passes through you.
+2024-02-24-16:17:51The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's mouth is thumped.
+2024-02-24-16:17:51The [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me b[0;33mark[0;1;30mi[0;33mng spider[0m attacks you with its mandibles, but you deflect it with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:17:51The [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me b[0;33mark[0;1;30mi[0;33mng [0;1;30msp[0;33mide[0;1;30mr[0m releases a [1;32mcl[0;1;33mou[0;1;32md of n[0;1;33mox[0;1;32mious [0;1;33mga[0;1;32ms[0m at you with a loud barking sound, hitting you despite your attempt to dodge, but it [1;32mglances off the the breastplate, the right sleeve, and the left sleeve of your [0;1;30mparageos[0m.
+2024-02-24-16:17:53[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m134.8/138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m2.9/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.3/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0.1/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m457/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m0.3/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m834.5/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:17:53You feel sick.
+2024-02-24-16:17:53The poison has worked itself out of your system.
+2024-02-24-16:17:53You attack the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33male barking spider[0m with your [1;37mstarshadow blade[0m, but it dodges.
+2024-02-24-16:17:53The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m [1;36mstabs your left leg[0m with her mandibles, despite your attempt to deflect it with your [1;37msilvery steel target shield[0m, though you resist the attack slightly.
+2024-02-24-16:17:53Your body goes numb.
+2024-02-24-16:17:53[31mYou feel yourself slowing down from the effects of entropy and water.[0m
+2024-02-24-16:17:53The [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me b[0;33mark[0;1;30mi[0;33mng [0;1;30msp[0;33mide[0;1;30mr[0m releases a [1;32mcl[0;1;33mou[0;1;32md of n[0;1;33mox[0;1;32mious [0;1;33mga[0;1;32ms[0m at you with a loud barking sound, hitting you despite your attempt to dodge, but it [1;32mglances off the the helm, the breastplate, the right sleeve, the left sleeve, the left legging, and the left boot of your [0;35mparageos[0m.
+2024-02-24-16:17:54[0;37mperform starshadow healing[0m
+2024-02-24-16:17:54You raise your [1;37mstarshadow blade[0m and concentrate for a moment.
+2024-02-24-16:17:54A [1;30mshimme[0;36mr[0;1;36mi[0;1;37mn[0;1;36mg [0;36mc[0;1;30mloud of [0;36me[0;1;36mn[0;1;37mergy[0m flows from your [1;37mstarshadow blade[0m and envelops you.
+2024-02-24-16:17:54[1;32mYour wounds heal.[0m
+2024-02-24-16:17:55> [1;34m[ [0;1;37mFear:[0;1;34m [0;1;32m2.2/118.4[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m407/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m1/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m825.2/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;33m19[0;1;34m ][0m
+2024-02-24-16:17:55The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m attacks you with her right foreleg, but you deflect it with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:17:55The [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me b[0;33mark[0;1;30ming spider[0m spins a mass of [1;37mspidersilk webbing[0m from its opisthosoma at you, ensnaring you.
+2024-02-24-16:17:55The [1;37mspidersilk webbing[0m on you catches [31mf[0;1;31mi[0;1;33mr[0;1;31me[0m from your [32mherb-rol[0;33mled joint[0m.
+2024-02-24-16:17:55[31mF[0;1;31ml[0;1;33ma[0;1;31mm[0;31me[0m spreads rapidly through the [1;37mspidersilk webbing[0m on you, the entirety [31mbur[0;1;31mning[0;1;33m up in[0;1;31m mome[0;31mnts[0m.
+2024-02-24-16:17:55You fail to deflect the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me b[0;33mark[0;1;30mi[0;33mng [0;1;30msp[0;33mide[0;1;30mr[0m's mandibles with your [1;37msilvery steel target shield[0m, but it [1;32mglances off the the breastplate of your [0;31mparageos[0m.
+2024-02-24-16:17:56Sensation returns to your body.
+2024-02-24-16:17:57[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m1.4/118.4[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m402/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m1.7/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m823.8/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;33m19[0;1;34m ][0m
+2024-02-24-16:17:57You poke the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me b[0;33marking spider[0m's opisthosoma with your [1;37mstarshadow blade[0m, despite its attempt to dodge.
+2024-02-24-16:17:57The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m attacks you with her left foreleg, but you deflect it with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:17:57The [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mmale barking spider[0m looks around frantically for someplace to flee.
+2024-02-24-16:17:57The [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me b[0;33mark[0;1;30mi[0;33mng spider[0m attacks you with its mandibles, but you deflect it with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:17:58[1;36mYou feel yourself moving faster as the effects of entropy and water fade.[0m
+2024-02-24-16:17:59[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0.5/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.2/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m402/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m2.4/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m820.4/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:17:59You attack the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33male barking spider[0m with your [1;37mstarshadow blade[0m, but it dodges.
+2024-02-24-16:17:59You attack the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me barking spider[0m with your [1;37msilvery steel target shield[0m, but it dodges.
+2024-02-24-16:17:59The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m [37mclaws your left leg[0m with her left foreleg, despite your attempt to deflect it with your [1;37msilvery steel target shield[0m, though you resist the attack slightly.
+2024-02-24-16:17:59The [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me b[0;33mark[0;1;30ming spider[0m spins a mass of [1;37mspidersilk webbing[0m from its opisthosoma at you, but you dodge.
+2024-02-24-16:18:01[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m2/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0.2/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m402/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m2.9/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m813/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:18:01You attack the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33male barking spider[0m with your [1;37mstarshadow blade[0m, but it dodges.
+2024-02-24-16:18:01The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m attacks you with her right foreleg, but you deflect it with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:18:01The [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me b[0;33mark[0;1;30mi[0;33mng [0;1;30msp[0;33mide[0;1;30mr[0m releases a [1;32mcl[0;1;33mou[0;1;32md of n[0;1;33mox[0;1;32mious [0;1;33mga[0;1;32ms[0m at you with a loud barking sound, hitting you despite your attempt to dodge, but it [1;32mglances off the the helm, the breastplate, the right sleeve, the right legging, and the right boot of your [0;1;31mparageos[0m.
+2024-02-24-16:18:03[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0.9/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.3/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0.1/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m402/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m2.8/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m808.7/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:18:03You attack the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33male barking spider[0m with your [1;37mstarshadow blade[0m, but it dodges.
+2024-02-24-16:18:03The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m attacks you with her right foreleg, but you deflect it with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:18:03The [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me b[0;33mark[0;1;30mi[0;33mng [0;1;30msp[0;33mide[0;1;30mr[0m releases a [1;32mcl[0;1;33mou[0;1;32md of n[0;1;33mox[0;1;32mious [0;1;33mga[0;1;32ms[0m at you with a loud barking sound, catches you at the edge of the cloud and [1;32mpoisons your chest, right arm, right hand, and legs slightly[0m, despite your attempt to dodge, though you resist the attack somewhat.
+2024-02-24-16:18:03You have been poisoned!
+2024-02-24-16:18:05[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0.3/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.3/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0.1/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m402/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m3.5/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m804.4/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:18:05The poison has worked itself out of your system.
+2024-02-24-16:18:05You attack the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33male barking spider[0m with your [1;37mstarshadow blade[0m, but it dodges.
+2024-02-24-16:18:05You swiftly lunge forward, thrusting your [1;37mstarshadow blade[0m towards the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me b[0;33mark[0;1;30ming spider[0m with a twisting motion and stab its left foreleg and thorax, despite its attempt to dodge.
+2024-02-24-16:18:05The [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown male barking spider[0m's left foreleg is no longer usable.
+2024-02-24-16:18:05The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m spins a mass of [1;37mspidersilk webbing[0m from her opisthosoma at you, ensnaring you.
+2024-02-24-16:18:05The [1;37mspidersilk webbing[0m on you catches [31mf[0;1;31mi[0;1;33mr[0;1;31me[0m from your [32mherb-rol[0;33mled joint[0m.
+2024-02-24-16:18:05[31mF[0;1;31ml[0;1;33ma[0;1;31mm[0;31me[0m spreads rapidly through the [1;37mspidersilk webbing[0m on you, the entirety [31mbur[0;1;31mning[0;1;33m up in[0;1;31m mome[0;31mnts[0m.
+2024-02-24-16:18:05The [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me b[0;33mark[0;1;30mi[0;33mng [0;1;30msp[0;33mide[0;1;30mr[0m releases a [1;32mcl[0;1;33mou[0;1;32md of n[0;1;33mox[0;1;32mious [0;1;33mga[0;1;32ms[0m at you with a loud barking sound, hitting you despite your attempt to dodge, but it [1;32mglances off the the breastplate and the left legging of your [0;1;33mparageos[0m.
+2024-02-24-16:18:07[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.3/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0.1/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m408.8/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m3.7/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m819.3/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:18:07You attack the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33male barking spider[0m with your [1;37mstarshadow blade[0m, but it dodges.
+2024-02-24-16:18:07The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m attacks you with her left foreleg, but you deflect it with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:18:07The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m attacks you with her right foreleg, but you deflect it with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:18:07The [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me b[0;33mark[0;1;30mi[0;33mng [0;1;30msp[0;33mide[0;1;30mr[0m releases a [1;32mcl[0;1;33mou[0;1;32md of n[0;1;33mox[0;1;32mious [0;1;33mga[0;1;32ms[0m at you with a loud barking sound and [1;32mpoisons your chest, arms, right hand, and right leg slightly[0m, despite your attempt to dodge, though you resist the attack somewhat.
+2024-02-24-16:18:07You have been poisoned!
+2024-02-24-16:18:08A [1;37mblast of light[0m explodes from your [1;37msilvery steel target shield[0m into the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33male barking spider[0m, [1;37mlighting it up[0m, despite its attempt to dodge.
+2024-02-24-16:18:08A [1;37mblast of light[0m explodes from your [1;37msilvery steel target shield[0m into the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's left mid-foreleg and thorax, [1;37mlighting them up[0m, despite her attempt to dodge, and she is affected somewhat severely by the attack.
+2024-02-24-16:18:09[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m137.4/138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.5/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0.1/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m388.6/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m3.7/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m814.8/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:18:09You attack the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33male barking spider[0m with your [1;37mstarshadow blade[0m, but it dodges.
+2024-02-24-16:18:09The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m opens her mouth wide, revealing her fangs, lunges for your body, but you deflect it with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:18:09The [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[[0;37mperform starshadow healing[0m
+2024-02-24-16:18:090;1;30me b[0;33mark[0;1;30mi[0;33mng [0;1;30msp[0;33mide[0;1;30mr[0m releases a [1;32mcl[0;1;33mou[0;1;32md of n[0;1;33mox[0;1;32mious [0;1;33mga[0;1;32ms[0m at you with a loud barking sound, hitting you despite your attempt to dodge, but it [1;32mglances off the the breastplate, the left sleeve, and the left gauntlet of your parageos[0m.
+2024-02-24-16:18:09Your starshadow blade does not possess enough energy to perform this maneuver.
+2024-02-24-16:18:10> A [1;37mblast of light[0m explodes from your [1;37msilvery steel target shield[0m toward the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med brown male barking spider[0m, but it dodges.
+2024-02-24-16:18:10A [1;37mblast of light[0m explodes from your [1;37msilvery steel target shield[0m into the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's head, thorax, opisthosoma, and right hindleg, [1;37mlighting them up[0m, despite her attempt to dodge, and she is affected somewhat severely by the attack.
+2024-02-24-16:18:11[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m136.4/138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0.2/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.5/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0.1/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m383.6/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m3.7/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m810.5/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:18:11You feel sick.
+2024-02-24-16:18:11You stab the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me b[0;33mark[0;1;30mi[0;33mng [0;1;30msp[0;33mider[0m's left foreleg, head, right mid-foreleg, and thorax with your [1;37mstarshadow blade[0m, despite its attempt to dodge.
+2024-02-24-16:18:11The [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbrown male barking spider[0m's left foreleg falls off.
+2024-02-24-16:18:11[31mThe [0;33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33male barking spider[0;31m has been mortally wounded and will die soon if not aided.[0m
+2024-02-24-16:18:11The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m attacks you with her right foreleg, but you deflect it with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:18:11The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m attacks you with her right foreleg, but you deflect it with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:18:11The [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med brown male barking spider[0m stops fleeing.
+2024-02-24-16:18:11Some [1;34mhemolymph[0m flows from the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med brown male barking spider[0m's thorax.
+2024-02-24-16:18:13[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m135.3/138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0.2/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.2/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0.1/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m383.6/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m3.8/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m807/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:18:13You skewer the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33male barking spider[0m's opisthosoma with your [1;37mstarshadow blade[0m.
+2024-02-24-16:18:13You attack the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m with your [1;37mstarshadow blade[0m, but she dodges.
+2024-02-24-16:18:13The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m opens her mouth wide, revealing her fangs, lunges for your body, but you deflect it with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:18:13Some [1;34mhemolymph[0m flows from the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbrown male barking spider[0m's thorax and opisthosoma.
+2024-02-24-16:18:15[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m134.4/138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.6/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0.2/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m383.6/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m3.9/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m800.7/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:18:15You slice the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me barking spider[0m's opisthosoma and left hindleg with your [1;37mstarshadow blade[0m.
+2024-02-24-16:18:15The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m attacks you with her mandibles, but you deflect it with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:18:15The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m attacks you with her right foreleg, but you deflect it with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:18:15Some [1;34mhemolymph[0m flows from the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbrown male barking spider[0m's thorax and opisthosoma.
+2024-02-24-16:18:17[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m133.4/138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0.2/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.2/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m383.6/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m3.8/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m797.2/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:18:17You poke the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me b[0;33marking spider[0m's thorax, left mid-hindleg, and opisthosoma with your [1;37mstarshadow blade[0m.
+2024-02-24-16:18:17The [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbrown male barking spider[0m's opisthosoma falls off.
+2024-02-24-16:18:17The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m flails about wildly.
+2024-02-24-16:18:17The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m opens her mouth wide, revealing her fangs, lunges for your body, but you deflect it with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:18:17The [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30mled brown male barking spider[0m dies.
+2024-02-24-16:18:17[1;37mYou have gained eight hundred sixty-four experience.[0m
+2024-02-24-16:18:18[0;37mperform starshadow healing[0m
+2024-02-24-16:18:18Your starshadow blade does not possess enough energy to perform this maneuver.
+2024-02-24-16:18:19> You feel your [33mparageos[0m vibrate, and a flash of heat passes through you.
+2024-02-24-16:18:19[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m135.0/138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.4/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0.1/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m382.6/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m4/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m793.9/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:18:19You perforate the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's right mid-hindleg with your [1;37mstarshadow blade[0m, despite her attempt to dodge.
+2024-02-24-16:18:19You swiftly lunge forward, thrusting your [1;37mstarshadow blade[0m towards the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m with a twisting motion and slash her left mid-foreleg, despite her attempt to dodge.
+2024-02-24-16:18:19The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m flails about wildly.
+2024-02-24-16:18:19The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m attacks you with her left foreleg, but you deflect it with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:18:19The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m attacks you with her right foreleg, but you deflect it with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:18:21[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m134.1/138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0.1/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.3/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m381.6/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m4.0/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m788.5/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:18:21The poison has worked itself out of your system.
+2024-02-24-16:18:21You stab the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's opisthosoma with your [1;37mstarshadow blade[0m, despite her attempt to dodge.
+2024-02-24-16:18:21The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m opens her mouth wide, revealing her fangs, lunges for your body, hitting you despite your attempt to deflect her with your [1;37msilvery steel target shield[0m, but her mouth [1;34mwashes a[0;1;36mcross th[0;1;37me the lef[0;1;36mt leggin[0;1;34mg of your [0;1;36mparageos[0;1;34m ha[0;1;36mrm[0;1;37mle[0;1;36mss[0;1;34mly[0m.
+2024-02-24-16:18:21The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's mouth is thumped.
+2024-02-24-16:18:23[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m134.2/138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.4/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0.1/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m389.3/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m4/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m806.3/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:18:23You attack the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m with your [1;37mstarshadow blade[0m, but she dodges.
+2024-02-24-16:18:23You attack the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m with your [1;37mstarshadow blade[0m, but she dodges.
+2024-02-24-16:18:23The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m opens her mouth wide, revealing her fangs, lunges for your body, but you deflect it with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:18:25Your [1;37mstarshadow blade[0m glimmers with [1;30mshadow[0;36my [0;1;36menergy[0m.
+2024-02-24-16:18:25[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m134.2/138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0.1/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.4/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0.2/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m389.3/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m4/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m800.0/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:18:25You attack the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m with your [1;37mstarshadow blade[0m, but she dodges.
+2024-02-24-16:18:25The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m spins a mass of [1;37mspidersilk webbing[0m from her opisthosoma at you, ensnaring you.
+2024-02-24-16:18:25The [1;37mspidersilk webbing[0m on you catches [31mf[0;1;31mi[0;1;33mr[0;1;31me[0m from your [32mherb-rol[0;33mled joint[0m.
+2024-02-24-16:18:25[31mF[0;1;31ml[0;1;33ma[0;1;31mm[0;31me[0m spreads rapidly through the [1;37mspidersilk webbing[0m on you, the entirety [31mbur[0;1;31mning[0;1;33m up in[0;1;31m mome[0;31mnts[0m.
+2024-02-24-16:18:25You fail to deflect the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's right foreleg with your [1;37msilvery steel target shield[0m, but it [37mtickles the the left sleeve and the left gauntlet of your [0;1;33mparageos[0;37m harmlessly[0m.
+2024-02-24-16:18:27[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m134.2/138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0.1/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.2/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m384.3/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m4/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m795.7/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:18:27You wallop the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's right mid-hindleg with your [1;37msilvery steel target shield[0m, despite her attempt to dodge.
+2024-02-24-16:18:27[1;32mThe [0;1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0;1;32m resists being stunned.[0m
+2024-02-24-16:18:27You fail to deflect the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's mandibles with your [1;37msilvery steel target shield[0m, and it connects reasonably well, but it [1;36mglances off the the breastplate of your [0;1;30mparageos[0m.
+2024-02-24-16:18:29[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m134.2/138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.3/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0.1/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m384.3/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m4.1/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m792.4/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:18:29You lacerate the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's left hindleg with your [1;37mstarshadow blade[0m, despite her attempt to dodge.
+2024-02-24-16:18:29You wallop the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's right foreleg and thorax with your [1;37msilvery steel target shield[0m, despite her attempt to dodge.
+2024-02-24-16:18:29The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m attacks you with her left foreleg, but you deflect it with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:18:29You fail to deflect the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's mandibles with your [1;37msilvery steel target shield[0m, but it [1;36mglances off the the left boot of your [0;31mparageos[0m.
+2024-02-24-16:18:31[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m134.2/138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.4/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0.2/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m384.3/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m4/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m785.9/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:18:31You swiftly lunge forward, thrusting your [1;37mstarshadow blade[0m towards the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m with a twisting motion and slash her right foreleg, despite her attempt to dodge.
+2024-02-24-16:18:31The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m attacks you with her left foreleg, but you deflect it with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:18:33[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m134.2/138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0.1/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m383.3/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m4.1/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m783.7/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:18:33You slice the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's thorax with your [1;37mstarshadow blade[0m, despite her attempt to dodge.
+2024-02-24-16:18:33The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m attacks you with her left foreleg, but you deflect it with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:18:33The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m attacks you with her right foreleg, but you deflect it with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:18:34[0;37mperform starshadow healing[0m
+2024-02-24-16:18:34You raise your [1;37mstarshadow blade[0m and concentrate for a moment.
+2024-02-24-16:18:34You have been the subject of a mending effect too recently to benefit from another one yet; you estimate the time remaining until another mending would be effective to be less than fifty seconds.
+2024-02-24-16:18:35> [1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m134.2/138.1[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.3/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0.1/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m383.3/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m4.1/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m780.2/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:18:35You slash the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's right mid-hindleg and opisthosoma with your [1;37mstarshadow blade[0m, despite her attempt to dodge.
+2024-02-24-16:18:35You crush the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's left hindleg brutally with your [1;37msilvery steel target shield[0m, despite her attempt to dodge.
+2024-02-24-16:18:35[1;32mThe [0;1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0;1;32m resists being stunned.[0m
+2024-02-24-16:18:35The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m looks around frantically for someplace to flee.
+2024-02-24-16:18:35The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m slams her head forward at you and pounds your left leg, despite your attempt to deflect it with your [1;37msilvery steel target shield[0m, though you resist the attack slightly.
+2024-02-24-16:18:37[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m134.2/138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.9/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0.2/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m383.3/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m4/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m773.8/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:18:37You attack the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m with your [1;37mstarshadow blade[0m, but she dodges.
+2024-02-24-16:18:37The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m [37mscratches your right leg[0m with her left foreleg, despite your attempt to deflect it with your [1;37msilvery steel target shield[0m, though you resist the attack slightly.
+2024-02-24-16:18:39[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m135/138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0.4/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m1.2/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0.1/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m391/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m4/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m791.7/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:18:39You find a weakness in the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's left hindleg.
+2024-02-24-16:18:39You connect indifferently and cleave the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's left hindleg with your [1;37mstarshadow blade[0m, despite her attempt to dodge.
+2024-02-24-16:18:39The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m attacks you with her right foreleg, but you deflect it with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:18:41[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m135/138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0.5/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.2/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m386/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m4.4/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m788.4/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:18:41You cleave the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's left foreleg with your [1;37mstarshadow blade[0m, despite her attempt to dodge.
+2024-02-24-16:18:41You swiftly lunge forward, thrusting your [1;37mstarshadow blade[0m towards the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m with a twisting motion and slash her opisthosoma, despite her attempt to dodge.
+2024-02-24-16:18:41The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m spins a mass of [1;37mspidersilk webbing[0m from her opisthosoma at you, ensnaring you.
+2024-02-24-16:18:41The [1;37mspidersilk webbing[0m on you catches [31mf[0;1;31mi[0;1;33mr[0;1;31me[0m from your [32mherb-rol[0;33mled joint[0m.
+2024-02-24-16:18:41[31mF[0;1;31ml[0;1;33ma[0;1;31mm[0;31me[0m spreads rapidly through the [1;37mspidersilk webbing[0m on you, the entirety [31mbur[0;1;31mning[0;1;33m up in[0;1;31m mome[0;31mnts[0m.
+2024-02-24-16:18:43[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m135/138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.2/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m385/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m4.8/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m782.3/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:18:43You perforate the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's thorax with your [1;37mstarshadow blade[0m, despite her attempt to dodge.
+2024-02-24-16:18:43You believe that the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m has found a weakness in your chest.
+2024-02-24-16:18:43The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m [37mclaws your chest[0m, despite your attempt to deflect it with your [1;37msilvery steel target shield[0m, though you resist the attack slightly.
+2024-02-24-16:18:45[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m128.0/138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.2/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m385/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m4.8/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m779/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:18:45You slash the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's right mid-hindleg with your [1;37mstarshadow blade[0m, despite her attempt to dodge.
+2024-02-24-16:18:45You poke the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's left mid-foreleg with your [1;37mstarshadow blade[0m, despite her attempt to dodge.
+2024-02-24-16:18:45You fail to deflect the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's left foreleg with your [1;37msilvery steel target shield[0m, but it [37mtickles the the right boot of your [0;32mparageos[0;37m harmlessly[0m.
+2024-02-24-16:18:47[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m128.0/138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.6/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0.3/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m385/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m4.8/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m772.7/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:18:47You skewer the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's left mid-foreleg with your [1;37mstarshadow blade[0m, despite her attempt to dodge.
+2024-02-24-16:18:47The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m attacks you with her mandibles, but you deflect it with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:18:49[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m128.0/138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0.2/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.3/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0.1/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m385/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m4.7/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m769.4/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:18:49You impale the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's opisthosoma with your [1;37mstarshadow blade[0m, despite her attempt to dodge.
+2024-02-24-16:18:49[31mThe [0;1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0;31m has been mortally wounded and will die soon if not aided.[0m
+2024-02-24-16:18:49Some [1;34mhemolymph[0m flows from the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's opisthosoma.
+2024-02-24-16:18:49The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m opens her mouth wide, revealing her fangs, lunges for your body, hitting you despite your attempt to deflect her with your [1;37msilvery steel target shield[0m, but her mouth glances off the the right boot of your [32mparageos[0m.
+2024-02-24-16:18:49The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's mouth is thumped.
+2024-02-24-16:18:50[0;37mperform starshadow healing[0m
+2024-02-24-16:18:50You raise your [1;37mstarshadow blade[0m and concentrate for a moment.
+2024-02-24-16:18:50You have been the subject of a mending effect too recently to benefit from another one yet; you estimate the time remaining until another mending would be effective to be less than fifty seconds.
+2024-02-24-16:18:51> [1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m128.0/138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.3/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0.1/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m385/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m4.9/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m766.1/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:18:51You cleave the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's opisthosoma with your [1;37mstarshadow blade[0m, despite her attempt to dodge.
+2024-02-24-16:18:51You attack the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m with your [1;37mstarshadow blade[0m, but she dodges.
+2024-02-24-16:18:51Some [1;34mhemolymph[0m flows from the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's opisthosoma.
+2024-02-24-16:18:51The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m attacks you with her left foreleg, but you deflect it with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:18:53[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m128.0/138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.6/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0.2/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m385/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m4.9/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m759.8/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:18:53You swiftly lunge forward, thrusting your [1;37mstarshadow blade[0m towards the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m with a twisting motion and slash her opisthosoma, despite her attempt to dodge.
+2024-02-24-16:18:53The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m stops fleeing.
+2024-02-24-16:18:53Some [1;34mhemolymph[0m flows from the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's opisthosoma.
+2024-02-24-16:18:53[0;37mshow limbs[0m
+2024-02-24-16:18:53[1;34m/----------------------------------------------------------------------------------------------------------------------------------------------------------- [0;1;37mLimb Status for Robbingdahood[0;1;34m -----------------------------------------------------------------------------------------------------------------------------------------------------------\[0m
+2024-02-24-16:18:53[1;34m|[0;0m Limb        State          Cur   Max  Size                                                                                                                                                                                                                                                                                                Equipment [0;1;34m|[0m
+2024-02-24-16:18:53[1;34m>-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------<[0m
+2024-02-24-16:18:53[1;34m|[0;1;37m [0;1;33mHead      [0;1;37m  [0;1;32mhealthy[0;1;37m       62.8  62.8  7.0%                                                                                                                                                                                                                                                                              [0;31mred adamantite chaos amulet[0;1;37m [0;1;34m|[0m
+2024-02-24-16:18:53[1;34m|[0;1;37m [0;1;33m          [0;1;37m                                                                                                                                                                                                                                                                                                                                 [0;33mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:18:53[1;34m|[0;1;37m [0;1;33mChest     [0;1;37m  [0;1;32mbarely hurt[0;1;37m  128.0 138.1 21.0%                                                                                                                                                                                                                                                                                                 [0;34mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:18:53[1;34m|[0;1;37m [0;1;33mRight Arm [0;1;37m  [0;1;32mhealthy[0;1;37m       62.8  62.8 11.0%                                                                                                                                                                                                                                                                                                 [0;1;36mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:18:53[1;34m|[0;1;37m [0;1;33mLeft Arm  [0;1;37m  [0;1;32mhealthy[0;1;37m       62.8  62.8 11.0%                                                                                                                                                                                                                                                                                                 [0;32mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:18:53[1;34m|[0;1;37m [0;1;33mRight Hand[0;1;37m  [0;1;32mhealthy[0;1;37m       25.1  25.1  4.0%                                                                                                                                                                                                                                                                                         starshadow blade [0;1;34m|[0m
+2024-02-24-16:18:53[1;34m|[0;1;37m [0;1;33m          [0;1;37m                                                                                                                                                                                                                                                                                                                                 [0;1;36mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:18:53[1;34m|[0;1;37m [0;1;33mLeft Hand [0;1;37m  [0;1;32mhealthy[0;1;37m       25.1  25.1  4.0%                                                                                                                                                                                                                                                                              silvery steel target shield [0;1;34m|[0m
+2024-02-24-16:18:53[1;34m|[0;1;37m [0;1;33m          [0;1;37m                                                                                                                                                                                                                                                                                                                                 [0;1;32mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:18:53[1;34m|[0;1;37m [0;1;33mRight Leg [0;1;37m  [0;1;32mbarely hurt[0;1;37m   91.7  94.2 16.0%                                                                                                                                                                                                                                                                                                 [0;31mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:18:53[1;34m|[0;1;37m [0;1;33mLeft Leg  [0;1;37m  [0;1;32mbarely hurt[0;1;37m   88.1  94.2 16.0%                                                                                                                                                                                                                                                                                                 [0;1;31mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:18:53[1;34m|[0;1;37m [0;1;33mRight Foot[0;1;37m  [0;1;32mhealthy[0;1;37m       31.4  31.4  5.0%                                                                                                                                                                                                                                                                                                 [0;32mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:18:53[1;34m|[0;1;37m [0;1;33mLeft Foot [0;1;37m  [0;1;32mhealthy[0;1;37m       31.4  31.4  5.0%                                                                                                                                                                                                                                                                                                 [0;32mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:18:53[1;34m\-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------/[0m
+2024-02-24-16:18:55> [1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m128.8/138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0.2/118.4[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m391.8/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m4.9/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m779.0/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:18:55You stab the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's right foreleg with your [1;37mstarshadow blade[0m.
+2024-02-24-16:18:55You crush the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's left mid-foreleg brutally with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:18:55Some [1;34mhemolymph[0m flows from the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's opisthosoma.
+2024-02-24-16:18:57[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m128.8/138.1[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.6/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0.2/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m386.8/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m5/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m772.8/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:18:57You slash the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's left mid-foreleg with your [1;37mstarshadow blade[0m.
+2024-02-24-16:18:57The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's left mid-foreleg is cleft through.
+2024-02-24-16:18:57Some [1;34mhemolymph[0m flows from the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's opisthosoma.
+2024-02-24-16:18:57[0;37mperform starshadow smite at spider[0m
+2024-02-24-16:18:58You brandish your [1;37mstarshadow blade[0m, and a [1;30mgout of [0;36mf[0;1;36mi[0;1;37mr[0;1;36me[0m surges from its [1;36mcyan adamantium runes[0m toward the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m and [1;30mbroils [0;36mh[0;1;36me[0;1;37mr [0;1;36mr[0;36mi[0;1;30mght hin[0;36mdleg[0m, and she is affected very severely by the attack.
+2024-02-24-16:18:59> [1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m128.8/138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0.2/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.1/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m385.8/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m5.0/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m768.7/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:18:59You slice the [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m's opisthosoma with your [1;37mstarshadow blade[0m.
+2024-02-24-16:18:59The [1;34mwater[0;1;36my fema[0;1;37mle gian[0;1;36mt ice s[0;1;34mpider[0m dies.
+2024-02-24-16:18:59[1;37mYou have gained one thousand three hundred seventy-three experience.[0m
+2024-02-24-16:19:02[0;37mlok[0m
+2024-02-24-16:19:03You don't know how to 'lok'.
+2024-02-24-16:19:05> [0;37mtreat me[0m
+2024-02-24-16:19:05You carefully treat your wounded chest.
+2024-02-24-16:19:05You carefully treat your wounded right leg.
+2024-02-24-16:19:05You carefully treat your wounded left leg.
+2024-02-24-16:19:06> [0;37mlook[0m
+2024-02-24-16:19:06a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:19:06    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the east and west the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:19:06    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the north and south.  
+2024-02-24-16:19:06    You see a [1;34mfresh[0;1;36m giant[0;1;37m ice sp[0;1;36mider c[0;1;34morpse[0m.
+2024-02-24-16:19:06    You see a [37mfresh mutilated barking spider corpse[0m.
+2024-02-24-16:19:06    You see a [37mfresh barking spider opisthosoma[0m.
+2024-02-24-16:19:06    You see a [37mfresh barking spider left foreleg[0m.  
+2024-02-24-16:19:06    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:19:06    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:19:09> [0;37mshow limbs[0m
+2024-02-24-16:19:09[1;34m/----------------------------------------------------------------------------------------------------------------------------------------------------------- [0;1;37mLimb Status for Robbingdahood[0;1;34m -----------------------------------------------------------------------------------------------------------------------------------------------------------\[0m
+2024-02-24-16:19:09[1;34m|[0;0m Limb        State          Cur   Max  Size                                                                                                                                                                                                                                                                                                Equipment [0;1;34m|[0m
+2024-02-24-16:19:09[1;34m>-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------<[0m
+2024-02-24-16:19:09[1;34m|[0;1;37m [0;1;33mHead      [0;1;37m  [0;1;32mhealthy[0;1;37m       62.8  62.8  7.0%                                                                                                                                                                                                                                                                                  [0;34madamantite chaos amulet[0;1;37m [0;1;34m|[0m
+2024-02-24-16:19:09[1;34m|[0;1;37m [0;1;33m          [0;1;37m                                                                                                                                                                                                                                                                                                                                 [0;1;33mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:19:09[1;34m|[0;1;37m [0;1;33mChest     [0;1;37m  [0;1;32mhealthy[0;1;37m      138.1 138.1 21.0%                                                                                                                                                                                                                                                                                                 [0;33mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:19:09[1;34m|[0;1;37m [0;1;33mRight Arm [0;1;37m  [0;1;32mhealthy[0;1;37m       62.8  62.8 11.0%                                                                                                                                                                                                                                                                                                 [0;1;30mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:19:09[1;34m|[0;1;37m [0;1;33mLeft Arm  [0;1;37m  [0;1;32mhealthy[0;1;37m       62.8  62.8 11.0%                                                                                                                                                                                                                                                                                                 [0;1;32mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:19:09[1;34m|[0;1;37m [0;1;33mRight Hand[0;1;37m  [0;1;32mhealthy[0;1;37m       25.1  25.1  4.0%                                                                                                                                                                                                                                                                                         starshadow blade [0;1;34m|[0m
+2024-02-24-16:19:09[1;34m|[0;1;37m [0;1;33m          [0;1;37m                                                                                                                                                                                                                                                                                                                                 [0;1;34mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:19:09[1;34m|[0;1;37m [0;1;33mLeft Hand [0;1;37m  [0;1;32mhealthy[0;1;37m       25.1  25.1  4.0%                                                                                                                                                                                                                                                                              silvery steel target shield [0;1;34m|[0m
+2024-02-24-16:19:09[1;34m|[0;1;37m [0;1;33m          [0;1;37m                                                                                                                                                                                                                                                                                                                                 [0;31mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:19:09[1;34m|[0;1;37m [0;1;33mRight Leg [0;1;37m  [0;1;32mhealthy[0;1;37m       94.2  94.2 16.0%                                                                                                                                                                                                                                                                                                 [0;1;33mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:19:09[1;34m|[0;1;37m [0;1;33mLeft Leg  [0;1;37m  [0;1;32mbarely hurt[0;1;37m   92.1  94.2 16.0%                                                                                                                                                                                                                                                                                                 [0;1;36mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:19:09[1;34m|[0;1;37m [0;1;33mRight Foot[0;1;37m  [0;1;32mhealthy[0;1;37m       31.4  31.4  5.0%                                                                                                                                                                                                                                                                                                 [0;1;31mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:19:09[1;34m|[0;1;37m [0;1;33mLeft Foot [0;1;37m  [0;1;32mhealthy[0;1;37m       31.4  31.4  5.0%                                                                                                                                                                                                                                                                                                 [0;35mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:19:09[1;34m\-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------/[0m
+2024-02-24-16:19:14> [0;37mshow vitals[0m
+2024-02-24-16:19:14[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m138.1[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m372.4/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m4.7/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m788/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:19:48> [0;37mreload_configs[0m
+2024-02-24-16:19:48a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:19:48    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the east and west the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:19:48    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the north and south.  
+2024-02-24-16:19:48    You see a [1;34mfresh[0;1;36m giant[0;1;37m ice sp[0;1;36mider c[0;1;34morpse[0m.
+2024-02-24-16:19:48    You see a [37mfresh mutilated barking spider corpse[0m.
+2024-02-24-16:19:48    You see a [37mfresh barking spider opisthosoma[0m.
+2024-02-24-16:19:48    You see a [37mfresh barking spider left foreleg[0m.  
+2024-02-24-16:19:48    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:19:48    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:19:51> Your [1;37mstarshadow blade[0m glimmers with [1;30mshadow[0;36my [0;1;36menergy[0m.
+2024-02-24-16:19:53[0;37mshow limbs[0m
+2024-02-24-16:19:53[1;34m/----------------------------------------------------------------------------------------------------------------------------------------------------------- [0;1;37mLimb Status for Robbingdahood[0;1;34m -----------------------------------------------------------------------------------------------------------------------------------------------------------\[0m
+2024-02-24-16:19:53[1;34m|[0;0m Limb        State      Cur   Max  Size                                                                                                                                                                                                                                                                                                    Equipment [0;1;34m|[0m
+2024-02-24-16:19:53[1;34m>-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------<[0m
+2024-02-24-16:19:53[1;34m|[0;1;37m [0;1;33mHead      [0;1;37m  [0;1;32mhealthy[0;1;37m   62.8  62.8  7.0%                                                                                                                                                                                                                                                                                  [0;31mred adamantite chaos amulet[0;1;37m [0;1;34m|[0m
+2024-02-24-16:19:53[1;34m|[0;1;37m [0;1;33m          [0;1;37m                                                                                                                                                                                                                                                                                                                                 [0;35mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:19:53[1;34m|[0;1;37m [0;1;33mChest     [0;1;37m  [0;1;32mhealthy[0;1;37m  138.1 138.1 21.0%                                                                                                                                                                                                                                                                                                     [0;1;36mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:19:53[1;34m|[0;1;37m [0;1;33mRight Arm [0;1;37m  [0;1;32mhealthy[0;1;37m   62.8  62.8 11.0%                                                                                                                                                                                                                                                                                                     [0;34mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:19:53[1;34m|[0;1;37m [0;1;33mLeft Arm  [0;1;37m  [0;1;32mhealthy[0;1;37m   62.8  62.8 11.0%                                                                                                                                                                                                                                                                                                     [0;1;30mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:19:53[1;34m|[0;1;37m [0;1;33mRight Hand[0;1;37m  [0;1;32mhealthy[0;1;37m   25.1  25.1  4.0%                                                                                                                                                                                                                                                                                             starshadow blade [0;1;34m|[0m
+2024-02-24-16:19:53[1;34m|[0;1;37m [0;1;33m          [0;1;37m                                                                                                                                                                                                                                                                                                                                 [0;1;32mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:19:53[1;34m|[0;1;37m [0;1;33mLeft Hand [0;1;37m  [0;1;32mhealthy[0;1;37m   25.1  25.1  4.0%                                                                                                                                                                                                                                                                                  silvery steel target shield [0;1;34m|[0m
+2024-02-24-16:19:53[1;34m|[0;1;37m [0;1;33m          [0;1;37m                                                                                                                                                                                                                                                                                                                                 [0;1;35mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:19:53[1;34m|[0;1;37m [0;1;33mRight Leg [0;1;37m  [0;1;32mhealthy[0;1;37m   94.2  94.2 16.0%                                                                                                                                                                                                                                                                                                     [0;1;35mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:19:53[1;34m|[0;1;37m [0;1;33mLeft Leg  [0;1;37m  [0;1;32mhealthy[0;1;37m   94.2  94.2 16.0%                                                                                                                                                                                                                                                                                                     [0;32mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:19:53[1;34m|[0;1;37m [0;1;33mRight Foot[0;1;37m  [0;1;32mhealthy[0;1;37m   31.4  31.4  5.0%                                                                                                                                                                                                                                                                                                     [0;31mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:19:53[1;34m|[0;1;37m [0;1;33mLeft Foot [0;1;37m  [0;1;32mhealthy[0;1;37m   31.4  31.4  5.0%                                                                                                                                                                                                                                                                                                     [0;33mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:19:53[1;34m\-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------/[0m
+2024-02-24-16:19:55> [0;37mshow vitals[0m
+2024-02-24-16:19:55[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m138.1[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m377.9/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m3.2/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m833.2/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:19:57> [0;37mlook[0m
+2024-02-24-16:19:58a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:19:58    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the east and west the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:19:58    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the north and south.  
+2024-02-24-16:19:58    You see a [1;34mfresh[0;1;36m giant[0;1;37m ice sp[0;1;36mider c[0;1;34morpse[0m.
+2024-02-24-16:19:58    You see a [37mfresh mutilated barking spider corpse[0m.
+2024-02-24-16:19:58    You see a [37mfresh barking spider opisthosoma[0m.
+2024-02-24-16:19:58    You see a [37mfresh barking spider left foreleg[0m.  
+2024-02-24-16:19:58    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:19:58    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:19:59> [0;37me[0m
+2024-02-24-16:19:59You try to go eastward, but you are too large to get through the overgrowth, by about three and three tenths dimins.
+2024-02-24-16:20:00> [0;37ms[0m
+2024-02-24-16:20:01You walk southward.
+2024-02-24-16:20:01a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:20:01    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the east and west the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:20:01    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the north and south.  
+2024-02-24-16:20:01    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:20:01    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:20:03> > > > > [0;37ms[0m
+2024-02-24-16:20:04> [0;37me[0m
+2024-02-24-16:20:05> You walk southward.
+2024-02-24-16:20:05a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:20:05    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the east and west the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:20:05    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the north and south.  
+2024-02-24-16:20:05    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:20:05    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:20:07> > > > You try to go eastward, but you are too large to get through the overgrowth, by about three and three tenths dimins.
+2024-02-24-16:20:11[0;37ms[0m
+2024-02-24-16:20:11[0mERROR: cannot map the into long direction! Mapper will not update![0m
+2024-02-24-16:20:11You walk into a [1;37msmall spidersilk web[0m toward the southward exit.
+2024-02-24-16:20:11The [1;37mspidersilk webbing[0m on you catches [31mf[0;1;31mi[0;1;33mr[0;1;31me[0m from your [32mherb-rol[0;33mled joint[0m.
+2024-02-24-16:20:11[31mF[0;1;31ml[0;1;33ma[0;1;31mm[0;31me[0m spreads rapidly through the [1;37mspidersilk webbing[0m on you, the entirety [31mbur[0;1;31mning[0;1;33m up in[0;1;31m mome[0;31mnts[0m.
+2024-02-24-16:20:11You walk southward.
+2024-02-24-16:20:11a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:20:11    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the south and west the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:20:11    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the north and east.  
+2024-02-24-16:20:11    You see a [33mbronze token[0m.  
+2024-02-24-16:20:11    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:20:11    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:20:13> > > > > A [33mbrown female spider[0m walks in from the west through the overgrowth.
+2024-02-24-16:20:17[0;37m[0m
+2024-02-24-16:20:17[0;37m[0m
+2024-02-24-16:20:17> [0;37m[0m
+2024-02-24-16:20:19> > The [33mbrown female spider[0m attacks you.
+2024-02-24-16:20:19The [33mbrown female spider[0m opens her mouth wide, revealing her fangs, lunges for your body, but you deflect it with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:20:21[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m138.1[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m370/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m2.3/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m838.8/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:20:21You find a weakness in the [33mbrown female spider[0m's thorax.
+2024-02-24-16:20:21You lacerate the [33mbrown female spider[0m with your [1;37mstarshadow blade[0m.
+2024-02-24-16:20:21The [33mbrown female spider[0m's right foreleg is sliced off.
+2024-02-24-16:20:21The [33mbrown female spider[0m's left foreleg is sliced off.
+2024-02-24-16:20:21The [33mbrown female spider[0m's head is sliced off.
+2024-02-24-16:20:21The [33mbrown female spider[0m's right mid-foreleg is sliced off.
+2024-02-24-16:20:21The [33mbrown female spider[0m's left mid-foreleg is sliced off.
+2024-02-24-16:20:21The [33mbrown female spider[0m's right mid-hindleg is sliced off.
+2024-02-24-16:20:21The [33mbrown female spider[0m's left mid-hindleg is sliced off.
+2024-02-24-16:20:21The [33mbrown female spider[0m's opisthosoma is sliced off.
+2024-02-24-16:20:21The [33mbrown female spider[0m's right hindleg is sliced off.
+2024-02-24-16:20:21The [33mbrown female spider[0m's left hindleg is sliced off.
+2024-02-24-16:20:21The [33mbrown female spider[0m dies.
+2024-02-24-16:20:26[0;37mtreat me[0m
+2024-02-24-16:20:26You require no medical attention.
+2024-02-24-16:20:28> [0;37mlook[0m
+2024-02-24-16:20:29a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:20:29    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the south and west the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:20:29    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the north and east.  
+2024-02-24-16:20:29    You see a [33mfresh mutilated spider corpse[0m.
+2024-02-24-16:20:29    You see a [33mfresh spider left hindleg[0m.
+2024-02-24-16:20:29    You see a [33mfresh spider right hindleg[0m.
+2024-02-24-16:20:29    You see a [33mfresh spider opisthosoma[0m.
+2024-02-24-16:20:29    You see a [33mfresh spider left mid-hindleg[0m.
+2024-02-24-16:20:29    You see a [33mfresh spider right mid-hindleg[0m.
+2024-02-24-16:20:29    You see a [33mfresh spider left mid-foreleg[0m.
+2024-02-24-16:20:29    You see a [33mfresh spider right mid-foreleg[0m.
+2024-02-24-16:20:29    You see a [33mfresh spider head[0m.
+2024-02-24-16:20:29    You see a [33mfresh spider left foreleg[0m.
+2024-02-24-16:20:29    You see a [33mfresh spider right foreleg[0m.
+2024-02-24-16:20:29    You see a [33mbronze token[0m.  
+2024-02-24-16:20:29    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:20:29    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:20:33> [0;37mlook token[0m
+2024-02-24-16:20:33This is a token made of [33mbronze[0m.  
+2024-02-24-16:20:33    It looks about a twentieth of a dimin across and less than a twentieth of a dimin tall.
+2024-02-24-16:20:39> [0;37mget token[0m
+2024-02-24-16:20:39You take the [33mbronze token[0m with your right hand.
+2024-02-24-16:20:48> [0;37mlook token through lens[0m
+2024-02-24-16:20:48You examine your [33mbronze token[0m through your [37mclear glass lens of insight[0m:
+2024-02-24-16:20:48
+2024-02-24-16:20:48This is a token made of [33mbronze[0m.  
+2024-02-24-16:20:48    It looks about a twentieth of a dimin across and less than a twentieth of a dimin tall.  It weighs very little.
+2024-02-24-16:20:48
+2024-02-24-16:20:48You feel knowledge of bronze tokens drift into your mind like a long-forgotten memory.
+2024-02-24-16:20:48Your [37mclear glass lens of insight[0m shatters into a fine dust.
+2024-02-24-16:20:48[1;31mYou are no longer keeping your [0;37mclear glass lens of insight[0;1;31m because it has been destroyed.[0m
+2024-02-24-16:20:54> [0;37mmemorize all[0m
+2024-02-24-16:20:54You commit the characteristics of bronze tokens to memory.
+2024-02-24-16:21:05> [0;37mhelp bronze token[0m
+2024-02-24-16:21:06No help is available on that topic.
+2024-02-24-16:21:09> [0;37minfo bronze token[0m
+2024-02-24-16:21:09Keeping the [33mbronze token[0m costs five keep points.  The [33mbronze token[0m was created by Starhound; the source code was last updated Fri Oct 08 19:03:38 2021.  The material bronze was created by Lost Souls; the source code was last updated Tue Mar 15 02:18:40 2016.
+2024-02-24-16:21:19> [0;37mexamine bronze token[0m
+2024-02-24-16:21:19This is a token made of [33mbronze[0m.  
+2024-02-24-16:21:19    It looks about a twentieth of a dimin across and less than a twentieth of a dimin tall.  It weighs very little.
+2024-02-24-16:21:33> [0;37mnewbie what can I use "bronze tokens" for? [0m
+2024-02-24-16:21:33    [1;32m#Neophyte Helper Robbingdahood#[0m "what can I use "bronze tokens" for?"
+2024-02-24-16:21:35> [0;37mlook[0m
+2024-02-24-16:21:35a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:21:35    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the south and west the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:21:35    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the north and east.  
+2024-02-24-16:21:35    You see a [33mfresh mutilated spider corpse[0m.
+2024-02-24-16:21:35    You see a [33mfresh spider left hindleg[0m.
+2024-02-24-16:21:35    You see a [33mfresh spider right hindleg[0m.
+2024-02-24-16:21:35    You see a [33mfresh spider opisthosoma[0m.
+2024-02-24-16:21:35    You see a [33mfresh spider left mid-hindleg[0m.
+2024-02-24-16:21:35    You see a [33mfresh spider right mid-hindleg[0m.
+2024-02-24-16:21:35    You see a [33mfresh spider left mid-foreleg[0m.
+2024-02-24-16:21:35    You see a [33mfresh spider right mid-foreleg[0m.
+2024-02-24-16:21:35    You see a [33mfresh spider head[0m.
+2024-02-24-16:21:35    You see a [33mfresh spider left foreleg[0m.
+2024-02-24-16:21:35    You see a [33mfresh spider right foreleg[0m.  
+2024-02-24-16:21:35    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:21:35    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:21:37> [0;37me[0m
+2024-02-24-16:21:38You walk eastward.
+2024-02-24-16:21:38a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:21:38    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the north and south the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:21:38    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the east and west.  
+2024-02-24-16:21:38    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:21:38    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:21:42> > > > > [0;37me[0m
+2024-02-24-16:21:43You walk eastward.
+2024-02-24-16:21:43a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:21:43    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the north and south the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:21:43    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the east and west.  
+2024-02-24-16:21:43    You see a [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me b[0;33mark[0;1;30mi[0;33mng [0;1;30msp[0;33mide[0;1;30mr[0m.  
+2024-02-24-16:21:43    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:21:43    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:21:47> > > > > [0;37mperform starshadow smite at spider[0m
+2024-02-24-16:21:47You brandish your [1;37mstarshadow blade[0m, and a [1;30mgout of [0;36mf[0;1;36mi[0;1;37mr[0;1;36me[0m surges from its [1;36mcyan adamantium runes[0m toward the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me b[0;33mark[0;1;30mi[0;33mng [0;1;30msp[0;33mide[0;1;30mr[0m and [1;30msinges [0;36mi[0;1;36mt[0;1;37ms [0;1;36mr[0;36mi[0;1;30mght for[0;36me[0;1;36ml[0;1;37meg, head, thorax, and opisthosoma[0m, despite its attempt to dodge.
+2024-02-24-16:21:47The [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me b[0;33mark[0;1;30mi[0;33mng spider[0m releases a [1;32mcl[0;1;33mou[0;1;32md of n[0;1;33mox[0;1;32mious [0;1;33mga[0;1;32ms[0m with a loud barking sound and leaps at you.
+2024-02-24-16:21:49> [1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m138.1[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m363.8/520[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m836.8/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:21:49You find a weakness in the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med brown male barking spider[0m's left mid-hindleg.
+2024-02-24-16:21:51[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m138.1[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m371.5/520[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:21:51You attack the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33male barking spider[0m with your [1;37mstarshadow blade[0m, but it dodges.
+2024-02-24-16:21:51The [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me b[0;33mark[0;1;30mi[0;33mng [0;1;30msp[0;33mide[0;1;30mr[0m releases a [1;32mcl[0;1;33mou[0;1;32md of n[0;1;33mox[0;1;32mious [0;1;33mga[0;1;32ms[0m at you with a loud barking sound, hitting you despite your attempt to dodge, but it [1;32mglances off the the breastplate, the left sleeve, the left gauntlet, and the right legging of your [0;1;36mparageos[0m.
+2024-02-24-16:21:53[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m138.1[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.3/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0.1/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m371.5/520[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m834.9/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:21:53You attack the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33male barking spider[0m with your [1;37mstarshadow blade[0m, but it dodges.
+2024-02-24-16:21:53You attack the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33male barking spider[0m with your [1;37mstarshadow blade[0m, but it dodges.
+2024-02-24-16:21:53The [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me b[0;33mark[0;1;30mi[0;33mng spider[0m attacks you with its mandibles, but you deflect it with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:21:53    [1;32m#Neophyte Helper Eithne#[0m "Hand them in to Hank in the sewers for credit to buy stuff from him."
+2024-02-24-16:21:55[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.4/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0.2/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m371.5/520[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m828.6/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:21:55You swiftly lunge forward, thrusting your [1;37mstarshadow blade[0m towards the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me b[0;33mark[0;1;30mi[0;33mng spider[0m with a twisting motion and stab its opisthosoma and left hindleg, despite its attempt to dodge.
+2024-02-24-16:21:55[31mThe [0;33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33male barking spider[0;31m has been mortally wounded and will die soon if not aided.[0m
+2024-02-24-16:21:55The [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown male barking spider[0m's left hindleg is no longer usable.
+2024-02-24-16:21:55Some [1;34mhemolymph[0m flows from the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med brown male barking spider[0m's opisthosoma.
+2024-02-24-16:21:56    [1;32m#Neophyte Helper Edgar#[0m "bring those to Hank in LH sewers, he has a store that you can only get items via 'credits'"
+2024-02-24-16:21:57[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0.1/118.4[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m365.5/520[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m826.6/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:21:57You cleave the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me b[0;33marking spider[0m's left mid-hindleg and opisthosoma with your [1;37mstarshadow blade[0m.
+2024-02-24-16:21:57The [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mmale barking spider[0m's opisthosoma and left hindleg are sliced off.
+2024-02-24-16:21:59[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m138.1[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.2/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0.1/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m365.5/520[0;1;34m  [0;1;37mAnger:[0;1;34m [0;1;32m0/84.0[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m823.5/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:21:59You poke the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33male barking spider[0m's right mid-hindleg with your [1;37mstarshadow blade[0m.
+2024-02-24-16:21:59You slice the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33male barking spider[0m's head and thorax with your [1;37mstarshadow blade[0m.
+2024-02-24-16:22:01[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m138.1[0;1;34m  [0;1;37mFear:[0;1;34m [0;1;32m0/118.4[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.3/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0.1/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m365.5/520[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m817.3/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:22:01You connect reasonably well and slice the [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30ml[0;33med [0;1;30mbr[0;33mown [0;1;30mm[0;33mal[0;1;30me barking spider[0m's left mid-foreleg and thorax with your [1;37mstarshadow blade[0m.
+2024-02-24-16:22:01The [33mbl[0;1;30ma[0;33mck[0;1;30m-m[0;33mott[0;1;30mled brown male barking spider[0m dies.
+2024-02-24-16:22:01[1;37mYou have gained five hundred thirty-one experience.[0m
+2024-02-24-16:22:04[0;37mtreat me[0m
+2024-02-24-16:22:04You require no medical attention.
+2024-02-24-16:22:07> [0;37mshow limbs[0m
+2024-02-24-16:22:07[1;34m/----------------------------------------------------------------------------------------------------------------------------------------------------------- [0;1;37mLimb Status for Robbingdahood[0;1;34m -----------------------------------------------------------------------------------------------------------------------------------------------------------\[0m
+2024-02-24-16:22:07[1;34m|[0;0m Limb        State      Cur   Max  Size                                                                                                                                                                                                                                                                                                    Equipment [0;1;34m|[0m
+2024-02-24-16:22:07[1;34m>-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------<[0m
+2024-02-24-16:22:07[1;34m|[0;1;37m [0;1;33mHead      [0;1;37m  [0;1;32mhealthy[0;1;37m   62.8  62.8  7.0%                                                                                                                                                                                                                                                                           [0;1;31mred-orange adamantite chaos amulet[0;1;37m [0;1;34m|[0m
+2024-02-24-16:22:07[1;34m|[0;1;37m [0;1;33m          [0;1;37m                                                                                                                                                                                                                                                                                                                                 [0;1;33mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:22:07[1;34m|[0;1;37m [0;1;33mChest     [0;1;37m  [0;1;32mhealthy[0;1;37m  138.1 138.1 21.0%                                                                                                                                                                                                                                                                                                     [0;1;33mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:22:07[1;34m|[0;1;37m [0;1;33mRight Arm [0;1;37m  [0;1;32mhealthy[0;1;37m   62.8  62.8 11.0%                                                                                                                                                                                                                                                                                                     [0;1;32mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:22:07[1;34m|[0;1;37m [0;1;33mLeft Arm  [0;1;37m  [0;1;32mhealthy[0;1;37m   62.8  62.8 11.0%                                                                                                                                                                                                                                                                                                     [0;1;34mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:22:07[1;34m|[0;1;37m [0;1;33mRight Hand[0;1;37m  [0;1;32mhealthy[0;1;37m   25.1  25.1  4.0%                                                                                                                                                                                                                                                                                             starshadow blade [0;1;34m|[0m
+2024-02-24-16:22:07[1;34m|[0;1;37m [0;1;33m          [0;1;37m                                                                                                                                                                                                                                                                                                                                 [0;36mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:22:07[1;34m|[0;1;37m [0;1;33mLeft Hand [0;1;37m  [0;1;32mhealthy[0;1;37m   25.1  25.1  4.0%                                                                                                                                                                                                                                                                                  silvery steel target shield [0;1;34m|[0m
+2024-02-24-16:22:07[1;34m|[0;1;37m [0;1;33m          [0;1;37m                                                                                                                                                                                                                                                                                                                                 [0;33mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:22:07[1;34m|[0;1;37m [0;1;33mRight Leg [0;1;37m  [0;1;32mhealthy[0;1;37m   94.2  94.2 16.0%                                                                                                                                                                                                                                                                                                     [0;1;33mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:22:07[1;34m|[0;1;37m [0;1;33mLeft Leg  [0;1;37m  [0;1;32mhealthy[0;1;37m   94.2  94.2 16.0%                                                                                                                                                                                                                                                                                                     [0;1;32mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:22:07[1;34m|[0;1;37m [0;1;33mRight Foot[0;1;37m  [0;1;32mhealthy[0;1;37m   31.4  31.4  5.0%                                                                                                                                                                                                                                                                                                     [0;1;36mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:22:07[1;34m|[0;1;37m [0;1;33mLeft Foot [0;1;37m  [0;1;32mhealthy[0;1;37m   31.4  31.4  5.0%                                                                                                                                                                                                                                                                                                     [0;33mparageos[0;1;37m [0;1;34m|[0m
+2024-02-24-16:22:07[1;34m\-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------/[0m
+2024-02-24-16:22:09> [0;37mlook[0m
+2024-02-24-16:22:09a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:22:09    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the north and south the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:22:09    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the east and west.  
+2024-02-24-16:22:09    You see a [1;30mfresh mutilated barking spider corpse[0m.
+2024-02-24-16:22:09    You see a [1;30mfresh barking spider opisthosoma and left hindleg[0m.  
+2024-02-24-16:22:10    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:22:10    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:22:12> [0;37mnewbie ahh nice[0m
+2024-02-24-16:22:12    [1;32m#Neophyte Helper Robbingdahood#[0m "ahh nice"
+2024-02-24-16:22:15> Your [1;37mstarshadow blade[0m glimmers with [1;30mshadow[0;36my [0;1;36menergy[0m.
+2024-02-24-16:22:16[0;37me[0m
+2024-02-24-16:22:16You walk eastward.
+2024-02-24-16:22:16a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:22:16    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the north and south the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:22:16    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the east and west.  
+2024-02-24-16:22:16    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:22:16    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:22:17> > [1;33mYou have advanced to level fifteen and gained five attribute development points to spend.[0m [1;33m[event logged][0m
+2024-02-24-16:22:17> You are thoroughly quenched.
+2024-02-24-16:22:20> [0;37me[0m
+2024-02-24-16:22:21You walk eastward.
+2024-02-24-16:22:21a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:22:21    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the north and south the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:22:21    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the east and west.  
+2024-02-24-16:22:21    You see an [1;37micy[0;1;36m mal[0;1;34me ice[0;1;36m spi[0;1;37mder[0m.  
+2024-02-24-16:22:21    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:22:21    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:22:21> You are thoroughly quenched.
+2024-02-24-16:22:23> [0;37mperform starshadow smite at spider[0m
+2024-02-24-16:22:24You brandish your [1;37mstarshadow blade[0m, and a [1;30mgout of [0;36mf[0;1;36mi[0;1;37mr[0;1;36me[0m surges from its [1;36mcyan adamantium runes[0m toward the [1;37micy[0;1;36m mal[0;1;34me ice[0;1;36m spi[0;1;37mder[0m and [1;30mburns h[0;36mi[0;1;36mm[0m, despite his attempt to dodge, and he is affected somewhat severely by the attack.
+2024-02-24-16:22:24The [1;37micy[0;1;36m mal[0;1;34me ice[0;1;36m spi[0;1;37mder[0m's right foreleg is [1;30mburned[0m to [1;30mas[0;37mhes[0m.
+2024-02-24-16:22:24The [1;37micy[0;1;36m mal[0;1;34me ice[0;1;36m spi[0;1;37mder[0m's left foreleg is [1;30mburned[0m to [1;30mas[0;37mhes[0m.
+2024-02-24-16:22:24The [1;37micy[0;1;36m mal[0;1;34me ice[0;1;36m spi[0;1;37mder[0m's head is [1;30mburned[0m to [1;30mas[0;37mhes[0m.
+2024-02-24-16:22:24The [1;37micy[0;1;36m mal[0;1;34me ice[0;1;36m spi[0;1;37mder[0m's right mid-foreleg is [1;30mburned[0m to [1;30mas[0;37mhes[0m.
+2024-02-24-16:22:24The [1;37micy[0;1;36m mal[0;1;34me ice[0;1;36m spi[0;1;37mder[0m's left mid-foreleg is [1;30mburned[0m to [1;30mas[0;37mhes[0m.
+2024-02-24-16:22:24The [1;37micy[0;1;36m mal[0;1;34me ice[0;1;36m spi[0;1;37mder[0m's right mid-hindleg is [1;30mburned[0m to [1;30mas[0;37mhes[0m.
+2024-02-24-16:22:24The [1;37micy[0;1;36m mal[0;1;34me ice[0;1;36m spi[0;1;37mder[0m's left mid-hindleg is [1;30mburned[0m to [1;30mas[0;37mhes[0m.
+2024-02-24-16:22:24The [1;37micy[0;1;36m mal[0;1;34me ice[0;1;36m spi[0;1;37mder[0m's opisthosoma is [1;30mburned[0m to [1;30mas[0;37mhes[0m.
+2024-02-24-16:22:24The [1;37micy[0;1;36m mal[0;1;34me ice[0;1;36m spi[0;1;37mder[0m's right hindleg is [1;30mburned[0m to [1;30mas[0;37mhes[0m.
+2024-02-24-16:22:24The [1;37micy[0;1;36m mal[0;1;34me ice[0;1;36m spi[0;1;37mder[0m's left hindleg is [1;30mburned[0m to [1;30mas[0;37mhes[0m.
+2024-02-24-16:22:24> The [1;37micy[0;1;36m mal[0;1;34me ice[0;1;36m spi[0;1;37mder[0m dies.
+2024-02-24-16:22:28[0;37mtreat me[0m
+2024-02-24-16:22:28You require no medical attention.
+2024-02-24-16:22:30> [0;37mlook[0m
+2024-02-24-16:22:30a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:22:30    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the north and south the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:22:30    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the east and west.  
+2024-02-24-16:22:30    You see a [1;37mfresh m[0;1;36mutilat[0;1;34med ice s[0;1;36mpider c[0;1;37morpse[0m.  
+2024-02-24-16:22:30    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:22:30    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:22:32> [0;37me[0m
+2024-02-24-16:22:32You walk eastward.
+2024-02-24-16:22:32a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:22:32    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the north and south the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:22:32    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the east and west.  
+2024-02-24-16:22:32    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:22:32    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:22:37[0;37me[0m
+2024-02-24-16:22:37You walk eastward.
+2024-02-24-16:22:37a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:22:37    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the north and south the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:22:37    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the east and west.  
+2024-02-24-16:22:37    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:22:37    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:22:39> > > > > [0;37me[0m
+2024-02-24-16:22:41> You walk eastward.
+2024-02-24-16:22:41a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:22:41    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the north and south the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:22:41    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the east and west.  
+2024-02-24-16:22:41    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:22:41    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:22:43> > > > [0;37me[0m
+2024-02-24-16:22:43m ][0m
+2024-02-24-16:22:45> You walk eastward.
+2024-02-24-16:22:45a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:22:45    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the north and south the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:22:45    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the east and west.  
+2024-02-24-16:22:45    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:22:45    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:22:46> > > > [0;37me[0m
+2024-02-24-16:22:49You walk eastward.
+2024-02-24-16:22:49a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:22:49    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the south the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:22:49    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the north, east, and west.  
+2024-02-24-16:22:49    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:22:49    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:22:50> > > > [0;37me[0m
+2024-02-24-16:22:53> You walk eastward.
+2024-02-24-16:22:53a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:22:53    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the north and south the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:22:53    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the east and west.  
+2024-02-24-16:22:53    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:22:53    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:22:56> > > > [0;37mw[0m
+2024-02-24-16:22:57You walk westward.
+2024-02-24-16:22:57a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:22:57    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the south the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:22:57    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the north, east, and west.  
+2024-02-24-16:22:57    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:22:57    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:22:58> > > > > [0;37mn[0m
+2024-02-24-16:23:01You walk northward.
+2024-02-24-16:23:01a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:23:01    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the east and west the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:23:01    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the north and south.  
+2024-02-24-16:23:01    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:23:01    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:23:04> > > > [0;37mn[0m
+2024-02-24-16:23:05> You walk northward.
+2024-02-24-16:23:05a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:23:05    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the north the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:23:05    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the south, east, and west.  
+2024-02-24-16:23:05    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:23:05    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:23:21> > > > [0;37mw[0m
+2024-02-24-16:23:21You walk westward.
+2024-02-24-16:23:21a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:23:21    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the north and south the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:23:21    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the east and west.  
+2024-02-24-16:23:21    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:23:21    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:23:23> > > > > [0;37mw[0m
+2024-02-24-16:23:25> You walk westward.
+2024-02-24-16:23:25a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:23:25    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the north and south the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:23:25    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the east and west.  
+2024-02-24-16:23:25    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:23:25    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:23:28> > > > [0;37mw[0m
+2024-02-24-16:23:29> You walk westward.
+2024-02-24-16:23:29a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:23:29    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the north and south the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:23:29    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the east and west.  
+2024-02-24-16:23:29    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:23:29    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:23:30> > > > [0;37mw[0m
+2024-02-24-16:23:33> You walk westward.
+2024-02-24-16:23:33a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:23:33    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the north and south the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:23:33    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the east and west.  
+2024-02-24-16:23:33    You see a [33mda[0;32mr[0;33mk-[0;32mgr[0;33meen[0;32m-[0;33mmo[0;32mtt[0;33mled [0;32mb[0;33mro[0;32mwn [0;33mmal[0;32me [0;33mba[0;32mrk[0;33ming [0;32ms[0;33mpi[0;32mde[0;33mr[0m.  
+2024-02-24-16:23:33    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:23:33    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:23:35> > > > [0;37mperform starshadow smite at spider[0m
+2024-02-24-16:23:35Your starshadow blade does not possess enough energy to perform this maneuver.
+2024-02-24-16:23:37> Your [1;37mstarshadow blade[0m glimmers with [1;30mshadow[0;36my [0;1;36menergy[0m.
+2024-02-24-16:23:39The [33mda[0;32mr[0;33mk-[0;32mgr[0;33meen[0;32m-[0;33mmo[0;32mtt[0;33mled [0;32mb[0;33mro[0;32mwn [0;33mmal[0;32me [0;33mba[0;32mrk[0;33ming spider[0m releases a [1;32mcl[0;1;33mou[0;1;32md of n[0;1;33mox[0;1;32mious [0;1;33mga[0;1;32ms[0m with a loud barking sound and leaps at you.
+2024-02-24-16:23:39The [33mda[0;32mr[0;33mk-[0;32mgr[0;33meen[0;32m-[0;33mmo[0;32mtt[0;33mled [0;32mb[0;33mro[0;32mwn [0;33mmal[0;32me [0;33mba[0;32mrk[0;33ming [0;32ms[0;33mpi[0;32mde[0;33mr[0m opens its mouth wide, revealing its fangs, lunges for your body, but you deflect it with your [1;37msilvery steel target shield[0m.
+2024-02-24-16:23:39[0;37mperform starshadow smite at spider[0m
+2024-02-24-16:23:39You brandish your [1;37mstarshadow blade[0m, and a [1;30mgout of [0;36mf[0;1;36mi[0;1;37mr[0;1;36me[0m surges from its [1;36mcyan adamantium runes[0m toward the [33mda[0;32mr[0;33mk-[0;32mgr[0;33meen[0;32m-[0;33mmo[0;32mtt[0;33mled [0;32mb[0;33mro[0;32mwn [0;33mmal[0;32me [0;33mba[0;32mrk[0;33ming [0;32ms[0;33mpi[0;32mde[0;33mr[0m and [1;30mbroils [0;36mi[0;1;36mt[0;1;37ms [0;1;36ml[0;36me[0;1;30mft foreleg, thorax, opisthosoma, and left hindleg[0m.
+2024-02-24-16:23:39The [33mda[0;32mr[0;33mk-[0;32mgr[0;33meen[0;32m-[0;33mmo[0;32mtt[0;33mled [0;32mb[0;33mro[0;32mwn [0;33mmal[0;32me [0;33mba[0;32mrk[0;33ming [0;32ms[0;33mpi[0;32mde[0;33mr[0m's left foreleg is [1;30mseared [0;36mi[0;1;36mn[0;1;37mto uselessness[0m.
+2024-02-24-16:23:39[31mThe [0;33mda[0;32mr[0;33mk-[0;32mgr[0;33meen[0;32m-[0;33mmo[0;32mtt[0;33mled [0;32mb[0;33mro[0;32mwn [0;33mmale barking spider[0;31m has been mortally wounded and will die soon if not aided.[0m
+2024-02-24-16:23:39The [33mda[0;32mr[0;33mk-[0;32mgr[0;33meen[0;32m-[0;33mmo[0;32mtt[0;33mled [0;32mb[0;33mro[0;32mwn [0;33mmal[0;32me [0;33mba[0;32mrk[0;33ming [0;32ms[0;33mpi[0;32mde[0;33mr[0m's left hindleg is [1;30mseared [0;36mi[0;1;36mn[0;1;37mto uselessness[0m.
+2024-02-24-16:23:41> [1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m138.1[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m351.2/520[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m836.6/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:23:41You find a weakness in the [33mda[0;32mr[0;33mk-[0;32mgr[0;33meen[0;32m-[0;33mmo[0;32mttled brown male barking spider[0m's thorax.
+2024-02-24-16:23:41Some [1;34mhemolymph[0m flows from the [33mda[0;32mr[0;33mk-[0;32mgr[0;33meen[0;32m-[0;33mmo[0;32mttled brown male barking spider[0m's opisthosoma.
+2024-02-24-16:23:43[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m138.1[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m358.9/520[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:23:43You stab the [33mda[0;32mr[0;33mk-[0;32mgr[0;33meen[0;32m-[0;33mmo[0;32mtt[0;33mled [0;32mb[0;33mro[0;32mwn [0;33mmal[0;32me [0;33mba[0;32mrking spider[0m's left foreleg, head, left mid-foreleg, and thorax with your [1;37mstarshadow blade[0m.
+2024-02-24-16:23:43Some [1;34mhemolymph[0m flows from the [33mda[0;32mr[0;33mk-[0;32mgr[0;33meen[0;32m-[0;33mmo[0;32mtt[0;33mled brown male barking spider[0m's thorax and opisthosoma.
+2024-02-24-16:23:45[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m138.1[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.1/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m358.9/520[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m835.9/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:23:45You slash the [33mda[0;32mr[0;33mk-[0;32mgr[0;33meen[0;32m-[0;33mmo[0;32mtt[0;33mled [0;32mb[0;33mro[0;32mwn [0;33mmal[0;32me barking spider[0m's right mid-hindleg and opisthosoma with your [1;37mstarshadow blade[0m.
+2024-02-24-16:23:45The [33mda[0;32mr[0;33mk-[0;32mgr[0;33meen[0;32m-[0;33mmo[0;32mtt[0;33mled [0;32mb[0;33mro[0;32mwn male barking spider[0m's opisthosoma and left hindleg are sliced off.
+2024-02-24-16:23:45You swiftly lunge forward, thrusting your [1;37mstarshadow blade[0m towards the [33mda[0;32mr[0;33mk-[0;32mgr[0;33meen[0;32m-[0;33mmo[0;32mtt[0;33mled [0;32mb[0;33mro[0;32mwn [0;33mmale barking spider[0m with a twisting motion and perforate its left mid-hindleg.
+2024-02-24-16:23:45The [33mda[0;32mr[0;33mk-[0;32mgr[0;33meen[0;32m-[0;33mmo[0;32mtt[0;33mled [0;32mbrown male barking spider[0m's left mid-hindleg falls off.
+2024-02-24-16:23:45Some [1;34mhemolymph[0m flows from the [33mda[0;32mr[0;33mk-[0;32mgr[0;33meen[0;32m-[0;33mmo[0;32mttled brown male barking spider[0m's thorax.
+2024-02-24-16:23:47[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m138.1[0;1;34m  [0;1;37mPain:[0;1;34m [0;1;32m0.2/233.2[0;1;34m  [0;1;37mPleasure:[0;1;34m [0;31m0/207.7[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m357.9/520[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m830.8/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:23:47You stab the [33mda[0;32mr[0;33mk-[0;32mgr[0;33meen[0;32m-[0;33mmo[0;32mtt[0;33mled [0;32mb[0;33mro[0;32mwn [0;33mmal[0;32me [0;33mba[0;32mrking spider[0m's right foreleg, head, right mid-foreleg, and thorax with your [1;37mstarshadow blade[0m.
+2024-02-24-16:23:47The [33mda[0;32mr[0;33mk-[0;32mgr[0;33meen[0;32m-[0;33mmottled brown male barking spider[0m dies.
+2024-02-24-16:23:47[1;37mYou have gained two hundred sixty-six experience.[0m
+2024-02-24-16:23:49[0;37mtreat me[0m
+2024-02-24-16:23:50You require no medical attention.
+2024-02-24-16:23:54> [0;37mshow vitals[0m
+2024-02-24-16:23:54[1;34m[ [0;1;37mHead:[0;1;34m [0;1;32m62.8[0;1;34m  [0;1;37mChest:[0;1;34m [0;1;32m138.1[0;1;34m  [0;1;37mSpiritual:[0;1;34m [0;1;32m357.9/520[0;1;34m  [0;1;37mEndurance:[0;1;34m [0;1;32m827.8/839[0;1;34m  [0;1;37mSpeed:[0;1;34m [0;1;32m21[0;1;34m ][0m
+2024-02-24-16:23:57> [0;37mw[0m
+2024-02-24-16:23:58You walk westward.
+2024-02-24-16:23:58a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:23:58    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the north and south the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:23:58    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the east and west.  
+2024-02-24-16:23:58    You see a [33mbronze token[0m.  
+2024-02-24-16:23:58    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:23:58    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:24:01> > > > > [0;37mget token[0m
+2024-02-24-16:24:02You take the [33mbronze token[0m with your right hand.
+2024-02-24-16:24:02> [0;37mw[0m
+2024-02-24-16:24:03You walk westward.
+2024-02-24-16:24:03a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:24:03    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the north and south the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:24:03    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the east and west.  
+2024-02-24-16:24:03    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:24:03    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:24:03> You are thoroughly quenched.
+2024-02-24-16:24:06> [0;37mw[0m
+2024-02-24-16:24:06You walk westward.
+2024-02-24-16:24:06a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:24:06    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the south and west the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:24:06    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the north and east.  
+2024-02-24-16:24:06    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:24:06    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:24:07> You are thoroughly quenched.
+2024-02-24-16:24:08> [0;37mw[0m
+2024-02-24-16:24:09> You try to go westward, but you are too large to get through the overgrowth, by about three and three tenths dimins.
+2024-02-24-16:24:10[0;37mn[0m
+2024-02-24-16:24:11> You walk northward.
+2024-02-24-16:24:11a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:24:11    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the east and west the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:24:11    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the north and south.  
+2024-02-24-16:24:11    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:24:11    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:24:13> > > > [0;37mn[0m
+2024-02-24-16:24:15> You walk northward.
+2024-02-24-16:24:15a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:24:15    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the east and west the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:24:15    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the north and south.  
+2024-02-24-16:24:15    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:24:15    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:24:16> > > > [0;37mi[0m
+2024-02-24-16:24:17[1;34m/-- [0;1;37mRobbingdahood's Inventory[0;1;34m ---\[0m
+2024-02-24-16:24:17[1;34m|[0;1;37m [0;1;33ma couple of [0;33mbronze tokens[0;1;33m     [0;1;37m [0;1;34m|[0m
+2024-02-24-16:24:17[1;34m|[0;1;37m [0;1;33ma [0;33mleather-bound[0;1;33m [0;33mparchment[0;1;33m [0;33mbook[0;1;37m [0;1;34m|[0m
+2024-02-24-16:24:17[1;34m|[0;1;37m [0;1;33ma [0;37msmall steel key[0;1;33m             [0;1;37m [0;1;34m|[0m
+2024-02-24-16:24:17[1;34m|[0;1;37m [0;1;33ma [0;1;37mpanoramicon[0;1;33m                 [0;1;37m [0;1;34m|[0m
+2024-02-24-16:24:17[1;34m|[0;1;37m [0;1;33ma [0;1;32mdiminutive jade anklet[0;1;33m      [0;1;37m [0;1;34m|[0m
+2024-02-24-16:24:17[1;34m|[0;1;37m [0;1;33ma [0;37mclear glass lens of insight[0;1;33m [0;1;37m [0;1;34m|[0m
+2024-02-24-16:24:17[1;34m|[0;1;37m [0;1;33ma couple of [0;32mherb-roll[0;33med joints[0;1;37m [0;1;34m|[0m
+2024-02-24-16:24:17[1;34m|[0;1;37m [0;1;33man [0;33moaken compass[0;1;33m              [0;1;37m [0;1;34m|[0m
+2024-02-24-16:24:17[1;34m|[0;1;37m [0;1;33ma [0;1;32mgar[0;32mb[0;1;32micub[0;32me[0;1;33m                   [0;1;37m [0;1;34m|[0m
+2024-02-24-16:24:17[1;34m\--------------------------------/[0m
+2024-02-24-16:24:19[0;37mn[0m
+2024-02-24-16:24:19You walk northward.
+2024-02-24-16:24:19You feel a sense of accomplishment, estimating that you have explored about fifteen percent of Spiderwood.
+2024-02-24-16:24:19[1;37mYou have gained four hundred eight experience.[0m
+2024-02-24-16:24:19a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:24:19    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the east and west the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:24:19    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the north and south.  
+2024-02-24-16:24:19    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:24:19    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:24:21> > > > > [0;37mn[0m
+2024-02-24-16:24:21[0mERROR: cannot map the into long direction! Mapper will not update![0m
+2024-02-24-16:24:21You run into a [1;37mspidersilk web[0m toward the northward exit.
+2024-02-24-16:24:21The [1;37mspidersilk webbing[0m on you catches [31mf[0;1;31mi[0;1;33mr[0;1;31me[0m from your [32mherb-rol[0;33mled joint[0m.
+2024-02-24-16:24:21[31mF[0;1;31ml[0;1;33ma[0;1;31mm[0;31me[0m spreads rapidly through the [1;37mspidersilk webbing[0m on you, the entirety [31mbur[0;1;31mning[0;1;33m up in[0;1;31m mome[0;31mnts[0m.
+2024-02-24-16:24:23> You walk northward.
+2024-02-24-16:24:23a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:24:23    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the east and west the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:24:23    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the north and south.  
+2024-02-24-16:24:23    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:24:23    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:24:25> > > > m ][0m
+2024-02-24-16:24:27[0;37me[0m
+2024-02-24-16:24:27You try to go eastward, but you are too large to get through the overgrowth, by about three and three tenths dimins.
+2024-02-24-16:24:30> [0;37mn[0m
+2024-02-24-16:24:31You walk northward.
+2024-02-24-16:24:31a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:24:31    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the west the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:24:31    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the north, south, and east.  
+2024-02-24-16:24:31    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:24:31    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:24:33> > > > > [0;37me[0m
+2024-02-24-16:24:35> You walk eastward.
+2024-02-24-16:24:35a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:24:35    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the north and south the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:24:35    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the east and west.  
+2024-02-24-16:24:35    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:24:35    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:24:37> > > > [0;37me[0m
+2024-02-24-16:24:39> You walk eastward.
+2024-02-24-16:24:39a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:24:39    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the east the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:24:39    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the north, south, and west.  
+2024-02-24-16:24:39    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:24:39    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:24:41> > > > [0;37ms[0m
+2024-02-24-16:24:43> You walk southward.
+2024-02-24-16:24:43a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:24:43    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the east and west the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:24:43    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the north and south.  
+2024-02-24-16:24:43    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:24:43    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:24:45> > > > [0;37ms[0m
+2024-02-24-16:24:45m ][0m
+2024-02-24-16:24:47> You walk southward.
+2024-02-24-16:24:47a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:24:47    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the east and west the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:24:47    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the north and south.  
+2024-02-24-16:24:47    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:24:47    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:24:48> > > > [0;37ms[0m
+2024-02-24-16:24:51You walk southward.
+2024-02-24-16:24:51a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:24:51    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the south and west the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:24:51    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the north and east.  
+2024-02-24-16:24:51    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:24:51    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:24:53> > > > [0;37ms[0m
+2024-02-24-16:24:53 ][0m
+2024-02-24-16:24:55> [0;37me[0m
+2024-02-24-16:24:55You try to go southward, but you are too large to get through the overgrowth, by about three and three tenths dimins.
+2024-02-24-16:24:57> You walk eastward.
+2024-02-24-16:24:57a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:24:57    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the north and south the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:24:57    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the east and west.  
+2024-02-24-16:24:57    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:24:57    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:24:59> > > > [0;37me[0m
+2024-02-24-16:25:01> Your [1;37mstarshadow blade[0m glimmers with [1;30mshadow[0;36my [0;1;36menergy[0m.
+2024-02-24-16:25:01You walk eastward.
+2024-02-24-16:25:01a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:25:01    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the south the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:25:01    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the north, east, and west.  
+2024-02-24-16:25:01    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:25:01    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:25:03> > > > [0;37mn[0m
+2024-02-24-16:25:05> You walk northward.
+2024-02-24-16:25:05a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m [1;34m[n, s, e, w, u][0m
+2024-02-24-16:25:05    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the east and west the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  
+2024-02-24-16:25:05    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the north and south.  
+2024-02-24-16:25:05    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:25:05    Obvious exits are north, south, east, west, and up.
+2024-02-24-16:25:07> > > > [0;37mn[0m
+2024-02-24-16:25:09> You walk northward.
+2024-02-24-16:25:09a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m near some [33mearth stairs[0m [1;34m[n, s, e, w, u, d][0m
+2024-02-24-16:25:09    This is a [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m that, though not overly dense, seems somehow confining, and though not overly dark, seems full of [1;30msh[0;37mad[0;1;30mows[0m.  A faint but unpleasant smell of decay hangs in the [37mair[0m.  The undergrowth is fairly sparse, interfering only moderately with movement.  To the north, east, and west the forest grows more dense, the [32mth[0;33mi[0;1;32mc[0;32mk o[0;33mve[0;32mr[0;1;32mgr[0;33mo[0;32mwt[0;33mh[0m nearly impassable.  [33mRough earthen stairs[0m lead downward.  
+2024-02-24-16:25:09    The area is reasonably well-lit.  The [32mli[0;33mg[0;1;32mh[0;32mt f[0;33mor[0;32me[0;1;32mst[0m continues to the south.  
+2024-02-24-16:25:09    Above you is a slowly moving, heavily clouded night sky.  A breeze blows around you.  The moon is not visible.  
+2024-02-24-16:25:09    Obvious exits are north, south, east, west, up, and down.
+2024-02-24-16:25:23> > > > [0;37md[0m
+2024-02-24-16:25:23You walk downward.
+2024-02-24-16:25:23an earthen tunnel near some [33mearth stairs[0m [1;34m[e, u][0m
+2024-02-24-16:25:23    This is an [33mearthen tunnel[0m wending its way underground.  Numerous [37mco[0;1;30mbw[0;37meb[0;1;30ms[0m hang from the packed dirt at every angle.  Below is [1;37msolid white limestone[0m.  To the north, south, and west is [33msolid earth[0m.  [33mRough earthen stairs[0m lead upward.  
+2024-02-24-16:25:23    The area is [1;30mdark[0m.  The tunnel runs east.  
+2024-02-24-16:25:23    Obvious exits are east and up.
+2024-02-24-16:25:34> > > > > [0;37me[0m
+2024-02-24-16:25:34You walk eastward.
+2024-02-24-16:25:34an earthen tunnel [1;34m[e, w][0m
+2024-02-24-16:25:34    This is an [33mearthen tunnel[0m wending its way underground.  Numerous [37mco[0;1;30mbw[0;37meb[0;1;30ms[0m hang from the packed dirt at every angle.  Below is [1;37msolid white limestone[0m.  To the north and south is [33msolid earth[0m.  
+2024-02-24-16:25:34    The area is [1;30mdark[0m.  The tunnel runs east and west.  
+2024-02-24-16:25:34    Obvious exits are east and west.
+2024-02-24-16:25:35> You are thoroughly quenched.
+2024-02-24-16:25:37> [0;37me[0m
+2024-02-24-16:25:37You run eastward.
+2024-02-24-16:25:37an earthen tunnel [1;34m[e, w][0m
+2024-02-24-16:25:37    This is an [33mearthen tunnel[0m wending its way underground.  Numerous [37mco[0;1;30mbw[0;37meb[0;1;30ms[0m hang from the packed dirt at every angle.  Below is [1;37msolid white limestone[0m.  To the north and south is [33msolid earth[0m.  
+2024-02-24-16:25:37    The area is [1;30mdark[0m.  The tunnel runs east and west.  
+2024-02-24-16:25:37    You see a [1;37mwhite-winged[0m [1;30mblack-skinned female atterkop[0m.  
+2024-02-24-16:25:37    Obvious exits are east and west.
+2024-02-24-16:25:49> > > > > [0;37mw[0m
+2024-02-24-16:25:50You walk westward.
+2024-02-24-16:25:50an earthen tunnel [1;34m[e, w][0m
+2024-02-24-16:25:50    This is an [33mearthen tunnel[0m wending its way underground.  Numerous [37mco[0;1;30mbw[0;37meb[0;1;30ms[0m hang from the packed dirt at every angle.  Below is [1;37msolid white limestone[0m.  To the north and south is [33msolid earth[0m.  
+2024-02-24-16:25:50    The area is [1;30mdark[0m.  The tunnel runs east and west.  
+2024-02-24-16:25:50    Obvious exits are east and west.
+2024-02-24-16:25:52> > > > > [0;37mrest[0m
+2024-02-24-16:25:52You begin resting.
+2024-02-24-17:00:12> [0;37mlook[0m
+2024-02-24-17:00:12You begin resting.
+2024-02-24-17:00:12[0m#SESSION 'ls' DIED.[0m
