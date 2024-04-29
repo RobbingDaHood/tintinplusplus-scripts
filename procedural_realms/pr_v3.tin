@@ -287,11 +287,17 @@
     #variable {updated_charstate}{1};
     updated_all_data;
 
+    
     #IF {$previous_room_id != $room_id}
     {
-        add_registered_move_to_neo4j;
-        map_all_exits_neo4j;
-        send_query;
+        #regex {$room_area_id} {battle} 
+        {#variable {is_in_battle} {1}}
+        {
+            #variable {is_in_battle} {0}
+            add_registered_move_to_neo4j;
+            map_all_exits_neo4j;
+            send_query;
+        };
     };
 }
 
