@@ -46,7 +46,6 @@
             {
                 #variable {room_can_enter} {0};
             };
-            #if {"$room_info[instanced]" == ""} {#variable {room_is_instanced} {0}} {#variable {room_is_instanced} {1}};
         };
         #IF {"%2" == "room_id"}
         {
@@ -272,6 +271,7 @@
     
     #variable {battle_info} {$gmcp_char_state[update][battle]};
     #variable {previous_room_id} {$room_id};
+    #variable {previous_room_area_id} {$room_area_id};
     store_if_exist gmcp_char_state[update][room] room_info;
     store_if_exist gmcp_char_state[update][room][area] room_area;
     store_if_exist gmcp_char_state[update][room][areaId] room_area_id;
@@ -284,16 +284,27 @@
     store_if_exist gmcp_char_state[update][affects] affects;
     store_if_exist gmcp_char_state[update][room][entities] room_entities;
 
+    #IF {"$previous_room_area_id" != "$room_area_id"}
+    {
+        #variable {left_the_area} {1};
+        #variable {room_is_instanced} {false};
+        #showme {We changed area};
+    };
+    #ELSE 
+    {
+        #variable {left_the_area} {0};
+    };
+    store_if_exist gmcp_char_state[update][room][instanced] room_is_instanced;
+
     #variable {updated_charstate}{1};
     updated_all_data;
-
     
     #IF {$previous_room_id != $room_id}
     {
         #regex {$room_area_id} {battle} 
         {#variable {is_in_battle} {1}}
         {
-            #variable {is_in_battle} {0}
+            #variable {is_in_battle} {0};
             add_registered_move_to_neo4j;
             map_all_exits_neo4j;
             send_query;
@@ -784,6 +795,7 @@
 {
     #variable input {%1};
     #replace {input} {'} {};
+    #showme {MOVING $room_x $room_y};
     #list {statments_for_neo4j} {add} 
     {
         MERGE (:Room {x: '$room_x', y: '$room_y', area: '$room_area', area_id: '$room_area_id', instanced: '$room_is_instanced'})
@@ -793,7 +805,7 @@
         MATCH (a:Player)-[r:located_at]->(b:Room)
         WITH a,r,b
         MATCH (c:Room {x: '$room_x', y: '$room_y', area: '$room_area', area_id: '$room_area_id', instanced: '$room_is_instanced'})
-        SET c.id = '$room_id', c.updated_time = dateTime(), c.explored = '1'
+        SET c.room_id = '$room_id', c.updated_time = dateTime(), c.explored = '1'
         CREATE (a)-[:located_at {updated_time: dateTime()}]->(c)
         DELETE r
     };
@@ -802,7 +814,6 @@
 #variable {statments_for_neo4j} {};
 #alias {send_query}
 {
-    #showme {send to neo4j};
     #variable {statements} {};
     #foreach {$statments_for_neo4j[]} {neo4j_statement}
     {

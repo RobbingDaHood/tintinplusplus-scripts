@@ -59,3 +59,16 @@ Hmmm... worst case it is 7 directions.
 But I need to know if it were a new room or not. 
 
 Likely it is fine. A todo for the future.
+
+
+Mon Apr 29 08:14:19 PM CEST 2024
+
+``` 
+Match (a:Room {instanced: 'true'}) WHERE a.area_id CONTAINS '-' AND NOT a.area_id CONTAINS 'portal' RETURN split(a.area_id, '-')[0] 
+``` 
+
+``` 
+Match (a:Room {instanced: 'true'}) WHERE a.area_id CONTAINS '-' AND NOT a.area_id CONTAINS 'portal' WITH DISTINCT split(a.area_id, '-')[0] as merged_room_name MERGE (:MergedRoom {name: merged_room_name});
+``` 
+
+
