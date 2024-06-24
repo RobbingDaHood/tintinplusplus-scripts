@@ -1,0 +1,77 @@
+2024-06-24-17:24:34[0;37m[0m
+2024-06-24-17:24:34[0m#NO SESSION ACTIVE. USE: #session {name} {host} {port} TO START ONE.[0m
+2024-06-24-17:24:56[0;37m    #info sessions save;[0m
+2024-06-24-17:24:56[0m#INFO: DATA WRITTEN TO {info[SESSIONS]}[0m
+2024-06-24-17:25:01[0;37m#variables[0m
+2024-06-24-17:25:01[0m#ERROR: UNKNOWN TINTIN COMMAND 'variables'.[0m
+2024-06-24-17:25:05[0;37m#var[0m
+2024-06-24-17:25:05[0m################################## VARIABLES ###################################[0m
+2024-06-24-17:25:05[0m[38;5;184m#[38;5;044mVARIABLE [38;5;164m{[38;5;188minfo[38;5;164m} {[38;5;188m{SESSIONS}{{gts}{{ACTIVE}{1}{CLASS}{}{CREATED}{1719242671}{HOST}{}{IP}{}{MTTS}{2829}{NAME}{gts}{PORT}{}}}[38;5;164m}[0m
+2024-06-24-17:25:05[0m[38;5;184m#[38;5;044mVARIABLE [38;5;164m{[38;5;188mtodays_logfile_name[38;5;164m} {[38;5;188m2024-06-24-logfile.log[38;5;164m}[0m
+2024-06-24-17:25:57[0;37mreload_configs[0m
+2024-06-24-17:25:57[0m#TRYING TO CONNECT 'erion' TO 'erionmud.com' PORT '1234'.[0m
+2024-06-24-17:27:07[0m#SESSION 'gts' ACTIVATED.[0m
+2024-06-24-17:27:34[0;37m#SESSION erion erionmud.com 1234[0m
+2024-06-24-17:27:34[0m#TRYING TO CONNECT 'erion' TO 'erionmud.com' PORT '1234'.[0m
+2024-06-24-17:27:57[0m#SESSION 'gts' ACTIVATED.[0m
+2024-06-24-17:28:03[0;37m[0m
+2024-06-24-17:28:03[0m#NO SESSION ACTIVE. USE: #session {name} {host} {port} TO START ONE.[0m
+2024-06-24-17:28:11[0;37m#SESSION erion erionmud.com 1234[0m
+2024-06-24-17:28:11[0m#TRYING TO CONNECT 'erion' TO 'erionmud.com' PORT '1234'.[0m
+2024-06-24-17:30:01[0;37m[0m
+2024-06-24-17:30:01[0;37m[0m
+2024-06-24-17:30:01
+2024-06-24-17:30:01302hp 
+2024-06-24-17:30:05302hp [0;37m#action[0m
+2024-06-24-17:30:05[0m################################### ACTIONS ####################################[0m
+2024-06-24-17:30:07[0;37m"alias[0m
+2024-06-24-17:30:07Huh? Sorry Quitsapiunt, '"' is not a command.
+2024-06-24-17:30:07
+2024-06-24-17:30:10302hp [0;37m#alias[0m
+2024-06-24-17:30:10[0m################################### ALIASES ####################################[0m
+2024-06-24-17:30:10[0m[38;5;184m#[38;5;044mALIAS [38;5;164m{[38;5;188mlogin_erion[38;5;164m} {[38;5;188m#info sessions save;#if {&info[SESSIONS][erion] == 0}{#SESSION erion erionmud.com 1234 robbingdhood;Christcore1;1;}[38;5;164m}[0m
+2024-06-24-17:30:10[0m[38;5;184m#[38;5;044mALIAS [38;5;164m{[38;5;188mreload_configs[38;5;164m} {[38;5;188m#kill;#read erion_v1.tin;[38;5;164m}[0m
+2024-06-24-17:30:10[0m[38;5;184m#[38;5;044mALIAS [38;5;164m{[38;5;188msetup_logs[38;5;164m} {[38;5;188m#format {todays_logfile_name} {%t} {%Y-%m-%d-logfile.log};#log timestamp {%Y-%m-%d-%H:%M:%S};#log append {logs/$todays_logfile_name};[38;5;164m}[0m
+2024-06-24-17:30:19[0;37m#var[0m
+2024-06-24-17:30:19[0m################################## VARIABLES ###################################[0m
+2024-06-24-17:30:19[0m[38;5;184m#[38;5;044mVARIABLE [38;5;164m{[38;5;188minfo[38;5;164m} {[38;5;188m{SESSIONS}{{erion}{{ACTIVE}{1}{CLASS}{}{CREATED}{1719242891}{HOST}{erionmud.com}{IP}{104.248.122.65}{MTTS}{2829}{NAME}{erion}{PORT}{1234}}{gts}{{ACTIVE}{0}{CLASS}{}{CREATED}{1719242671}{HOST}{}{IP}{}{MTTS}{2829}{NAME}{gts}{PORT}{}}}[38;5;164m}[0m
+2024-06-24-17:30:19[0m[38;5;184m#[38;5;044mVARIABLE [38;5;164m{[38;5;188mtodays_logfile_name[38;5;164m} {[38;5;188m2024-06-24-logfile.log[38;5;164m}[0m
+2024-06-24-17:30:28[0;37mquit[0m
+2024-06-24-17:30:28Goodbye, Quitsapiunt.
+2024-06-24-17:30:28Welcome to the account menu of Robbingdhood.
+2024-06-24-17:30:28
+2024-06-24-17:30:28    [1;37mC[0m) Create a new character
+2024-06-24-17:30:28    [1;37mA[0m) Delete a character
+2024-06-24-17:30:28    [1;37mP[0m) Change your password
+2024-06-24-17:30:28    [1;37mQ[0m) Quit
+2024-06-24-17:30:28
+2024-06-24-17:30:28Who would you like to play?
+2024-06-24-17:30:28
+2024-06-24-17:30:28       [1;37m 1[0m) Quitsapiunt  2       [0;36mT[1;36mh[0m      Webling    
+2024-06-24-17:30:28
+2024-06-24-17:30:32What will it be? [0;37mq[0m
+2024-06-24-17:30:32You have disconnected.
+2024-06-24-17:30:32[0m#SESSION 'erion' DIED.[0m
+2024-06-24-17:30:32[0m#SESSION 'gts' ACTIVATED.[0m
+2024-06-24-17:30:34[0;37m[0m
+2024-06-24-17:30:34[0m#NO SESSION ACTIVE. USE: #session {name} {host} {port} TO START ONE.[0m
+2024-06-24-17:30:34[0;37m[0m
+2024-06-24-17:30:34[0m#NO SESSION ACTIVE. USE: #session {name} {host} {port} TO START ONE.[0m
+2024-06-24-17:30:50[0;37mread erion_login.tin[0m
+2024-06-24-17:30:50[0m#NO SESSION ACTIVE. USE: #session {name} {host} {port} TO START ONE.[0m
+2024-06-24-17:30:56[0;37m#read erion_login.tin[0m
+2024-06-24-17:30:56[0m#TRYING TO CONNECT 'erion' TO 'erionmud.com' PORT '1234'.[0m
+2024-06-24-17:31:42[0m#SESSION 'gts' ACTIVATED.[0m
+2024-06-24-17:31:49[0;37m#read erion_login.tin[0m
+2024-06-24-17:31:49[0m#TRYING TO CONNECT 'erion' TO 'erionmud.com' PORT '1234'.[0m
+2024-06-24-17:32:08[0m#SESSION 'gts' ACTIVATED.[0m
+2024-06-24-17:32:10[0;37m#read erion_login.tin[0m
+2024-06-24-17:32:10[0m#TRYING TO CONNECT 'erion' TO 'erionmud.com' PORT '1234'.[0m
+2024-06-24-17:32:29[0m#SESSION 'gts' ACTIVATED.[0m
+2024-06-24-17:32:32[0;37m#read erion_login.tin[0m
+2024-06-24-17:32:32[0m#TRYING TO CONNECT 'erion' TO 'erionmud.com' PORT '1234'.[0m
+2024-06-24-17:33:10[0m#SESSION 'gts' ACTIVATED.[0m
+2024-06-24-17:33:11[0;37m[0m
+2024-06-24-17:33:11[0m#NO SESSION ACTIVE. USE: #session {name} {host} {port} TO START ONE.[0m
+2024-06-24-17:33:14[0;37m#read erion_login.tin[0m
+2024-06-24-17:33:14[0m#TRYING TO CONNECT 'erion' TO 'erionmud.com' PORT '1234'.[0m
