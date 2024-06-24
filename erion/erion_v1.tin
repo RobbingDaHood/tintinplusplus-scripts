@@ -11,6 +11,176 @@
     #read erion_v1.tin;
 }
 
+#ALIAS {start_autoforage}
+{
+    #VARIABLE {auto_forage_enabled} {1};
+    forage area;
+}
+
+#ALIAS {stop_autoforage}
+{
+    #VARIABLE {auto_forage_enabled} {0};
+}
+
+#ACTION {You gain {.*?} experience}
+{
+    #IF {$auto_forage_enabled}
+    {
+        #delay {gather} {forage area} {0.2};
+    };
+}
+
+#ACTION {The area looks picked over.}
+{
+    craft inv put all;
+    stop_autoforage;
+}
+
+
+#ALIAS {start_autochop}
+{
+    #VARIABLE {auto_chop_enabled} {1};
+    chop tree;
+}
+
+#ALIAS {stop_autochop}
+{
+    #VARIABLE {auto_chop_enabled} {0};
+}
+
+#ACTION {{.*?}finish creating a deep 45{.*?}}
+{
+    #IF {$auto_chop_enabled}
+    {
+        push tree;
+    };
+}
+
+#ACTION {You pick a log up off the ground.{.*?}}
+{
+    #IF {$auto_chop_enabled}
+    {
+        chop tree;
+    };
+}
+
+#ACTION {You don't see any trees here that you can chop.}
+{
+    craft inv put all;
+    stop_autochop;
+}
+
+#ALIAS {start_automine}
+{
+    #VARIABLE {auto_mine_enabled} {1};
+    mine cluster;
+}
+
+#ALIAS {stop_automine}
+{
+    #VARIABLE {auto_mine_enabled} {0};
+}
+
+#ACTION {Dirt and rock tumble over the cluster.}
+{
+    #IF {$auto_mine_enabled}
+    {
+        clear debris;
+    };
+}
+
+#ACTION {The cluster breaks apart.}
+{
+    #IF {$auto_mine_enabled}
+    {
+        mine cluster;
+    };
+}
+
+#ACTION {A pickaxe's handle cracks in half.}
+{
+    stop_automine;
+}
+
+#ACTION {You don't see any clusters here that you can mine.}
+{
+    stop_automine;
+}
+
+#ALIAS {start_automake}
+{
+    #VARIABLE {auto_make_enabled} {1};
+}
+
+#ALIAS {stop_automake}
+{
+    #VARIABLE {auto_make_enabled} {0};
+}
+
+#ACTION {A thick layer of dross{.*}}
+{
+    #IF {$auto_make_enabled}
+    {
+        skim dross;
+    };
+}
+
+#ACTION {The flames change{.*?}}
+{
+    #IF {$auto_make_enabled}
+    {
+        stoke fire;
+    };
+}{5}
+
+#ACTION {The fire in a firepit begins{.*?}}
+{
+    #IF {$auto_make_enabled}
+    {
+        stoke fire;
+    };
+}{5}
+
+#ACTION {The flames change from{.*?}}
+{
+    #IF {$auto_make_enabled}
+    {
+        stoke fire;
+    };
+}{5}
+
+#ACTION {You stoke the flames and they change{.*?}}
+{
+    #IF {$auto_make_enabled}
+    {
+        stoke fire;
+    };
+}{5}
+
+#ACTION {{.*?}to white{.*?}}
+{
+    #IF {$auto_make_enabled}
+    {
+        #NOP {Do nothing!};
+    };
+}{3}
+
+#ACTION {{.*?}the white flames dance brightly{.*?}}
+{
+    #IF {$auto_make_enabled}
+    {
+        #NOP {Do nothing!};
+    };
+}{3}
+
+#ACTION {You gain {.*?} experience}
+{
+    #IF {$auto_make_enabled}
+    {
+        stop_automake;
+    };
+}
+
 setup_logs;
 #split;
 #READ erion_login.tin;
