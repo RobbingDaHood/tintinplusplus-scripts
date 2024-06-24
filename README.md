@@ -6,3 +6,22 @@
 ```
 #config {packet patch} 0.2
 ``` 
+
+
+# Login file setup
+
+``` 
+#ALIAS {login_lost_soul}
+{
+    #info sessions save;
+    #if {&info[SESSIONS][ls] == 0}
+    {
+        #session ls lostsouls.org 23;
+        USERNAME;
+        PASSWORD;
+    }
+}
+login_lost_soul
+``` 
+
+
