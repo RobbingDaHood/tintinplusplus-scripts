@@ -1,0 +1,32 @@
+#ALIAS {start_autochop}
+{
+    #VARIABLE {auto_chop_enabled} {1};
+    chop tree;
+}
+
+#ALIAS {stop_autochop}
+{
+    #VARIABLE {auto_chop_enabled} {0};
+}
+
+#ACTION {{.*?}finish creating a deep 45{.*?}}
+{
+    #IF {$auto_chop_enabled}
+    {
+        push tree;
+    };
+}
+
+#ACTION {You pick a log up off the ground.{.*?}}
+{
+    #IF {$auto_chop_enabled}
+    {
+        chop tree;
+    };
+}
+
+#ACTION {You don't see any trees here that you can chop.}
+{
+    craft inv put all;
+    stop_autochop;
+}

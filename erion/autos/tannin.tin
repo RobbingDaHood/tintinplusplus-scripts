@@ -1,0 +1,25 @@
+#ALIAS {start_autotannin}
+{
+    #VARIABLE {auto_tannin_enabled} {1};
+    make 6 tannin;
+}
+
+#ALIAS {stop_autotannin}
+{
+    #VARIABLE {auto_tannin_enabled} {0};
+}
+
+#ACTION {The wood chips have transformed into tannin inside a cauldron.}
+{
+    get all cauldron;
+}
+
+#ACTION {You get vegetable tannin from a cauldron}
+{
+    make 6 tannin;
+}
+
+#ACTION {You are missing }
+{
+    stop_autotannin;
+}

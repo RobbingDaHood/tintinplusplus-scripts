@@ -1,0 +1,20 @@
+#ALIAS {start_autosplitlogs}
+{
+    #VARIABLE {auto_splitlogs_enabled} {1};
+    split log;
+}
+
+#ALIAS {stop_autosplitlogs}
+{
+    #VARIABLE {auto_splitlogs_enabled} {0};
+}
+
+#ACTION {You split a log into}
+{
+    split log;
+}
+
+#ACTION {You don't have a log in your equipment inventory to split.}
+{
+    stop_autosplitlogs;
+}

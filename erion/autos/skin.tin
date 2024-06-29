@@ -1,0 +1,33 @@
+#ALIAS {start_autoskin {.*}}
+{
+    #VARIABLE {auto_skin_enabled} {1};
+    #VARIABLE thing_to_kill {%1};
+    #SEND {kill $thing_to_kill};
+}
+
+#ALIAS {stop_autoskin}
+{
+    #VARIABLE {auto_skin_enabled} {0};
+}
+
+#ACTION {{.*?}R.I.P.}
+{
+    #IF {$auto_skin_enabled}
+    {
+        get corpse;
+    };
+}
+
+#ACTION {You get the corpse of {.*}}
+{
+    #IF {$auto_skin_enabled}
+    {
+        skin corpse;
+    };
+}
+
+#ACTION {You finish pulling a bloody skin off the corpse of {.*}}
+{
+    craft inv put all;
+    stop_autoskin;
+}
