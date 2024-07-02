@@ -1,8 +1,7 @@
-#ALIAS {start_autoskin {.*}}
+#ALIAS {start_autoskin}
 {
     #VARIABLE {auto_skin_enabled} {1};
-    #VARIABLE thing_to_kill {%1};
-    #SEND {kill $thing_to_kill};
+    backstab mob;
 }
 
 #ALIAS {stop_autoskin}

@@ -1,0 +1,36 @@
+#ALIAS {start_craft_altarcloth}
+{
+    #VARIABLE {craft_altarcloth_enabled} {1};
+    craft altarcloth 1;
+    heat bucket;
+}
+
+#ALIAS {stop_craft_altarcloth}
+{
+    #VARIABLE {craft_altarcloth_enabled} {0};
+}
+
+#ACTION {The beeswax slowly melts into a pool of liquid and you prepare to twist the cotton balls into wicks.}
+{
+    #IF {$craft_altarcloth_enabled}
+    {
+        twist cotton;
+    };
+}
+
+#ACTION {You finish twisting the cotton wicks and prepare to dip them into the bucket of liquid wax.}
+{
+    #IF {$craft_altarcloth_enabled}
+    {
+        dip cotton;
+    };
+}
+
+#ACTION {You finish dipping the wicks into the bucket and prepare to cut the cotton between the two candles to separate them.}
+{
+    #IF {$craft_altarcloth_enabled}
+    {
+        cut cotton;
+        stop_craft_altarcloth;
+    };
+}

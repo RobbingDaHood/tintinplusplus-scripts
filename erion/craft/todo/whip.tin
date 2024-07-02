@@ -1,0 +1,76 @@
+
+541hp craft whip 108 materials
+You need 4 bars of steel, 1 block of wood, 1 chunk of coal, 10 leathers, and 3 nails to craft a level 108 whip.
+
+541hp craft whip 108
+You arrange the wood and coal and prepare to heat the metal.
+
+541hp heat metal
+You strike a match and begin heating the metal.
+
+541hp
+The metals are fully heated and pliable, and ready to be hammered into shape.
+
+541hp hammer metal
+You place the metal on an anvil and begin hammering it into shape.
+
+541hp
+You grip a knife and prepare to carve the wood.
+
+541hp carve wood
+You begin carving the wood into shape with a knife.
+
+541hp
+You grip a pair of shears and prepare to cut the leather into shape.
+
+541hp
+[Levels] Halle is now a level 102 Monk.
+
+541hp cut leather
+You begin cutting the leather into shape with a pair of shears.
+
+541hp
+You grip a hammer and prepare to nail the leather onto the item.
+
+541hp nail lather
+Huh? Sorry Quitsapiunt, 'nail' is not a command.
+
+541hp hammer nail
+You are ready to begin hammering the leather onto the item.
+
+541hp hammer leather
+You place the leather on the anvil and begin nailing it onto the item with a hammer.
+
+541hp
+You have crafted a handcrafted whip! (x1)
+You gain 950 experience.
+You gain 1200 experience as crafting improves! (36%)
+
+
+#ALIAS {start_craft_altarcloth}
+{
+    #VARIABLE {craft_altarcloth_enabled} {1};
+    craft altarcloth 1;
+}
+
+#ALIAS {stop_craft_altarcloth}
+{
+    #VARIABLE {craft_altarcloth_enabled} {0};
+}
+
+#ACTION {You prepare to spin the wool for the altar cloth.}
+{
+    #IF {$craft_altarcloth_enabled}
+    {
+        spin wool;
+    };
+}
+
+#ACTION {You finish spinning the wool into yarn and prepare to weave the altar cloth.}
+{
+    #IF {$craft_altarcloth_enabled}
+    {
+        weave wool;
+        stop_craft_altarcloth;
+    };
+}

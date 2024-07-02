@@ -1,0 +1,37 @@
+541hp
+541hp craft arrow 48────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────You grip a knife and prepare to carve the wood.
+
+541hp carve wood
+You begin carving the wood into shape with a knife.
+
+541hp
+You have crafted a simple wooden arrow! (x1)
+You gain 1200 experience.
+You gain 400 experience as crafting improves! (37%)
+#ALIAS {start_craft_altarcloth}
+{
+    #VARIABLE {craft_altarcloth_enabled} {1};
+    craft altarcloth 1;
+}
+
+#ALIAS {stop_craft_altarcloth}
+{
+    #VARIABLE {craft_altarcloth_enabled} {0};
+}
+
+#ACTION {You prepare to spin the wool for the altar cloth.}
+{
+    #IF {$craft_altarcloth_enabled}
+    {
+        spin wool;
+    };
+}
+
+#ACTION {You finish spinning the wool into yarn and prepare to weave the altar cloth.}
+{
+    #IF {$craft_altarcloth_enabled}
+    {
+        weave wool;
+        stop_craft_altarcloth;
+    };
+}

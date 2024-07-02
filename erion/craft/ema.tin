@@ -1,0 +1,35 @@
+#ALIAS {start_craft_ema}
+{
+    #VARIABLE {craft_ema_enabled} {1};
+    craft ema 1;
+}
+
+#ALIAS {stop_craft_ema}
+{
+    #VARIABLE {craft_ema_enabled} {0};
+}
+
+#ACTION {You grip a knife and prepare to carve the ema.}
+{
+    #IF {$craft_ema_enabled}
+    {
+        carve ema;
+    };
+}
+
+#ACTION {You prepare to spin the balls of cotton into yarn.}
+{
+    #IF {$craft_ema_enabled}
+    {
+        spin cotton;
+    };
+}
+
+#ACTION {You finish spinning the cotton and prepare to tie it through the ema.}
+{
+    #IF {$craft_ema_enabled}
+    {
+        tie ema;
+        stop_craft_ema;
+    };
+}

@@ -1,0 +1,27 @@
+#ALIAS {start_craft_altarcloth}
+{
+    #VARIABLE {craft_altarcloth_enabled} {1};
+    craft altarcloth 1;
+}
+
+#ALIAS {stop_craft_altarcloth}
+{
+    #VARIABLE {craft_altarcloth_enabled} {0};
+}
+
+#ACTION {You prepare to spin the wool for the altar cloth.}
+{
+    #IF {$craft_altarcloth_enabled}
+    {
+        spin wool;
+    };
+}
+
+#ACTION {You finish spinning the wool into yarn and prepare to weave the altar cloth.}
+{
+    #IF {$craft_altarcloth_enabled}
+    {
+        weave wool;
+        stop_craft_altarcloth;
+    };
+}

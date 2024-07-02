@@ -20,6 +20,7 @@
 #READ autos/shredwood.tin;
 #READ autos/tannin.tin;
 #READ autos/leather.tin;
+#READ autos/scrapecoal.tin;
 
 #ACTION {You gain {.*?} experience}
 {
