@@ -1,12 +1,63 @@
-#ALIAS {start_autoskin}
-{
-    #VARIABLE {auto_skin_enabled} {1};
-    backstab mob;
-}
+#ALIAS {start_autoskin {.*}}            
+{                                       
+    #VARIABLE {auto_skin_enabled} {1};  
+    #VARIABLE thing_to_kill {%1};       
+    #SEND {blackjack $thing_to_kill};        
+    #SEND {backstab $thing_to_kill};        
+}                                       
 
 #ALIAS {stop_autoskin}
 {
     #VARIABLE {auto_skin_enabled} {0};
+}
+
+#ACTION {Your attack is absorbed}
+{
+    #IF {$auto_skin_enabled}
+    {
+        jab;
+    };
+}
+
+#ACTION {(chill touch) You}
+{
+    #IF {$auto_skin_enabled}
+    {
+        jab;
+    };
+}
+
+#ACTION {(jab) You}
+{
+    #IF {$auto_skin_enabled}
+    {
+        kick;
+    };
+}
+
+#ACTION {(kick) You}
+{
+    #IF {$auto_skin_enabled}
+    {
+        eyejab;
+    };
+}
+
+#ACTION {is blinded by smoke!}
+{
+
+    #IF {$auto_skin_enabled}
+    {
+        #UNACTION {(kick) You};
+    };
+}
+
+#ACTION {{.*?}slumps unconscious to the floor.}
+{
+    #IF {$auto_skin_enabled}
+    {
+        stop_autoskin;
+    };
 }
 
 #ACTION {{.*?}R.I.P.}

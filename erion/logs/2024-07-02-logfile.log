@@ -10969,3 +10969,7 @@
 2024-07-02-19:29:45[0m#SESSION 'gts' ACTIVATED.[0m
 2024-07-02-19:29:47[0;37m#end[0m
 2024-07-02-20:46:53[0m#TRYING TO CONNECT 'erion' TO 'erionmud.com' PORT '1234'.[0m
+2024-07-02-20:57:30[0m#SESSION 'gts' ACTIVATED.[0m
+2024-07-02-20:57:32[0;37mshutdown now[0m
+2024-07-02-20:57:32[0m#NO SESSION ACTIVE. USE: #session {name} {host} {port} TO START ONE.[0m
+2024-07-02-20:57:35[0;37m#end[0m
