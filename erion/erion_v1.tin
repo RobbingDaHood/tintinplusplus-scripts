@@ -39,3 +39,4 @@
 #READ erion_login.tin;
 #READ analyse_prompt.tin;
 start_autoheal_delay;
+setup_logs;

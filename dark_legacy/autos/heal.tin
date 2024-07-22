@@ -1,0 +1,19 @@
+#ALIAS {start_15_heal} 
+{
+    cast heal;
+    cast heal;
+    cast heal;
+    cast heal;
+    cast heal;
+    cast heal;
+    cast heal;
+    cast heal;
+    cast heal;
+    cast heal;
+    cast heal;
+    cast heal;
+    cast heal;
+    cast heal;
+    cast heal;
+    cast heal;
+};

@@ -1,26 +1,35 @@
+#VARIABLE {auto_skin_enabled} {0};
+#VARIABLE {battle_enabled} {0};  
 #ALIAS {start_autoskin {.*}}            
 {                                       
     #VARIABLE {auto_skin_enabled} {1};  
+    #VARIABLE {battle_enabled} {1};  
     #VARIABLE thing_to_kill {%1};       
     #SEND {blackjack $thing_to_kill};        
     #SEND {backstab $thing_to_kill};        
     start_dustbomb_delay;
 }                                       
 
+#ACTION {{.*?} is hurt and suspicious}
+{
+    #SEND {kill $thing_to_kill};        
+}
+
 #ALIAS {stop_autoskin}
 {
     #VARIABLE {auto_skin_enabled} {0};
+    #VARIABLE {battle_enabled} {0};  
     #UNDELAY {dustbomb_delay}
 }
 
-#ACTION {Blackjack whom?}
+#ACTION {{.*?} whom?}
 {
-    stop_autoskin;
+    #VARIABLE {battle_enabled} {0};  
 }
 
 #ALIAS {start_dustbomb_delay}
 {
-    #IF {$auto_skin_enabled} 
+    #IF {$auto_skin_enabled && $battle_enabled} 
     {
         #IF {"$current_health_percentage" != "100"} 
         {
@@ -91,6 +100,7 @@
 {
     #IF {$auto_skin_enabled}
     {
+        #VARIABLE {battle_enabled} {0};  
         get corpse;
     };
 }
@@ -107,4 +117,13 @@
 {
     craft inv put all;
     stop_autoskin;
+}
+
+#ALIAS {start_buff_self_delay}
+{
+    #IF {!$auto_skin_enabled && !$battle_enabled} 
+    {
+        buff self;
+    };
+    #DELAY {buff_self_delay} {start_buff_self_delay} {60};
 }

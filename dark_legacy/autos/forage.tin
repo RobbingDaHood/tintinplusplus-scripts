@@ -1,0 +1,79 @@
+#ALIAS {start_autoforage}
+{
+    #VARIABLE {auto_forage_enabled} {1};
+    trigger_autoforage;
+}
+
+#ALIAS {start_autofish}
+{
+    #VARIABLE {auto_fish_enabled} {1};
+    trigger_autofish;
+}
+
+#VARIABLE {auto_forage_enabled} {0};
+#ALIAS {stop_autoforage}
+{
+    #VARIABLE {auto_forage_enabled} {0};
+}
+
+#VARIABLE {auto_fish_enabled} {0};
+#ALIAS {stop_autofish}
+{
+    #VARIABLE {auto_fish_enabled} {0};
+}
+
+#ACTION {You are done harvesting}
+{
+    trigger_autoforage;
+}
+
+#ACTION {You finish a}
+{
+    trigger_autoforage;
+}
+
+#ACTION {You salvaged all the good bits}
+{
+    trigger_autoforage;
+}
+
+#ACTION {You feel too tired to continue}
+{
+    trigger_refresh;
+    trigger_autoforage;
+    trigger_autofish;
+}
+
+#ACTION {Nothing to harvest from that.}
+{
+    stop_autoforage;
+}
+
+#ACTION {After catching nothing for quite a while you reel in your fishing line.}
+{
+    stop_autofish;
+}
+
+#ALIAS {trigger_autoforage}
+{
+    #IF {$auto_forage_enabled}
+    {
+        forage -;
+    };
+};
+
+#ALIAS {trigger_autofish}
+{
+    #IF {$auto_fish_enabled}
+    {
+        fish water;
+    };
+};
+
+#ALIAS {trigger_refresh}
+{
+    cast refresh;
+    cast refresh;
+    cast refresh;
+    cast refresh;
+};

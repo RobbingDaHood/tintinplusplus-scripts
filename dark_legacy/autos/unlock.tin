@@ -1,0 +1,7 @@
+#ALIAS {unlock_and_open {.*}} 
+{
+    get all.key portal;
+    unlock %1;
+    open %1;
+    put all.key portal;
+};

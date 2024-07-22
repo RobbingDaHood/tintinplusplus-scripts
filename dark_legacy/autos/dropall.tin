@@ -1,0 +1,86 @@
+#VARIABLE {state_autosacrifice} {inactive};
+
+#ALIAS {start_autosacrifice} 
+{
+    #ACTION {You can't find it.}
+    {
+        #IF {"$state_autosacrifice" == "clean_room"}
+        {
+            start_sacrifice_all;
+        };
+    };
+
+    #ACTION {I see no corpse here.}
+    {
+        #IF {"$state_autosacrifice" == "clean_room"}
+        {
+            sacrifice -;
+        };
+    };
+    
+    #ACTION {You get}
+    {
+        #IF {"$state_autosacrifice" == "clean_room"}
+        {
+            #DELAY {clean_corpses_timer} {sacrifice corpse; get all corpse;} {1};
+        };
+    };
+    
+    #ACTION {I see nothing in the corpse.}
+    {
+        sacrifice corpse;
+        stop_autosacrifice;
+        #SHOWME {please review your inventory before resuming the autosacrifice};
+    };
+    
+    #ACTION {You cannot sacrifice that.}
+    {
+        #IF {"$state_autosacrifice" == "clean_room"}
+        {
+            #SHOWME {There is blood or something else blocking sacrificing all, please pick another room to sacrifice all in.};
+            stop_autosacrifice;
+        };
+    };
+    
+    #ALIAS {start_sacrifice_all}
+    {
+        drop all; 
+        get all.portal;
+        #VARIABLE {state_autosacrifice} {start_sacrifice_all};
+        stop_autosacrifice;
+    };
+
+    #VARIABLE {state_autosacrifice} {clean_room};
+    get all corpse;
+};
+
+#ALIAS {stop_autosacrifice} 
+{
+    #UNACTION {You can't find it.};
+    #UNACTION {You get};
+    #UNACTION {I see nothing in the corpse.};
+    #UNACTION {You cannot sacrifice that.};
+    #UNALIAS {start_sacrifice_all};
+    #VARIABLE {state_autosacrifice} {inactive};
+};
+
+#ALIAS {start_15_sacrifice}
+{
+    sacrifice -;
+    sacrifice -;
+    sacrifice -;
+    sacrifice -;
+    sacrifice -;
+    sacrifice -;
+    sacrifice -;
+    sacrifice -;
+    sacrifice -;
+    sacrifice -;
+    sacrifice -;
+    sacrifice -;
+    sacrifice -;
+    sacrifice -;
+    sacrifice -;
+    sacrifice -;
+    sacrifice -;
+};

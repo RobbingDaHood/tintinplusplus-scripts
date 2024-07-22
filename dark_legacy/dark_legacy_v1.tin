@@ -1,0 +1,23 @@
+#alias {setup_logs} 
+{
+    #format {todays_logfile_name} {%t} {%Y-%m-%d-logfile.log};
+    #log timestamp {%Y-%m-%d-%H:%M:%S};
+    #log append {logs/$todays_logfile_name};
+};
+
+#ALIAS {reload_configs}
+{
+    #kill; 
+    #read dark_legacy_v1.tin;
+}
+
+#READ autos/buffs.tin;
+#READ autos/dropall.tin;
+#READ autos/heal.tin;
+#READ autos/unlock.tin;
+#READ autos/forage.tin;
+#READ autos/sell.tin;
+
+#split;
+#READ dark_legacy_login.tin;
+setup_logs;
