@@ -4,11 +4,38 @@
     #VARIABLE thing_to_kill {%1};       
     #SEND {blackjack $thing_to_kill};        
     #SEND {backstab $thing_to_kill};        
+    start_dustbomb_delay;
 }                                       
 
 #ALIAS {stop_autoskin}
 {
     #VARIABLE {auto_skin_enabled} {0};
+    #UNDELAY {dustbomb_delay}
+}
+
+#ACTION {Blackjack whom?}
+{
+    stop_autoskin;
+}
+
+#ALIAS {start_dustbomb_delay}
+{
+    #IF {$auto_skin_enabled} 
+    {
+        #IF {"$current_health_percentage" != "100"} 
+        {
+            dustbomb;
+        };
+        #DELAY {dustbomb_delay} {start_dustbomb_delay} {3};
+    };
+}
+
+#ACTION {You throw a dust bomb!}
+{
+    #IF {$auto_skin_enabled}
+    {
+        #DELAY {dustbomb_delay} {start_dustbomb_delay} {31};
+    };
 }
 
 #ACTION {Your attack is absorbed}
