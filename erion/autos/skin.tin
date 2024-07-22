@@ -19,7 +19,7 @@
     };
 }
 
-#ACTION {(chill touch) You}
+#ACTION {(chilling touch) You}
 {
     #IF {$auto_skin_enabled}
     {

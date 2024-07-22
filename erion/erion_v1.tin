@@ -34,6 +34,5 @@
     };
 }
 
-setup_logs;
 #split;
 #READ erion_login.tin;
