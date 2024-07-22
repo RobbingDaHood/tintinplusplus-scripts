@@ -21,6 +21,7 @@
 #READ autos/tannin.tin;
 #READ autos/leather.tin;
 #READ autos/scrapecoal.tin;
+#READ autos/heal.tin;
 
 #ACTION {You gain {.*?} experience}
 {
@@ -37,3 +38,4 @@
 #split;
 #READ erion_login.tin;
 #READ analyse_prompt.tin;
+start_autoheal_delay;

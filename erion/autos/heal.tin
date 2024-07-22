@@ -1,0 +1,31 @@
+#VARIABLE healer_name {none};       
+
+#ALIAS {stop_autoheal}
+{
+    #UNDELAY {dustbomb_delay};
+}
+
+#ALIAS {start_autoheal_delay}            
+{                                       
+    #DELAY {heal_delay} {start_autoheal_delay} {3};
+    ask_for_heal;
+}                                       
+
+#ALIAS {setup_healer {.*}}
+{
+    #VARIABLE healer_name {%1};       
+}
+
+#ALIAS {ask_for_heal}
+{
+    #IF {"$healer_name" == "none"}
+    {
+        #SHOWME {Please pick a healer with setup_healer};
+    }
+    {
+        #IF {"$current_health_percentage" != "100"} 
+        {
+            #send {beep $healer_name heal};
+        };
+    };
+}
