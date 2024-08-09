@@ -1,0 +1,20 @@
+#ALIAS {start_autoscrapecoal}
+{
+    #VARIABLE {auto_scrapecoal_enabled} {1};
+    scrape coal;
+}
+
+#ALIAS {stop_autoscrapecoal}
+{
+    #VARIABLE {auto_scrapecoal_enabled} {0};
+}
+
+#ACTION {You finish scraping the coal into a pile of carbon powder.}
+{
+    scrape coal;
+}
+
+#ACTION {You don't have that.}
+{
+    stop_autoscrapecoal;
+}

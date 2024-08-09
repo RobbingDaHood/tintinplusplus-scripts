@@ -1,0 +1,20 @@
+#ALIAS {start_autoshredwood}
+{
+    #VARIABLE {auto_shredwood_enabled} {1};
+    shred wood;
+}
+
+#ALIAS {stop_autoshredwood}
+{
+    #VARIABLE {auto_shredwood_enabled} {0};
+}
+
+#ACTION {You finish shredding the block into}
+{
+    shred wood;
+}
+
+#ACTION {You aren't carrying that.}
+{
+    stop_autoshredwood;
+}

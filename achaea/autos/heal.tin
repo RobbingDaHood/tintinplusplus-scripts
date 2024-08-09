@@ -1,0 +1,43 @@
+#VARIABLE healer_name {none};       
+
+#ALIAS {stop_autoheal}
+{
+    #UNDELAY {heal_delay};
+}
+
+#ALIAS {start_autoheal_delay}            
+{                                       
+    #DELAY {heal_delay} {start_autoheal_delay} {3};
+    ask_for_heal;
+}                                       
+
+#ALIAS {setup_healer {.*}}
+{
+    #VARIABLE healer_name {%1};       
+    #send {tell $healer_name Hi, I am planning on using your healing services soon, it could be a bit intense because I like the easy mode of just healing instead of getting better items. I will only request if I am below 90% HP and earliest 6 seconds after you healed me last. If this is a problem then please tell me and I will stop. Thanks for making your services available to me.};
+}
+
+#ACTION {{.*?}does not want to be beeped.} 
+{
+    #VARIABLE healer_name {none};       
+}
+
+#ALIAS {ask_for_heal}
+{
+    #IF {"$healer_name" == "none"}
+    {
+        #SHOWME {Please pick a healer with setup_healer or stop_autoheal};
+    }
+    {
+        #IF {$current_health_percentage < 90} 
+        {
+            #DELAY {heal_delay} {start_autoheal_delay} {6};
+            #send {beep $healer_name heal};
+        };
+    };
+}
+
+#ACTION {From far away} 
+{
+    #DELAY {heal_delay} {start_autoheal_delay} {6};
+}

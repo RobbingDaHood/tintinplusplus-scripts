@@ -1,0 +1,16 @@
+#ALIAS {start_autoforage}
+{
+    #VARIABLE {auto_forage_enabled} {1};
+    forage area;
+}
+
+#ALIAS {stop_autoforage}
+{
+    #VARIABLE {auto_forage_enabled} {0};
+}
+
+#ACTION {The area looks picked over.}
+{
+    craft inv put all;
+    stop_autoforage;
+}

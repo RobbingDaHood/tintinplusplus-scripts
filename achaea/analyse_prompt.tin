@@ -1,0 +1,5 @@
+#ACTION {prompt> {\d+}hp {\d+}mana}
+{
+    #variable {current_health_percentage} {%1};
+    #variable {current_mana_percentage} {%2};
+}

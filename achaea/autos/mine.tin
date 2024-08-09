@@ -1,0 +1,36 @@
+#ALIAS {start_automine}
+{
+    #VARIABLE {auto_mine_enabled} {1};
+    mine cluster;
+}
+
+#ALIAS {stop_automine}
+{
+    #VARIABLE {auto_mine_enabled} {0};
+}
+
+#ACTION {Dirt and rock tumble over the cluster.}
+{
+    #IF {$auto_mine_enabled}
+    {
+        clear debris;
+    };
+}
+
+#ACTION {The cluster breaks apart.}
+{
+    #IF {$auto_mine_enabled}
+    {
+        mine cluster;
+    };
+}
+
+#ACTION {A pickaxe's handle cracks in half.}
+{
+    stop_automine;
+}
+
+#ACTION {You don't see any clusters here that you can mine.}
+{
+    stop_automine;
+}

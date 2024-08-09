@@ -1,0 +1,35 @@
+#ALIAS {start_craft_prayerrug}
+{
+    #VARIABLE {craft_prayerrug_enabled} {1};
+    craft prayer 1;
+}
+
+#ALIAS {stop_craft_prayerrug}
+{
+    #VARIABLE {craft_prayerrug_enabled} {0};
+}
+
+#ACTION {You prepare to spin the balls of cotton into yarn.}
+{
+    #IF {$craft_prayerrug_enabled}
+    {
+        spin cotton;
+    };
+}
+
+#ACTION {You finish spinning the ball of cotton into yarn and prepare to tie a knot into one end.}
+{
+    #IF {$craft_prayerrug_enabled}
+    {
+        tie knot;
+    };
+}
+
+#ACTION {You give one last tug on the loop to tighten it and prepare to weave the cotton yarn into a sturdy prayer rug.}
+{
+    #IF {$craft_prayerrug_enabled}
+    {
+        weave cotton;
+        stop_craft_prayerrug;
+    };
+}

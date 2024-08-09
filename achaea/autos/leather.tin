@@ -1,0 +1,36 @@
+#ALIAS {start_autoleather}
+{
+    #VARIABLE {auto_leather_enabled} {1};
+    preserve bloody;
+}
+
+#ALIAS {stop_autoleather}
+{
+    #VARIABLE {auto_leather_enabled} {0};
+}
+
+#ACTION {The salt sinks into a bloody skin, preserving it.}
+{
+    #IF {$auto_leather_enabled}
+    {
+        scrape cured;
+    };
+}
+
+#ACTION {You scrape off the last bits of flesh and hair from a cured skin.}
+{
+    #IF {$auto_leather_enabled}
+    {
+        preserve bloody;
+    };
+}
+
+#ACTION {You don't have that.}
+{
+    #IF {$auto_leather_enabled}
+    {
+        stop_autoleather;
+    };
+}
+
+

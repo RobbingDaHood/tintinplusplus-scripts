@@ -1,0 +1,73 @@
+#ALIAS {start_automake}
+{
+    #VARIABLE {auto_make_enabled} {1};
+}
+
+#ALIAS {stop_automake}
+{
+    #VARIABLE {auto_make_enabled} {0};
+}
+
+#ACTION {A thick layer of dross{.*}}
+{
+    #IF {$auto_make_enabled}
+    {
+        skim dross;
+    };
+}
+
+#ACTION {The flames change{.*?}}
+{
+    #IF {$auto_make_enabled}
+    {
+        stoke fire;
+    };
+}{5}
+
+#ACTION {The fire in a firepit begins{.*?}}
+{
+    #IF {$auto_make_enabled}
+    {
+        stoke fire;
+    };
+}{5}
+
+#ACTION {The flames change from{.*?}}
+{
+    #IF {$auto_make_enabled}
+    {
+        stoke fire;
+    };
+}{5}
+
+#ACTION {You stoke the flames and they change{.*?}}
+{
+    #IF {$auto_make_enabled}
+    {
+        stoke fire;
+    };
+}{5}
+
+#ACTION {You stoke the flames and they nearly go out.}
+{
+    #IF {$auto_make_enabled}
+    {
+        stoke fire;
+    };
+}{5}
+
+#ACTION {{.*?}to white{.*?}}
+{
+    #IF {$auto_make_enabled}
+    {
+        #NOP {Do nothing!};
+    };
+}{3}
+
+#ACTION {{.*?}the white flames dance brightly{.*?}}
+{
+    #IF {$auto_make_enabled}
+    {
+        #NOP {Do nothing!};
+    };
+}{3}
