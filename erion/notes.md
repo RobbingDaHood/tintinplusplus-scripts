@@ -33,3 +33,27 @@ You can exchange every material in bulk.
 ## Smithy
 
 1. Ores 
+
+
+# TODO
+
+1. Add list of healers and rotate between them, to decrease the load. 
+1. Consider if the autohealing system needs to write a message every time I add a healer, could be spammy. 
+1. Add autobuff setup: I did buff self setup, maybe just an alert for some important buffs: deter, unholy symbol and soften death
+1. Add buff all pets
+1. Add equip best items for all pets. 
+    1. Put all not items in container
+    1. reverse sort container
+    1. get all items
+    1. give all items to pet one
+    1. order to wear all items
+    1. order to drop all items
+    1. get all
+    1. repeat for each pet 
+1. Add more crafting autos: Seems like it is the same lines being used multiple times, so make a catalog. 
+    1. Could be great if it would keep the fire going and minimize use of matches. 
+    1. Could be a "check crafting": Where it moves around and checks that everything is fine before starting. 
+    1. Maybe it is only the fire that is needed. 
+1. can I mark all forum notes as unread. Or at least a lot of old ones. 
+
+

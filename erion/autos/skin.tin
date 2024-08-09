@@ -123,7 +123,7 @@
 {
     #IF {!$auto_skin_enabled && !$battle_enabled} 
     {
-        buff self;
+        buff group;
     };
     #DELAY {buff_self_delay} {start_buff_self_delay} {60};
 }
