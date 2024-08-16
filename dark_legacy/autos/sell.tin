@@ -1,20 +1,36 @@
 #ALIAS {sell_15_fish}
 {
+    get fish portal;
     sell fish;
+    get fish portal;
     sell fish;
+    get fish portal;
     sell fish;
+    get fish portal;
     sell fish;
+    get fish portal;
     sell fish;
+    get fish portal;
     sell fish;
+    get fish portal;
     sell fish;
+    get fish portal;
     sell fish;
+    get fish portal;
     sell fish;
+    get fish portal;
     sell fish;
+    get fish portal;
     sell fish;
+    get fish portal;
     sell fish;
+    get fish portal;
     sell fish;
+    get fish portal;
     sell fish;
+    get fish portal;
     sell fish;
+    get fish portal;
     sell fish;
-    get all.fish portal;
+    get fish portal;
 };

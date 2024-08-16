@@ -1,0 +1,27 @@
+#VARIABLE {gem_type} {0}; 
+#ALIAS {start_gemcutting {.*}}
+{
+    #VARIABLE {gem_type} {%1}; 
+    gemcutting_trigger;
+}
+
+#ALIAS {stop_gemcutting}
+{
+    #VARIABLE {gem_type} {0}; 
+}
+
+#ALIAS {gemcutting_trigger}
+{
+    #IF {"$gem_type" != "0"}
+    {
+        put all.substance portal;
+        get 'uncut $gem_type' portal;
+        process 'uncut $gem_type' 1;
+    }
+}
+
+#ACTION {You gain 250 Gemcutting experience!}
+{
+    gemcutting_trigger;
+}
+

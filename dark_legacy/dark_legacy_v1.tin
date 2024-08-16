@@ -17,6 +17,8 @@
 #READ autos/unlock.tin;
 #READ autos/forage.tin;
 #READ autos/sell.tin;
+#READ autos/mine.tin;
+#READ autos/cutgems.tin;
 
 #split;
 #READ dark_legacy_login.tin;

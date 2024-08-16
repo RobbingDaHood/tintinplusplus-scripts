@@ -1,7 +1,63 @@
+#VARIABLE {max_with} {5};
+#VARIABLE {max_height} {5};
+#VARIABLE {current_with} {0};
+#VARIABLE {current_height} {0};
+#VARIABLE {square_auto_forage_enabled} {0};
+#ALIAS {start_square_autoforage}
+{
+    #VARIABLE {square_auto_forage_enabled} {1};
+    #VARIABLE {current_with} {0};
+    #VARIABLE {current_height} {0};
+    start_autoforage;
+}
+
+#ALIAS {stop_square_autoforage}
+{
+    #VARIABLE {square_auto_forage_enabled} {0};
+    prompt &Y%hhp &C%mm &G%vmv&w %o>;
+}
+
+#ALIAS {choose_direction_auto_forage}
+{
+    #IF {$square_auto_forage_enabled}
+    {
+        #IF {$max_height > $current_height}
+        {
+            #IF {$max_with == $current_with}
+            {
+                #VARIABLE {current_with} {0};
+                #MATH {current_height} {$current_height + 1};
+                n;
+                w;
+                w;
+                w;
+                w;
+                w;
+                #DELAY {start_autoforage_delay_trigger} {start_autoforage} {5};
+            };
+            #ELSEIF {$max_with > $current_with}
+            {
+                #MATH {current_with} {$current_with + 1};
+                e;
+                #DELAY {start_autoforage_delay_trigger} {start_autoforage} {5};
+            };
+            prompt &Y%hhp &C%mm &G%vmv&w %o> |$current_height, $current_with|;
+        };
+        #ELSE
+        {
+            stop_square_autoforage;
+        };
+    };
+}
+
+#LIST {harvest_actions} clear;
 #ALIAS {start_autoforage}
 {
     #VARIABLE {auto_forage_enabled} {1};
-    trigger_autoforage;
+    fill garbage all;
+    #LIST {harvest_actions} clear;
+    #DELAY {trigger_autoforage_look__delay} {look} {0.2};
+    #DELAY {trigger_autoforage_delay} {trigger_autoforage} {1.0};
 }
 
 #ALIAS {start_autofish}
@@ -14,6 +70,12 @@
 #ALIAS {stop_autoforage}
 {
     #VARIABLE {auto_forage_enabled} {0};
+    put all.log forageportal;
+    put all.thistle forageportal;
+    put all.eye forageportal;
+    put all.cotton forageportal;
+    look;
+    choose_direction_auto_forage;
 }
 
 #VARIABLE {auto_fish_enabled} {0};
@@ -33,6 +95,11 @@
 }
 
 #ACTION {You salvaged all the good bits}
+{
+    trigger_autoforage;
+}
+
+#ACTION {You plucked a cotton shrub bare.}
 {
     trigger_autoforage;
 }
@@ -58,7 +125,14 @@
 {
     #IF {$auto_forage_enabled}
     {
-        forage -;
+        #IF {&harvest_actions[] != 0}
+        {
+            #send {$harvest_actions[+1]};
+            #list harvest_actions delete 1;
+        }
+        {
+            stop_autoforage;
+        };
     };
 };
 
@@ -77,3 +151,112 @@
     cast refresh;
     cast refresh;
 };
+
+#ACTION {No such object.}
+{
+    stop_square_autoforage;
+}
+
+#ACTION {A patch of creeping thistles grows here.}
+{
+    #IF {$auto_forage_enabled}
+    {
+        #VARIABLE {harvest_actions[thistles]} {forage thistles};
+    };
+}
+
+#ACTION {A cedar tree lies here, stripped of most of its weeping branches.}
+{
+    #IF {$auto_forage_enabled}
+    {
+        #VARIABLE {harvest_actions[cedar]} {chop cedar};
+    };
+}
+
+#ACTION {A doll eye weed stares at you.}
+{
+    #IF {$auto_forage_enabled}
+    {
+        #VARIABLE {harvest_actions[weed]} {forage weed};
+    };
+}
+
+#ACTION {The wind passes through a fallen yew tree here, as if whispering the names of the dead.}
+{
+    #IF {$auto_forage_enabled}
+    {
+        #VARIABLE {harvest_actions[yew]} {chop yew};
+    };
+}
+
+#ACTION {Thick snake like vines scale a rock here.}
+{
+    #IF {$auto_forage_enabled}
+    {
+        #VARIABLE {harvest_actions[vine]} {forage vine};
+    };
+}
+
+#ACTION {Bloodied roots burrow into the ground here.}
+{
+    #IF {$auto_forage_enabled}
+    {
+        #VARIABLE {harvest_actions[root]} {forage root};
+    };
+}
+
+#ACTION {A knotted ash tree has relinquished its centuries long hold on the earth.}
+{
+    #IF {$auto_forage_enabled}
+    {
+        #VARIABLE {harvest_actions[ash]} {chop ash};
+    };
+}
+
+#ACTION {A patch of star nettles glitters brightly.}
+{
+    #IF {$auto_forage_enabled}
+    {
+        #VARIABLE {harvest_actions[star]} {forage star};
+    };
+}
+
+#ACTION {Gravethorn springs forth from a simple worn down grave.}
+{
+    #IF {$auto_forage_enabled}
+    {
+        #VARIABLE {harvest_actions[Gravethorn]} {forage Gravethorn};
+    };
+}
+
+#ACTION {A hawthorne tree lies here, it roots ripped out of the ground.}
+{
+    #IF {$auto_forage_enabled}
+    {
+        #VARIABLE {harvest_actions[hawthorne]} {chop hawthorne};
+    };
+}
+
+#ACTION {A mottled lotus dances in the wind here.}
+{
+    #IF {$auto_forage_enabled}
+    {
+        #VARIABLE {harvest_actions[lotus]} {forage lotus};
+    };
+}
+
+#ACTION {A large cotton shrub sports cotton bolls.}
+{
+    #IF {$auto_forage_enabled}
+    {
+        #VARIABLE {harvest_actions[cotton]} {forage cotton};
+    };
+}
+
+#ACTION {A fallen pine tree lies here, pieces of bark flaking from its side.}
+{
+    #IF {$auto_forage_enabled}
+    {
+        #NOP {Ignoring pine};
+    };
+}
