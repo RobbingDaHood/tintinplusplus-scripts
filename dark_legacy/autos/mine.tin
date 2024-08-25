@@ -1,29 +1,102 @@
 #ALIAS {look_everywhere} 
 {
+    #GAG {you prospect};
+    #GAG {mineral pocket};
+    #GAG {a patch of colorful cave mushrooms};
     #SHOWME {North};
     look n;
     #DELAY {look_everywhere_ne} {#SHOWME {NorthEast}; look ne;} {0.8}; 
     #DELAY {look_everywhere_e} {#SHOWME {East}; look e;} {1.3}; 
     #DELAY {look_everywhere_se} {#SHOWME {SouthEast}; look se;} {1.8}; 
     #DELAY {look_everywhere_s} {#SHOWME {South}; look s;} {2.3}; 
-    #DELAY {look_everywhere_w} {#SHOWME {SouthWest}; look sw;} {2.8}; 
+    #DELAY {look_everywhere_sw} {#SHOWME {SouthWest}; look sw;} {2.8}; 
     #DELAY {look_everywhere_w} {#SHOWME {West}; look w;} {3.3}; 
-    #DELAY {look_everywhere_w} {#SHOWME {NorthWest}; look nw;} {3.8}; 
+    #DELAY {look_everywhere_nw} {#SHOWME {NorthWest}; look nw;} {3.8}; 
+    #DELAY {look_everywhere_ungag_delay}
+    {
+        #UNGAG {you prospect};
+        #UNGAG {mineral pocket};
+        #UNGAG {a patch of colorful cave mushrooms};
+    } {4.6};
 }
 
 #HIGHLIGHT {.. an ore deposit} {underscore Jade};
 #HIGHLIGHT {.. mother lode} {underscore Jade};
+#HIGHLIGHT {.. miners bane} {underscore Red};
 
 #ALIAS {cast_mine {.*}} 
 {
-    cast Pebblelure;
-    cast Pebblelure;
-    cast Pebblelure;
-    cast Pebblelure;
-    cast Pebblelure;
+    start_maintain_all_xorns;
     mine %1;
 }
 
+#VARIABLE digging_path_enabled 0;
+#ALIAS {dig_path {.*?} {.*}}
+{
+    start_maintain_all_xorns;
+    #VARIABLE digging_path_enabled 1;
+    mining_gag;
+    create_path %1 %2;
+    trigger_next_mine;
+}
+
+#ALIAS {stop_dig_path}
+{
+    #VARIABLE digging_path_enabled 0;
+    #VARIABLE need_to_resummon_xorns 0;
+    put all.uncut miningportal;
+    put all.ore miningportal;
+    #DELAY {delay_look_everywhere} look_everywhere {0.5};
+    #DELAY {delay_look_everywhere} mining_ungag {6};
+    #SHOWME {DONE MINING!!};
+}
+
+#VARIABLE maintain_all_xorns_state 0;
+#ALIAS {start_maintain_all_xorns}
+{
+    #IF {!$maintain_all_xorns_state}
+    {
+        #VARIABLE maintain_all_xorns_state 1;
+        cast Pebblelure;
+        cast Pebblelure;
+        cast Pebblelure;
+        cast Pebblelure;
+        cast Pebblelure;
+        #GAG {You gesture and chant 'Solaris In'};
+        #GAG {You enchant some pebbles and scatter them around.};
+        #GAG {pebbles};
+        #GAG {multiple eyes stare at Captiosus};
+        #GAG {now follows you.};
+        #GAG {scrambles to its new position.};
+        #GAG {falls onto the floor};
+    }
+}
+
+#ALIAS {stop_maintain_all_xorns}
+{
+    #VARIABLE maintain_all_xorns_state 0;
+    #UNGAG {You gesture and chant 'Solaris In'};
+    #UNGAG {You enchant some pebbles and scatter them around.};
+    #UNGAG {all the pebbles.};
+    #UNGAG {multiple eyes stare at Captiosus};
+    #UNGAG {now follows you.};
+    #UNGAG {scrambles to its new position.};
+    #UNGAG {falls onto the floor};
+};
+
+#ALIAS {summon_missing_xorns}
+{
+    #IF {$need_to_resummon_xorns > 0 && $maintain_all_xorns_state}
+    {
+        cast Pebblelure;
+        #MATH {need_to_resummon_xorns} {$need_to_resummon_xorns - 1};
+        summon_missing_xorns;
+    };
+    #ELSEIF {$digging_path_enabled}
+    {
+        trigger_next_mine;
+    };
+}
 
 #ALIAS {create_path {.*?} {.*}}
 {
@@ -31,8 +104,102 @@
     #VARIABLE {path_duration} {%2};
 
     #list {created_path} clear; 
-    #PARSE {$path_direction} {direction} 
+    #loop 0 $path_duration count 
     {
-        #loop 0 $path_duration count {#list created_path add $direction};
+        #PARSE {$path_direction} {direction} 
+        {
+            #list created_path add $direction;
+        };
     };
 };
+
+#ALIAS {trigger_next_mine}
+{
+    #IF {&created_path[] != 0}
+    {
+        #SHOWME {DIGGING PATH: $created_path[]};
+        #send {mine $created_path[+1]};
+    };
+    #ELSE 
+    {
+        stop_dig_path;
+    };
+}
+
+#ACTION {Nothing left to harvest there.}
+{
+    #DELAY {dig_move_and_mine_trigger} {dig_move_and_mine} {0.2};
+}
+
+#ACTION {A passage opens up to}
+{
+    #DELAY {dig_move_and_mine_trigger} {dig_move_and_mine} {0.2};
+}
+
+#ALIAS {dig_move_and_mine}
+{
+    #IF {$digging_path_enabled}
+    {
+        #send {$created_path[+1]};
+        #list created_path delete 1;
+        trigger_next_mine;
+    };
+}
+
+#VARIABLE need_to_resummon_xorns 0;
+#ACTION {stops following you.}
+{
+    #IF {$maintain_all_xorns_state}
+    {
+        #MATH {need_to_resummon_xorns} {$need_to_resummon_xorns + 1};
+        summon_missing_xorns;
+    };
+}
+
+#ALIAS {mining_gag}
+{
+    #GAG {start harvesting from};
+    #GAG {harvests {.*?} from};
+    #GAG {harvest {.*?} from};
+    #GAG {strip out the last a};
+    #GAG {clear a path deeper};
+    #GAG {gain 250 Pitter (Mining) experience!};
+    #GAG {uncut};
+    #GAG {work up a sweat};
+    #GAG {Fertile soil};
+    #GAG {is standing on the floor};
+    #GAG {Xorn wanders};
+    #GAG {walks};
+    #GAG {flies};
+    #GAG {dislodge};
+    #GAG {deplete};
+    #GAG {enters formation};
+    #GAG {Attempting};
+    #GAG {You explore};
+    #GAG {walk};
+    #GAG {a patch of colorful cave mushrooms};
+}
+
+#ALIAS {mining_ungag}
+{
+    #UNGAG {start harvesting from};
+    #UNGAG {harvests {.*?} from};
+    #UNGAG {harvest {.*?} from};
+    #UNGAG {strip out the last a};
+    #UNGAG {clear a path deeper};
+    #UNGAG {gain 250 Pitter (Mining) experience!};
+    #UNGAG {uncut};
+    #UNGAG {work up a sweat};
+    #UNGAG {Fertile soil};
+    #UNGAG {is standing on the floor};
+    #UNGAG {Xorn wanders};
+    #UNGAG {walks};
+    #UNGAG {flies};
+    #UNGAG {dislodge};
+    #UNGAG {deplete};
+    #UNGAG {enters formation};
+    #UNGAG {Attempting};
+    #UNGAG {You explore};
+    #UNGAG {walk};
+    #UNGAG {a patch of colorful cave mushrooms};
+}

@@ -14,13 +14,13 @@
 {
     #IF {"$gem_type" != "0"}
     {
-        put all.substance portal;
-        get 'uncut $gem_type' portal;
+        put all.substance substanceportal;
+        get 'uncut $gem_type' miningportal;
         process 'uncut $gem_type' 1;
     }
 }
 
-#ACTION {You gain 250 Gemcutting experience!}
+#ACTION {You gain {.*?} Gemcutting experience!}
 {
     gemcutting_trigger;
 }
