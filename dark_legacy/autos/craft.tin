@@ -1,0 +1,30 @@
+#NOP {EXAMPLE: start_crafting process pine 1:3};
+
+#VARIABLE {start_crafting_enabled} {0}; 
+#ALIAS {start_crafting {.*?}:{.*}}
+{
+    #VARIABLE {operation_to_repeat} {%1}; 
+    #VARIABLE {crafting_counts} {%2}; 
+    #VARIABLE {start_crafting_enabled} {1}; 
+    crafting_trigger;
+}
+
+#ALIAS {stop_crafting}
+{
+    #VARIABLE {start_crafting_enabled} {0}; 
+}
+
+#ALIAS {crafting_trigger}
+{
+    #IF {$start_crafting_enabled && $crafting_counts > 0}
+    {
+        #MATH {crafting_counts} {$crafting_counts - 1};
+        $operation_to_repeat;
+    }
+}
+
+#ACTION {You gain {.*?} experience!}
+{
+    crafting_trigger;
+}
+

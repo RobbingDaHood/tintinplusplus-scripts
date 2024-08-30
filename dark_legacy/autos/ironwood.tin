@@ -1,0 +1,53 @@
+#VARIABLE {start_create_ironwood_enabled} {0}; 
+#ALIAS {start_create_ironwood}
+{
+    #VARIABLE {start_create_ironwood_enabled} {1}; 
+    create_ironwood_trigger;
+}
+
+#ALIAS {stop_create_ironwood}
+{
+    #VARIABLE {start_create_ironwood_enabled} {0}; 
+}
+
+#ALIAS {create_ironwood_trigger}
+{
+    #IF {$start_create_ironwood_enabled}
+    {
+        stand;
+        get pine girdersportal; 
+    };
+}
+
+#ACTION {You get pine wood block from an extradimensional portal}
+{
+    #IF {$start_create_ironwood_enabled}
+    {
+        cast ironwood pine; 
+    };
+}
+
+#ACTION {You fashion pine wood block from ironwood!}
+{
+    #IF {$start_create_ironwood_enabled}
+    {
+        put all.ironwood ironwoodportal;
+    };
+};
+
+#ACTION {You put an ironwood block in an extradimensional portal.}
+{
+    #IF {$start_create_ironwood_enabled}
+    {
+        #DELAY {create_ironwood_trigger_delay} {create_ironwood_trigger} {1};
+    };
+};
+
+#ACTION {Cannot cast, need 200 mana}
+{
+    #IF {$start_create_ironwood_enabled}
+    {
+        sleep;
+        #DELAY {sleep_for_crafting_delay} {create_ironwood_trigger} {120};
+    };
+}

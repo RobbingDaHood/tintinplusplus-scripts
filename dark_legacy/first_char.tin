@@ -8,18 +8,20 @@
 #ALIAS {reload_configs}
 {
     #kill; 
-    #read dark_legacy_v1.tin;
+    #read first_char.tin;
 }
 
 #READ autos/buffs.tin;
-#READ autos/dropall.tin;
 #READ autos/heal.tin;
 #READ autos/unlock.tin;
 #READ autos/forage.tin;
 #READ autos/sell.tin;
-#READ autos/mine.tin;
-#READ autos/cutgems.tin;
+#NOP autos/mine.tin;
+#NOP autos/cutgems.tin;
+#NOP autos/craft.tin;
+#NOP autos/ironwood.tin;
 
 #split;
 #READ dark_legacy_login.tin;
 setup_logs;
+1;

@@ -1,0 +1,27 @@
+#alias {setup_logs} 
+{
+    #format {todays_logfile_name} {%t} {%Y-%m-%d-logfile.log};
+    #log timestamp {%Y-%m-%d-%H:%M:%S};
+    #log append {logs/$todays_logfile_name};
+};
+
+#ALIAS {reload_configs}
+{
+    #kill; 
+    #read miner_char.tin;
+}
+
+#NOP autos/buffs.tin;
+#NOP autos/heal.tin;
+#NOP autos/unlock.tin;
+#NOP autos/forage.tin;
+#NOP autos/sell.tin;
+#READ autos/mine.tin;
+#READ autos/cutgems.tin;
+#READ autos/craft.tin;
+#READ autos/ironwood.tin;
+
+#split;
+#READ dark_legacy_login.tin;
+setup_logs;
+2;
