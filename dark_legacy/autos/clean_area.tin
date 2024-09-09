@@ -1,0 +1,186 @@
+#READ autos/simple_spider_battle.tin;
+
+#variable {state_autoexplore} {0};
+#ALIAS {start_autoexplore}
+{
+    #variable {state_autoexplore} {1};
+    #map destroy world;
+    #map create 999999;
+    #map goto 1;
+
+    fprompt &Y%hhp &C%mm &G%vmv&w %o> [&R%D&w] FIGHTING_MOBS;
+    prompt &Y%hhp &C%mm &G%vmv&w %o> FIGHTING_NO_MOBS;
+
+    #VARIABLE current_room_id -1;
+    look;
+}
+
+#VARIABLE fighting_mobs 0;
+#ACTION {FIGHTING_MOBS}
+{
+    #VARIABLE fighting_mobs 1;
+    #UNDELAY {move_to_closest_unexplored_room_delay};
+    #VARIABLE current_room_id -1;
+}
+
+#ACTION {FIGHTING_NO_MOBS}
+{
+    #VARIABLE simple_spider_battle_enabled 0;
+    #VARIABLE fighting_mobs 0;
+    #map get all current_room_info;
+    #SHOWME {$current_room_id != $current_room_info[vnum]};
+    #IF {$current_room_id != $current_room_info[vnum]}
+    {
+        #VARIABLE current_room_id $current_room_info[vnum];
+        #NOP {#DELAY {look_delay} {look} {0.5};};
+        #DELAY {move_to_closest_unexplored_room_delay} {move_to_closest_unexplored_room} {2};
+    };
+}
+
+#ACTION {is DEAD!!}
+{
+    #DELAY spidersilk_corpse_filler_delay spidersilk_corpse_filler {0.5};
+    #UNDELAY {move_to_closest_unexplored_room_delay};
+}
+
+#ACTION {A coin appears in your pouch as you sacrifice}
+{
+    #DELAY spidersilk_corpse_filler_delay spidersilk_corpse_filler {0.5};
+    #UNDELAY {move_to_closest_unexplored_room_delay};
+    #VARIABLE current_room_id -1;
+}
+
+#ALIAS {spidersilk_corpse_filler}
+{
+    #IF {!$fighting_mobs}
+    {
+        fill spidersilkportal corpse; 
+        sacrifice corpse;
+    };
+}
+
+#ALIAS {stop_autoexplore}
+{
+    #variable {state_autoexplore} {0};
+    fprompt &Y%hhp &C%mm &G%vmv&w %o> [&R%D&w];
+    prompt &Y%hhp &C%mm &G%vmv&w %o>;
+}
+
+#ALIAS {move_to_closest_unexplored_room}
+{
+    #IF {!$fighting_mobs}
+    {
+        #map find {roomdesc} {unexplored};
+        #path get length length_of_path;
+        #if {$length_of_path > 0} 
+        {
+            #path walk;
+        };
+        #else 
+        {
+            #SHOWME {DONE WALKING!};
+            stop_autoexplore;
+        };
+    };
+}
+
+#ACTION {Exits: {.*?}.}
+{
+    #IF {$state_autoexplore}
+    {
+        #VARIABLE {directions_in_room} {%1};
+        #LIST {directions_in_room} explode { };
+        #FOREACH {$directions_in_room[]} {direction_in_room} 
+        {
+            #regexp {$direction_in_room} {[{.*?}]} 
+            {
+                #VARIABLE short_room_direction {$long_to_short_exit_name[&1]};
+                open &1;
+            } 
+            {
+                #VARIABLE short_room_direction {$long_to_short_exit_name[$direction_in_room]};
+            };
+            #map dig {$short_room_direction}; 
+        };
+        #map set {roomdesc} {explored};
+    };
+}
+
+#EVENT {MAP CREATE ROOM}
+{
+    #IF {$state_autoexplore}
+    {
+        #map set {roomdesc} {unexplored} {%0};
+    };
+}
+
+#VARIABLE {long_to_short_exit_name} 
+{
+    {east}{e}
+    {northeast}{ne}
+    {north}{n}
+    {northwest}{nw}
+    {west}{w}
+    {southwest}{sw}
+    {south}{s}
+    {southeast}{se}
+    {e}{e}
+    {ne}{ne}
+    {n}{n}
+    {nw}{nw}
+    {w}{w}
+    {sw}{sw}
+    {s}{s}
+    {se}{se}
+    {d}{d}
+    {u}{u}
+    {down}{d}
+    {up}{u}
+}
+
+
+#ACTION {A giant spider crawls along here.}
+{
+    #IF {$state_autoexplore}
+    {
+        simple_spider_battle spider;
+        #UNDELAY {move_to_closest_unexplored_room_delay};
+    };
+}
+
+#ACTION {A small spider spins his web very carefully.}
+{
+    #IF {$state_autoexplore}
+    {
+        simple_spider_battle spider;
+        #UNDELAY {move_to_closest_unexplored_room_delay};
+    };
+}
+
+#ACTION {A bundle of Spiders Thread lays here on the ground.}
+{
+    #IF {$state_autoexplore}
+    {
+        #UNDELAY {move_to_closest_unexplored_room_delay};
+        fill spidersilk 'spiders thread';
+    };
+}
+
+#ACTION {The corpse of a small spider lies here.}
+{
+    fill spidersilkportal corpse; 
+    sacrifice corpse;
+    #UNDELAY {move_to_closest_unexplored_room_delay};
+}
+
+#ACTION {Chiphulk the male young Chipmunk is DEAD!!}
+{
+    #NOP {When automating this then make it stop here};
+}
+
+#ACTION {A nest has been uncovered here.}
+{
+    fill randomloot nest;
+    sacrifice nest;
+    #UNDELAY {move_to_closest_unexplored_room_delay};
+}

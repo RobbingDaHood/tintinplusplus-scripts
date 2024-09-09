@@ -1,6 +1,5 @@
 #alias {setup_logs} 
 {
-    #config log_level low;
     #format {todays_logfile_name} {%t} {%Y-%m-%d-logfile.log};
     #log append {logs/$todays_logfile_name};
     #log timestamp {%Y-%m-%d-%H:%M:%S};
@@ -9,13 +8,13 @@
 #ALIAS {reload_configs}
 {
     #kill; 
-    #read miner_char.tin;
+    #read mapper_char.tin;
 }
 
-#ALIAS {reload_mapper_configs}
+#ALIAS {reload_configs_miner}
 {
     #kill; 
-    #read mapper_char.tin;
+    #read miner_char.tin;
 }
 
 #variable direction_opposites
@@ -42,19 +41,22 @@
     {southeast}{northwest}
 };
 
-#READ autos/buffs.tin;
-#READ autos/heal.tin;
-#READ autos/unlock.tin;
-#READ autos/forage.tin;
+
+
+#NOP autos/buffs.tin;
+#NOP autos/heal.tin;
+#NOP autos/unlock.tin;
+#NOP autos/forage.tin;
 #NOP autos/sell.tin;
-#READ autos/mine.tin;
-#READ autos/cutgems.tin;
-#READ autos/craft.tin;
-#READ autos/ironwood.tin;
+#NOP autos/mine.tin;
+#NOP autos/cutgems.tin;
+#NOP autos/craft.tin;
+#NOP autos/ironwood.tin;
 #NOP autos/emptycontainer.tin;
 #READ autos/mapper.tin;
+#READ autos/clean_area.tin;
 
 #split;
 #READ dark_legacy_login.tin;
 setup_logs;
-2;
+3;

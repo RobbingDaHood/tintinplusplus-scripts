@@ -1,0 +1,64 @@
+#VARIABLE {start_empty_container_enabled} {0}; 
+#ALIAS {start_empty_container {.*?} {.*}}
+{
+    #VARIABLE {start_empty_container_enabled} {1}; 
+    #VARIABLE {portal_name} {%1}; 
+    #VARIABLE {container_to_empty} {%2}; 
+    empty_container_trigger;
+}
+
+#ALIAS {stop_empty_container}
+{
+    #VARIABLE {start_crafting_enabled} {0}; 
+}
+
+#ALIAS {empty_container_trigger}
+{
+    #IF {$start_empty_container_enabled}
+    {
+        get $container_to_empty $portal_name;
+        open $container_to_empty;
+    };
+}
+
+#ACTION {You open a}
+{
+    empty_and_sort_trigger;
+}
+
+#ACTION {is already open.}
+{
+    empty_and_sort_trigger;
+}
+
+#ALIAS {empty_and_sort_trigger}
+{
+    #IF {$start_empty_container_enabled}
+    {
+        empty $container_to_empty;
+        fill mixedstuff all.potion;
+        fill mixedstuff all.Treasure;
+        fill mixedstuff all.rune;
+        fill mixedstuff all.egg;
+        fill mixedstuff all.boonies;
+        fill mixedstuff all.baboo;
+        fill garbage all.prism;
+        fill randomitems all;
+        get all.gold;
+        put $container_to_empty emptycontainers;
+    };
+}
+
+#ACTION {You put a {.*?} in an extradimensional portal.}
+{
+    empty_container_trigger;
+}
+
+#ACTION {is locked}
+{
+    #IF {$start_empty_container_enabled}
+    {
+        put $container_to_empty lockedcontainers;
+        empty_container_trigger;
+    };
+}

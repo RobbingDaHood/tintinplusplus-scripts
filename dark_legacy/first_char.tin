@@ -3,6 +3,7 @@
     #format {todays_logfile_name} {%t} {%Y-%m-%d-logfile.log};
     #log timestamp {%Y-%m-%d-%H:%M:%S};
     #log append {logs/$todays_logfile_name};
+    #config log_level low;
 };
 
 #ALIAS {reload_configs}

@@ -65,6 +65,7 @@
     put all.ore miningportal;
     put all.coal miningportal;
     put all.bone miningportal;
+    put all.nugget miningportal;
 }
 
 #ACTION {Meeting impenetrable rock, you fail to expand the mine in that direction.}
@@ -127,7 +128,6 @@
     };
     #ELSEIF {$digging_path_enabled}
     {
-        party;
         trigger_next_mine;
     };
 }
@@ -157,6 +157,11 @@
     };
 };
 
+#ALIAS {add_dir_path {.*?}}
+{
+    #list created_path add %1;
+};
+
 #ALIAS {trigger_next_mine}
 {
     #IF {$digging_path_enabled}
@@ -175,6 +180,7 @@
         };
         #ELSE 
         {
+            #SHOWME {STOPPED DIGGING PATH: PATH IS EMPTY};
             stop_dig_path;
         };
     };
@@ -198,6 +204,11 @@
     #DELAY {dig_move_and_mine_trigger} {dig_move_and_mine} {0.2};
 }
 
+#ACTION {Part of the ceiling collapses, revealing a passage.}
+{
+    #DELAY {dig_move_and_mine_trigger} {dig_move_and_mine} {0.2};
+}
+
 #ALIAS {dig_move_and_mine}
 {
     #IF {$digging_path_enabled}
@@ -210,7 +221,7 @@
 }
 
 #VARIABLE need_to_resummon_xorns 0;
-#ACTION {stops following you.}
+#ACTION {An elder Xorn stops following you.}
 {
     #IF {$maintain_all_xorns_state}
     {
@@ -257,8 +268,13 @@
 
 #ACTION {You lack the tools to harvest anything there!}
 {
-    draw;
+    draw pick;
     trigger_next_mine;
+}
+
+#ACTION {You stop harvesting}
+{
+    #NOP {stop_dig_path};
 }
 
 #ALIAS {mining_gag}
@@ -288,6 +304,9 @@
     #GAG {You stop harvesting};
     #GAG {Zenpin};
     #GAG {Hyakuhei};
+    #GAG {You lack the tools to harvest anything there!};
+    #GAG {You hear some squeaking sounds...};
+    #GAG {A passage opens up to the east.};
 }
 
 #ALIAS {mining_ungag}
@@ -317,4 +336,7 @@
     #UNGAG {You stop harvesting};
     #UNGAG {Zenpin};
     #UNGAG {Hyakuhei};
+    #UNGAG {You lack the tools to harvest anything there!};
+    #UNGAG {You hear some squeaking sounds...};
+    #UNGAG {A passage opens up to the east.};
 }

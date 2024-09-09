@@ -1,19 +1,22 @@
 #ALIAS {reset_all_buff_states}
 {
     #variable {all_buff_states} {
-        {Strength}{0}
+        {bless}{0}
+    };
+    #variable {all_buff_states_deactivated} {
         {vigilance}{0}
-        {sanctuary}{0}
+        {Strength}{0}
         {Grace}{0}
-        {Glamour}{0}
         {Endurance}{0}
         {Fortune}{0}
         {Clarity}{0}
-        {Sagacity}{0}
+
+        {sanctuary}{0}
+        {Glamour}{0}
         {valiance}{0}
-        {bless}{0}
         {psychic armor}{0}
         {inner}{0}
+        {Sagacity}{0}
         {fly}{0}
     };
 };
@@ -21,6 +24,7 @@
 #VARIABLE {read_affect} {0};
 #ALIAS {buff_self} 
 {
+    sheathe;
     #VARIABLE {read_affect} {1};
     reset_all_buff_states;
     affect;
@@ -40,6 +44,7 @@
             cast $buff_name self;
         };
     };
+    draw axe;
 };
 
 #ACTION {[{.*}}

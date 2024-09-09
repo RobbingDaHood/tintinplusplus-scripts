@@ -58,6 +58,8 @@
     #LIST {harvest_actions} clear;
     #DELAY {trigger_autoforage_look__delay} {look} {0.2};
     #DELAY {trigger_autoforage_delay} {trigger_autoforage} {1.0};
+    sheathe; 
+    draw pick;
 }
 
 #ALIAS {start_autofish}
@@ -70,12 +72,14 @@
 #ALIAS {stop_autoforage}
 {
     #VARIABLE {auto_forage_enabled} {0};
+    put all.pine forageportal;
+    put all.cotton rawcotton;
     put all.log forageportal;
     put all.thistle forageportal;
     put all.eye forageportal;
-    put all.cotton forageportal;
+    put all.bloodroot forageportal;
     look;
-    choose_direction_auto_forage;
+    #DELAY {choose_direction_auto_forage_delay} {choose_direction_auto_forage} {0.5};
 }
 
 #VARIABLE {auto_fish_enabled} {0};
@@ -111,6 +115,13 @@
     trigger_autofish;
 }
 
+#ACTION {You are too exhausted, need at least}
+{
+    trigger_refresh;
+    trigger_autoforage;
+    trigger_autofish;
+}
+
 #ACTION {Nothing to harvest from that.}
 {
     stop_autoforage;
@@ -127,6 +138,7 @@
     {
         #IF {&harvest_actions[] != 0}
         {
+            #SHOWME {Trying to: $harvest_actions[+1]};
             #send {$harvest_actions[+1]};
             #list harvest_actions delete 1;
         }
@@ -146,6 +158,7 @@
 
 #ALIAS {trigger_refresh}
 {
+    sheathe;
     cast refresh;
     cast refresh;
     cast refresh;
@@ -252,11 +265,37 @@
         #VARIABLE {harvest_actions[cotton]} {forage cotton};
     };
 }
+#ACTION {Everlasting bloom covers a runic stone.}
+{
+    #IF {$auto_forage_enabled}
+    {
+        #VARIABLE {harvest_actions[stone]} {forage bloom};
+    };
+}
 
 #ACTION {A fallen pine tree lies here, pieces of bark flaking from its side.}
 {
     #IF {$auto_forage_enabled}
     {
-        #NOP {Ignoring pine};
+        #VARIABLE {harvest_actions[pine]} {forage pine};
     };
+}
+
+#ACTION {does not fit into an extradimensional portal}
+{
+    #VARIABLE square_auto_forage_enabled 0;
+    #DELAY {move_portal_and_create_a_new_one_delay} {move_portal_and_create_a_new_one} {0.5};
+}
+
+#ALIAS {move_portal_and_create_a_new_one}
+{
+    flush;
+    label forageportal forageportalfulltest;
+    drop all;
+    cast Extradimensional;
+    label -1.portal forageportal;
+    get all.portal;
+    fill forageportal;
+    #VARIABLE square_auto_forage_enabled 1;
+    choose_direction_auto_forage;
 }

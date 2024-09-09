@@ -1,0 +1,12 @@
+#VARIABLE simple_spider_battle_enabled 0;
+#ALIAS {simple_spider_battle {.*}}
+{
+    #VARIABLE simple_spider_battle_enabled 1;
+    jab %1 head;
+}
+
+#ACTION {You swing}
+{
+    jab head;
+}
+

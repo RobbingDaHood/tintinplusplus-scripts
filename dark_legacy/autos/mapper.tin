@@ -1,0 +1,177 @@
+# NOP {Find the top tree "X's" the rooms where it would never say anything but "dig here": Then move relative to that location based on the type of the map.}
+# NOP {So tattered/cryptic/ancient maps are 14s from the top 3, im unsure what stained and simple, i think its like 9 for stained and idk how many simple is but its less than stained}
+# NOP {Simple 4s}
+
+#VARIABLE enable_mapper_state 0;
+#VARIABLE mapper_state TRAVEL;
+#VARIABLE mapper_last_travel_move d;
+#VARIABLE mapper_count_in_a_row 0;
+#VARIABLE mapper_count_stable 0;
+#ALIAS {start_mapper}
+{
+    #VARIABLE enable_mapper_state 1;
+    #VARIABLE mapper_state TRAVEL;
+    #VARIABLE mapper_count_in_a_row 0;
+    #VARIABLE mapper_count_stable 0;
+    mount pet;
+    travel;
+    examine map;
+}
+
+#ALIAS {prepare_mapper}
+{
+    cast haste; 
+    cast fly; 
+    cast haste pet; 
+    cast fly pet;
+    start_mapper;
+}
+
+#ALIAS {stop_mapper}
+{
+    #VARIABLE enable_mapper_state 0;
+    #LIST last_coordinate_when_stable clear;
+}
+
+#ACTION {The map indicates a location further {.*?}.}
+{
+    #IF {$enable_mapper_state}
+    {
+        #IF {"$mapper_state" == "TRAVEL" && "$direction_long_opposites[%1]" == "$mapper_last_travel_move"}
+        {
+            #VARIABLE mapper_count_in_a_row 0;
+            #VARIABLE mapper_state FIND_TOP;
+            explore;
+        };
+        #VARIABLE mapper_last_travel_move %1;
+        flush;
+        %1;
+    };
+}
+
+#ACTION {You see nothing special.}
+{
+    #NOP {happens on top of lava pools and for some reason gives you no direction};
+    #IF {$enable_mapper_state}
+    {
+        flush;
+        $mapper_last_travel_move;
+    }
+}
+
+#ACTION {You travel}
+{
+    #IF {$enable_mapper_state}
+    {
+        flush;
+        examine map;
+    };
+}
+
+#ACTION {You explore}
+{
+    #IF {$enable_mapper_state}
+    {
+        flush;
+        examine map;
+    };
+}
+
+#ACTION {You estimate the treasure must be somewhere near here! start digging!}
+{
+    #IF {$enable_mapper_state}
+    {
+        #IF {"$mapper_state" == "TRAVEL"}
+        {
+            #LIST last_coordinate_when_stable clear;
+            #VARIABLE mapper_count_in_a_row 0;
+            #VARIABLE mapper_state FIND_TOP;
+            flush;
+            examine map;
+        };
+        #ELSEIF {"$mapper_state" == "FIND_TOP"}
+        {
+            #IF {$mapper_count_in_a_row < 18}
+            {
+                #MATH mapper_count_in_a_row {$mapper_count_in_a_row + 1};
+                flush;
+                examine map;
+            };
+            #ELSE
+            {
+                #IF {$last_coordinate_when_stable[$current_coordinates]}
+                {
+                    #SHOWME {SAME COORDINATES AS LAST TIME IT WERE STABLE! $last_coordinate_when_stable};
+                };
+                #ELSE
+                {
+                    #SHOWME {IT IS STABLE! RESET THE COUNT! MAPTYPE: $map_type};
+                    #VARIABLE last_coordinate_when_stable[$current_coordinates] 1;
+                    #IF {"childish" == "$map_type"}
+                    {
+                        stop_mapper;
+                        flush;
+                        dismount;
+                        dig;
+                    };
+                };
+                #VARIABLE mapper_count_in_a_row 0;
+            };
+        };
+    };
+}
+
+#VARIABLE dig_count 0;
+#ACTION {Your dig uncovered nothing.}
+{
+    #IF {dig_count < 18}
+    {
+        #MATH dig_count {$dig_count + 1};
+        dig;
+    };
+    #ELSE
+    {
+        look;
+        dig;
+    }
+}
+
+#ACTION { {.*?} miles {.*?} and {.*?} miles {.*?} }
+{
+    #VARIABLE current_coordinates %0;
+}
+
+#ACTION {A {.*?} treasure map}
+{
+    #VARIABLE map_type %1;
+}
+
+#ACTION {You uncover a}
+{
+    flush;
+    open chest;
+    fill treasures chest;
+    get all chest;
+    sacrifice chest;
+}
+
+#ACTION {Alas, passage is blocked.}
+{
+    #IF {$enable_mapper_state}
+    {
+        #NOP {add counter and try something else after x moves};
+        $direction_to_get_out_of_stuck[$mapper_last_travel_move];
+    };
+}
+
+#VARIABLE {direction_to_get_out_of_stuck} 
+{
+    {east}{ne}
+    {northeast}{n}
+    {north}{nw}
+    {northwest}{w}
+    {west}{sw}
+    {southwest}{s}
+    {south}{se}
+    {southeast}{e}
+}

@@ -1,7 +1,10 @@
 #ALIAS {unlock_and_open {.*}} 
 {
-    get all.key portal;
-    unlock %1;
-    open %1;
-    put all.key portal;
+    get all.key mixedstuff;
+    #DELAY {unlock_delay} {unlock %1} {0.2};
+    #DELAY {open_delay} {open %1} {0.5};
+    #DELAY {move_after_open_delay} {%1} {1.0};
+    #DELAY {lock_delay} {lock $direction_opposites[%1]} {1.5};
+    #DELAY {put_keys_back_delay} {put all.key mixedstuff} {2.0};
 };
+
