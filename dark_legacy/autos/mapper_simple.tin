@@ -1,0 +1,359 @@
+# NOP {Thanks to Nemisis for his priceless insights, this could not be done without him.};
+# NOP {So the are of a mapping (except childish maps) are something like this:};
+# NOP {OOO¤¤¤XXX¤¤¤OOO};
+# NOP {O¤¤¤XXXXXXX¤¤¤O};
+# NOP {¤¤XXXXXXXXXXX¤¤};
+# NOP {¤¤XXXXXXXXXXX¤¤};
+# NOP {O¤¤¤XXXXXXX¤¤¤O};
+# NOP {OOO¤¤¤XXX¤¤¤OOO};
+# NOP {Exmaine map in X will always say dig, examine map in ¤ will sometimes say dig outside of ¤ it will never state to dig.};
+# NOP {So always examine map multiple times to verify what type of room you are in};
+# NOP {Also, flying around in the clouds makes navigating much simpler};
+# NOP {So here are the steps:};
+# NOP {1. Travel mode, Fly up};
+# NOP {1. Examine map until the finding a dig spot};
+# NOP [1. Go to explorer mode};
+# NOP [1. Examine map until finding X (means retry many times)};
+# NOP {1. Go north until not in X.};
+# NOP {1. Go one south (back to X) then keep going east until not in X.};
+# NOP [1. Repeat the following steps:};
+# NOP {    1. NW if dig then got to repeat step above.};
+# NOP {    1. W if dig then got to repeat step above.};
+# NOP {    1. W if dig then got to repeat step above.};
+# NOP {    1. S if dig then got to repeat step above.};
+# NOP {1. If not going back to repeat step, then you are done};
+# NOP {Either you are just to the west of the top westward X OR 2 west of the point};
+# NOP {Go to the middle X at the top};
+# NOP {Based on the map type then go south and dig};
+# NOP {Simple 4s};
+# NOP {Stained 9s};
+# NOP { tattered/cryptic/ancient 14s };
+
+# NOP [TODO:};
+# NOP { DO NOT PLUNGE INTO THE ABYSS! THE MAPPER COULD BE CLOSE TO THE EDGE OF THE WORLD: NEED TO LOOK BEFORE i MOVE};
+# NOP { Or, just discard a map if it went to the abyss while traveling?};
+
+#VARIABLE enable_simple_mapper_state 0;
+#VARIABLE mapper_state GO_TO_THE_SKY;
+#VARIABLE mapper_last_travel_move d;
+#VARIABLE mapper_count_in_a_row 0;
+#VARIABLE mapper_count_stable 0;
+#ALIAS {start_mapper}
+{
+    #VARIABLE enable_simple_mapper_state 1;
+    #VARIABLE mapper_state GO_TO_THE_SKY;
+    prompt &Y%hhp &C%mm &G%vmv&w %o> [$mapper_state];
+    #VARIABLE mapper_count_in_a_row 0;
+    #VARIABLE mapper_count_stable 0;
+    #VARIABLE min_east_coordinate 9999;
+    #VARIABLE max_east_coordinate -9999;
+    look;
+    #NOP {mount pet};
+    travel;
+    #NOP {need to go up after fly is cast, but sometimes fly is already cast: Need to implement this. Until then, just trigger it manually if fly is not active};
+    up;
+}
+
+#ALIAS {prepare_mapper}
+{
+    cast haste; 
+    cast fly; 
+    #NOP {cast haste pet}; 
+    #NOP {cast fly pet};
+    start_mapper;
+}
+
+#ALIAS {stop_mapper}
+{
+    #VARIABLE enable_simple_mapper_state 0;
+    prompt &Y%hhp &C%mm &G%vmv&w %o>;
+}
+
+#ACTION {The map indicates a location further {.*?}.}
+{
+    #IF {$enable_simple_mapper_state}
+    {
+        #SHOWME {MOVE after $mapper_count_in_a_row tries in a row.};
+        #VARIABLE mapper_count_in_a_row 0;
+        flush;
+        #IF {"$mapper_state" == "NAVIGATE_MAPPER_AREA_NORTH"}
+        {
+            #VARIABLE mapper_state NAVIGATE_MAPPER_AREA_FIRST_EAST;
+            prompt &Y%hhp &C%mm &G%vmv&w %o> [$mapper_state];
+            se;
+        };
+        #ELSEIF {"$mapper_state" == "NAVIGATE_MAPPER_AREA_FIRST_EAST"}
+        {
+            #VARIABLE mapper_state NAVIGATE_MAPPER_AREA_NORTH_WEST;
+            prompt &Y%hhp &C%mm &G%vmv&w %o> [$mapper_state];
+            nw;
+        };
+        #ELSEIF {"$mapper_state" == "NAVIGATE_MAPPER_AREA_NORTH_WEST"}
+        {
+            #VARIABLE mapper_state NAVIGATE_MAPPER_AREA_WEST_1;
+            prompt &Y%hhp &C%mm &G%vmv&w %o> [$mapper_state];
+            w;
+        };
+        #ELSEIF {"$mapper_state" == "NAVIGATE_MAPPER_AREA_WEST_1"}
+        {
+            #VARIABLE mapper_state NAVIGATE_MAPPER_AREA_WEST_2;
+            prompt &Y%hhp &C%mm &G%vmv&w %o> [$mapper_state];
+            w;
+        };
+        #ELSEIF {"$mapper_state" == "NAVIGATE_MAPPER_AREA_WEST_2"}
+        {
+            #VARIABLE mapper_state NAVIGATE_MAPPER_AREA_SOUTH;
+            prompt &Y%hhp &C%mm &G%vmv&w %o> [$mapper_state];
+            s;
+        };
+        #ELSEIF {"$mapper_state" == "NAVIGATE_MAPPER_AREA_SOUTH"}
+        {
+            #SHOWME {SHOULD BE DONE NOW, SHOULD GO TWO EAST: OR COULD BE 5 TOO};
+            #VARIABLE mapper_state NAVIGATE_MAPPER_AREA_DONE;
+            prompt &Y%hhp &C%mm &G%vmv&w %o> [$mapper_state];
+        };
+        #ELSEIF {"$mapper_state" == "NAVIGATE_MAPPER_AREA_DONE"}
+        {
+            #SHOWME {STILL DONE};
+        };
+        #ELSE
+        {
+            #SHOWME {Testing if I should go to explore mode: "$mapper_state" == "TRAVEL" && $visited_mapper_rooms[$current_coordinates]};
+            #IF {"$mapper_state" == "TRAVEL" && $visited_mapper_rooms[$current_coordinates]}
+            {
+                change_to_explorer_mode;
+            };
+            #VARIABLE mapper_last_travel_move %1;
+            %1;
+        };
+        #VARIABLE visited_mapper_rooms[$current_coordinates] 1;
+    };
+}
+
+#ACTION {You see nothing special.}
+{
+    #NOP {happens on top of lava pools and for some reason gives you no direction};
+    #IF {$enable_simple_mapper_state}
+    {
+        flush;
+        $mapper_last_travel_move;
+    }
+}
+
+#ACTION {You travel}
+{
+    after_travel_actions;
+}
+
+#ACTION {You explore}
+{
+    after_travel_actions;
+}
+
+#ACTION {You explore downward}
+{
+    #IF {"$mapper_state" == "GO_TO_DOWN_TO_GROUND"}
+    {
+        down;
+    };
+}{2}
+
+#ACTION {You walk}
+{
+    after_travel_actions;
+}
+
+#ALIAS {after_travel_actions}
+{
+    #IF {$enable_simple_mapper_state}
+    {
+        look;
+        #IF {"$mapper_state" == "GO_TO_THE_SKY"}
+        {
+            flush;
+            up;
+        };
+        #ELSEIF {"$mapper_state" == "GO_TO_DOWN_TO_GROUND"}
+        {
+            #NOP {DO NOTHING};
+        };
+        #ELSE 
+        {
+            flush;
+            examine map;
+        };
+    };
+}
+
+#ACTION {thick cloud}
+{
+    #IF {"$mapper_state" == "GO_TO_THE_SKY"}
+    {
+        #VARIABLE mapper_state TRAVEL;
+        prompt &Y%hhp &C%mm &G%vmv&w %o> [$mapper_state];
+    };
+};
+
+#ALIAS {change_to_explorer_mode}
+{
+    flush;
+    explore;
+    #LIST last_coordinate_when_stable clear;
+    #LIST visited_mapper_rooms clear;
+    #VARIABLE mapper_count_in_a_row 0;
+    #VARIABLE mapper_state FIND_MAPPING_AREA;
+    prompt &Y%hhp &C%mm &G%vmv&w %o> [$mapper_state];
+    look;
+    examine map;
+}
+
+#ACTION {somewhere near here! start digging!}
+{
+    #IF {$enable_simple_mapper_state}
+    {
+        #VARIABLE visited_mapper_rooms[$current_coordinates] 1;
+        flush;
+        #IF {"$mapper_state" == "TRAVEL"}
+        {
+            change_to_explorer_mode;
+        };
+        #ELSE 
+        {
+            #IF {$mapper_count_in_a_row < 20}
+            {
+                #MATH mapper_count_in_a_row {$mapper_count_in_a_row + 1};
+                examine map;
+            };
+            #ELSE 
+            {
+                #SHOWME {IT IS STABLE! RESET THE COUNT! MAPTYPE: $map_type};
+                #VARIABLE last_coordinate_when_stable[$current_coordinates] 1;
+                #SHOWME {#VARIABLE last_coordinate_when_stable};
+                #VARIABLE mapper_count_in_a_row 0;
+
+                #IF {$min_east_coordinate > $east_coordinate}
+                {
+                    #VARIABLE min_east_coordinate $east_coordinate;
+                };
+                #IF {$max_east_coordinate < $east_coordinate}
+                {
+                    #VARIABLE max_east_coordinate $east_coordinate;
+                };
+
+                #IF {"$mapper_state" == "FIND_MAPPING_AREA"}
+                {
+                    #IF {"childish" == "$map_type"}
+                    {
+                        flush;
+                        stop_and_start_digging;
+                    };
+                    #ELSE
+                    {
+                        #VARIABLE mapper_state NAVIGATE_MAPPER_AREA_NORTH;
+                        prompt &Y%hhp &C%mm &G%vmv&w %o> [$mapper_state];
+                        n;
+                    };
+                };
+                #ELSEIF {"$mapper_state" == "NAVIGATE_MAPPER_AREA_NORTH"}
+                {
+                    n;
+                };
+                #ELSEIF {"$mapper_state" == "NAVIGATE_MAPPER_AREA_FIRST_EAST"}
+                {
+                    e;
+                };
+                #ELSEIF {"$mapper_state" == "NAVIGATE_MAPPER_AREA_NORTH_WEST" || "$mapper_state" == "NAVIGATE_MAPPER_AREA_WEST_1" || "$mapper_state" == "NAVIGATE_MAPPER_AREA_WEST_2" || "$mapper_state" == "NAVIGATE_MAPPER_AREA_SOUTH"}
+                {
+                    #VARIABLE mapper_state NAVIGATE_MAPPER_AREA_NORTH_WEST;
+                    prompt &Y%hhp &C%mm &G%vmv&w %o> [$mapper_state];
+                    nw;
+                };
+            };
+        };
+    };
+}
+
+#ALIAS {stop_and_start_digging}
+{
+    stop_mapper;
+    dismount;
+    dig;
+}
+
+#VARIABLE dig_count 0;
+#ACTION {Your dig uncovered nothing.}
+{
+    flush;
+    dig;
+}
+
+#ACTION {{[0-9]*?} miles {.*?} and {[0-9]*?} miles {.*?} }
+{
+    #VARIABLE east_coordinate %1;
+    #IF {"west" == "%2"}
+    {
+        #MATH east_coordinate {$east_coordinate * -1};
+    };
+    #VARIABLE north_coordinate %3;
+    #IF {"south" == "%4"}
+    {
+        #MATH north_coordinate {$north_coordinate * -1};
+    };
+    #VARIABLE current_coordinates {"$east_coordinate:$north_coordinate"};
+    #SHOWME {current_coordinates $current_coordinates, STATE: $mapper_state};
+}
+
+#ACTION {A {.*?} treasure map}
+{
+    #VARIABLE map_type %1;
+}
+
+#ACTION {You uncover a}
+{
+    flush;
+    open chest;
+    fill treasures chest;
+    get all chest;
+}
+
+#ACTION {Alas, passage is blocked.}
+{
+    #IF {$enable_simple_mapper_state}
+    {
+        #IF {"$mapper_state" == "GO_TO_DOWN_TO_GROUND"}
+        {
+            #VARIABLE mapper_state START_DIGGING;
+            prompt &Y%hhp &C%mm &G%vmv&w %o> [$mapper_state];
+            stop_and_start_digging;
+        };
+        #ELSE
+        {
+            #SHOWME {ALAS YOU ARE NOT FLYING HIGH ENOUGH!};
+        };
+    };
+}
+
+#ACTION {You need to fly to go there.}
+{
+    cast fly;
+    up;
+}
+
+#ACTION {You're falling down...}
+{
+    cast fly;
+}
+
+#ACTION {A small chest is closed.}
+{
+    fill lockedtreasure;
+};
+
+#ALIAS {walk_stained_map}
+{
+    #VARIABLE mapper_state GO_TO_DOWN_TO_GROUND;
+    prompt &Y%hhp &C%mm &G%vmv&w %o> [$mapper_state];
+    s; s; s; s; s;
+    s; s; s; s; 
+    down;
+}

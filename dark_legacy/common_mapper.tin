@@ -1,0 +1,80 @@
+#VARIABLE fighting_mobs 0;
+#VARIABLE state_autoexplore 0;
+#VARIABLE enable_mapper_state 0;
+#ALIAS {recreate_map}
+{
+    #map destroy world;
+    #map create 999999;
+    #map goto 1;
+}
+
+#ALIAS {move_to_closest_unexplored_room}
+{
+    #SHOWME {move test: (!$fighting_mobs && $state_autoexplore) || $enable_mapper_state};
+    #IF {(!$fighting_mobs && $state_autoexplore) || $enable_mapper_state}
+    {
+        #map find {roomdesc} {unexplored};
+        #path get length length_of_path;
+        #if {$length_of_path > 0} 
+        {
+            #path walk;
+        };
+        #else 
+        {
+            #SHOWME {DONE WALKING!};
+            stop_autoexplore;
+        };
+    };
+}
+
+#EVENT {MAP CREATE ROOM}
+{
+    #map set {roomdesc} {unexplored} {%0};
+}
+
+#ACTION {Exits: {.*?}.}
+{
+    #SHOWME {Exits test: $state_autoexplore || $enable_mapper_state};
+    #IF {$state_autoexplore || $enable_mapper_state}
+    {
+        #VARIABLE {directions_in_room} {%1};
+        #LIST {directions_in_room} explode { };
+        #FOREACH {$directions_in_room[]} {direction_in_room} 
+        {
+            #regexp {$direction_in_room} {[{.*?}]} 
+            {
+                #VARIABLE short_room_direction {$long_to_short_exit_name[&1]};
+                open &1;
+            } 
+            {
+                #VARIABLE short_room_direction {$long_to_short_exit_name[$direction_in_room]};
+            };
+            #map dig {$short_room_direction}; 
+        };
+        #map set {roomdesc} {explored};
+    };
+}
+
+#VARIABLE {long_to_short_exit_name} 
+{
+    {east}{e}
+    {northeast}{ne}
+    {north}{n}
+    {northwest}{nw}
+    {west}{w}
+    {southwest}{sw}
+    {south}{s}
+    {southeast}{se}
+    {e}{e}
+    {ne}{ne}
+    {n}{n}
+    {nw}{nw}
+    {w}{w}
+    {sw}{sw}
+    {s}{s}
+    {se}{se}
+    {d}{d}
+    {u}{u}
+    {down}{d}
+    {up}{u}
+}

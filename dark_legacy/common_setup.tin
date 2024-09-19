@@ -1,0 +1,57 @@
+#alias {setup_logs} 
+{
+    #format {todays_logfile_name} {%t} {%Y-%m-%d-logfile.log};
+    #log timestamp {%Y-%m-%d-%H:%M:%S};
+    #log append {logs/$todays_logfile_name};
+};
+
+
+#ALIAS {reload_mapper_configs}
+{
+    #kill; 
+    #read mapper_char.tin;
+    #SHOWME {loaded mapper};
+}
+
+#ALIAS {reload_miner_configs}
+{
+    #kill; 
+    #read miner_char.tin;
+    #SHOWME {loaded miner};
+}
+
+#ALIAS {reload_first_configs}
+{
+    #kill; 
+    #read first_char.tin;
+    #SHOWME {loaded first char};
+}
+
+#variable direction_opposites
+{
+    {u}{d}
+    {d}{u}
+    {w}{e}
+    {e}{w}
+    {n}{s}
+    {s}{n}
+};
+
+#variable direction_long_opposites
+{
+    {up}{down}
+    {down}{up}
+    {west}{east}
+    {east}{west}
+    {north}{south}
+    {south}{north}
+    {northwest}{southeast}
+    {northeast}{southwest}
+    {southwest}{northeast}
+    {southeast}{northwest}
+};
+
+#split;
+#READ dark_legacy_login.tin;
+setup_logs;
+#config {packet patch} 0.6;

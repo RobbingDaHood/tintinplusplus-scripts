@@ -11,10 +11,15 @@
 {
     #VARIABLE enable_mapper_state 1;
     #VARIABLE mapper_state TRAVEL;
+    prompt &Y%hhp &C%mm &G%vmv&w %o> [$mapper_state];
     #VARIABLE mapper_count_in_a_row 0;
     #VARIABLE mapper_count_stable 0;
-    mount pet;
+    #VARIABLE max_north_coordinate -9999;
+    #VARIABLE max_east_coordinate -9999;
+    look;
+    #NOP {mount pet};
     travel;
+    recreate_map;
     examine map;
 }
 
@@ -31,22 +36,35 @@
 {
     #VARIABLE enable_mapper_state 0;
     #LIST last_coordinate_when_stable clear;
+    prompt &Y%hhp &C%mm &G%vmv&w %o>;
 }
 
 #ACTION {The map indicates a location further {.*?}.}
 {
     #IF {$enable_mapper_state}
     {
-        #IF {"$mapper_state" == "TRAVEL" && "$direction_long_opposites[%1]" == "$mapper_last_travel_move"}
+        #IF {"$mapper_state" == "FOLLOW_THE_EDGE"}
         {
-            #VARIABLE mapper_count_in_a_row 0;
-            #VARIABLE mapper_state FIND_TOP;
-            explore;
+            s;
+            #VARIABLE mapper_state DONE_WITH_MAPPINGS;
+            prompt &Y%hhp &C%mm &G%vmv&w %o> [$mapper_state];
+            #SHOWME {DONE!!! YEAH};
         };
-        #VARIABLE mapper_last_travel_move %1;
-        flush;
-        %1;
+        #ELSE
+        {
+            flush;
+            #SHOWME {Testing if I should go to explore mode: "$mapper_state" == "TRAVEL" && $visited_mapper_rooms[$current_coordinates]};
+            #IF {"$mapper_state" == "TRAVEL" && $visited_mapper_rooms[$current_coordinates]}
+            {
+                change_to_explorer_mode;
+            };
+            #VARIABLE mapper_last_travel_move %1;
+            #MAP move $long_to_short_exit_name[%1];
+            %1;
+        };
+        #VARIABLE visited_mapper_rooms[$current_coordinates] 1;
     };
+    #MAP MAP;
 }
 
 #ACTION {You see nothing special.}
@@ -61,35 +79,53 @@
 
 #ACTION {You travel}
 {
-    #IF {$enable_mapper_state}
-    {
-        flush;
-        examine map;
-    };
+    after_travel_actions;
 }
 
 #ACTION {You explore}
 {
+    after_travel_actions;
+}
+
+#ACTION {You walk}
+{
+    after_travel_actions;
+}
+
+#ALIAS {after_travel_actions}
+{
     #IF {$enable_mapper_state}
     {
         flush;
+        look;
         examine map;
     };
 }
 
-#ACTION {You estimate the treasure must be somewhere near here! start digging!}
+#ALIAS {change_to_explorer_mode}
+{
+    flush;
+    explore;
+    #LIST last_coordinate_when_stable clear;
+    #LIST visited_mapper_rooms clear;
+    #VARIABLE mapper_count_in_a_row 0;
+    #VARIABLE mapper_state FIND_MAPPING_AREA;
+    prompt &Y%hhp &C%mm &G%vmv&w %o> [$mapper_state];
+    recreate_map;
+    look;
+    examine map;
+}
+
+#ACTION {somewhere near here! start digging!}
 {
     #IF {$enable_mapper_state}
     {
+        #VARIABLE visited_mapper_rooms[$current_coordinates] 1;
         #IF {"$mapper_state" == "TRAVEL"}
         {
-            #LIST last_coordinate_when_stable clear;
-            #VARIABLE mapper_count_in_a_row 0;
-            #VARIABLE mapper_state FIND_TOP;
-            flush;
-            examine map;
+            change_to_explorer_mode;
         };
-        #ELSEIF {"$mapper_state" == "FIND_TOP"}
+        #ELSE 
         {
             #IF {$mapper_count_in_a_row < 18}
             {
@@ -97,28 +133,63 @@
                 flush;
                 examine map;
             };
-            #ELSE
+            #ELSE 
             {
-                #IF {$last_coordinate_when_stable[$current_coordinates]}
+                #SHOWME {IT IS STABLE! RESET THE COUNT! MAPTYPE: $map_type};
+                #VARIABLE last_coordinate_when_stable[$current_coordinates] 1;
+                #VARIABLE mapper_count_in_a_row 0;
+                #IF {"$mapper_state" == "FIND_MAPPING_AREA"}
                 {
-                    #SHOWME {SAME COORDINATES AS LAST TIME IT WERE STABLE! $last_coordinate_when_stable};
-                };
-                #ELSE
-                {
-                    #SHOWME {IT IS STABLE! RESET THE COUNT! MAPTYPE: $map_type};
-                    #VARIABLE last_coordinate_when_stable[$current_coordinates] 1;
                     #IF {"childish" == "$map_type"}
                     {
-                        stop_mapper;
-                        flush;
-                        dismount;
-                        dig;
+                        stop_and_start_digging;
+                    };
+                    #ELSE
+                    {
+                        look;
+                        #DELAY {move_closer_to_north_east_edge_delay} {move_closer_to_north_east_edge} {0.5};
                     };
                 };
-                #VARIABLE mapper_count_in_a_row 0;
+                #ELSEIF {"$mapper_state" == "FOLLOW_THE_EDGE"}
+                {
+                    nw;
+                    #DELAY {examine_map_delay} {examine map} {0.5};
+                };
             };
         };
     };
+}
+
+#ALIAS {move_closer_to_north_east_edge}
+{
+    #IF {$max_north_coordinate < $north_coordinate}
+    {
+        #SHOWME {STABLE NORTH};
+        #VARIABLE max_north_coordinate $north_coordinate;
+        n;
+    };
+    #ELSEIF {$max_east_coordinate < $east_coordinate}
+    {
+        #SHOWME {STABLE EAST};
+        #VARIABLE max_east_coordinate $east_coordinate;
+        e;
+    };
+    #ELSE 
+    {
+        #SHOWME {STABLE FOLLOW_THE_EDGE};
+        #VARIABLE mapper_state FOLLOW_THE_EDGE;
+        prompt &Y%hhp &C%mm &G%vmv&w %o> [$mapper_state];
+        nw;
+    };
+    #DELAY {examine_map_delay} {examine map} {0.5};
+}
+
+#ALIAS {stop_and_start_digging}
+{
+    stop_mapper;
+    flush;
+    dismount;
+    dig;
 }
 
 #VARIABLE dig_count 0;
@@ -136,9 +207,19 @@
     }
 }
 
-#ACTION { {.*?} miles {.*?} and {.*?} miles {.*?} }
+#ACTION {{[0-9]*?} miles {.*?} and {[0-9]*?} miles {.*?} }
 {
-    #VARIABLE current_coordinates %0;
+    #VARIABLE current_coordinates %1:%2:%3:%4;
+    #VARIABLE east_coordinate %1;
+    #IF {"east" == %2}
+    {
+        #MATH east_coordinate {$east_coordinate * -1};
+    };
+    #VARIABLE north_coordinate %3;
+    #IF {"south" == %4}
+    {
+        #MATH north_coordinate {$north_coordinate * -1};
+    };
 }
 
 #ACTION {A {.*?} treasure map}
@@ -152,15 +233,15 @@
     open chest;
     fill treasures chest;
     get all chest;
-    sacrifice chest;
 }
 
 #ACTION {Alas, passage is blocked.}
 {
     #IF {$enable_mapper_state}
     {
-        #NOP {add counter and try something else after x moves};
-        $direction_to_get_out_of_stuck[$mapper_last_travel_move];
+        #map roomflag block;
+        #map move $long_to_short_exit_name[$direction_long_opposites[$mapper_last_travel_move]];
+        move_to_closest_unexplored_room;
     };
 }
 

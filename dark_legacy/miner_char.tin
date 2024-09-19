@@ -1,46 +1,7 @@
-#alias {setup_logs} 
-{
-    #config log_level low;
-    #format {todays_logfile_name} {%t} {%Y-%m-%d-logfile.log};
-    #log append {logs/$todays_logfile_name};
-    #log timestamp {%Y-%m-%d-%H:%M:%S};
-};
-
 #ALIAS {reload_configs}
 {
-    #kill; 
-    #read miner_char.tin;
+    reload_miner_configs;
 }
-
-#ALIAS {reload_mapper_configs}
-{
-    #kill; 
-    #read mapper_char.tin;
-}
-
-#variable direction_opposites
-{
-    {u}{d}
-    {d}{u}
-    {w}{e}
-    {e}{w}
-    {n}{s}
-    {s}{n}
-};
-
-#variable direction_long_opposites
-{
-    {up}{down}
-    {down}{up}
-    {west}{east}
-    {east}{west}
-    {north}{south}
-    {south}{north}
-    {northwest}{southeast}
-    {northeast}{southwest}
-    {southwest}{northeast}
-    {southeast}{northwest}
-};
 
 #READ autos/buffs.tin;
 #READ autos/heal.tin;
@@ -52,9 +13,7 @@
 #READ autos/craft.tin;
 #READ autos/ironwood.tin;
 #NOP autos/emptycontainer.tin;
-#READ autos/mapper.tin;
+#NOP autos/mapper.tin;
 
-#split;
-#READ dark_legacy_login.tin;
-setup_logs;
+#READ common_setup.tin;
 2;

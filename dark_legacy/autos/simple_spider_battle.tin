@@ -8,5 +8,6 @@
 #ACTION {You swing}
 {
     jab head;
+    cast arrow;
 }
 

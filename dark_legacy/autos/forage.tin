@@ -21,6 +21,7 @@
 {
     #IF {$square_auto_forage_enabled}
     {
+        flush;
         #IF {$max_height > $current_height}
         {
             #IF {$max_with == $current_with}
@@ -72,14 +73,21 @@
 #ALIAS {stop_autoforage}
 {
     #VARIABLE {auto_forage_enabled} {0};
+    fill_forageportal;
+    look;
+    #DELAY {choose_direction_auto_forage_delay} {choose_direction_auto_forage} {0.5};
+}
+
+#ALIAS {fill_forageportal}
+{
     put all.pine forageportal;
     put all.cotton rawcotton;
     put all.log forageportal;
     put all.thistle forageportal;
     put all.eye forageportal;
     put all.bloodroot forageportal;
-    look;
-    #DELAY {choose_direction_auto_forage_delay} {choose_direction_auto_forage} {0.5};
+    put all.star forageportal;
+    put all.medusa forageportal;
 }
 
 #VARIABLE {auto_fish_enabled} {0};
@@ -287,15 +295,46 @@
     #DELAY {move_portal_and_create_a_new_one_delay} {move_portal_and_create_a_new_one} {0.5};
 }
 
+#ACTION {A hawthorne tree lies here, it roots ripped out of the ground.}
+{
+    #IF {$auto_forage_enabled}
+    {
+        #VARIABLE {harvest_actions[hawthorne]} {forage hawthorne};
+    };
+}
+
+#ACTION {A branch of an elder goddess}
+{
+    #IF {$auto_forage_enabled}
+    {
+        #VARIABLE {harvest_actions[ebony]} {forage branch};
+    };
+}
+
+#ACTION {Gravethorn springs forth from a simple worn down grave}
+{
+    #IF {$auto_forage_enabled}
+    {
+        #VARIABLE {harvest_actions[Gravethorn]} {forage Gravethorn};
+    };
+}
+
+#ACTION {Thick snake like vines scale a rock here.}
+{
+    #IF {$auto_forage_enabled}
+    {
+        #VARIABLE {harvest_actions[medusa]} {forage vine};
+    };
+}
+
 #ALIAS {move_portal_and_create_a_new_one}
 {
     flush;
     label forageportal forageportalfulltest;
-    drop all;
+    label backupforageportal forageportal;
+    fill_forageportal;
     cast Extradimensional;
-    label -1.portal forageportal;
-    get all.portal;
-    fill forageportal;
+    label -1.portal backupforageportal;
     #VARIABLE square_auto_forage_enabled 1;
     choose_direction_auto_forage;
 }
