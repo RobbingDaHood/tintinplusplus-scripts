@@ -1,5 +1,5 @@
 # NOP {Thanks to Nemisis for his priceless insights, this could not be done without him.};
-# NOP {So the are of a mapping (except childish maps) are something like this:};
+# NOP {So the area of a mapping (except childish maps: They only have one X) are something like this:};
 # NOP {OOO¤¤¤XXX¤¤¤OOO};
 # NOP {O¤¤¤XXXXXXX¤¤¤O};
 # NOP {¤¤XXXXXXXXXXX¤¤};
@@ -7,20 +7,21 @@
 # NOP {O¤¤¤XXXXXXX¤¤¤O};
 # NOP {OOO¤¤¤XXX¤¤¤OOO};
 # NOP {Exmaine map in X will always say dig, examine map in ¤ will sometimes say dig outside of ¤ it will never state to dig.};
+# NOP {The amount or rooms is usually much larger than depicted above, but the shape is representative.};
 # NOP {So always examine map multiple times to verify what type of room you are in};
 # NOP {Also, flying around in the clouds makes navigating much simpler};
 # NOP {So here are the steps:};
 # NOP {1. Travel mode, Fly up};
 # NOP {1. Examine map until the finding a dig spot};
-# NOP [1. Go to explorer mode};
-# NOP [1. Examine map until finding X (means retry many times)};
+# NOP {1. Go to explorer mode};
+# NOP {1. Examine map until finding X (means retry many times)};
 # NOP {1. Go north until not in X.};
 # NOP {1. Go one south (back to X) then keep going east until not in X.};
-# NOP [1. Repeat the following steps:};
-# NOP {    1. NW if dig then got to repeat step above.};
-# NOP {    1. W if dig then got to repeat step above.};
-# NOP {    1. W if dig then got to repeat step above.};
-# NOP {    1. S if dig then got to repeat step above.};
+# NOP {1. Repeat the following steps (This line is the "repeat step" used later):};
+# NOP {    1. NW if X then got to repeat step above.};
+# NOP {    1. W if X then got to repeat step above.};
+# NOP {    1. W if X then got to repeat step above.};
+# NOP {    1. S if X then got to repeat step above.};
 # NOP {1. If not going back to repeat step, then you are done};
 # NOP {Either you are just to the west of the top westward X OR 2 west of the point};
 # NOP {Go to the middle X at the top};
@@ -29,7 +30,7 @@
 # NOP {Stained 9s};
 # NOP { tattered/cryptic/ancient 14s };
 
-# NOP [TODO:};
+# NOP {TODO:};
 # NOP { DO NOT PLUNGE INTO THE ABYSS! THE MAPPER COULD BE CLOSE TO THE EDGE OF THE WORLD: NEED TO LOOK BEFORE i MOVE};
 # NOP { Or, just discard a map if it went to the abyss while traveling?};
 
