@@ -53,5 +53,6 @@
 
 #split;
 #READ dark_legacy_login.tin;
+#READ autos/message_handler.tin;
 setup_logs;
 #config {packet patch} 0.6;

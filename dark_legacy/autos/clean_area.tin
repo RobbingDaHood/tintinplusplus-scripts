@@ -56,6 +56,11 @@
     };
 }
 
+#ACTION {You have died}
+{
+    stop_autoexplore;
+}
+
 #ALIAS {stop_autoexplore}
 {
     #variable {state_autoexplore} {0};
@@ -86,7 +91,7 @@
     #IF {$state_autoexplore}
     {
         delay_moving;
-        fill spidersilk 'spiders thread';
+        fill spidersilkportal 'spiders thread';
     };
 }
 
@@ -123,4 +128,14 @@
 #ACTION {Ghost{.*?}Chiphulk}
 {
     cast resurrect pet;
+}
+
+#ACTION {does not fit into an extradimensional portal}
+{
+    delay_moving;
+    flush;
+    label spidersilkportal fullspidersilkportal;
+    label empty spidersilkportal;
+    fill spidersilkportal 'spiders thread';
+    fill spidersilkportal spider; 
 }

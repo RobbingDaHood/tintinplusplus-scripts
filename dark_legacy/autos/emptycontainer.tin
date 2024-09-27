@@ -35,18 +35,21 @@
 {
     #IF {$start_empty_container_enabled}
     {
-        empty $container_to_empty;
-        fill mixedstuff all.potion;
-        fill mixedstuff all.Treasure;
-        fill mixedstuff all.rune;
-        fill mixedstuff all.egg;
-        fill mixedstuff all.boonies;
-        fill mixedstuff all.baboo;
-        fill garbage all.prism;
-        fill randomitems all;
-        get all.gold;
-        put $container_to_empty emptycontainers;
+        fill $portal_name $container_to_empty;
+        put $container_to_empty treasures;
     };
+}
+
+#ALIAS {sort_loot_on_ground}
+{
+    fill mixedstuff all.potion;
+    fill mixedstuff all.Treasure;
+    fill mixedstuff all.rune;
+    fill mixedstuff all.egg;
+    fill mixedstuff all.boonies;
+    fill mixedstuff all.baboo;
+    fill mixedstuff all.prism;
+    fill randomloot all;
 }
 
 #ACTION {You put a {.*?} in an extradimensional portal.}

@@ -14,6 +14,7 @@
 #NOP autos/ironwood.tin;
 #NOP autos/emptycontainer.tin;
 #NOP autos/mapper.tin;
+
 #READ autos/mapper_simple.tin;
 #READ autos/clean_area.tin;
 #READ autos/simple_spider_battle.tin;

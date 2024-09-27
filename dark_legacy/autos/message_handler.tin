@@ -1,0 +1,41 @@
+#list messages_recived clear; 
+
+#TICKER {messages_ticker} {write_number_of_messages} {5};
+
+#ACTION {{.*?} {oocs|tells|yells|shouts|newbiechats|ghosttalks|says} '{.*?}'}
+{
+    #list messages_recived add {"%0"};
+}
+
+#ACTION {You {ooc|tell|yell|shout|newbiechat|ghosttalk|say} '{.*?}'}
+{
+    #list messages_recived add {"%0"};
+}
+
+#ACTION {({.*?}/{.*?}):{.*?}}
+{
+    #list messages_recived add {"%0"};
+}
+
+#ACTION {({.*?}/{.*?}:{.*?}'}
+{
+    #list messages_recived add {"%0"};
+}
+
+#ACTION {({.*?}/{.*?}):{.*?}}
+{
+    #list messages_recived add {"%0"};
+}
+
+#ALIAS {write_number_of_messages}
+{
+    #IF {&messages_recived[] != 0}
+    {
+        #SHOWME {There are &messages_recived[] messages waiting! Variable name: messages_recived};
+    };
+}
+
+#ALIAS {clear_messages}
+{
+    #list messages_recived clear; 
+}
