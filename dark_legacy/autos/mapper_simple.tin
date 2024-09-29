@@ -51,21 +51,23 @@
     #VARIABLE mapper_count_stable 0;
     #VARIABLE min_east_coordinate 9999;
     #VARIABLE max_east_coordinate -9999;
+    pet call;
+    refresh_pet_and_self;
+    buff_self_and_pet;
     mount pet;
-    look;
     travel;
-    #NOP {need to go up after fly is cast, but sometimes fly is already cast: Need to implement this. Until then, just trigger it manually if fly is not active};
-    up;
+    #TICKER {pending_commands_ticker} {pending; level} {5};
+    pending;
 }
 
-#ALIAS {prepare_mapper}
+#ACTION {--) None}
 {
-    cast haste; 
-    cast fly; 
-    cast haste pet; 
-    cast fly pet; 
-    start_mapper;
-}
+    #IF {$enable_simple_mapper_state}
+    {
+        #UNTICKER {pending_commands_ticker};
+        up;
+    };
+};
 
 #ALIAS {stop_mapper}
 {
@@ -221,8 +223,9 @@
     examine map;
 }
 
-#ACTION {somewhere near here! start digging!}
+#ACTION {You estimate the}
 {
+    #SHOWME {Start digging were triggered};
     #IF {$enable_simple_mapper_state}
     {
         #VARIABLE visited_mapper_rooms[$current_coordinates] 1;
@@ -247,9 +250,7 @@
             };
             #ELSE 
             {
-                #SHOWME {IT IS STABLE! RESET THE COUNT! MAPTYPE: $map_type};
                 #VARIABLE last_coordinate_when_stable[$current_coordinates] 1;
-                #SHOWME {#VARIABLE last_coordinate_when_stable};
                 #VARIABLE mapper_count_in_a_row 0;
 
                 #IF {$min_east_coordinate > $east_coordinate}
@@ -333,7 +334,6 @@
         #MATH north_coordinate {$north_coordinate * -1};
     };
     #VARIABLE current_coordinates {"$east_coordinate:$north_coordinate"};
-    #SHOWME {current_coordinates $current_coordinates, STATE: $mapper_state};
 }
 
 #ACTION {A {.*?} treasure map}
@@ -401,4 +401,22 @@
 #ACTION {A {.*?} chest is locked.}
 {
     fill lockedcontainers;
+};
+
+#ACTION {You do not see that here.}
+{
+    #IF {"$mapper_state" == "TRAVEL_MOUNT"}
+    {
+        get stained portalmaps;
+        examine map;
+    };
+};
+
+#ACTION {Your mount is too exhausted, needs at least 10 move.}
+{
+    #IF {$enable_simple_mapper_state}
+    {
+        cast refresh pet;
+        examine map;
+    };
 };

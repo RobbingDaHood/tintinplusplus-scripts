@@ -19,6 +19,8 @@
 #READ autos/clean_area.tin;
 #READ autos/simple_spider_battle.tin;
 #READ common_mapper.tin;
+#READ autos/mapper_buffs.tin;
+#READ autos/cast_refresh_all.tin;
 
 #READ common_setup.tin;
 3;

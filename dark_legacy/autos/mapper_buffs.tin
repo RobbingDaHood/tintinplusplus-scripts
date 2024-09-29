@@ -1,0 +1,52 @@
+#ALIAS {reset_all_buff_states_mapper}
+{
+    #variable {all_buff_states} {
+        {fly}{0}
+        {haste}{0}
+    };
+};
+
+#VARIABLE {read_affect} {0};
+#ALIAS {buff_self_and_pet} 
+{
+    sheathe;
+    #VARIABLE {read_affect} {1};
+    reset_all_buff_states_mapper;
+    pet affect;
+    #DELAY {buff_pet_delay} {buff_trigger pet; buff_self} {2};
+}
+
+#ALIAS {buff_self} 
+{
+    affect;
+    #DELAY {buff_self_delay} {buff_trigger self; #VARIABLE {read_affect} {0};} {0.5};
+}
+
+#ALIAS {buff_trigger {.*}} 
+{
+    #FOREACH {*all_buff_states[]} {buff_name} 
+    {
+        #IF {$all_buff_states[$buff_name]}
+        {
+            #NOP {Already have $buff_name};
+        }
+        {
+            cast $buff_name %1;
+        };
+    };
+};
+
+#ACTION {[{.*}}
+{
+    #VARIABLE {affect_text} {%1};
+    #IF {$read_affect} 
+    {
+        #FOREACH {*all_buff_states[]} {buff_name} 
+        {
+            #REGEXP {$affect_text} {$buff_name}
+            {
+                #VARIABLE {all_buff_states[$buff_name]} {1};
+            };
+        };  
+    };
+};

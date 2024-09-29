@@ -8,16 +8,23 @@
     #map goto 1;
 }
 
+#VARIABLE move_to_closest_unexplored_room_no_path_count 0;
 #ALIAS {move_to_closest_unexplored_room}
 {
-    #SHOWME {move test: (!$fighting_mobs && $state_autoexplore) || $enable_mapper_state};
     #IF {(!$fighting_mobs && $state_autoexplore) || $enable_mapper_state}
     {
         #map find {roomdesc} {unexplored};
         #path get length length_of_path;
         #if {$length_of_path > 0} 
         {
+            #VARIABLE move_to_closest_unexplored_room_no_path_count 0;
             #path walk;
+        };
+        #elseif {$move_to_closest_unexplored_room_no_path_count < 2}
+        {
+            #MATH move_to_closest_unexplored_room_no_path_count {$move_to_closest_unexplored_room_no_path_count + 1};
+            look;
+            #DELAY {move_to_closest_unexplored_room_delay} {move_to_closest_unexplored_room} {0.3};
         };
         #else 
         {
@@ -34,7 +41,6 @@
 
 #ACTION {Exits: {.*?}.}
 {
-    #SHOWME {Exits test: $state_autoexplore || $enable_mapper_state};
     #IF {$state_autoexplore || $enable_mapper_state}
     {
         #VARIABLE {directions_in_room} {%1};

@@ -1,8 +1,9 @@
 #list messages_recived clear; 
+#variable known_messages_count 0;
 
 #TICKER {messages_ticker} {write_number_of_messages} {5};
 
-#ACTION {{.*?} {oocs|tells|yells|shouts|newbiechats|ghosttalks|says} '{.*?}'}
+#ACTION {{.*?} {ooc|tell|yell|shout|newbiechat|ghosttalk|say}s '{.*?}'}
 {
     #list messages_recived add {"%0"};
 }
@@ -29,13 +30,21 @@
 
 #ALIAS {write_number_of_messages}
 {
-    #IF {&messages_recived[] != 0}
+    #MATH new_messages_count {&messages_recived[] - $known_messages_count};
+    #IF {$new_messages_count != 0}
     {
-        #SHOWME {There are &messages_recived[] messages waiting! Variable name: messages_recived};
+        #SHOWME {There are $new_messages_count messages waiting! Variable name: messages_recived};
     };
 }
 
 #ALIAS {clear_messages}
 {
-    #list messages_recived clear; 
+    #var known_messages_count &messages_received[];
+}
+
+#ALIAS {show_messages}
+{
+    #loop 1 &messages_received[] item {
+      #SHOWME {$messages_received[$item]};
+    };
 }

@@ -51,12 +51,10 @@
     };
 }
 
-#LIST {harvest_actions} clear;
 #ALIAS {start_autoforage}
 {
     #VARIABLE {auto_forage_enabled} {1};
     fill garbage all;
-    #LIST {harvest_actions} clear;
     #DELAY {trigger_autoforage_look__delay} {look} {0.2};
     #DELAY {trigger_autoforage_delay} {trigger_autoforage} {1.0};
     sheathe; 
@@ -144,15 +142,7 @@
 {
     #IF {$auto_forage_enabled}
     {
-        #IF {&harvest_actions[] != 0}
-        {
-            #SHOWME {Trying to: $harvest_actions[+1]};
-            #send {$harvest_actions[+1]};
-            #list harvest_actions delete 1;
-        }
-        {
-            stop_autoforage;
-        };
+        forage;
     };
 };
 
@@ -178,166 +168,15 @@
     stop_square_autoforage;
 }
 
-#ACTION {A patch of creeping thistles grows here.}
-{
-    #IF {$auto_forage_enabled}
-    {
-        #VARIABLE {harvest_actions[thistles]} {forage thistles};
-    };
-}
-
-#ACTION {A cedar tree lies here, stripped of most of its weeping branches.}
-{
-    #IF {$auto_forage_enabled}
-    {
-        #VARIABLE {harvest_actions[cedar]} {chop cedar};
-    };
-}
-
-#ACTION {A doll eye weed stares at you.}
-{
-    #IF {$auto_forage_enabled}
-    {
-        #VARIABLE {harvest_actions[weed]} {forage weed};
-    };
-}
-
-#ACTION {The wind passes through a fallen yew tree here, as if whispering the names of the dead.}
-{
-    #IF {$auto_forage_enabled}
-    {
-        #VARIABLE {harvest_actions[yew]} {chop yew};
-    };
-}
-
-#ACTION {Thick snake like vines scale a rock here.}
-{
-    #IF {$auto_forage_enabled}
-    {
-        #VARIABLE {harvest_actions[vine]} {forage vine};
-    };
-}
-
-#ACTION {Bloodied roots burrow into the ground here.}
-{
-    #IF {$auto_forage_enabled}
-    {
-        #VARIABLE {harvest_actions[root]} {forage root};
-    };
-}
-
-#ACTION {A knotted ash tree has relinquished its centuries long hold on the earth.}
-{
-    #IF {$auto_forage_enabled}
-    {
-        #VARIABLE {harvest_actions[ash]} {chop ash};
-    };
-}
-
-#ACTION {A patch of star nettles glitters brightly.}
-{
-    #IF {$auto_forage_enabled}
-    {
-        #VARIABLE {harvest_actions[star]} {forage star};
-    };
-}
-
-#ACTION {Gravethorn springs forth from a simple worn down grave.}
-{
-    #IF {$auto_forage_enabled}
-    {
-        #VARIABLE {harvest_actions[Gravethorn]} {forage Gravethorn};
-    };
-}
-
-#ACTION {A hawthorne tree lies here, it roots ripped out of the ground.}
-{
-    #IF {$auto_forage_enabled}
-    {
-        #VARIABLE {harvest_actions[hawthorne]} {chop hawthorne};
-    };
-}
-
-#ACTION {A mottled lotus dances in the wind here.}
-{
-    #IF {$auto_forage_enabled}
-    {
-        #VARIABLE {harvest_actions[lotus]} {forage lotus};
-    };
-}
-
-#ACTION {A large cotton shrub sports cotton bolls.}
-{
-    #IF {$auto_forage_enabled}
-    {
-        #VARIABLE {harvest_actions[cotton]} {forage cotton};
-    };
-}
-#ACTION {Everlasting bloom covers a runic stone.}
-{
-    #IF {$auto_forage_enabled}
-    {
-        #VARIABLE {harvest_actions[stone]} {forage bloom};
-    };
-}
-
-#ACTION {A fallen pine tree lies here, pieces of bark flaking from its side.}
-{
-    #IF {$auto_forage_enabled}
-    {
-        #VARIABLE {harvest_actions[pine]} {forage pine};
-    };
-}
-
 #ACTION {does not fit into an extradimensional portal}
 {
     #VARIABLE square_auto_forage_enabled 0;
+    flush;
     #DELAY {move_portal_and_create_a_new_one_delay} {move_portal_and_create_a_new_one} {0.5};
-}
-
-#ACTION {A hawthorne tree lies here, it roots ripped out of the ground.}
-{
-    #IF {$auto_forage_enabled}
-    {
-        #VARIABLE {harvest_actions[hawthorne]} {forage hawthorne};
-    };
-}
-
-#ACTION {A branch of an elder goddess}
-{
-    #IF {$auto_forage_enabled}
-    {
-        #VARIABLE {harvest_actions[ebony]} {forage branch};
-    };
-}
-
-#ACTION {Gravethorn springs forth from a simple worn down grave}
-{
-    #IF {$auto_forage_enabled}
-    {
-        #VARIABLE {harvest_actions[Gravethorn]} {forage Gravethorn};
-    };
-}
-
-#ACTION {Thick snake like vines scale a rock here.}
-{
-    #IF {$auto_forage_enabled}
-    {
-        #VARIABLE {harvest_actions[medusa]} {forage vine};
-    };
-}
-
-#ACTION {A piece of bog wood lies here half submerged, preserved by the acidic water.}
-{
-    #IF {$auto_forage_enabled}
-    {
-        #VARIABLE {harvest_actions[bogwood]} {forage bog};
-    };
 }
 
 #ALIAS {move_portal_and_create_a_new_one}
 {
-    flush;
     label forageportal forageportalfulltest;
     label backupforageportal forageportal;
     fill_forageportal;
