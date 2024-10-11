@@ -11,7 +11,7 @@
 #VARIABLE move_to_closest_unexplored_room_no_path_count 0;
 #ALIAS {move_to_closest_unexplored_room}
 {
-    #IF {(!$fighting_mobs && $state_autoexplore) || $enable_mapper_state}
+    #IF {$state_autoexplore_enabled || $enable_mapper_state}
     {
         #map find {roomdesc} {unexplored};
         #path get length length_of_path;
@@ -39,9 +39,11 @@
     #map set {roomdesc} {unexplored} {%0};
 }
 
+#VARIABLE did_see_exits 0;
 #ACTION {Exits: {.*?}.}
 {
-    #IF {$state_autoexplore || $enable_mapper_state}
+    #VARIABLE did_see_exits 1;
+    #IF {$state_autoexplore_enabled || $enable_mapper_state}
     {
         #VARIABLE {directions_in_room} {%1};
         #LIST {directions_in_room} explode { };

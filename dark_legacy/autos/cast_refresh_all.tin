@@ -1,5 +1,5 @@
 #VARIABLE {read_moves} {0};
-#VARIABLE {move_per_refresh_cast} {40};
+#VARIABLE {move_per_refresh_cast} {80};
 #VARIABLE {what_are_we_reading_moves_on} {pet};
 #ALIAS {refresh_pet_and_self} 
 {
@@ -19,17 +19,24 @@
     #DELAY {disable_refresh_self} {#VARIABLE {read_moves} {0}} {0.5};
 }
 
+#VARIABLE threshold_where_we_do_not_refresh 0;
 #ACTION {Luck: {.*?}Move: {\d+}{.*?}of{.*?}{\d+}}
 {
     #VARIABLE {current_move} {%2};
     #VARIABLE {max_move} {%5};
-    #IF {$read_moves} 
+    #SHOWME {Checking moves: $read_moves && $current_move > $threshold_where_we_do_not_refresh};
+    #IF {$read_moves && $current_move > $threshold_where_we_do_not_refresh} 
     {
         #MATH {number_of_refresh_cast_needed} {($max_move - $current_move) / $move_per_refresh_cast};
         #IF {$number_of_refresh_cast_needed != 0}
         {
             #SHOWME {$number_of_refresh_cast_needed TIMES REFRESH};
-            #loop 1 $number_of_refresh_cast_needed loop_count {cast refresh $what_are_we_reading_moves_on};
+            #loop 1 $number_of_refresh_cast_needed loop_count {cast refresh $what_are_we_reading_moves_on; save};
         };
     };
 };
+
+#ACTION {You channel fresh vitality along Chiphulk the male Chipmunk's being.}
+{
+    pet score;
+}

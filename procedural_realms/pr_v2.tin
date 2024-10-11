@@ -268,6 +268,8 @@
 {
     #variable {updated_charstate}{0};
     #variable gmcp_char_state {%0};
+
+    #SHOWME {$gmcp_char_state};
     
     store_if_exist gmcp_char_state[update][room] room_info;
     store_if_exist gmcp_char_state[update][room][id] room_id;

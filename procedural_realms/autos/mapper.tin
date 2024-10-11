@@ -1,0 +1,156 @@
+#ALIAS {start_autoexplore}
+{
+    setup_autoloot_and_kill;
+    config autobattle on;
+
+    #VARIABLE where_to_go unexplored;
+
+    #map destroy world;
+    #map create 999999;
+    #map goto 1;
+    #map vnum $room_id;
+    #variable {autoexplore_start_room_id} {$room_id};
+    #variable {state_autoexplore_enabled} {1};
+    #VARIABLE cant_move_counter 0;
+    look;
+    look;
+}
+
+#ALIAS {setup_autoloot_and_kill}
+{
+    tactics 20 target self;
+    tactics 20 action kill;
+    tactics 20 trigger room('enemies') >= 1;
+
+    tactics 21 target room;
+    tactics 21 action harvest;
+    tactics 21 trigger room('enemies') == 0 AND target('isHarvestable') == true;
+
+    tactics 22 target room;
+    tactics 22 action chop;
+    tactics 22 trigger room('enemies') == 0 AND room('items') > numItemsInRoom("corpse");
+
+    tactics 23 target room;
+    tactics 23 action loot;
+    tactics 23 trigger room('enemies') == 0 AND target('isLootable') == true;
+
+    tactics 24 target self;
+    tactics 24 action say boring nothing to loot;
+    tactics 24 trigger room('enemies') == 0 AND (room('items') == 0 OR room('items') == numItemsInRoom("corpse"));
+}
+
+#ALIAS {disable_autoloot_and_kill}
+{
+    tactics 20 trigger room('enemies') == 1 AND room('enemies') == 0;
+    tactics 21 trigger room('enemies') == 1 AND room('enemies') == 0;
+    tactics 22 trigger room('enemies') == 1 AND room('enemies') == 0;
+    tactics 24 trigger room('enemies') == 1 AND room('enemies') == 0;
+}
+
+#ACTION {You can't enter an instanced dungeon right now.}
+{
+    #IF {$state_autoexplore_enabled}
+    {
+        #UNDELAY enter_after_autoexplore_delay;
+        stop_autoexplore;
+        #DELAY {enter_dungeoun_delay} {enter; start_autoexplore} {300};
+    };
+};
+
+#VARIABLE cant_move_counter 0;
+#ACTION {You can't move {.*?}, but you think you could mine {.*?}.}
+{
+    #IF {$state_autoexplore_enabled}
+    {
+        #IF {$cant_move_counter < 5}
+        {
+            #DELAY {look_delay} look 1;
+            #MATH cant_move_counter {$cant_move_counter + 1};
+        };
+        #ElSE 
+        {
+            #NOP {parse coordinates and check that we moved to a new room. Will also help other places};
+            #DELAY {look_delay} start_autoexplore 1;
+        };
+    };
+};
+
+#ALIAS {stop_autoexplore}
+{
+    disable_autoloot_and_kill;
+    #variable {state_autoexplore_enabled} {0};
+}
+
+#ACTION {You are carrying too much weight to move.}
+{
+    stop_autoexplore;
+}
+
+#ACTION {Exits: {.*}}
+{
+    #IF {$state_autoexplore_enabled}
+    {
+        #DELAY {safety_looker_delay} {look} {30};
+        #map set {roomdesc} {explored};
+        #VARIABLE {directions_in_room} {%1};
+        #LIST {directions_in_room} explode { };
+        #FOREACH {$directions_in_room[]} {direction_in_room} 
+        {
+            #IF {"$direction_in_room" == "enter"} 
+            {
+                #map set {roomdesc} {the_exit_to_the_dungeoun};
+            };
+            #ELSE 
+            {
+                #map dig {$direction_in_room}; 
+            };
+        };
+    };
+}
+
+#EVENT {MAP CREATE ROOM}
+{
+    #map set {roomdesc} {unexplored} {%0};
+}
+
+#VARIABLE move_to_closest_unexplored_room_no_path_count 0;
+#VARIABLE where_to_go unexplored;
+#ALIAS {move_to_closest_unexplored_room}
+{
+    #IF {$state_autoexplore_enabled}
+    {
+        #map find {roomdesc} {$where_to_go};
+        #path get length length_of_path;
+        #if {$length_of_path > 0} 
+        {
+            #VARIABLE move_to_closest_unexplored_room_no_path_count 0;
+            #path walk;
+        };
+        #elseif {$move_to_closest_unexplored_room_no_path_count < 2}
+        {
+            #MATH move_to_closest_unexplored_room_no_path_count {$move_to_closest_unexplored_room_no_path_count + 1};
+            look;
+            #DELAY {move_to_closest_unexplored_room_delay} {move_to_closest_unexplored_room} {0.3};
+        };
+        #else 
+        {
+            #IF {"$where_to_go" == "unexplored"}
+            {
+                #VARIABLE where_to_go the_exit_to_the_dungeoun;
+                move_to_closest_unexplored_room;
+            };
+            #ELSE 
+            {
+                #SHOWME {DONE WALKING!};
+                stop_autoexplore;
+                enter;
+                #DELAY {enter_after_autoexplore_delay} {enter; start_autoexplore} 1;
+            };
+        };
+    };
+}
+
+#ACTION {You say, 'boring nothing to loot'}
+{
+    move_to_closest_unexplored_room;
+}

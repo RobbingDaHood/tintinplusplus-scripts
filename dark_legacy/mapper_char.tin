@@ -3,6 +3,17 @@
     reload_mapper_configs;
 }
 
+#NOP {Move this to central place};
+#VARIABLE action_after_no_pending_commands look;
+#ACTION {--) None}
+{
+    #IF {$enable_simple_mapper_state || $state_autoexplore_enabled}
+    {
+        #UNTICKER {pending_commands_ticker};
+        $action_after_no_pending_commands;
+    };
+};
+
 #NOP autos/buffs.tin;
 #NOP autos/heal.tin;
 #NOP autos/unlock.tin;
@@ -17,6 +28,7 @@
 
 #READ autos/mapper_simple.tin;
 #READ autos/clean_area.tin;
+#NOP autos/clean_area_v2.tin;
 #READ autos/simple_spider_battle.tin;
 #READ common_mapper.tin;
 #READ autos/mapper_buffs.tin;

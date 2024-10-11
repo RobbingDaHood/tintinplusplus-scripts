@@ -1,0 +1,10 @@
+#ALIAS {replace_stone}
+{
+    get all sand from 1.grinder;
+    get all sand from 2.grinder;
+    get all sand from 3.grinder;
+    
+    put all stone in 1.grinder;
+    put all stone in 2.grinder;
+    put all stone in 3.grinder;
+}

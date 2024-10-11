@@ -1,0 +1,59 @@
+#ALIAS {load_basic_tactics}
+{
+  tactics 1 target self;
+  tactics 1 action sneak;
+  tactics 1 trigger NOT(self("inCombat") AND hasAffect("sneak")) AND canUseSkill("sneak") AND hasAffect("cats grace") AND NOT(hasAffect("poison") OR hasAffect("bleeding") OR hasAffect("burning"));
+
+  tactics 2 target self;
+  tactics 2 action vanish;
+  tactics 2 trigger self("inCombat") AND canUseSkill("backstab") AND self("combo") > 3 AND canUseSkill("vanish") AND NOT(hasAffect("poison") OR hasAffect("bleeding") OR hasAffect("burning"));
+
+  tactics 3 target self;
+  tactics 3 action drink moderate stamina potion;
+  tactics 3 trigger self("inCombat") AND self("stamina") < 20 AND NOT(hasAffect("sneak")) AND NOT(hasAffect("vanish")) AND NOT(hasAffect("moderate stamina potion")) AND hasItems("moderate stamina potion") > 0;
+
+  tactics 4 target self;
+  tactics 4 action drink moderate healing;
+  tactics 4 trigger self("inCombat") AND self("hp") < 50 AND NOT(hasAffect("sneak")) AND NOT(hasAffect("vanish")) AND NOT(hasAffect("moderate healing potion")) AND numItems("moderate healing potion") > 0;
+
+  tactics 5 target self;
+  tactics 5 action drink moderate critical potion;
+  tactics 5 trigger NOT(self("inCombat")) AND (hasAffect("sneak") OR hasAffect("vanish")) AND NOT(hasAffect("moderate critical potion")) AND self("hp") < 99 AND numItems("moderate critical potion") > 0;
+
+  tactics 6 target self;
+  tactics 6 action eat plate;
+  tactics 6 trigger NOT(self("inCombat")) AND (hasAffect("sneak") OR hasAffect("vanish")) AND ((self("food") < 75 AND self("hp") < 99) OR self("hp") < 50) AND numItems("trout plate") > 0;
+
+  tactics 7 target self;
+  tactics 7 action cast 'cats grace';
+  tactics 7 trigger room("enemies") == 0 AND canUseSkill("sneak") AND canUseSkill("cats grace") AND NOT(hasAffect("cats grace"));
+
+  tactics 8 target enemy;
+  tactics 8 action backstab;
+  tactics 8 trigger self("inCombat") AND (hasAffect("sneak") OR hasAffect("vanish")) AND canUseSkill("backstab");
+}
+
+#ALIAS {add_empty_tactics}
+{
+  #20 {tactics 30 target room};
+}
+
+#VARIABLE clean_all_tactics_enabled 0;
+#ALIAS {clean_all_tactics}
+{
+    #VARIABLE clean_all_tactics_enabled 1;
+    tactics 1 delete;
+}
+
+#ACTION {Deleted tactic #1.}
+{
+    #IF {$clean_all_tactics_enabled}
+    {
+        tactics 1 delete;
+    };
+}
+
+#ACTION {Delete which tactic?}
+{
+    #VARIABLE clean_all_tactics_enabled 0;
+}

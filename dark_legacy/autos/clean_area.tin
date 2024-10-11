@@ -1,8 +1,11 @@
-#variable {state_autoexplore} {0};
+# NOP { (large) The corpse of Hyakuhei lies here. };
+
+#variable {state_autoexplore_enabled} {0};
 #ALIAS {start_autoexplore}
 {
-    #variable {state_autoexplore} {1};
+    #variable {state_autoexplore_enabled} {1};
     recreate_map;
+    draw sword;
 
     fprompt &Y%hhp &C%mm &G%vmv&w %o> [&R%D&w] FIGHTING_MOBS;
     prompt &Y%hhp &C%mm &G%vmv&w %o> FIGHTING_NO_MOBS;
@@ -12,6 +15,12 @@
 
     #VARIABLE current_room_id -1;
     look;
+
+    #DELAY {pause_autoexplore_delay} 
+    {
+        #SHOWME {Did automatic run for 28 minutes, so pausing.}; 
+        pause_autoexplore;
+    }{1680};
 }
 
 #VARIABLE fighting_mobs 0;
@@ -32,6 +41,11 @@
         #VARIABLE current_room_id $current_room_info[vnum];
         #DELAY {look_for_exits_delay} {look} {1};
         #DELAY {move_to_closest_unexplored_room_delay} {move_to_closest_unexplored_room} {2};
+        #DELAY {did_not_move_in_five_minutes_timer} 
+        {
+            #SHOWME {Did not move for five minutes, so pausing.}; 
+            pause_autoexplore;
+        }{300};
     };
 }
 
@@ -49,7 +63,7 @@
 
 #ALIAS {spidersilk_corpse_filler}
 {
-    #IF {!$fighting_mobs && $state_autoexplore}
+    #IF {!$fighting_mobs && $state_autoexplore_enabled}
     {
         fill spidersilkportal spider; 
         sacrifice spider;
@@ -63,32 +77,55 @@
 
 #ALIAS {stop_autoexplore}
 {
-    #variable {state_autoexplore} {0};
+    #variable {state_autoexplore_enabled} {0};
     fprompt &Y%hhp &C%mm &G%vmv&w %o> [&R%D&w];
     prompt &Y%hhp &C%mm &G%vmv&w %o>;
+    #UNDELAY {pause_autoexplore_delay};
+}
+
+#ALIAS {pause_autoexplore}
+{
+    #variable {state_autoexplore_enabled} {0};
+    fprompt &Y%hhp &C%mm &G%vmv&w %o> [&R%D&w] PAUSED;
+    prompt &Y%hhp &C%mm &G%vmv&w %o> PAUSED;
+    #UNDELAY {pause_autoexplore_delay};
+}
+
+#ALIAS {resume_autoexplore}
+{
+    #variable {state_autoexplore_enabled} {1};
+    fprompt &Y%hhp &C%mm &G%vmv&w %o> [&R%D&w] FIGHTING_MOBS;
+    prompt &Y%hhp &C%mm &G%vmv&w %o> FIGHTING_NO_MOBS;
+    #DELAY {pause_autoexplore_delay} 
+    {
+        #SHOWME {Did automatic run for 28 minutes, so pausing.}; 
+        pause_autoexplore;
+    }{1680};
+    #VARIABLE current_room_id -1;
+    look;
 }
 
 #ACTION {A giant spider crawls along here.}
 {
-    #IF {$state_autoexplore}
+    #IF {$state_autoexplore_enabled}
     {
-        simple_spider_battle spider;
         delay_moving;
+        simple_spider_battle spider;
     };
 }
 
 #ACTION {A small spider spins his web very carefully.}
 {
-    #IF {$state_autoexplore}
+    #IF {$state_autoexplore_enabled}
     {
-        simple_spider_battle spider;
         delay_moving;
+        simple_spider_battle spider;
     };
 }
 
 #ACTION {A bundle of Spiders Thread lays here on the ground.}
 {
-    #IF {$state_autoexplore}
+    #IF {$state_autoexplore_enabled}
     {
         delay_moving;
         fill spidersilkportal 'spiders thread';
@@ -97,8 +134,8 @@
 
 #ACTION {The corpse of }
 {
-    spidersilk_corpse_filler;
     delay_moving;
+    spidersilk_corpse_filler;
 }
 
 #ACTION {Chiphulk the male young Chipmunk is DEAD!!}
@@ -108,9 +145,9 @@
 
 #ACTION {A nest has been uncovered here.}
 {
+    delay_moving;
     fill randomloot nest;
     sacrifice nest;
-    delay_moving;
 }
 
 #ALIAS {delay_moving}
@@ -127,15 +164,19 @@
 
 #ACTION {Ghost{.*?}Chiphulk}
 {
-    cast resurrect pet;
+    #NOP {cast resurrect pet;};
+    order pet sit;
 }
 
-#ACTION {does not fit into an extradimensional portal}
+#ACTION {It's already full as it can be.}
 {
-    delay_moving;
-    flush;
-    label spidersilkportal fullspidersilkportal;
-    label empty spidersilkportal;
-    fill spidersilkportal 'spiders thread';
-    fill spidersilkportal spider; 
+    #IF {$state_autoexplore_enabled}
+    {
+        delay_moving;
+        flush;
+        label spidersilkportal fullspidersilkportal;
+        label empty spidersilkportal;
+        fill spidersilkportal 'spiders thread';
+        fill spidersilkportal spider; 
+    };
 }

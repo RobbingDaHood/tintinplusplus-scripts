@@ -1,0 +1,20 @@
+#READ {pr_login_2.tin};
+#ALIAS {reload_configs}
+{
+    #kill; 
+    #read pr_v4.tin;
+};
+
+#alias {setup_logs}
+{
+    #format {todays_logfile_name} {%t} {%Y-%m-%d-logfile.log};
+    #log timestamp {%Y-%m-%d-%H:%M:%S};
+    #log append {logs/$todays_logfile_name};
+};
+
+#READ autos/mapper.tin;
+#READ autos/replace_stone_in_grinder.tin;
+#READ autos/basic_tactics.tin;
+
+setup_logs;
+#SHOWME {Done reloading configs};

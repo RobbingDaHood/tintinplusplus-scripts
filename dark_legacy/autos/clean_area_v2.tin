@@ -1,0 +1,343 @@
+# NOP { Using the prompt as a trigger is bad: it potentially swallows all other text after it. };
+# NOP { It does not look enough, so it gets stuck quickly. If it looks too much then it will neve done empty and sacrifice bodies };
+# NOP { NEED TO HANDLE MULTIPLE ENTITIES OF THE SAME TIME! Maybe that is already handled by looking more};
+# NOP { (large) The corpse of Hyakuhei lies here. };
+
+#variable {state_autoexplore_enabled} {0};
+#ALIAS {reset_all_things_to_do_in_room}
+{
+    #variable {all_things_to_do_in_room} {
+        {kill_spider}{0}
+        {empty_spider_corpse}{0}
+        {sacrifice_spider_corpse}{0}
+        {empty_non_spider_corpse}{0}
+        {sacrifice_non_corpse}{0}
+        {empty_nest}{0}
+        {sacrifice_nest}{0}
+        {spidersilk_in_room}{0}
+        {replace_spidersilk_portal}{0}
+        {replace_randomloot_portal}{0}
+    };
+};
+
+#ALIAS {start_autoexplore}
+{
+    #variable {state_autoexplore_enabled} {1};
+    recreate_map;
+    draw sword;
+
+    reset_all_things_to_do_in_room;
+    
+    call pet;
+    cast bear;
+
+    fprompt &Y%hhp &C%mm &G%vmv&w %o> [&R%D&w] FIGHTING_MOBS ;
+    prompt &Y%hhp &C%mm &G%vmv&w %o> FIGHTING_NO_MOBS ;
+    #VARIABLE current_room_id -1;
+    look;
+
+    #DELAY {pause_autoexplore_delay} 
+    {
+        #SHOWME {Did automatic run for 28 minutes, so pausing.}; 
+        pause_autoexplore;
+    }{1680};
+}
+
+#ACTION {FIGHTING_MOBS{.*}}
+{
+    #SHOW {%1};
+    #NOP {nothing yet};
+}
+
+#VARIABLE can_look_again 1;
+#VARIABLE did_see_clean_room_once 0;
+#ACTION {FIGHTING_NO_MOBS{.*?}}
+{
+    #SHOW {%1};
+    #SHOWME {can_look_again: $can_look_again};
+    #SHOWME {did_see_clean_room_once: $did_see_clean_room_once};
+    #SHOWME {did_see_exits: $did_see_exits};
+    #FOREACH {*all_things_to_do_in_room[]} {thing_to_do}
+    {
+      #showme {$thing_to_do: $all_things_to_do_in_room[$thing_to_do]};
+    };
+    #SHOWME {$current_room_id != $current_room_info[vnum]};
+    #map get all current_room_info;
+    #IF {$current_room_id != $current_room_info[vnum]}
+    {
+        #VARIABLE current_room_id $current_room_info[vnum];
+        
+        #FOREACH {*all_things_to_do_in_room[]} {thing_to_do}
+        {
+            #IF {$all_things_to_do_in_room[$thing_to_do]}
+            {
+                #SHOWME {New room but room were not clean. Strange. Will reset the state};
+                reset_all_things_to_do_in_room;
+                #BREAK;
+            };
+        };
+        #VARIABLE did_see_exits 0;
+        #VARIABLE did_see_clean_room_once 0;
+        look;
+    };
+    #ELSEIF {$did_see_exits}
+    {
+        #VARIABLE had_something_to_do 0;
+        #FOREACH {*all_things_to_do_in_room[]} {thing_to_do}
+        {
+            #IF {$all_things_to_do_in_room[$thing_to_do]}
+            {
+                #VARIABLE had_something_to_do 1;
+                #VARIABLE did_see_clean_room_once 0;
+                #VARIABLE action_after_no_pending_commands do_next_action;
+                #TICKER {pending_commands_ticker} {pending; save} {3};
+                #BREAK;
+            };
+        };
+
+        #IF {!$had_something_to_do}
+        {
+            #IF {$did_see_clean_room_once}
+            {
+                move_to_closest_unexplored_room;
+                #DELAY {did_not_move_in_five_minutes_timer} 
+                {
+                    #SHOWME {Did not move for five minutes, so pausing.}; 
+                    pause_autoexplore;
+                }{300};
+            };
+            #ELSE
+            {
+                #VARIABLE did_see_clean_room_once 1;
+                #VARIABLE did_see_exits 0;
+            };
+        };
+    };
+    #ELSEIF {!$did_see_exits && $can_look_again}
+    {
+        look;
+        #VARIABLE can_look_again 0;
+        #DELAY can_look_again_delay {#VARIABLE can_look_again 1;} {2};
+    };
+}
+
+#ALIAS {do_next_action}
+{
+    #IF {$all_things_to_do_in_room[kill_spider]}
+    {
+        simple_spider_battle spider;
+    };
+    #ELSEIF {$all_things_to_do_in_room[replace_spidersilk_portal]}
+    {
+        label spidersilkportal fullspidersilkportal;
+        label empty spidersilkportal;
+        #variable {all_things_to_do_in_room[replace_spidersilk_portal]} {0};
+    };
+    #ELSEIF {$all_things_to_do_in_room[replace_randomloot_portal]}
+    {
+        label randomloot fullrandomloot;
+        label empty randomloot;
+        #variable {all_things_to_do_in_room[replace_randomloot_portal]} {0};
+    };
+    #ELSEIF {$all_things_to_do_in_room[empty_spider_corpse]}
+    {
+        fill spidersilkportal spider; 
+    };
+    #ELSEIF {$all_things_to_do_in_room[empty_non_spider_corpse]}
+    {
+        fill randomloot corpse;
+    };
+    #ELSEIF {$all_things_to_do_in_room[sacrifice_spider_corpse]}
+    {
+        sacrifice spider;
+    };
+    #ELSEIF {$all_things_to_do_in_room[sacrifice_non_corpse]}
+    {
+        sacrifice corpse;
+    };
+    #ELSEIF {$all_things_to_do_in_room[empty_nest]}
+    {
+        fill randomloot nest;
+    };
+    #ELSEIF {$all_things_to_do_in_room[sacrifice_nest]}
+    {
+        sacrifice nest;
+    };
+    #ELSEIF {$all_things_to_do_in_room[spidersilk_in_room]}
+    {
+        fill spidersilkportal 'spiders thread';
+    };
+    #ELSE    
+    {
+        #SHOWME {Nothing to do};
+        #VARIABLE did_see_exits 0;
+    };
+}
+
+#ALIAS {stop_autoexplore}
+{
+    #variable {state_autoexplore_enabled} {0};
+    fprompt &Y%hhp &C%mm &G%vmv&w %o> [&R%D&w];
+    prompt &Y%hhp &C%mm &G%vmv&w %o>;
+    #UNDELAY {pause_autoexplore_delay};
+}
+
+#ALIAS {pause_autoexplore}
+{
+    #variable {state_autoexplore_enabled} {0};
+    fprompt &Y%hhp &C%mm &G%vmv&w %o> [&R%D&w] PAUSED;
+    prompt &Y%hhp &C%mm &G%vmv&w %o> PAUSED;
+    #UNDELAY {pause_autoexplore_delay};
+}
+
+#ALIAS {resume_autoexplore}
+{
+    #variable {state_autoexplore_enabled} {1};
+    fprompt &Y%hhp &C%mm &G%vmv&w %o> [&R%D&w] FIGHTING_MOBS ;
+    prompt &Y%hhp &C%mm &G%vmv&w %o> FIGHTING_NO_MOBS ;
+    #DELAY {pause_autoexplore_delay} 
+    {
+        #SHOWME {Did automatic run for 28 minutes, so pausing.}; 
+        pause_autoexplore;
+    }{1680};
+    look;
+}
+
+#ACTION {is DEAD!!}
+{
+    look;
+}
+
+#ACTION {A coin appears in your pouch as you sacrifice}
+{
+    look;
+}
+
+#ACTION {You have died}
+{
+    stop_autoexplore;
+}
+
+#ACTION {A giant spider crawls along here.}
+{
+    #variable {all_things_to_do_in_room[kill_spider]} {1};
+    #variable {all_things_to_do_in_room[empty_spider_corpse]} {1};
+    #variable {all_things_to_do_in_room[sacrifice_spider_corpse]} {1};
+}
+
+#ACTION {A small spider spins his web very carefully.}
+{
+    #variable {all_things_to_do_in_room[kill_spider]} {1};
+    #variable {all_things_to_do_in_room[empty_spider_corpse]} {1};
+    #variable {all_things_to_do_in_room[sacrifice_spider_corpse]} {1};
+}
+
+#ACTION {{.*?}They aren{.*?}t here.}
+{
+    #SHOWME {THEY ARENT is triggered};
+    #IF {$all_things_to_do_in_room[kill_spider]}
+    {
+        #variable {all_things_to_do_in_room[kill_spider]} {0};
+    };
+}
+
+#ACTION {A bundle of Spiders Thread lays here on the ground.}
+{
+    #variable {all_things_to_do_in_room[spidersilk_in_room]} {1};
+}
+
+#ACTION {The corpse of{.*?}pider}
+{
+    #variable {all_things_to_do_in_room[empty_spider_corpse]} {1};
+    #variable {all_things_to_do_in_room[sacrifice_spider_corpse]} {1};
+}{2}
+
+#ACTION {The corpse of}
+{
+    #variable {all_things_to_do_in_room[empty_non_spider_corpse]} {1};
+    #variable {all_things_to_do_in_room[sacrifice_non_corpse]} {1};
+}
+
+#ACTION {A nest has been uncovered here.}
+{
+    #variable {all_things_to_do_in_room[empty_nest]} {1};
+    #variable {all_things_to_do_in_room[sacrifice_nest]} {1};
+}
+
+#ALIAS {reset_one_item_to_do}
+{
+    #IF {$all_things_to_do_in_room[empty_nest]}
+    {
+        #variable {all_things_to_do_in_room[empty_nest]} {0};
+    };
+    #ELSEIF {$all_things_to_do_in_room[empty_spider_corpse]}
+    {
+        #variable {all_things_to_do_in_room[empty_spider_corpse]} {0};
+    };
+    #ELSEIF {$all_things_to_do_in_room[empty_non_spider_corpse]}
+    {
+        #variable {all_things_to_do_in_room[empty_non_spider_corpse]} {0};
+    };
+    #ELSEIF {$all_things_to_do_in_room[sacrifice_spider_corpse]}
+    {
+        #variable {all_things_to_do_in_room[sacrifice_spider_corpse]} {0};
+    };
+    #ELSEIF {$all_things_to_do_in_room[sacrifice_non_corpse]}
+    {
+        #variable {all_things_to_do_in_room[sacrifice_non_corpse]} {0};
+    };
+    #ELSEIF {$all_things_to_do_in_room[sacrifice_nest]}
+    {
+        #variable {all_things_to_do_in_room[sacrifice_nest]} {0};
+    };
+}
+
+#ACTION {You can't fill something with itself!}
+{
+    #IF {$all_things_to_do_in_room[empty_spider_corpse]}
+    {
+        #variable {all_things_to_do_in_room[empty_spider_corpse]} {0};
+    };
+}
+
+#ACTION {It's empty.}
+{
+    reset_one_item_to_do;
+}
+
+#ACTION {It's empty.}
+{
+    reset_one_item_to_do;
+}
+
+#ACTION {You cannot find that item.}
+{
+    reset_one_item_to_do;
+}
+
+#ACTION {You can't find it.}
+{
+    reset_one_item_to_do;
+}
+
+#ACTION {With a fading growl, a bear}
+{
+    cast bear;
+}
+
+#ACTION {Ghost{.*?}Chiphulk}
+{
+    #NOP {cast resurrect pet;};
+    order pet sit;
+}
+
+#ACTION {It's already full as it can be.}
+{
+    #variable {all_things_to_do_in_room[replace_spidersilk_portal]} {1};
+}
+
+#ACTION {does not fit into an extradimensional portal}
+{
+    #variable {all_things_to_do_in_room[replace_spidersilk_portal]} {1};
+    #variable {all_things_to_do_in_room[replace_randomloot_portal]} {1};
+}

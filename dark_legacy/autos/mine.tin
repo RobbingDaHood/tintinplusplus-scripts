@@ -36,27 +36,52 @@
 #VARIABLE digging_path_enabled 0;
 #ALIAS {dig_path {.*?} {.*}}
 {
+    clear_directions_with_faultline;
+    look;
     #VARIABLE digging_path_enabled 1;
-    mining_gag;
     create_path %1 %2;
     start_maintain_all_xorns;
     prompt &Y%hhp &C%mm &G%vmv&w %o> MINING;
+    fprompt &Y%hhp &C%mm &G%vmv&w %o> FIGHTING_DURING_MINING;
+}
+
+#VARIABLE dig_trigger_kill_once 0;
+#ACTION {|{.*?}FIGHTING_DURING_MINING}
+{
+    #TICKER kill_ticker {kill ~} {2};
+    #IF {!$dig_trigger_kill_once}
+    {
+        kill ~;
+        #VARIABLE dig_trigger_kill_once 1;
+    };
+}
+
+#ACTION {|{.*?}MINING}
+{
+    #UNTICKER kill_ticker;
+    #IF {$dig_trigger_kill_once}
+    {
+        #VARIABLE dig_trigger_kill_once 0;
+        flush;
+        trigger_next_mine;
+    };
 }
 
 #ALIAS {dig_path_cold {.*?} {.*}}
 {
     stop_dig_path;
     #VARIABLE need_to_resummon_xorns 5;
+    sheathe;
     dig_path %1 %2;
 }
 
 #ALIAS {stop_dig_path}
 {
     #VARIABLE digging_path_enabled 0;
-    #VARIABLE need_to_resummon_xorns 0;
     put_all_in_mining_portal;
     mining_ungag;
     prompt &Y%hhp &C%mm &G%vmv&w %o>;
+    #UNTICKER kill_ticker;
 }
 
 #ALIAS {put_all_in_mining_portal}
@@ -83,7 +108,11 @@
 {
     #VARIABLE maintain_all_xorns_state 1;
     sheathe;
-    #NOP {You gesture and chant 'Solaris};
+}
+
+#ALIAS {stop_maintain_all_xorns}
+{
+    
     #GAG {You enchant some pebbles and scatter them around.};
     #GAG {pebbles};
     #GAG {multiple eyes stare at Captiosus};
@@ -93,10 +122,7 @@
     #GAG {You wield};
     #GAG {You sheathe};
     #GAG {stops following you};
-}
 
-#ALIAS {stop_maintain_all_xorns}
-{
     #VARIABLE maintain_all_xorns_state 0;
     #UNGAG {You gesture and chant 'Solaris};
     #UNGAG {You enchant some pebbles and scatter them around.};
@@ -173,9 +199,16 @@
                 put_all_in_mining_portal;
                 #DELAY {build_and_use_heavy_girders_delay} build_and_use_heavy_girders {2}
             };
+            #ELSEIF {$directions_with_faultline[$created_path[+1]]}
+            {
+                #VARIABLE created_path[0] g; #NOP {This is a hack, the generated path starts from 1, so this will always go ahead};
+                put_all_in_mining_portal;
+                clear_directions_with_faultline;
+                #DELAY {build_and_use_heavy_girders_delay} build_and_use_heavy_girders {2}
+            };
             #ELSE 
             {
-                #send {mine $created_path[+1]};
+                #SEND {mine $created_path[+1]};
             };
         };
         #ELSE 
@@ -184,6 +217,41 @@
             stop_dig_path;
         };
     };
+}
+
+#VARIABLE {mining_directions_looking} 
+{
+    {east}{e}
+    {ne}{ne}
+    {north}{n}
+    {nw}{nw}
+    {west}{w}
+    {sw}{sw}
+    {south}{e}
+    {se}{se}
+}
+
+#ALIAS {clear_directions_with_faultline}
+{
+    #VARIABLE {directions_with_faultline} 
+    {
+        {e}{0}
+        {ne}{0}
+        {n}{0}
+        {nw}{0}
+        {w}{0}
+        {sw}{0}
+        {s}{0}
+        {se}{0}
+    };
+}
+
+clear_directions_with_faultline;
+#ACTION {Unstable faultline {.*?}.}
+{
+    # NOP {We need to store this in a way that also gets cleared when needed, we can clear it when moving!};
+    #VARIABLE translated_mining_room_direction $mining_directions_looking[%1];
+    #VARIABLE directions_with_faultline[$translated_mining_room_direction] 1;
 }
 
 #ALIAS {build_and_use_heavy_girders}
@@ -213,15 +281,16 @@
 {
     #IF {$digging_path_enabled}
     {
+        clear_directions_with_faultline;
         #send {$created_path[+1]};
         #list created_path delete 1;
         #SHOWME {DIGGING PATH: $created_path[]};
-        trigger_next_mine;
+        #DELAY {trigger_next_mine_after_move_delay} {trigger_next_mine} {1};
     };
 }
 
 #VARIABLE need_to_resummon_xorns 0;
-#ACTION {An elder Xorn stops following you.}
+#ACTION {collapses into a heap of pebbles}
 {
     #IF {$maintain_all_xorns_state}
     {
@@ -275,6 +344,16 @@
 #ACTION {You stop harvesting}
 {
     #NOP {stop_dig_path};
+}
+
+#ACTION {Granite stands here.}
+{
+    fill garbage granite;
+}
+
+#ACTION {does not fit into an extradimensional portal}
+{
+    move_portal_and_create_a_new_one;
 }
 
 #ALIAS {mining_gag}

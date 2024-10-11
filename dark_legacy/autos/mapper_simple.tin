@@ -33,6 +33,7 @@
 # NOP {TODO:};
 # NOP { DO NOT PLUNGE INTO THE ABYSS! THE MAPPER COULD BE CLOSE TO THE EDGE OF THE WORLD: NEED TO LOOK BEFORE i MOVE};
 # NOP { Or, just discard a map if it went to the abyss while traveling?};
+# NOP { Check for dead pet before refreshing it };
 
 # NOP {Speed:};
 # NOP {grep -irE 'SHOULD BE DONE NOW|o> \[TRAVEL\]' 2024-09-27-logfile.log};
@@ -52,22 +53,16 @@
     #VARIABLE min_east_coordinate 9999;
     #VARIABLE max_east_coordinate -9999;
     pet call;
+    order pet stand;
+    #VARIABLE threshold_where_we_do_not_refresh 1000;
     refresh_pet_and_self;
     buff_self_and_pet;
     mount pet;
     travel;
-    #TICKER {pending_commands_ticker} {pending; level} {5};
+    #VARIABLE action_after_no_pending_commands up;
+    #TICKER {pending_commands_ticker} {pending; save} {5};
     pending;
 }
-
-#ACTION {--) None}
-{
-    #IF {$enable_simple_mapper_state}
-    {
-        #UNTICKER {pending_commands_ticker};
-        up;
-    };
-};
 
 #ALIAS {stop_mapper}
 {
@@ -205,6 +200,8 @@
 {
     #IF {"$mapper_state" == "GO_TO_THE_SKY"}
     {
+        score;
+        pet score;
         #VARIABLE mapper_state TRAVEL_MOUNT;
         prompt &Y%hhp &C%mm &G%vmv&w %o> [$mapper_state];
     };
@@ -232,6 +229,7 @@
         flush;
         #IF {"$mapper_state" == "TRAVEL_MOUNT"}
         {
+            order pet sit;
             dismount;
             #VARIABLE mapper_state TRAVEL;
             prompt &Y%hhp &C%mm &G%vmv&w %o> [$mapper_state];
