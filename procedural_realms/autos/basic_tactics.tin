@@ -33,27 +33,59 @@
   tactics 8 trigger self("inCombat") AND (hasAffect("sneak") OR hasAffect("vanish")) AND canUseSkill("backstab");
 }
 
-#ALIAS {add_empty_tactics}
-{
-  #20 {tactics 30 target room};
-}
-
 #VARIABLE clean_all_tactics_enabled 0;
 #ALIAS {clean_all_tactics}
 {
     #VARIABLE clean_all_tactics_enabled 1;
-    tactics 1 delete;
+    tactics 9 delete;
 }
 
-#ACTION {Deleted tactic #1.}
+#ACTION {Deleted tactic #9.}
 {
     #IF {$clean_all_tactics_enabled}
     {
-        tactics 1 delete;
+        tactics 9 delete;
     };
 }
 
 #ACTION {Delete which tactic?}
 {
-    #VARIABLE clean_all_tactics_enabled 0;
+    #IF {$clean_all_tactics_enabled}
+    {
+        #VARIABLE clean_all_tactics_enabled 0;
+        #20 {tactics 30 target room};
+    }
 }
+
+#ALIAS {setup_autoloot_and_kill}
+{
+    tactics 20 target self;
+    tactics 20 action kill;
+    tactics 20 trigger room('enemies') >= 1;
+
+    tactics 21 target room;
+    tactics 21 action harvest;
+    tactics 21 trigger room('enemies') == 0 AND target('isHarvestable') == true;
+
+    tactics 22 target room;
+    tactics 22 action chop;
+    tactics 22 trigger room('enemies') == 0 AND room('items') > numItemsInRoom("corpse");
+
+    tactics 23 target room;
+    tactics 23 action loot;
+    tactics 23 trigger room('enemies') == 0 AND target('isLootable') == true;
+
+    tactics 24 target self;
+    tactics 24 action say boring nothing to loot;
+    tactics 24 trigger room('enemies') == 0 AND (room('items') == 0 OR room('items') == numItemsInRoom("corpse"));
+}
+
+#ALIAS {disable_autoloot_and_kill}
+{
+    tactics 20 trigger room('enemies') == 1 AND room('enemies') == 0;
+    tactics 21 trigger room('enemies') == 1 AND room('enemies') == 0;
+    tactics 22 trigger room('enemies') == 1 AND room('enemies') == 0;
+    tactics 24 trigger room('enemies') == 1 AND room('enemies') == 0;
+}
+
+clean_all_tactics;

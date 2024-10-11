@@ -1,7 +1,29 @@
+#VARIABLE start_autoexplore_travel 6;
+#VARIABLE start_autoexplore_travel_x 265;
+#VARIABLE start_autoexplore_travel_y 357;
+
+#VARIABLE travel_to_dungeon_enabled 0;
+#ALIAS {travel_to_dungeon}
+{
+    #VARIABLE travel_to_dungeon_enabled 1;
+    travel $start_autoexplore_travel;
+    #DELAY {trigger_walk_delay} {walk $start_autoexplore_travel_x $start_autoexplore_travel_y} {5};
+}
+
+#ACTION {You arrive at your destination.}
+{
+    #IF {$travel_to_dungeon_enabled}
+    {
+        #VARIABLE travel_to_dungeon_enabled 1;
+        enter;
+        start_autoexplore;
+    };
+}
+
 #ALIAS {start_autoexplore}
 {
-    setup_autoloot_and_kill;
     config autobattle on;
+    setup_autoloot_and_kill;;
 
     #VARIABLE where_to_go unexplored;
 
@@ -14,37 +36,6 @@
     #VARIABLE cant_move_counter 0;
     look;
     look;
-}
-
-#ALIAS {setup_autoloot_and_kill}
-{
-    tactics 20 target self;
-    tactics 20 action kill;
-    tactics 20 trigger room('enemies') >= 1;
-
-    tactics 21 target room;
-    tactics 21 action harvest;
-    tactics 21 trigger room('enemies') == 0 AND target('isHarvestable') == true;
-
-    tactics 22 target room;
-    tactics 22 action chop;
-    tactics 22 trigger room('enemies') == 0 AND room('items') > numItemsInRoom("corpse");
-
-    tactics 23 target room;
-    tactics 23 action loot;
-    tactics 23 trigger room('enemies') == 0 AND target('isLootable') == true;
-
-    tactics 24 target self;
-    tactics 24 action say boring nothing to loot;
-    tactics 24 trigger room('enemies') == 0 AND (room('items') == 0 OR room('items') == numItemsInRoom("corpse"));
-}
-
-#ALIAS {disable_autoloot_and_kill}
-{
-    tactics 20 trigger room('enemies') == 1 AND room('enemies') == 0;
-    tactics 21 trigger room('enemies') == 1 AND room('enemies') == 0;
-    tactics 22 trigger room('enemies') == 1 AND room('enemies') == 0;
-    tactics 24 trigger room('enemies') == 1 AND room('enemies') == 0;
 }
 
 #ACTION {You can't enter an instanced dungeon right now.}
@@ -81,9 +72,39 @@
     #variable {state_autoexplore_enabled} {0};
 }
 
+#VARIABLE unload_everything 0;
 #ACTION {You are carrying too much weight to move.}
 {
+    #VARIABLE unload_everything 1;
     stop_autoexplore;
+    travel 4;
+}
+
+#ACTION {You are carrying too much weight to travel.}
+{
+    #IF {$unload_everything}
+    {
+        salvage all;
+        salvage confirm;
+    };
+}
+
+#ACTION {You salvage the}
+{
+    #IF {$unload_everything}
+    {
+        travel 4;
+    };
+}
+
+#ACTION {Robbingdahood leaves through a portal.}
+{
+    #IF {$unload_everything}
+    {
+        drop all;
+        travel_to_dungeon;
+        #VARIABLE unload_everything 0;
+    };
 }
 
 #ACTION {Exits: {.*}}
