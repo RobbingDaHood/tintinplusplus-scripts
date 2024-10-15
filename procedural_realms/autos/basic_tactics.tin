@@ -60,8 +60,8 @@
 #ALIAS {setup_autoloot_and_kill}
 {
     tactics 20 target self;
-    tactics 20 action kill;
-    tactics 20 trigger room('enemies') >= 1;
+    tactics 20 action backstab;
+    tactics 20 trigger room('enemies') >= 1 AND canUseSkill("backstab");
 
     tactics 21 target room;
     tactics 21 action harvest;

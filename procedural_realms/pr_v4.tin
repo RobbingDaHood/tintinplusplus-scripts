@@ -1,4 +1,3 @@
-#READ {pr_login_2.tin};
 #ALIAS {reload_configs}
 {
     #kill; 
@@ -17,4 +16,7 @@
 #READ autos/basic_tactics.tin;
 
 setup_logs;
+#READ {pr_login_2.tin};
+#DELAY {start_travel_to_dungeon_delay} {travel_to_dungeon} {5};
+#NOP {SESSION DISCONNECTED} {reload_configs;};
 #SHOWME {Done reloading configs};

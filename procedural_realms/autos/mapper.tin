@@ -7,7 +7,7 @@
 {
     #VARIABLE travel_to_dungeon_enabled 1;
     travel $start_autoexplore_travel;
-    #DELAY {trigger_walk_delay} {walk $start_autoexplore_travel_x $start_autoexplore_travel_y} {5};
+    #DELAY {trigger_walk_delay} {walk $start_autoexplore_travel_x $start_autoexplore_travel_y} {10};
 }
 
 #ACTION {You arrive at your destination.}
@@ -16,7 +16,6 @@
     {
         #VARIABLE travel_to_dungeon_enabled 1;
         enter;
-        start_autoexplore;
     };
 }
 
@@ -25,6 +24,7 @@
     config autobattle on;
     setup_autoloot_and_kill;;
 
+    #VARIABLE is_overworld_mapping_until_dungeoneer_wears_off 0;
     #VARIABLE where_to_go unexplored;
 
     #map destroy world;
@@ -38,15 +38,26 @@
     look;
 }
 
-#ACTION {You can't enter an instanced dungeon right now.}
+#VARIABLE is_overworld_mapping_until_dungeoneer_wears_off 0;
+#ACTION {You can't enter an instanced dungeon}
 {
-    #IF {$state_autoexplore_enabled}
-    {
-        #UNDELAY enter_after_autoexplore_delay;
-        stop_autoexplore;
-        #DELAY {enter_dungeoun_delay} {enter; start_autoexplore} {300};
-    };
+    start_autoexplore;
+    #VARIABLE is_overworld_mapping_until_dungeoneer_wears_off 1;
 };
+
+#ACTION {You are now affected by dungeoneer.}
+{
+    start_autoexplore;
+}
+
+#ACTION {You are no longer affected by dungeoneer.}
+{
+    #IF {$is_overworld_mapping_until_dungeoneer_wears_off}
+    {
+        stop_autoexplore;
+        travel_to_dungeon;
+    };
+}
 
 #VARIABLE cant_move_counter 0;
 #ACTION {You can't move {.*?}, but you think you could mine {.*?}.}
@@ -61,6 +72,7 @@
         #ElSE 
         {
             #NOP {parse coordinates and check that we moved to a new room. Will also help other places};
+            stop_autoexplore;
             #DELAY {look_delay} start_autoexplore 1;
         };
     };
@@ -75,9 +87,17 @@
 #VARIABLE unload_everything 0;
 #ACTION {You are carrying too much weight to move.}
 {
-    #VARIABLE unload_everything 1;
-    stop_autoexplore;
-    travel 4;
+    drop_everything;
+}
+
+#ALIAS {drop_everything}
+{
+    #IF {$state_autoexplore_enabled}
+    {
+        #VARIABLE unload_everything 1;
+        stop_autoexplore;
+        travel 4;
+    };
 }
 
 #ACTION {You are carrying too much weight to travel.}
@@ -97,7 +117,7 @@
     };
 }
 
-#ACTION {Robbingdahood leaves through a portal.}
+#ACTION {Room: L1 25, 27 | Grass}
 {
     #IF {$unload_everything}
     {
@@ -162,10 +182,9 @@
             };
             #ELSE 
             {
-                #SHOWME {DONE WALKING!};
                 stop_autoexplore;
                 enter;
-                #DELAY {enter_after_autoexplore_delay} {enter; start_autoexplore} 1;
+                #DELAY {enter_after_autoexplore_delay} {enter} 1;
             };
         };
     };
@@ -173,5 +192,21 @@
 
 #ACTION {You say, 'boring nothing to loot'}
 {
-    move_to_closest_unexplored_room;
+    #IF {$state_autoexplore_enabled}
+    {
+        move_to_closest_unexplored_room;
+    };
+    #ELSE
+    {
+        stop_autoexplore;
+    };
+}
+
+#ACTION {Available Actions:}
+{
+    #IF {$state_autoexplore_enabled}
+    {
+        #NOP {indicates a froozen battle: Only interesting to quit if I can reconnect efficiently. Needs testing}; 
+        #NOP {quit};
+    };
 }
