@@ -1,0 +1,168 @@
+#variable {state_automine_enabled} {0};
+#ALIAS {start_automine}
+{
+    #variable {state_automine_enabled} {1};
+    recreate_map;
+    #VARIABLE need_to_resummon_xorns 5;
+    start_maintain_all_xorns;
+    look;
+
+    #DELAY {stop_automine_delay} 
+    {
+        #SHOWME {Did automatic run for 28 minutes, so pausing.}; 
+        stop_automine;
+    }{1680};
+}
+
+#ALIAS {stop_automine}
+{
+    #variable {state_automine_enabled} {0};
+}
+
+#ALIAS {recreate_map}
+{
+    #map destroy world;
+    #map create 999999;
+    #map goto 1;
+}
+
+#VARIABLE what_type_of_new_room ERROR;
+#EVENT {MAP CREATE ROOM}
+{
+    #map set {roomdesc} {$what_type_of_new_room} {%0};
+}
+
+#VARIABLE last_room_visited -1;
+#ACTION {Exits: {.*}}
+{
+    #IF {$state_automine_enabled}
+    {
+        #VARIABLE {directions_in_room} {%1};
+        #LIST {directions_in_room} explode { };
+        #map get roomexits current_exits;
+        #SHOWME {current_exits};
+        #FOREACH {*current_exits[]} {direction_in_room} 
+        {
+            #SHOWME {$direction_in_room};
+            #VARIABLE directions_with_faultline[$direction_in_room] 1;
+        };
+        #SHOWME {mined_unexplored};
+        #VARIABLE what_type_of_new_room mined_unexplored;
+        #FOREACH {$directions_in_room[]} {direction_in_room} 
+        {
+            #VARIABLE short_room_direction {$long_to_short_exit_name[$direction_in_room]};
+            #SHOWME {$short_room_direction !$directions_with_faultline[$short_room_direction]};
+            #IF {!$directions_with_faultline[$short_room_direction]}
+            {
+                    #map dig {$short_room_direction}; 
+                    #IF {"$short_room_direction" == "ne" | "$short_room_direction" == "nw" |  "$short_room_direction" == "se" | "$short_room_direction" == "sw"}
+                    {
+                        #map exit {$short_room_direction} weight 3; #NOP {We will favour moving and mining around these directions};
+                    };
+            };
+            #VARIABLE directions_with_faultline[$short_room_direction] 1;
+        };
+        #SHOWME {mineable};
+        #VARIABLE what_type_of_new_room mineable;
+        #FOREACH {*directions_with_faultline[]} {direction_in_room}
+        {
+            #SHOWME {$direction_in_room !$directions_with_faultline[$direction_in_room]};
+            #IF {!$directions_with_faultline[$direction_in_room]}
+            {
+                    #IF {"$direction_in_room" == "n" | "$direction_in_room" == "e" |  "$direction_in_room" == "w" | "$direction_in_room" == "s"}
+                    {
+                        #map dig {$direction_in_room}; #NOP {Can only mine in these directions and cannot move there};
+                    };
+            };
+        };
+        #map set {roomdesc} {explored};
+        
+            #map get roomvnum current_room_vnum;
+            #SHOWME {Is new room? $last_room_visited != $current_room_vnum};
+            #IF {$last_room_visited != $current_room_vnum}
+            {
+                #VARIABLE last_room_visited $current_room_vnum;
+                move_to_closest_mineable_room;
+            };
+    };
+    clear_directions_with_faultline;
+}
+
+#ALIAS {move_to_closest_mineable_room}
+{
+    #IF {$state_automine_enabled}
+    {
+        #map find {roomdesc} {mineable};
+        #path get length length_of_path;
+        #if {$length_of_path == 1} 
+        {
+            #path save forward mineable_path;
+            #list mineable_list create $mineable_path;
+            #SHOWME {Digging: $mineable_list[1]};
+            dig_path $mineable_list[1] 0;
+        };
+        #elseif {$length_of_path > 1} 
+        {
+            #path walk;
+        };
+        #else 
+        {
+            move_to_closest_mined_unexplored_room;
+        };
+    };
+}
+
+#ALIAS {move_to_closest_mined_unexplored_room}
+{
+    #IF {$state_automine_enabled}
+    {
+        #map find {roomdesc} {mined_unexplored};
+        #path get length length_of_path;
+        #if {$length_of_path > 0} 
+        {
+            #path walk;
+        };
+        #else 
+        {
+            #SHOWME {DONE WALKING!};
+            stop_autoexplore;
+        };
+    };
+}
+
+#VARIABLE {long_to_short_exit_name} 
+{
+    {east}{e}
+    {northeast}{ne}
+    {north}{n}
+    {northwest}{nw}
+    {west}{w}
+    {southwest}{sw}
+    {south}{s}
+    {southeast}{se}
+    {e}{e}
+    {ne}{ne}
+    {n}{n}
+    {nw}{nw}
+    {w}{w}
+    {sw}{sw}
+    {s}{s}
+    {se}{se}
+    {d}{d}
+    {u}{u}
+    {down}{d}
+    {up}{u}
+}
+
+#ACTION {Voidstone {.*?}.}
+{
+    #VARIABLE translated_mining_room_direction $mining_directions_looking[%1];
+    #VARIABLE directions_with_faultline[$translated_mining_room_direction] 1;
+}
+
+#ACTION {Flowing magma {.*?}.}
+{
+    #VARIABLE translated_mining_room_direction $mining_directions_looking[%1];
+    #VARIABLE directions_with_faultline[$translated_mining_room_direction] 1;
+}
+

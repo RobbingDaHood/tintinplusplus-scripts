@@ -9,7 +9,9 @@
 #NOP autos/forage.tin;
 #READ autos/forage_simple.tin;
 #NOP autos/sell.tin;
+#READ autos/maintain_xorns.tin;
 #READ autos/mine.tin;
+#READ autos/mine_fullauto.tin;
 #READ autos/cutgems.tin;
 #READ autos/craft.tin;
 #READ autos/ironwood.tin;

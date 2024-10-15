@@ -1,0 +1,48 @@
+#VARIABLE maintain_all_xorns_state 0;
+#ALIAS {start_maintain_all_xorns}
+{
+    #VARIABLE maintain_all_xorns_state 1;
+    sheathe;
+}
+
+#ALIAS {summon_missing_xorns_throttle}
+{
+    #DELAY {summon_missing_xorns_throttle_delay} 
+    {
+        summon_missing_xorns;
+    } {1};
+};
+
+#ALIAS {summon_missing_xorns}
+{
+    #IF {$need_to_resummon_xorns > 0 && $maintain_all_xorns_state}
+    {
+        cast Pebblelure;
+        #MATH {need_to_resummon_xorns} {$need_to_resummon_xorns - 1};
+        summon_missing_xorns;
+    };
+    #ELSEIF {$digging_path_enabled}
+    {
+        trigger_next_mine;
+    };
+}
+
+#ACTION {You sheathe an}
+{
+    summon_missing_xorns_throttle;
+}
+
+#ACTION {You aren't wielding anything}
+{
+    summon_missing_xorns_throttle;
+}
+
+#VARIABLE need_to_resummon_xorns 0;
+#ACTION {collapses into a heap of pebbles}
+{
+    #IF {$maintain_all_xorns_state}
+    {
+        #MATH {need_to_resummon_xorns} {$need_to_resummon_xorns + 1};
+        sheathe;
+    };
+}
