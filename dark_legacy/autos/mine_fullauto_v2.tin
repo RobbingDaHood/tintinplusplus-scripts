@@ -1,0 +1,264 @@
+#variable {state_automine_enabled} {0};
+#ALIAS {start_automine}
+{
+    #variable {state_automine_enabled} {1};
+    recreate_map;
+    #VARIABLE need_to_resummon_xorns 5;
+    start_maintain_all_xorns;
+    look;
+
+    #DELAY {stop_automine_delay} 
+    {
+        #SHOWME {Did automatic run for 28 minutes, so pausing.}; 
+        stop_automine;
+    }{1680};
+}
+
+#ALIAS {stop_automine}
+{
+    #variable {state_automine_enabled} {0};
+}
+
+#ALIAS {recreate_map}
+{
+    #map destroy world;
+    #map create 999999;
+    #map goto 1;
+}
+
+#VARIABLE last_room_visited -1;
+#ACTION {Exits: {.*}}
+{
+    #IF {$state_automine_enabled}
+    {
+        #NOP {Create all neighboring rooms: maybe just move between them all};
+        #MAP move 1e2w1e;
+        #MAP move 1n2s1n;
+        #MAP move 1ne2sw1ne;
+        #MAP move 1nw2se1nw;
+        #MAP move 1n1w2s2e2n1w1s;
+
+        #VARIABLE {directions_in_room} {%1};
+        #LIST {directions_in_room} explode { };
+        #FOREACH {$directions_in_room[]} {direction_in_room} 
+        {
+            #VARIABLE short_room_direction {$long_to_short_exit_name[$direction_in_room]};
+            #SHOWME {$short_room_direction !$direction_with_blocker[$short_room_direction]};
+            #IF {$direction_with_blocker[$short_room_direction]}
+            {
+                #NOP {Set blockers on exits that needs to be blocked and remove on the rest};
+                #map exitflag {$short_room_direction} BLOCK ON; 
+            };
+            #ELSE 
+            {
+                #map exitflag {$short_room_direction} BLOCK OFF; 
+
+                #NOP {Score rooms based on distance and value, use weight to move to closest};
+
+            };
+        };
+
+        #FOREACH {$direction_with_score[]} {score_of_direction_with_room} 
+        {
+
+
+
+            #IF {"$short_room_direction" == "ne" | "$short_room_direction" == "nw" |  "$short_room_direction" == "se" | "$short_room_direction" == "sw"}
+            {
+                #map exit {$short_room_direction} weight 3;
+            };
+        };
+
+
+
+        #map get roomvnum current_room_vnum;
+                    #map dig {$short_room_direction}; 
+                    #IF {"$short_room_direction" == "ne" | "$short_room_direction" == "nw" |  "$short_room_direction" == "se" | "$short_room_direction" == "sw"}
+                    {
+                        #map exit {$short_room_direction} weight 3; #NOP {We will favour moving and mining around these directions};
+                    };
+
+                    #IF {"$short_room_direction" == "ne" | "$short_room_direction" == "nw" |  "$short_room_direction" == "se" | "$short_room_direction" == "sw"}
+                    {
+                        #NOP {add directions between the created room around the current room, we know they all have weight 1};
+                        #list short_room_direction_parts clear;
+                        #PARSE {$short_room_direction} {short_room_direction_part}
+                        {
+                            #list short_room_direction_parts add $short_room_direction_part;
+                        };
+                        
+                        #IF {"$short_room_direction" == "ne"}
+                        {
+                            #IF {!$direction_with_blocker[n]}
+                            {
+                                #map move 1n1e;
+                            };
+                            #IF {!$direction_with_blocker[e]}
+                            {
+                                #map move 1e1n;
+                            };
+                            #MAP goto $current_room_vnum;
+                        };
+                        #ELSEIF {"$short_room_direction" == "nw"}
+                        {
+                            #IF {!$direction_with_blocker[n]}
+                            {
+                                #map move 1n1w;
+                            };
+                            #IF {!$direction_with_blocker[w]}
+                            {
+                                #map move 1w1n;
+                            };
+                            #MAP goto $current_room_vnum;
+                        };
+                        #ELSEIF {"$short_room_direction" == "se"}
+                        {
+                            #IF {!$direction_with_blocker[s]}
+                            {
+                                #map move 1s1e;
+                            };
+                            #IF {!$direction_with_blocker[e]}
+                            {
+                                #map move 1e1s;
+                            };
+                            #MAP goto $current_room_vnum;
+                        };
+                        #ELSEIF {"$short_room_direction" == "sw"}
+                        {
+                            #IF {!$direction_with_blocker[s]}
+                            {
+                                #map move 1s1w;
+                            };
+                            #IF {!$direction_with_blocker[w]}
+                            {
+                                #map move 1w1s;
+                            };
+                            #MAP goto $current_room_vnum;
+                        };
+                        #map exit {$short_room_direction} weight 3; #NOP {We will favour moving and mining around these directions};
+                    };
+                    #ELSE 
+                    {
+                        #map move {$short_room_direction}; 
+                        #map set {roomdesc} {mined_unexplored};
+                        #MAP goto $current_room_vnum;
+                    };
+            };
+            #VARIABLE direction_with_blocker[$short_room_direction] 1;
+        };
+        #SHOWME {mineable};
+        #VARIABLE what_type_of_new_room mineable;
+        #FOREACH {*direction_with_blocker[]} {direction_in_room}
+        {
+            #SHOWME {$direction_in_room !$direction_with_blocker[$direction_in_room]};
+            #IF {!$direction_with_blocker[$direction_in_room]}
+            {
+                    #IF {"$direction_in_room" == "n" | "$direction_in_room" == "e" |  "$direction_in_room" == "w" | "$direction_in_room" == "s"}
+                    {
+                        #map dig {$direction_in_room}; #NOP {Can only mine in these directions and cannot move there};
+                    };
+            };
+        };
+        #map set {roomdesc} {explored};
+
+        #map get roomexits current_exits;
+        #FOREACH {*current_exits[]} {direction_in_room} 
+        {
+            #IF {"$short_room_direction" == "ne" | "$short_room_direction" == "nw" |  "$short_room_direction" == "se" | "$short_room_direction" == "sw"}
+            {
+                #list short_room_direction_parts tokenize $short_room_direction;
+                #showme $short_room_direction_parts;
+                #IF {$short_room_direction_parts[0]}
+            };
+        };
+        
+        #SHOWME {Is new room? $last_room_visited != $current_room_vnum};
+        #IF {$last_room_visited != $current_room_vnum}
+        {
+            #VARIABLE last_room_visited $current_room_vnum;
+            move_to_closest_mineable_room;
+        };
+    };
+    clear_direction_with_blocker;
+}
+
+#ALIAS {move_to_closest_mineable_room}
+{
+    #IF {$state_automine_enabled}
+    {
+        #map find {roomdesc} {mineable};
+        #path get length length_of_path;
+        #if {$length_of_path == 1} 
+        {
+            #path save forward mineable_path;
+            #list mineable_list create $mineable_path;
+            #SHOWME {Digging: $mineable_list[1]};
+            dig_path $mineable_list[1] 0;
+        };
+        #elseif {$length_of_path > 1} 
+        {
+            #path walk;
+        };
+        #else 
+        {
+            move_to_closest_mined_unexplored_room;
+        };
+    };
+}
+
+#ALIAS {move_to_closest_mined_unexplored_room}
+{
+    #IF {$state_automine_enabled}
+    {
+        #map find {roomdesc} {mined_unexplored};
+        #path get length length_of_path;
+        #if {$length_of_path > 0} 
+        {
+            #path walk;
+        };
+        #else 
+        {
+            #SHOWME {DONE WALKING!};
+            stop_autoexplore;
+        };
+    };
+}
+
+#VARIABLE {long_to_short_exit_name} 
+{
+    {east}{e}
+    {northeast}{ne}
+    {north}{n}
+    {northwest}{nw}
+    {west}{w}
+    {southwest}{sw}
+    {south}{s}
+    {southeast}{se}
+    {e}{e}
+    {ne}{ne}
+    {n}{n}
+    {nw}{nw}
+    {w}{w}
+    {sw}{sw}
+    {s}{s}
+    {se}{se}
+    {d}{d}
+    {u}{u}
+    {down}{d}
+    {up}{u}
+}
+
+#ALIAS {clear_direction_with_score}
+{
+    #VARIABLE {direction_with_score} 
+    {
+        {e}{300}
+        {ne}{300}
+        {n}{300}
+        {nw}{300}
+        {w}{300}
+        {sw}{300}
+        {s}{300}
+        {se}{300}
+    };
+}

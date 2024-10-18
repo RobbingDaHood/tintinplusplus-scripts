@@ -1,7 +1,7 @@
 #VARIABLE digging_path_enabled 0;
 #ALIAS {dig_path {.*?} {.*}}
 {
-    clear_directions_with_faultline;
+    clear_direction_with_blocker;
     look;
     #VARIABLE digging_path_enabled 1;
     create_path %1 %2;
@@ -96,11 +96,11 @@
                 put_all_in_mining_portal;
                 #DELAY {build_and_use_heavy_girders_delay} build_and_use_heavy_girders {2}
             };
-            #ELSEIF {$directions_with_faultline[$created_path[+1]]}
+            #ELSEIF {$direction_with_blocker[$created_path[+1]]}
             {
                 #VARIABLE created_path[0] g; #NOP {This is a hack, the generated path starts from 1, so this will always go ahead};
                 put_all_in_mining_portal;
-                clear_directions_with_faultline;
+                clear_direction_with_blocker;
                 #DELAY {build_and_use_heavy_girders_delay} build_and_use_heavy_girders {2}
             };
             #ELSE 
@@ -128,9 +128,9 @@
     {se}{se}
 }
 
-#ALIAS {clear_directions_with_faultline}
+#ALIAS {clear_direction_with_blocker}
 {
-    #VARIABLE {directions_with_faultline} 
+    #VARIABLE {direction_with_blocker} 
     {
         {e}{0}
         {ne}{0}
@@ -143,11 +143,35 @@
     };
 }
 
-clear_directions_with_faultline;
+clear_direction_with_blocker;
 #ACTION {Unstable faultline {.*?}.}
 {
     #VARIABLE translated_mining_room_direction $mining_directions_looking[%1];
-    #VARIABLE directions_with_faultline[$translated_mining_room_direction] 1;
+    #VARIABLE direction_with_blocker[$translated_mining_room_direction] 1;
+}
+
+#ACTION {Endless abyss {.*?}.}
+{
+    #VARIABLE translated_mining_room_direction $mining_directions_looking[%1];
+    #VARIABLE direction_with_blocker[$translated_mining_room_direction] 1;
+}
+
+#ACTION {Darkness {.*?}.}
+{
+    #VARIABLE translated_mining_room_direction $mining_directions_looking[%1];
+    #VARIABLE direction_with_blocker[$translated_mining_room_direction] 1;
+}
+
+#ACTION {Voidstone {.*?}.}
+{
+    #VARIABLE translated_mining_room_direction $mining_directions_looking[%1];
+    #VARIABLE direction_with_blocker[$translated_mining_room_direction] 1;
+}
+
+#ACTION {Flowing magma {.*?}.}
+{
+    #VARIABLE translated_mining_room_direction $mining_directions_looking[%1];
+    #VARIABLE direction_with_blocker[$translated_mining_room_direction] 1;
 }
 
 #ALIAS {build_and_use_heavy_girders}
@@ -175,7 +199,7 @@ clear_directions_with_faultline;
 {
     #IF {$digging_path_enabled}
     {
-        clear_directions_with_faultline;
+        clear_direction_with_blocker;
         stuff_to_do_before_move;
     };
 }

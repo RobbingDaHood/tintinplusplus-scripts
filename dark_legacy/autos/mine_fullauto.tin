@@ -39,20 +39,20 @@
     {
         #VARIABLE {directions_in_room} {%1};
         #LIST {directions_in_room} explode { };
-        #map get roomexits current_exits;
         #SHOWME {current_exits};
+        #map get roomexits current_exits;
         #FOREACH {*current_exits[]} {direction_in_room} 
         {
             #SHOWME {$direction_in_room};
-            #VARIABLE directions_with_faultline[$direction_in_room] 1;
+            #VARIABLE direction_with_blocker[$direction_in_room] 1;
         };
         #SHOWME {mined_unexplored};
         #VARIABLE what_type_of_new_room mined_unexplored;
         #FOREACH {$directions_in_room[]} {direction_in_room} 
         {
             #VARIABLE short_room_direction {$long_to_short_exit_name[$direction_in_room]};
-            #SHOWME {$short_room_direction !$directions_with_faultline[$short_room_direction]};
-            #IF {!$directions_with_faultline[$short_room_direction]}
+            #SHOWME {$short_room_direction !$direction_with_blocker[$short_room_direction]};
+            #IF {!$direction_with_blocker[$short_room_direction]}
             {
                     #map dig {$short_room_direction}; 
                     #IF {"$short_room_direction" == "ne" | "$short_room_direction" == "nw" |  "$short_room_direction" == "se" | "$short_room_direction" == "sw"}
@@ -60,14 +60,14 @@
                         #map exit {$short_room_direction} weight 3; #NOP {We will favour moving and mining around these directions};
                     };
             };
-            #VARIABLE directions_with_faultline[$short_room_direction] 1;
+            #VARIABLE direction_with_blocker[$short_room_direction] 1;
         };
         #SHOWME {mineable};
         #VARIABLE what_type_of_new_room mineable;
-        #FOREACH {*directions_with_faultline[]} {direction_in_room}
+        #FOREACH {*direction_with_blocker[]} {direction_in_room}
         {
-            #SHOWME {$direction_in_room !$directions_with_faultline[$direction_in_room]};
-            #IF {!$directions_with_faultline[$direction_in_room]}
+            #SHOWME {$direction_in_room !$direction_with_blocker[$direction_in_room]};
+            #IF {!$direction_with_blocker[$direction_in_room]}
             {
                     #IF {"$direction_in_room" == "n" | "$direction_in_room" == "e" |  "$direction_in_room" == "w" | "$direction_in_room" == "s"}
                     {
@@ -85,7 +85,7 @@
                 move_to_closest_mineable_room;
             };
     };
-    clear_directions_with_faultline;
+    clear_direction_with_blocker;
 }
 
 #ALIAS {move_to_closest_mineable_room}
@@ -154,15 +154,17 @@
     {up}{u}
 }
 
-#ACTION {Voidstone {.*?}.}
+#ALIAS {clear_direction_with_score}
 {
-    #VARIABLE translated_mining_room_direction $mining_directions_looking[%1];
-    #VARIABLE directions_with_faultline[$translated_mining_room_direction] 1;
+    #VARIABLE {direction_with_score} 
+    {
+        {e}{0}
+        {ne}{0}
+        {n}{0}
+        {nw}{0}
+        {w}{0}
+        {sw}{0}
+        {s}{0}
+        {se}{0}
+    };
 }
-
-#ACTION {Flowing magma {.*?}.}
-{
-    #VARIABLE translated_mining_room_direction $mining_directions_looking[%1];
-    #VARIABLE directions_with_faultline[$translated_mining_room_direction] 1;
-}
-
