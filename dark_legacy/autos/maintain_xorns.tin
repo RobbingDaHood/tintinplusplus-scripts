@@ -1,8 +1,9 @@
+#VARIABLE max_xorns 5;
 #VARIABLE maintain_all_xorns_state 0;
 #ALIAS {start_maintain_all_xorns}
 {
     #VARIABLE maintain_all_xorns_state 1;
-    sheathe;
+    recount_xorns;
 }
 
 #ALIAS {summon_missing_xorns_throttle}
@@ -46,3 +47,27 @@
         sheathe;
     };
 }
+
+#VARIABLE recounting_xorns 0;
+#ALIAS {recount_xorns}
+{
+    #VARIABLE recounting_xorns 1;
+    #VARIABLE recounted_xorns $max_xorns;
+    party;
+    #DELAY {recounting_xorns_delay} 
+    {
+        #VARIABLE recounting_xorns 0;
+        #VARIABLE need_to_resummon_xorns $recounted_xorns;
+        #SHOWME {need to resummon $need_to_resummon_xorns xorns!};
+        sheathe;
+    }{2};
+}
+
+#VARIABLE recounted_xorns 0;
+#ACTION {\_ an elder Xorn}
+{
+    #IF {$recounting_xorns}
+    {
+        #MATH {recounted_xorns} {$recounted_xorns - 1};
+    };
+};

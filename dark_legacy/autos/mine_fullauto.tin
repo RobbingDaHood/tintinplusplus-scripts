@@ -5,6 +5,7 @@
     recreate_map;
     #VARIABLE need_to_resummon_xorns 5;
     start_maintain_all_xorns;
+    clear_direction_with_score;
     look;
 
     #DELAY {stop_automine_delay} 

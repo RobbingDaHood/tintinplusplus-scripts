@@ -208,9 +208,9 @@ clear_direction_with_blocker;
 {
     #IF {$digging_path_enabled}
     {
-        fill garbage granite;
         fill randomloot corpse; 
         sacrifice corpse;
+        fill garbage;
     };
 }
 

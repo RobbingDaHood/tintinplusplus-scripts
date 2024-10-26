@@ -11,12 +11,14 @@
 #NOP autos/sell.tin;
 #READ autos/maintain_xorns.tin;
 #READ autos/mine.tin;
-#READ autos/mine_fullauto.tin;
+#NOP autos/mine_fullauto.tin;
+#READ autos/mine_fullauto_v2.tin;
 #READ autos/cutgems.tin;
 #READ autos/craft.tin;
 #READ autos/ironwood.tin;
 #NOP autos/emptycontainer.tin;
 #NOP autos/mapper.tin;
+#READ autos/buffs_barbarian.tin;
 
 #READ common_setup.tin;
 2;
