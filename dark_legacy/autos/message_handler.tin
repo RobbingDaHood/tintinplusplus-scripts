@@ -3,27 +3,37 @@
 
 #TICKER {messages_ticker} {write_number_of_messages} {5};
 
-#ACTION {{.*?} {ooc|tell|yell|shout|newbiechat|ghosttalk|say}s '{.*?}'}
+#ACTION {{.*?} tells you {.*}}
 {
     #list messages_recived add {"%0"};
 }
 
-#ACTION {You {ooc|tell|yell|shout|newbiechat|ghosttalk|say} '{.*?}'}
+#ACTION {You tell {.*?} {.*}}
 {
     #list messages_recived add {"%0"};
 }
 
-#ACTION {({.*?}/{.*?}):{.*?}}
+#ACTION {{.*?} {ooc|yell|shout|newbiechat|ghosttalk|say|answer|ask}s {.*}}
 {
     #list messages_recived add {"%0"};
 }
 
-#ACTION {({.*?}/{.*?}:{.*?}'}
+#ACTION {You {ooc|tell|yell|shout|newbiechat|ghosttalk|say|answer|ask} {.*}}
 {
     #list messages_recived add {"%0"};
 }
 
-#ACTION {({.*?}/{.*?}):{.*?}}
+#ACTION {({.*?}/{.*?}):{.*}}
+{
+    #list messages_recived add {"%0"};
+}
+
+#ACTION {({.*?}/{.*?}:{.*}}
+{
+    #list messages_recived add {"%0"};
+}
+
+#ACTION {({.*?}/{.*?}):{.*}}
 {
     #list messages_recived add {"%0"};
 }

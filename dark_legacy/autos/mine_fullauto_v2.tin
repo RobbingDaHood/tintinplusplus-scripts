@@ -289,3 +289,8 @@
     #VARIABLE translated_mining_room_direction $mining_directions_looking[%1];
     #VARIABLE direction_with_score[$translated_mining_room_direction] 1;
 }
+
+#ACTION {Everything fades to black, You feel yourself leaving your body.}
+{
+    stop_automine;
+}

@@ -14,9 +14,16 @@
 #READ autos/mapper.tin;
 #READ autos/replace_stone_in_grinder.tin;
 #READ autos/basic_tactics.tin;
+#READ autos/sort_home.tin;
+#READ autos/repair_all.tin;
+#READ autos/gmcp_checker.tin;
+#READ autos/planting.tin;
 
 setup_logs;
 #READ {pr_login_2.tin};
-#DELAY {start_travel_to_dungeon_delay} {travel_to_dungeon} {5};
+#NOP {Target set for tactic #30: room}
+{
+    #DELAY {travel_to_dungeon_delay} {travel_to_dungeon} {0.5};
+};
 #NOP {SESSION DISCONNECTED} {reload_configs;};
 #SHOWME {Done reloading configs};

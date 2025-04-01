@@ -22,7 +22,7 @@
 
   tactics 6 target self;
   tactics 6 action eat plate;
-  tactics 6 trigger NOT(self("inCombat")) AND (hasAffect("sneak") OR hasAffect("vanish")) AND ((self("food") < 75 AND self("hp") < 99) OR self("hp") < 50) AND numItems("trout plate") > 0;
+  tactics 6 trigger NOT(self("inCombat")) AND (hasAffect("sneak") OR hasAffect("vanish")) AND ((self("food") < 75 AND self("hp") < 99) OR self("hp") < 50) AND numItems("catfish plate") > 0;
 
   tactics 7 target self;
   tactics 7 action cast 'cats grace';
@@ -53,8 +53,53 @@
     #IF {$clean_all_tactics_enabled}
     {
         #VARIABLE clean_all_tactics_enabled 0;
-        #20 {tactics 30 target room};
+        #30 {tactics 30 target room};
     }
+}
+
+#ALIAS {setup_harvesting}
+{
+    tactics 21 target room;
+    tactics 21 action harvest;
+    tactics 21 trigger room('enemies') == 0 AND target('isHarvestable') == true;
+
+    tactics 22 target room;
+    tactics 22 action get all;
+    #NOP {I know that corpse and seedling are seldom in the same room};
+    tactics 22 trigger room('enemies') == 0 AND room('items') > numItemsInRoom("corpse") AND room('items') > numItemsInRoom("seedling");
+
+    tactics 23 target room;
+    tactics 23 action chop;
+    tactics 23 trigger room('enemies') == 0 AND room('items') > numItemsInRoom("corpse") AND room('items') > numItemsInRoom("seedling");
+
+    tactics 24 target room;
+    tactics 24 action loot;
+    tactics 24 trigger room('enemies') == 0 AND target('isLootable') == true;
+
+    tactics 25 target self;
+    tactics 25 action say boring nothing to loot;
+    tactics 25 trigger room('enemies') == 0 AND (room('items') == numItemsInRoom("corpse") OR room('items') == numItemsInRoom("seedling")) AND NOT(self('isCasting') OR self('isActing') OR self('inCombat'));
+
+    tactics 26 target self;
+    tactics 26 action say boring enemies present and I am peacefull;
+    tactics 26 trigger room('enemies') != 0 AND NOT(self('isCasting') OR self('isActing') OR self('inCombat'));
+}
+
+#ALIAS {setup_salvage_all_in_home}
+{
+    tactics 27 target self;
+    tactics 27 action say not acting at all;
+    tactics 27 trigger NOT(self('isCasting') OR self('isActing') OR self('inCombat'));
+}
+
+#ALIAS {setup_planting_at_home}
+{
+    setup_harvesting;
+    tactics 19 target self;
+    tactics 19 action say all three seedlings are planted;
+    tactics 19 trigger NOT(self('isCasting') OR self('isActing') OR self('inCombat')) AND 3 == numItemsInRoom("seedling");
+
+    tactics 25 action plant $start_planting_what;
 }
 
 #ALIAS {setup_autoloot_and_kill}
@@ -62,30 +107,20 @@
     tactics 20 target self;
     tactics 20 action backstab;
     tactics 20 trigger room('enemies') >= 1 AND canUseSkill("backstab");
-
-    tactics 21 target room;
-    tactics 21 action harvest;
-    tactics 21 trigger room('enemies') == 0 AND target('isHarvestable') == true;
-
-    tactics 22 target room;
-    tactics 22 action chop;
-    tactics 22 trigger room('enemies') == 0 AND room('items') > numItemsInRoom("corpse");
-
-    tactics 23 target room;
-    tactics 23 action loot;
-    tactics 23 trigger room('enemies') == 0 AND target('isLootable') == true;
-
-    tactics 24 target self;
-    tactics 24 action say boring nothing to loot;
-    tactics 24 trigger room('enemies') == 0 AND (room('items') == 0 OR room('items') == numItemsInRoom("corpse"));
+    setup_harvesting;
 }
 
-#ALIAS {disable_autoloot_and_kill}
-{
-    tactics 20 trigger room('enemies') == 1 AND room('enemies') == 0;
-    tactics 21 trigger room('enemies') == 1 AND room('enemies') == 0;
-    tactics 22 trigger room('enemies') == 1 AND room('enemies') == 0;
-    tactics 24 trigger room('enemies') == 1 AND room('enemies') == 0;
-}
+#ALIAS {disable_autoloot_and_kill}                                                           
+{                                                                                            
+    tactics 19 trigger room('enemies') == 1 AND room('enemies') == 0;                        
+    tactics 20 trigger room('enemies') == 1 AND room('enemies') == 0;                        
+    tactics 21 trigger room('enemies') == 1 AND room('enemies') == 0;                        
+    tactics 22 trigger room('enemies') == 1 AND room('enemies') == 0;                        
+    tactics 23 trigger room('enemies') == 1 AND room('enemies') == 0;                        
+    tactics 24 trigger room('enemies') == 1 AND room('enemies') == 0;                        
+    tactics 25 trigger room('enemies') == 1 AND room('enemies') == 0;                        
+    tactics 26 trigger room('enemies') == 1 AND room('enemies') == 0;                        
+    tactics 27 trigger room('enemies') == 1 AND room('enemies') == 0;                        
+}                                                                                            
 
-clean_all_tactics;
+#DELAY {disable_autoloot_and_kill_delay} {disable_autoloot_and_kill} {1};

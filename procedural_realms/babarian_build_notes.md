@@ -66,7 +66,3 @@ We have no or very little agillity, so maybe we do not have much crit. If we do 
 
 There is quite a lot of crit skills and passives already. 
 
-
-# Mercenary
-
-WIP

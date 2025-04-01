@@ -1,0 +1,219 @@
+#VARIABLE unload_everything 0;
+#ALIAS {drop_everything}
+{
+    #NOP {HANDLE TO MANY ITMES TO MOVE: DELAY BEFORE MOVING TO BE SURE TO SALVAGE};
+    #VARIABLE unload_everything 1;
+    travel 4;
+}
+
+#VARIABLE refill_everything_state 0;
+#ALIAS {refill_everything}
+{
+    #VARIABLE refill_everything_state 1;
+    drop_everything_sorted_already_home;
+};
+
+#VARIABLE salvage_all_in_home_state 0;
+#VARIABLE how_many_counts_before_next_action 10;
+#ALIAS {salvage_all_in_home}
+{
+    #VARIABLE salvage_all_in_home_state 1;
+    #VARIABLE count_not_acting_at_all 0;
+    #VARIABLE count_not_acting_at_all_last_trigger -$how_many_counts_before_next_action;
+    #VARIABLE did_i_salvage_anything 0;
+    setup_salvage_all_in_home;
+}
+
+#VARIABLE count_not_acting_at_all 0;
+#VARIABLE count_not_acting_at_all_last_trigger 0;
+#VARIABLE did_i_salvage_anything 0;
+#ACTION {You say, 'not acting at all'}
+{
+    #MATH count_not_acting_at_all {$count_not_acting_at_all + 1};
+    #MATH count_not_acting_at_all_diff {$count_not_acting_at_all - $count_not_acting_at_all_last_trigger};
+    #IF {$salvage_all_in_home_state == 1 && $count_not_acting_at_all_diff > $how_many_counts_before_next_action}
+    {
+        refill_everything;
+        #VARIABLE salvage_all_in_home_state 2;
+        #VARIABLE count_not_acting_at_all_last_trigger $count_not_acting_at_all;
+    };
+    #ELSEIF {$salvage_all_in_home_state == 2 && $count_not_acting_at_all_diff > $how_many_counts_before_next_action}
+    {
+        #VARIABLE salvage_all_in_home_state 3;
+        #VARIABLE count_not_acting_at_all_last_trigger $count_not_acting_at_all;
+        #VARIABLE did_i_salvage_anything 0;
+        get all;
+        salvage all;
+        salvage confirm;
+    };
+    #ELSEIF {$salvage_all_in_home_state == 3 && $count_not_acting_at_all_diff > $how_many_counts_before_next_action}
+    {
+        #VARIABLE salvage_all_in_home_state 0;
+        #IF {$did_i_salvage_anything}
+        {
+            salvage_all_in_home;
+        };
+        #ELSE 
+        {
+            refill_everything;
+            disable_autoloot_and_kill;
+        };
+    };
+}
+
+#ACTION {Salvage which items?}
+{
+    #IF {$salvage_all_in_home_state == 3 && $count_not_acting_at_all_diff > $how_many_counts_before_next_action}
+    {
+        #VARIABLE count_not_acting_at_all_last_trigger $count_not_acting_at_all;
+        #VARIABLE did_i_salvage_anything 1;
+    };
+};
+
+#ACTION {You have no salvage action to confirm.}
+{
+    #IF {$salvage_all_in_home_state == 3 && $count_not_acting_at_all_diff > $how_many_counts_before_next_action}
+    {
+        #VARIABLE count_not_acting_at_all_last_trigger $count_not_acting_at_all;
+        #VARIABLE did_i_salvage_anything 1;
+    };
+};
+
+#ACTION {You don't see that here.}
+{
+    #IF {$salvage_all_in_home_state == 3 && $count_not_acting_at_all_diff > $how_many_counts_before_next_action}
+    {
+        salvage all;
+        salvage confirm;
+        #VARIABLE count_not_acting_at_all_last_trigger $count_not_acting_at_all;
+    };
+}
+
+#ALIAS {drop_everything_sorted_already_home}
+{
+    drop all.weapon;
+    drop all.armor;
+    nw;
+    drop all.material;
+    n;
+    drop all.food;
+    drop all.ingredient;
+    e;
+    e;
+    drop all.book;
+    drop all.scroll;
+    s;
+    drop all.potion;
+    drop all.poison;
+    s; 
+    drop all.gem;
+    drop all.fragment;
+    drop all.mote;
+    w;
+    drop all;
+};
+
+#ALIAS {refill_everything_details}
+{
+    nw; 
+    get 200x stone;
+    s;
+    get all.sand from 1.grinder;
+    get all.sand from 2.grinder;
+    get all.sand from 3.grinder;
+    put all.stone in 1.grinder;
+    put all.stone in 2.grinder;
+    put all.stone in 3.grinder;
+    e;
+    e;
+    e;
+    get all.sand from 1.grinder;
+    put all.stone in 1.grinder;
+    nw;
+    enter;
+    nw;
+    nw; 
+    w;
+    get all.honey from 1.beehive;
+    get all.honey from 2.beehive;
+    get all.honey from 3.beehive;
+    s;
+    get all.honey from 1.beehive;
+    get all.honey from 2.beehive;
+    get all.honey from 3.beehive;
+    ne;
+    se;
+    se; 
+    enter;
+    sw;
+}
+
+#ALIAS {salvage_everything_enable_drop_all}
+{
+    #IF {$state_autoexplore_enabled}
+    {
+        stop_autoexplore;
+    };
+
+    salvage all;
+    salvage confirm;
+
+    #IF {$travel_to_dungeon_enabled}
+    {
+        #DELAY {travel_to_dungeon_after_dropping_everything_delay} {travel_to_dungeon} {30};
+    };
+};
+
+#ACTION {You salvage the}
+{
+    #VARIABLE did_i_salvage_anything 1;
+    #IF {$unload_everything}
+    {
+        travel 4;
+    };
+}
+
+#ACTION {Room: L1 25, 27 | Grass}
+{
+    #IF {$unload_everything}
+    {
+        #VARIABLE unload_everything 0;
+        drop_everything_sorted_already_home;
+    };
+    #ELSEIF {$refill_everything_state == 1}
+    {
+        #VARIABLE refill_everything_state 2;
+        refill_everything_details;
+    };
+    #ELSEIF {$refill_everything_state == 2}
+    {
+        #VARIABLE refill_everything_state 0;
+        drop_everything_sorted_already_home;
+    };
+}
+
+#ACTION {You are carrying too much weight to travel.}
+{
+    salvage_everything_enable_drop_all;
+}
+
+#ACTION {You are carrying too many items to travel.}
+{
+    salvage_everything_enable_drop_all;
+}
+
+#ACTION {You are carrying too much weight to move.}
+{
+    salvage_everything_enable_drop_all;
+}
+
+#ACTION {You are carrying too many items to move.}
+{
+    salvage_everything_enable_drop_all;
+}
+
+#ACTION {You don't have any more room for}
+{
+    salvage_everything_enable_drop_all;
+}
+

@@ -1,7 +1,18 @@
-#VARIABLE start_autoexplore_travel 6;
-#VARIABLE start_autoexplore_travel_x 265;
-#VARIABLE start_autoexplore_travel_y 357;
+#ALIAS {travel_to_dungeon_xp_farm}
+{
+    #VARIABLE start_autoexplore_travel 25;
+    #VARIABLE start_autoexplore_travel_x 263; 
+    #VARIABLE start_autoexplore_travel_y 246;
+}
 
+#ALIAS {travel_to_dungeon_sand_farm}
+{
+    #VARIABLE start_autoexplore_travel 6;    
+    #VARIABLE start_autoexplore_travel_x 265;
+    #VARIABLE start_autoexplore_travel_y 357;
+}
+
+travel_to_dungeon_xp_farm;
 #VARIABLE travel_to_dungeon_enabled 0;
 #ALIAS {travel_to_dungeon}
 {
@@ -12,17 +23,23 @@
 
 #ACTION {You arrive at your destination.}
 {
-    #IF {$travel_to_dungeon_enabled}
+    #IF {$travel_to_dungeon_enabled && !$is_overworld_mapping_until_dungeoneer_wears_off}
     {
-        #VARIABLE travel_to_dungeon_enabled 1;
         enter;
     };
 }
 
+#variable {state_autoexplore_enabled_ready_to_move} {0};
 #ALIAS {start_autoexplore}
 {
-    config autobattle on;
-    setup_autoloot_and_kill;;
+    #VARIABLE current_room_x -1;
+    #VARIABLE current_room_y -1;
+    #VARIABLE room_x_before_move -1;
+    #VARIABLE room_y_before_move -1;
+    #VARIABLE rooms_moved 0;
+    #VARIABLE rooms_moved_before_move -1;
+    #variable {state_autoexplore_enabled_ready_to_move} {0};
+    #variable {state_autoexplore_enabled} {1};
 
     #VARIABLE is_overworld_mapping_until_dungeoneer_wears_off 0;
     #VARIABLE where_to_go unexplored;
@@ -30,100 +47,70 @@
     #map destroy world;
     #map create 999999;
     #map goto 1;
-    #map vnum $room_id;
-    #variable {autoexplore_start_room_id} {$room_id};
-    #variable {state_autoexplore_enabled} {1};
-    #VARIABLE cant_move_counter 0;
-    look;
+    #map flag static off;
+    #map flag nofollow on;
+    config autobattle on;
+    setup_autoloot_and_kill;
     look;
 }
 
 #VARIABLE is_overworld_mapping_until_dungeoneer_wears_off 0;
 #ACTION {You can't enter an instanced dungeon}
 {
-    start_autoexplore;
-    #VARIABLE is_overworld_mapping_until_dungeoneer_wears_off 1;
+    #IF {$travel_to_dungeon_enabled}
+    {
+        #VARIABLE is_overworld_mapping_until_dungeoneer_wears_off 1;
+        setup_harvesting;
+        #VARIABLE rooms_with_enemies_while_peacefull 1;
+        prospect;
+        #DELAY {prospect_delay} {walk @$rooms_with_enemies_while_peacefull} {1};
+    };
 };
 
 #ACTION {You are now affected by dungeoneer.}
 {
-    start_autoexplore;
+    #IF {$travel_to_dungeon_enabled}
+    {
+        start_autoexplore;
+    };
 }
 
 #ACTION {You are no longer affected by dungeoneer.}
 {
     #IF {$is_overworld_mapping_until_dungeoneer_wears_off}
     {
+        #VARIABLE is_overworld_mapping_until_dungeoneer_wears_off 0;
         stop_autoexplore;
         travel_to_dungeon;
     };
 }
-
-#VARIABLE cant_move_counter 0;
-#ACTION {You can't move {.*?}, but you think you could mine {.*?}.}
-{
-    #IF {$state_autoexplore_enabled}
-    {
-        #IF {$cant_move_counter < 5}
-        {
-            #DELAY {look_delay} look 1;
-            #MATH cant_move_counter {$cant_move_counter + 1};
-        };
-        #ElSE 
-        {
-            #NOP {parse coordinates and check that we moved to a new room. Will also help other places};
-            stop_autoexplore;
-            #DELAY {look_delay} start_autoexplore 1;
-        };
-    };
-};
 
 #ALIAS {stop_autoexplore}
 {
-    disable_autoloot_and_kill;
     #variable {state_autoexplore_enabled} {0};
+    #variable {state_autoexplore_enabled_ready_to_move} {0};
+    disable_autoloot_and_kill;
 }
 
-#VARIABLE unload_everything 0;
-#ACTION {You are carrying too much weight to move.}
-{
-    drop_everything;
-}
-
-#ALIAS {drop_everything}
+#VARIABLE current_room_x -1;
+#VARIABLE current_room_y -1;
+#VARIABLE room_x_before_move -1;
+#VARIABLE room_y_before_move -1;
+#VARIABLE rooms_moved 0;
+#VARIABLE rooms_moved_before_move -1;
+#ACTION {Room: L{.*?} {.*?}, {.*?} |}
 {
     #IF {$state_autoexplore_enabled}
     {
-        #VARIABLE unload_everything 1;
-        stop_autoexplore;
-        travel 4;
-    };
-}
-
-#ACTION {You are carrying too much weight to travel.}
-{
-    #IF {$unload_everything}
-    {
-        salvage all;
-        salvage confirm;
-    };
-}
-
-#ACTION {You salvage the}
-{
-    #IF {$unload_everything}
-    {
-        travel 4;
-    };
-}
-
-#ACTION {Room: L1 25, 27 | Grass}
-{
-    #IF {$unload_everything}
-    {
-        drop all;
-        travel_to_dungeon;
-        #VARIABLE unload_everything 0;
+        #VARIABLE current_room_x %2;
+        #VARIABLE current_room_y %3;
+        #IF {$room_x_before_move != $current_room_x || $room_y_before_move != $current_room_y}
+        {
+            #VARIABLE room_x_before_move $current_room_x;
+            #VARIABLE room_y_before_move $current_room_y;
+            #MATH {rooms_moved} {$rooms_moved + 1};
+            #MAP goto $last_tried_move;
+        };
     };
 }
 
@@ -131,20 +118,28 @@
 {
     #IF {$state_autoexplore_enabled}
     {
-        #DELAY {safety_looker_delay} {look} {30};
-        #map set {roomdesc} {explored};
-        #VARIABLE {directions_in_room} {%1};
-        #LIST {directions_in_room} explode { };
-        #FOREACH {$directions_in_room[]} {direction_in_room} 
+        #map get {roomdesc} {roomdescription};
+        #IF {"$roomdescription" != "explored"}
         {
-            #IF {"$direction_in_room" == "enter"} 
+            #DELAY {safety_looker_delay} {#SHOWME {DID NOT MOVE IN 30 SECONDS!}; look;} {30};
+            #map set {roomdesc} {explored};
+            #VARIABLE {directions_in_room} {%1};
+            #LIST {directions_in_room} explode { };
+            #FOREACH {$directions_in_room[]} {direction_in_room} 
             {
-                #map set {roomdesc} {the_exit_to_the_dungeoun};
+                #IF {"$direction_in_room" == "enter"} 
+                {
+                    #map set {roomdesc} {the_exit_to_the_dungeoun};
+                };
+                #ELSE 
+                {
+                    #map dig {$direction_in_room}; 
+                };
             };
-            #ELSE 
-            {
-                #map dig {$direction_in_room}; 
-            };
+        };
+        #IF {$rooms_moved_before_move < $rooms_moved}
+        {
+            #variable {state_autoexplore_enabled_ready_to_move} {1};
         };
     };
 }
@@ -154,7 +149,6 @@
     #map set {roomdesc} {unexplored} {%0};
 }
 
-#VARIABLE move_to_closest_unexplored_room_no_path_count 0;
 #VARIABLE where_to_go unexplored;
 #ALIAS {move_to_closest_unexplored_room}
 {
@@ -164,14 +158,12 @@
         #path get length length_of_path;
         #if {$length_of_path > 0} 
         {
-            #VARIABLE move_to_closest_unexplored_room_no_path_count 0;
-            #path walk;
-        };
-        #elseif {$move_to_closest_unexplored_room_no_path_count < 2}
-        {
-            #MATH move_to_closest_unexplored_room_no_path_count {$move_to_closest_unexplored_room_no_path_count + 1};
-            look;
-            #DELAY {move_to_closest_unexplored_room_delay} {move_to_closest_unexplored_room} {0.3};
+            #VARIABLE rooms_moved_before_move $rooms_moved;
+            #variable {state_autoexplore_enabled_ready_to_move} {0};
+            #path save forward mineable_path;
+            #list mineable_list create $mineable_path;
+            #VARIABLE last_tried_move $mineable_list[1];
+            $last_tried_move;
         };
         #else 
         {
@@ -183,22 +175,60 @@
             #ELSE 
             {
                 stop_autoexplore;
-                enter;
-                #DELAY {enter_after_autoexplore_delay} {enter} 1;
+                #IF {$travel_to_dungeon_enabled}
+                {
+                    enter;
+                    #DELAY {enter_after_autoexplore_delay} {enter} 1;
+                };
             };
         };
     };
 }
 
+#VARIABLE rooms_with_enemies_while_peacefull 1;
+#VARIABLE wait_with_tiggering_peacefull_travel 0;
+#ACTION {You say, 'boring enemies present and I am peacefull'}
+{
+    #SHOWME {$travel_to_dungeon_enabled && !$wait_with_tiggering_peacefull_travel && !$state_autoexplore_enabled};
+    #IF {$travel_to_dungeon_enabled && !$wait_with_tiggering_peacefull_travel && !$state_autoexplore_enabled}
+    {
+        #NOP {NEED TO STORE COORDINATE ON ROOM AND PRINT ROOM AND MAP COORDINATES WHEN MOVING: SO I CAN DEBUG!};
+        #MATH rooms_with_enemies_while_peacefull {$rooms_with_enemies_while_peacefull + 1};
+        prospect;
+        #DELAY {prospect_delay} {walk @$rooms_with_enemies_while_peacefull} {1};
+        #VARIABLE wait_with_tiggering_peacefull_travel 1;
+        #DELAY {wait_with_tiggering_peacefull_travel_reset_delay} {#VARIABLE wait_with_tiggering_peacefull_travel 0} {5};
+    };
+};
+
 #ACTION {You say, 'boring nothing to loot'}
 {
-    #IF {$state_autoexplore_enabled}
+    #VARIABLE rooms_with_enemies_while_peacefull 1;
+    #SHOWME {!$state_autoexplore_enabled && $travel_to_dungeon_enabled && !$wait_with_tiggering_peacefull_travel $state_autoexplore_enabled_ready_to_move};
+    #IF {$state_autoexplore_enabled_ready_to_move}
     {
-        move_to_closest_unexplored_room;
+        #IF {$state_autoexplore_enabled}
+        {
+            move_to_closest_unexplored_room;
+            #NOP {move_to_closest_unexplored_room_delay} {move_to_closest_unexplored_room} {1};
+        };
+        #ELSEIF {$travel_to_dungeon_enabled}
+        {
+            prospect;
+            #DELAY {prospect_delay} {walk @$rooms_with_enemies_while_peacefull} {1};
+            #VARIABLE state_autoexplore_enabled_ready_to_move 0;
+        };
+        #ELSE
+        {
+            stop_autoexplore;
+        };
     };
-    #ELSE
+    #ELSEIF {!$state_autoexplore_enabled && $travel_to_dungeon_enabled && !$wait_with_tiggering_peacefull_travel}
     {
-        stop_autoexplore;
+        prospect;
+        #DELAY {prospect_delay} {walk @$rooms_with_enemies_while_peacefull} {1};
+        #VARIABLE wait_with_tiggering_peacefull_travel 1;
+        #DELAY {wait_with_tiggering_peacefull_travel_reset_delay} {#VARIABLE wait_with_tiggering_peacefull_travel 0} {5};
     };
 }
 
@@ -208,5 +238,18 @@
     {
         #NOP {indicates a froozen battle: Only interesting to quit if I can reconnect efficiently. Needs testing}; 
         #NOP {quit};
+    };
+}
+
+#ACTION {You are DEAD!}
+{
+    stop_autoexplore;
+}
+
+#ACTION {There is nothing to enter.}
+{
+    #IF {$travel_to_dungeon_enabled}
+    {
+        travel_to_dungeon;
     };
 }

@@ -1,0 +1,81 @@
+# Skills
+
+curse                   1 magic, 1 spirit        combat, battle             enemy      25 energy   25   MUST HAVE
+raise dead              3 magic, 3 spirit        combat, overworld, battle  corpse     35 energy   10
+bone shards             5 magic, 5 spirit        combat, battle             trait      35 energy   35
+drain life              10 magic, 10 spirit      combat, battle             enemy      50 energy   40
+skeletal mastery        15 magic, 15 spirit      combat                                                 MUST HAVE
+poison cloud            20 magic, 20 spirit      combat, battle             room       65 energy   45
+soul shield             25 magic, 25 spirit      combat, overworld, battle  self       40 energy   45   Chain damage to charmed follower! 
+corpse explosion        30 magic, 30 spirit      combat, overworld, battle  corpse     65 energy   45
+summon bone golem       35 magic, 35 spirit      combat, overworld, battle  self       100 energy  120  Sacrifice skeletons for giga summon
+blood oath              40 magic, 40 spirit      combat, battle             room       75 energy   60   Desperate heal
+spirit orb              45 magic, 45 spirit      combat, battle             room       85 energy   120  Damage and heal
+
+empowered strikes       3 spirit                 combat, battle, overworld  friendly   25 energy   30
+mace mastery            4 spirit                 combat
+refresh                 5 spirit                 combat, battle, overworld  friendly   20 energy   30
+shield of faith         6 spirit                 combat, battle, overworld  self       30 energy   30
+harm                    7 spirit                 combat, battle             enemy      30 energy   30
+aid                     8 spirit                 combat, battle, overworld  friendly   30 energy   30
+summon phantasm         10 spirit                combat, battle, overworld  self       35 energy   60
+cure                    12 spirit                combat, battle, overworld  friendly   30 energy   30
+blessing                14 spirit                combat, battle, overworld  friendly   35 energy   45
+armorfade               16 spirit                combat, battle             enemy      30 energy   45
+summon wisp             18 spirit                combat, overworld, battle  self       60 energy   60
+crush                   20 spirit                combat, battle             enemy      35 stamina  35
+reprieve                22 spirit                combat, battle             self       35 energy   45
+summon primordial       24 spirit                combat, overworld, battle  self       65 energy   90
+soul alignment          26 spirit                combat, battle, overworld  friendly   35 energy   45
+last rites              28 spirit                combat, overworld, battle  corpse     50 energy   60
+summoning mastery       30 spirit                combat                                                 MUST HAVE: passive summon bonus
+purify                  33 spirit                combat, battle, overworld  friendly   35 energy   45
+slow                    36 spirit                combat, battle, overworld  enemy      40 energy   45
+summon guardian spirit  39 spirit                combat, battle, overworld  self       70 energy   90
+float                   42 spirit                combat, battle, overworld  friendly   40 energy
+confusion               45 spirit                combat, battle             enemy      45 energy   45
+haste                   48 spirit                combat, battle, overworld  friendly   45 energy   45
+flamestrike             51 spirit                combat, battle             room       60 energy   60
+essence                 54 spirit                combat, battle, overworld  friendly   50 energy   45
+breach                  57 spirit                combat, battle             enemy      45 stamina  35
+redeem soul             61 spirit                combat, overworld, battle  corpse     50 energy   45
+summon elemental        65 spirit                combat, battle, overworld  enum       85 energy   120
+blade barrier           70 spirit                combat, overworld, battle  self       55 energy
+arcane barrier          75 spirit                combat, battle, overworld  friendly   55 energy
+healing wave            80 spirit                combat, overworld, battle  room       75 energy   60
+deathward               85 spirit                combat, battle, overworld  friendly   75 energy   60
+teleport                90 spirit                combat, overworld          coords     75 energy   30
+
+spark                   3 magic                  combat, battle             enemy      15 energy   25
+wand mastery            4 magic                  combat
+piercing ray            5 magic                  combat, battle             enemy      20 energy   25
+volatility              6 magic                  combat                                10 energy
+firebolt                7 magic                  combat, battle             enemy      25 energy   25
+mage armor              8 magic                  combat, battle, overworld  self       30 energy
+ice lance               10 magic                 combat, battle             enemy      25 energy   30
+mirror image            12 magic                 combat, battle, overworld  self       25 energy   45
+concentration           14 magic                 combat
+flameshield             16 magic                 combat, battle, overworld  self       35 energy
+mana burn               18 magic                 combat, battle             enemy      35 energy   60
+arcane blast            20 magic                 combat, battle             enemy      35 energy   35
+counterspell            22 magic                 combat, battle             enemy      35 energy   45
+lightning bolt          24 magic                 combat, battle             enemy      40 energy   35
+multicast               26 magic                 combat
+arcane missiles         28 magic                 combat, battle             enemy      50 energy   45
+blink                   30 magic                 combat                                10 energy   60
+frost nova              33 magic                 combat, battle             room       50 energy   45
+critical casting        36 magic                 combat
+charm                   39 magic                 combat, overworld, battle  enemy      60 energy   120
+fireball                42 magic                 combat, battle             room       55 energy   45
+orb mastery             45 magic                 combat                                10 energy
+poison bolt             48 magic                 combat, battle             enemy      50 energy   25
+stoneskin               51 magic                 combat, overworld, battle  self       60 energy   60
+freezing orb            54 magic                 combat, battle             room       65 energy   120
+invisibility            57 magic                 combat, battle, overworld  self       60 energy   120
+hold person             61 magic                 combat, battle             enemy      60 energy   60
+acid blast              65 magic                 combat, battle             enemy      50 energy   40
+dispel magic            70 magic                 combat, overworld, battle  entity     50 energy   60
+lightning storm         75 magic                 combat, battle             room       70 energy   120
+polymorph               80 magic                 combat, battle             enemy      60 energy   120
+meteor shower           85 magic                 combat, battle             room       85 energy   60
+jump                    90 magic                 combat, overworld          coords     50 energy   30

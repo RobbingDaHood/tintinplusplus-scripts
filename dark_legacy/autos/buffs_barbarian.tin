@@ -4,7 +4,6 @@
         {vigilance}{0}
         {sanctuary}{0}
         {psychic armor}{0}
-        {fly}{0}
         {time flow}{0}
     };
 
@@ -44,7 +43,7 @@
     #VARIABLE {read_affect} {1};
     reset_all_buff_states;
     affect;
-    #DELAY {buff_self_delay} {buff_self_trigger} {0.5};
+    #DELAY {buff_self_delay} {buff_self_trigger} {1};
 }
 
 #ALIAS {buff_self_trigger} 
@@ -74,6 +73,7 @@
                 #VARIABLE {all_buff_states[$buff_name]} {1};
             };
         };  
+        #SHOWME {all_buff_states $all_buff_states};
     };
 };
 

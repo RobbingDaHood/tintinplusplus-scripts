@@ -1,0 +1,7 @@
+#READ common_setup.tin;
+#ALIAS {reload_configs}
+{
+    reload_miner_configs;
+}
+
+2;

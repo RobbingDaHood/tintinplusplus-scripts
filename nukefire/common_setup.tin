@@ -1,0 +1,18 @@
+#alias {setup_logs} 
+{
+    #format {todays_logfile_name} {%t} {%Y-%m-%d-logfile.log};
+    #log timestamp {%Y-%m-%d-%H:%M:%S};
+    #log append {logs/$todays_logfile_name};
+};
+
+#ALIAS {reload_first_configs}
+{
+    #kill; 
+    #read first_char.tin;
+    #SHOWME {loaded first char};
+}
+
+#split;
+#READ nf_login.tin;
+setup_logs;
+#config {packet patch} 0.6;

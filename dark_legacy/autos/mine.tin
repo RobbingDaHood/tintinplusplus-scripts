@@ -7,16 +7,9 @@
     create_path %1 %2;
     #SHOWME {DIGGING PATH: $created_path[]};
     start_maintain_all_xorns;
+    buff_self;
     prompt &Y%hhp &C%mm &G%vmv&w %o> MINING;
     fprompt &Y%hhp &C%mm &G%vmv&w %o> FIGHTING_DURING_MINING;
-}
-
-#ALIAS {dig_path_cold {.*?} {.*}}
-{
-    stop_dig_path;
-    #VARIABLE need_to_resummon_xorns 5;
-    sheathe;
-    dig_path %1 %2;
 }
 
 #ALIAS {stop_dig_path}

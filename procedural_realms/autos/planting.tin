@@ -1,0 +1,66 @@
+#VARIABLE start_planting_enabled 0;
+#VARIABLE start_planting_what NOTHING;
+#VARIABLE start_planting_move_count 0;
+#VARIABLE start_planting_is_in_start_room 0;
+#ALIAS {start_planting {.*}}
+{
+    #VARIABLE start_planting_enabled 1;
+    #VARIABLE start_planting_what %1;
+    #VARIABLE start_planting_move_count 0;
+    #VARIABLE start_planting_is_in_start_room 0;
+    look;
+};
+
+#ALIAS {stop_planting}
+{
+    #VARIABLE start_planting_enabled 0;
+    #VARIABLE start_planting_what NOTHING;
+};
+
+#ACTION {You say, 'all three seedlings are planted'}
+{
+    start_planting_next_move;
+};
+
+#ALIAS {start_planting_next_move}
+{
+    #IF {$start_planting_enabled}
+    {
+        #send $greenhouse_path[$start_planting_move_count];
+        #math {start_planting_move_count} {$start_planting_move_count + 1};
+        #if {$start_planting_move_count >= &greenhouse_path[]}
+        {
+            #showme {Done with planting loop greenhouse};
+            #VARIABLE start_planting_move_count 0;
+            start_planting_next_move;
+        };
+    };
+};
+
+#ACTION {Room: L36 1, 3 | Inside a birch greenhouse}
+{
+    #IF {!$start_planting_is_in_start_room && $start_planting_enabled}
+    {
+        #NOP {FIND THIS ROOM: Room: L36 1, 3 | Inside a birch greenhouse};
+        #VARIABLE start_planting_is_in_start_room 1;
+        setup_planting_at_home;
+        #DELAY {start_planting_next_move_delay} {start_planting_next_move} {5};
+    };
+};
+
+#VARIABLE {greenhouse_path}
+{
+    {0} {ne}
+    {1} {ne}
+    {2} {s}
+    {3} {e}
+    {4} {se}
+    {5} {w}
+    {6} {w}
+    {7} {se}
+    {8} {w}
+    {9} {s}
+    {10} {nw}
+    {11} {n}
+    {12} {w}
+}

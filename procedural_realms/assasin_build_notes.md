@@ -1,16 +1,19 @@
+# Class
+
+Best assasin is a Swashbuckler because you quickly build up more critical hit with combo points 
+
 # Skills 
 
-celerity
-fast recovery
+celerity (60 agillity)
+envenom (Do not know the full effect, and it adds complexity, need to make poison)
 
-distraction
-garrote
+distraction (15 15)
+garrote (30 30) 
 
 Maybe:
-misdirection
-counter attack (too pricy)
-shank (too pricy)
-envenom (Do not know the full effect)
+misdirection (35 35) 
+counter attack (85 Agil)
+shank (80 Agil)
 
 
 # Artisan skills

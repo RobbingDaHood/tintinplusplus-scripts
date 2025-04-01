@@ -1,4 +1,4 @@
-#VARIABLE max_xorns 5;
+#VARIABLE max_xorns 6;
 #VARIABLE maintain_all_xorns_state 0;
 #ALIAS {start_maintain_all_xorns}
 {

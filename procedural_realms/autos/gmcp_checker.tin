@@ -1,0 +1,29 @@
+#ALIAS {start_gmcp}
+{
+    config gmcp on; 
+    config gmcpseenrooms on;
+}
+
+#EVENT {IAC SB GMCP Char.Vitals IAC SE}
+{
+    #NOP {this gives info about the vitals, but tactics takes care of that, so it is fine};
+}
+
+#EVENT {IAC SB GMCP room.info IAC SE}
+{
+    #NOP {This just gives static info on rooms, nothing about enemies in there etc. Could maybe be usefull in the future};
+    #NOP room_info_gmcp {%0};
+    #NOP {room.info: $room_info_gmcp};
+}
+
+#EVENT {IAC SB GMCP}
+{
+    #nop {Just contains the next GMCP event name, so not interesting.};
+    #if {"%0" != "Char.Vitals" && "%0" != "room.info" && "%0" != "Client.Media.Stop" && "%0" != "Client.Media.Play"}
+    {
+        #showme {GMCP: %0};
+    }
+}
+
+#NOP {just leaving this activated in case this gets enabled some day};
+start_gmcp;

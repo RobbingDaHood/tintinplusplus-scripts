@@ -1,0 +1,20 @@
+#ACTION {has been fully repaired.}
+{
+    repair;
+}
+
+#VARIABLE repair_everyting_state 0;
+#ACTION {is broken.}
+{
+    #VARIABLE repair_everyting_state 1;
+    repair hammer;
+}
+
+#ACTION {You don't see that here.}
+{
+    #IF {$repair_everyting_state}
+    {
+        #VARIABLE repair_everyting_state 0;
+        repair;
+    };
+}
