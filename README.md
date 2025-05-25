@@ -13,7 +13,7 @@
 ``` 
 #ALIAS {login_lost_soul}
 {
-    #info sessions save;
+    #info session save;
     #if {&info[SESSIONS][ls] == 0}
     {
         #session ls lostsouls.org 23;
