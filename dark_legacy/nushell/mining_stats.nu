@@ -18,8 +18,7 @@ reject material_raw amount_raw message amount_first_paranthese |
 group-by --to-table timestamp |
 each {|row| $row.items | reduce -f $row {|it, acc| $acc | insert $it.material $it.amount}} | # This takes every row in the inner items table and add them as columns in the outer table
 reject items |
-insert timestamp_raw {|row| $row.timestamp} |
-update timestamp {|row| $row.timestamp | into datetime}
+insert timestamp_raw {|row| $row.timestamp | into datetime} |
 
 let calculate_diff_pr_status = $setup_parsed_columns |
 enumerate |
@@ -37,20 +36,20 @@ reduce -f [[]] {|row, acc| # group with row before if duration is less than 5 se
     }
   } |
 skip |
-each {|group| # merge all grouped rows, we know that the columns are empty in one of the two rows, so this is safe
-    let timestamp_raw = ($group | get timestamp_raw | first)
-    let duration = ($group | get duration | first)
-    $group
-    | reject timestamp duration timestamp_raw
-    | reduce {|row, acc| $acc | merge $row }
-    | insert timestamp $timestamp_raw
-    | insert duration $duration
+each {|group| # Merge all updates in each group 
+    $group |
+    reject timestamp_raw duration |
+    math sum |
+    flatten |
+    insert timestamp_raw ($group | first | get timestamp_raw) |
+    insert duration ($group | last | get duration)
 } |
-update timestamp {|row| $row.timestamp | into datetime | into int} | # need to do this to let the timestamp "survive" the "math sum" later :)
+flatten |
+update timestamp_raw {|row| $row.timestamp_raw | into datetime | into int} | # need to do this to let the timestamp "survive" the "math sum" later :)
 window 2 | # Calcualate the diff for each ressource compared.
 each {|pair| 
     $pair | first | items {|key, value|
-        if $key == "timestamp" or $key == "duration" {
+        if $key == "timestamp_raw" or $key == "duration" {
                 {$key: $value}
         } else {
                 {$key: (($pair.1 | get $key) - $value)}
@@ -71,11 +70,11 @@ reduce -f [[]] {|row, acc| # If duration is more than 10 minutes then it would l
 } |
 each {|group| # Merge all updates in each session 
     $group |
-    reject timestamp duration |
+    reject timestamp_raw duration |
     math sum |
     flatten |
-    insert start ($group | first | get timestamp | into datetime | format date "%Y-%m-%d-%H:%M:%S") |
-    insert end ($group | last | get timestamp | into datetime | format date "%Y-%m-%d-%H:%M:%S")
+    insert start ($group | first | get timestamp_raw | into datetime | format date "%Y-%m-%d-%H:%M:%S") |
+    insert end ($group | last | get timestamp_raw | into datetime | format date "%Y-%m-%d-%H:%M:%S")
 } |
 flatten |
 each {|row| $row | insert duration (($row.end | into datetime) - ($row.start | into datetime))} | # Calculate new duration
