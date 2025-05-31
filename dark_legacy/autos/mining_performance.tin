@@ -1,0 +1,19 @@
+#ALIAS {start_ticker_examine_miningportal}
+{
+    check_relevant_mining_performance_stuff;
+    #TICKER {examine_miningportal_ticker} 
+    {
+        check_relevant_mining_performance_stuff;
+    }{300};
+};
+
+#ALIAS {stop_ticker_examine_miningportal}
+{
+    #UNTICKER {examine_miningportal_ticker};
+};
+
+
+#ALIAS {check_relevant_mining_performance_stuff}
+{
+    examine miningportal;
+}

@@ -12,6 +12,7 @@
 #READ autos/maintain_xorns.tin;
 #READ autos/mine.tin;
 #NOP autos/mine_fullauto.tin;
+#READ autos/mining_performance.tin;
 #READ autos/mine_fullauto_v2.tin;
 #READ autos/cutgems.tin;
 #READ autos/craft.tin;

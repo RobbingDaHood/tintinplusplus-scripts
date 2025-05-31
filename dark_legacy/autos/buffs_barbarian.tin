@@ -59,6 +59,7 @@
             cast $buff_name self;
         };
     };
+    #SHOWME {all_buff_states $all_buff_states};
 };
 
 #ACTION {[{.*}}
@@ -73,7 +74,6 @@
                 #VARIABLE {all_buff_states[$buff_name]} {1};
             };
         };  
-        #SHOWME {all_buff_states $all_buff_states};
     };
 };
 

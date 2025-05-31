@@ -12,11 +12,14 @@
         #SHOWME {Did automatic run for 28 minutes, so pausing.}; 
         stop_automine;
     }{1680};
+
+    start_ticker_examine_miningportal;
 }
 
 #ALIAS {stop_automine}
 {
     #variable {state_automine_enabled} {0};
+    stop_ticker_examine_miningportal;
 }
 
 #ALIAS {recreate_map}
@@ -47,6 +50,7 @@
 
             #IF {$counts_between_scrys > 3}
             {
+		examine sextant;
                 cast scry;
                 #VARIABLE counts_between_scrys 0;
             };
