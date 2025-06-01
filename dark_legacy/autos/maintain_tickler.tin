@@ -1,0 +1,10 @@
+#VAR did_cast_resurrect_pet 0;
+#ACTION {(Ghost) (huge) Tickler}
+{
+    #IF {!did_cast_resurrect_pet}
+    {
+	#VAR did_cast_resurrect_pet 1;
+        cast resurrect pet;
+	#DELAY {10} { VAR did_cast_resurrect_pet 0; };
+    };
+}
