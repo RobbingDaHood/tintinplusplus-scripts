@@ -8,10 +8,8 @@
 {
     #regexp {%1} {{ slime |Zenpin|Alexis|You will die by my hand}} {
         #NOP {Any message with the above text should be ignored};
-    	#SHOWME {addmessage: hit};
     } {
         #list messages_received add {%1};
-    	#SHOWME {addmessage: no hit};
     };
 }
 

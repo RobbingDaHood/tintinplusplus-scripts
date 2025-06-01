@@ -3,7 +3,7 @@
     reload_miner_configs;
 }
 
-#READ autos/buffs.tin;
+#NOP autos/buffs.tin;
 #READ autos/heal.tin;
 #READ autos/unlock.tin;
 #NOP autos/forage.tin;
@@ -20,6 +20,7 @@
 #NOP autos/emptycontainer.tin;
 #NOP autos/mapper.tin;
 #READ autos/buffs_barbarian.tin;
+#READ autos/simple_mining_battle.tin;
 
 #READ common_setup.tin;
 2;

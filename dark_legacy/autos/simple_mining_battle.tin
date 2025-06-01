@@ -1,0 +1,6 @@
+#ACTION {FIGHTING_DURING_MINING}
+{
+    cast sunbeam;
+}
+
+#NOP {When I know the line for sunbeam being cast, then ACTION that and recast}
