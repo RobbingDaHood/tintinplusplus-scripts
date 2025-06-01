@@ -14,10 +14,12 @@
     } {1};
 };
 
+#VARIABLE need_to_resummon_xorns 0;
 #ALIAS {summon_missing_xorns}
 {
     #IF {$need_to_resummon_xorns > 0 && $maintain_all_xorns_state}
     {
+        sheathe;
         cast Pebblelure;
         #MATH {need_to_resummon_xorns} {$need_to_resummon_xorns - 1};
         summon_missing_xorns;
@@ -28,23 +30,12 @@
     };
 }
 
-#ACTION {You sheathe an}
-{
-    summon_missing_xorns_throttle;
-}
-
-#ACTION {You aren't wielding anything}
-{
-    summon_missing_xorns_throttle;
-}
-
-#VARIABLE need_to_resummon_xorns 0;
 #ACTION {collapses into a heap of pebbles}
 {
     #IF {$maintain_all_xorns_state}
     {
         #MATH {need_to_resummon_xorns} {$need_to_resummon_xorns + 1};
-        sheathe;
+    	summon_missing_xorns_throttle;
     };
 }
 
@@ -59,7 +50,7 @@
         #VARIABLE recounting_xorns 0;
         #VARIABLE need_to_resummon_xorns $recounted_xorns;
         #SHOWME {need to resummon $need_to_resummon_xorns xorns!};
-        sheathe;
+    	summon_missing_xorns_throttle;
     }{2};
 }
 

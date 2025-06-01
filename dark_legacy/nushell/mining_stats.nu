@@ -5,6 +5,7 @@ grep -v from |
 grep -v you |
 grep -v falls |
 grep -v spilled |
+grep -v granite |
 split row -r '\n' |
 wrap raw |
 insert timestamp {|row| $row.raw | str substring 23..42 | str trim} |
@@ -18,45 +19,53 @@ reject material_raw amount_raw message amount_first_paranthese |
 group-by --to-table timestamp |
 each {|row| $row.items | reduce -f $row {|it, acc| $acc | insert $it.material $it.amount}} | # This takes every row in the inner items table and add them as columns in the outer table
 reject items |
-insert timestamp_raw {|row| $row.timestamp | into datetime} |
+insert timestamp_raw {|row| $row.timestamp} |
+update timestamp {|row| $row.timestamp | into datetime} |
+sort-by timestamp 
 
 let calculate_diff_pr_status = $setup_parsed_columns |
-enumerate |
-each {|row|
-   let prev = (if $row.index == 0 { 0 | into datetime} else { $setup_parsed_columns | get timestamp | get ($row.index - 1)})
-   $row.item | insert duration ($row.item.timestamp - $prev)
-} |
-sort-by timestamp |
-reduce -f [[]] {|row, acc| # group with row before if duration is less than 5 seconds, because a mining update could take more than one second to print 
-    let last = ($acc | last)
-    if $row.duration > 0sec and $row.duration <= 5sec {
-        $acc | upsert (($acc | length) - 1) ($last ++ [$row])
-    } else {
-      $acc ++ [[ $row ]]
-    }
-  } |
-skip |
-each {|group| # Merge all updates in each group 
-    $group |
-    reject timestamp_raw duration |
-    math sum |
-    flatten |
-    insert timestamp_raw ($group | first | get timestamp_raw) |
-    insert duration ($group | last | get duration)
-} |
-flatten |
-update timestamp_raw {|row| $row.timestamp_raw | into datetime | into int} | # need to do this to let the timestamp "survive" the "math sum" later :)
-window 2 | # Calcualate the diff for each ressource compared.
+window 2 | # Calcualate the duration
 each {|pair| 
-    $pair | first | items {|key, value|
-        if $key == "timestamp_raw" or $key == "duration" {
+    $pair |
+    last |
+    insert duration {|row| ($pair.1.timestamp | into datetime) - ($pair.0.timestamp | into datetime)}
+} |
+window 2 | # group with row before if duration is less than 5 seconds, because a mining update could take more than one second to print 
+each {|pair| 
+    # This logic assumes that there are not more than two events in a row with less than 5 seconds distance
+    if $pair.1.duration > 0sec and $pair.1.duration <= 5sec { # Merge
+    	let timestamp_raw = $pair.1.timestamp_raw
+    	let timestamp = $pair.1.timestamp
+	$pair | 
+	math sum |
+    	insert timestamp $timestamp |
+    	insert timestamp_raw $timestamp_raw 
+    } else if $pair.0.duration <= 5sec { 
+    	# Ignored becase it this row is already handled above
+    	{}
+    } else { # Do nothing 
+    	$pair | first
+    }
+} |
+where ($it | is-not-empty) | 
+flatten |
+window 2 | # group with row before if duration is less than 5 seconds, because a mining update could take more than one second to print 
+each {|pair| 
+    let timestamp_raw = $pair.1.timestamp_raw
+    let timestamp = $pair.1.timestamp
+    $pair.1 | items {|key, value|
+        if $key == "timestamp_raw" or $key == "duration" or $key == "timestamp" {
                 {$key: $value}
+        } else if $key in ($pair.0 | columns) {
+                {$key: ($value - ($pair.0 | get $key))}
         } else {
-                {$key: (($pair.1 | get $key) - $value)}
+                {$key: 0}
         }
     } |
-    math sum
-}
+    math sum |
+    insert timestamp $timestamp |
+    insert timestamp_raw $timestamp_raw 
+} 
 
 
 let $calculate_diff_pr_session = $calculate_diff_pr_status |
@@ -68,6 +77,7 @@ reduce -f [[]] {|row, acc| # If duration is more than 10 minutes then it would l
       $acc ++ [[ $row ]]
     }
 } |
+where ($it | length) > 0 | 
 each {|group| # Merge all updates in each session 
     $group |
     reject timestamp_raw duration |

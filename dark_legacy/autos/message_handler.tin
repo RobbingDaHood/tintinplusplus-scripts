@@ -1,60 +1,61 @@
-#list messages_recived clear; 
+#list messages_received clear; 
 #variable known_messages_count 0;
+#variable new_known_messages_count 0;
 
 #TICKER {messages_ticker} {write_number_of_messages} {5};
 
+#ALIAS {add_message %*} 
+{
+    #regexp {%1} {{ slime |Zenpin|Alexis|You will die by my hand}} {
+        #NOP {Any message with the above text should be ignored};
+    	#SHOWME {addmessage: hit};
+    } {
+        #list messages_received add {%1};
+    	#SHOWME {addmessage: no hit};
+    };
+}
+
 #ACTION {{.*?} tells you {.*}}
 {
-    #list messages_recived add {"%0"};
+    add_message %0;
 }
 
 #ACTION {You tell {.*?} {.*}}
 {
-    #list messages_recived add {"%0"};
+    add_message %0;
 }
 
 #ACTION {{.*?} {ooc|yell|shout|newbiechat|ghosttalk|say|answer|ask}s {.*}}
 {
-    #list messages_recived add {"%0"};
+    add_message %0;
 }
 
 #ACTION {You {ooc|tell|yell|shout|newbiechat|ghosttalk|say|answer|ask} {.*}}
 {
-    #list messages_recived add {"%0"};
+    add_message %0;
 }
 
 #ACTION {({.*?}/{.*?}):{.*}}
 {
-    #list messages_recived add {"%0"};
+    add_message %0;
 }
 
 #ACTION {({.*?}/{.*?}:{.*}}
 {
-    #list messages_recived add {"%0"};
-}
-
-#ACTION {({.*?}/{.*?}):{.*}}
-{
-    #list messages_recived add {"%0"};
+    add_message %0;
 }
 
 #ALIAS {write_number_of_messages}
 {
-    #MATH new_messages_count {&messages_recived[] - $known_messages_count};
+    #list {messages_received} {size} {new_known_messages_count};
+    #MATH new_messages_count {$new_known_messages_count - $known_messages_count};
     #IF {$new_messages_count != 0}
     {
-        #SHOWME {There are $new_messages_count messages waiting! Variable name: messages_recived};
+        #SHOWME {There are $new_messages_count messages waiting! Variable name: messages_received};
     };
 }
 
 #ALIAS {clear_messages}
 {
-    #var known_messages_count &messages_received[];
-}
-
-#ALIAS {show_messages}
-{
-    #loop 1 &messages_received[] item {
-      #SHOWME {$messages_received[$item]};
-    };
+    #list {messages_received} {size} {known_messages_count};
 }
