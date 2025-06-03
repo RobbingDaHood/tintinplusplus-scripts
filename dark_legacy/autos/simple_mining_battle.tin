@@ -1,11 +1,11 @@
 #VAR did_cast_sunbeam 0;
-#ACTION {(Ghost) (huge) Tickler}
+#ACTION {You face}
 {
-    #IF {!did_cast_sunbeam}
+    #IF {!$did_cast_sunbeam}
     {
 	#VAR did_cast_sunbeam 1;
         cast sunbeam;
-	#DELAY {10} { VAR did_cast_sunbeam 0; };
+	#DELAY {10} { #VAR did_cast_sunbeam 0; };
     };
 }
 
