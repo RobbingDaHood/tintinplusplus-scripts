@@ -121,7 +121,6 @@
 
 #ALIAS {clear_direction_with_faultline}
 {
-    #SHOWME {cleared clear_direction_with_faultline};
     #VARIABLE {direction_with_faultline} 
     {
         {e}{0}
@@ -144,7 +143,6 @@ clear_direction_with_faultline;
 
 #ALIAS {clear_direction_with_blocker}
 {
-    #SHOWME {cleared clear_direction_with_blocker};
     #VARIABLE {direction_with_blocker} 
     {
         {e}{0}

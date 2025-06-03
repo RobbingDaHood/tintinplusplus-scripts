@@ -1,0 +1,38 @@
+#ALIAS {start_ticker_examine_fullironwood}
+{
+    check_relevant_ironwood_portal;
+    #TICKER {examine_fullironwood_ticker} 
+    {
+        check_relevant_ironwood_portal;
+    }{3000};
+    #TICKER {ironwood_warning_message_ticker} 
+    {
+        ironwood_warning_message_ticker_action;
+    }{60};
+};
+
+#ALIAS {stop_ticker_examine_fullironwood}
+{
+    #UNTICKER {examine_fullironwood_ticker};
+    #UNTICKER {ironwood_warning_message_ticker_action};
+};
+
+
+#ALIAS {check_relevant_ironwood_portal}
+{
+    examine fullironwood;
+}
+
+#ACTION {+Ironwood block+ ({[0-9]+})} {
+    #VAR ironwood_counter {%1};
+}
+
+#ALIAS {ironwood_warning_message_ticker_action}
+{
+    #IF {$ironwood_counter < 500} 
+    {
+    	#SHOWME {WARNING: Ironwood portal is at $ironwood_count ironwoods, refill before running dry.};
+    };
+}
+
+start_ticker_examine_fullironwood;
