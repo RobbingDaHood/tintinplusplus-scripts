@@ -125,7 +125,6 @@
             move_to_closest_mineable_room;
         };
     };
-    clear_direction_with_blocker;
     clear_direction_with_score;
 }
 
