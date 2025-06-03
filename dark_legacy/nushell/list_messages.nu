@@ -20,7 +20,7 @@ sed -r 's/\x1B\[[0-9;]*[a-zA-Z]//g' | # remove all ASCII escape codes
 split row -r '\n' |
 wrap raw |
 insert timestamp_raw {|row| $row.raw | str substring 23..41 | str trim} |
-insert timestamp {|row| $row.timestamp_raw | into datetime} |
+insert timestamp {|row| $row.timestamp_raw | try {into datetime} catch {0}} |
 insert message {|row| $row.raw | str substring 42..-1 | str trim}  |
 reject raw |
 sort-by timestamp
