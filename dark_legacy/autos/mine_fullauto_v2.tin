@@ -45,6 +45,7 @@
         #IF {$last_room_visited != $current_room_vnum}
         {
             #SHOWME {direction_with_blocker $direction_with_blocker};
+            #SHOWME {direction_with_faultline $direction_with_faultline};
             #SHOWME {direction_with_score $direction_with_score};
             #VARIABLE last_room_visited $current_room_vnum;
 

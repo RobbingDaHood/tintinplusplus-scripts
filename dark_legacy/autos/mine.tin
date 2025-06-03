@@ -2,6 +2,7 @@
 #ALIAS {dig_path {.*?} {.*}}
 {
     clear_direction_with_blocker;
+    clear_direction_with_faultline;
     look;
     #VARIABLE digging_path_enabled 1;
     create_path %1 %2;
@@ -86,14 +87,11 @@
         {
             #IF {"$created_path[+1]" == "g"}
             {
-                put_all_in_mining_portal;
                 #DELAY {build_and_use_heavy_girders_delay} build_and_use_heavy_girders {2}
             };
-            #ELSEIF {$direction_with_blocker[$created_path[+1]]}
+            #ELSEIF {$direction_with_faultline[$created_path[+1]]}
             {
                 #VARIABLE created_path[0] g; #NOP {This is a hack, the generated path starts from 1, so this will always go ahead};
-                put_all_in_mining_portal;
-                clear_direction_with_blocker;
                 #DELAY {build_and_use_heavy_girders_delay} build_and_use_heavy_girders {2}
             };
             #ELSE 
@@ -121,8 +119,32 @@
     {se}{se}
 }
 
+#ALIAS {clear_direction_with_faultline}
+{
+    #SHOWME {cleared clear_direction_with_faultline};
+    #VARIABLE {direction_with_faultline} 
+    {
+        {e}{0}
+        {ne}{0}
+        {n}{0}
+        {nw}{0}
+        {w}{0}
+        {sw}{0}
+        {s}{0}
+        {se}{0}
+    };
+}
+clear_direction_with_faultline;
+
+#ACTION {Unstable faultline {.*?}.}
+{
+    #VARIABLE translated_mining_room_direction $mining_directions_looking[%1];
+    #VARIABLE direction_with_faultline[$translated_mining_room_direction] 1;
+}
+
 #ALIAS {clear_direction_with_blocker}
 {
+    #SHOWME {cleared clear_direction_with_blocker};
     #VARIABLE {direction_with_blocker} 
     {
         {e}{0}
@@ -135,13 +157,7 @@
         {se}{0}
     };
 }
-
 clear_direction_with_blocker;
-#ACTION {Unstable faultline {.*?}.}
-{
-    #VARIABLE translated_mining_room_direction $mining_directions_looking[%1];
-    #VARIABLE direction_with_blocker[$translated_mining_room_direction] 1;
-}
 
 #ACTION {Endless abyss {.*?}.}
 {
@@ -169,8 +185,16 @@ clear_direction_with_blocker;
 
 #ALIAS {build_and_use_heavy_girders}
 {
-    #DELAY {craft_girder_delay} {craft Architecture 'Heavy Mining Girder' 1 ironwood} {0.5};
-    #DELAY {craft_girder_use_girder_delay} {use girder} {2.5};
+    #DELAY {craft_girder_delay} 
+    {
+	put_all_in_mining_portal;
+    	craft Architecture 'Heavy Mining Girder' 1 ironwood
+    } {0.5};
+    #DELAY {craft_girder_use_girder_delay} 
+    {
+    	use girder; 
+        clear_direction_with_faultline;
+    } {2.5};
 };
 
 #ACTION {Nothing left to harvest there.}
@@ -188,11 +212,22 @@ clear_direction_with_blocker;
     #DELAY {dig_move_and_mine_trigger} {dig_move_and_mine} {0.2};
 }
 
+#ACTION {Part of the ceiling collapses, revealing a passage.}
+{
+    #DELAY {dig_move_and_mine_trigger} {dig_move_and_mine} {0.2};
+}
+
+#ACTION {You explore}
+{
+    #NOP {If we moved then all blockers are cleared};
+    clear_direction_with_blocker;
+    clear_direction_with_faultline;
+}
+
 #ALIAS {dig_move_and_mine}
 {
     #IF {$digging_path_enabled}
     {
-        clear_direction_with_blocker;
         stuff_to_do_before_move;
     };
 }
@@ -233,7 +268,8 @@ clear_direction_with_blocker;
     #IF {$digging_path_enabled}
     {
         #list created_path delete 1;
-        #SHOWME {DIGGING PATH: $created_path[]};
+        #SHOWME {AFTER REINFORCEMENT DIGGING PATH: $created_path[]};
+    	clear_direction_with_faultline;
         trigger_next_mine;
     };
 };
@@ -243,7 +279,8 @@ clear_direction_with_blocker;
     #IF {$digging_path_enabled}
     {
         #list created_path delete 1;
-        #SHOWME {DIGGING PATH: $created_path[]};
+        #SHOWME {AFTER REINFORCEMENT WERE NOT NEEDED DIGGING PATH: $created_path[]};
+    	clear_direction_with_faultline;
         trigger_next_mine;
     };
 };
