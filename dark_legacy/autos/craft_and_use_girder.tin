@@ -1,0 +1,113 @@
+#VAR building_girder_state NOT_ACTIVE;
+#ALIAS {build_and_use_heavy_girders}
+{
+    #IF {"$building_girder_state" == "NOT_ACTIVE"}
+    {
+        #VAR building_girder_state USE_EXISTING_GIRDER;
+	build_and_use_heavey_girder_next_action;
+	#TICKER {build_and_use_heavy_girders_next_action_ticker} {build_and_use_heavey_girder_next_action} {5};
+    };
+};
+
+#ALIAS {build_and_use_heavey_girder_next_action}
+{
+    #IF {"$building_girder_state" == "NOT_ACTIVE"}
+    {
+	stop_build_and_use_heavy_girders;
+    }; #elseif  {"$building_girder_state" == "USE_EXISTING_GIRDER"} {
+        use girder; 
+    }; #elseif  {"$building_girder_state" == "GET_BUILD_GIRDER"} {
+        get girder garbage; 
+    }; #elseif  {"$building_girder_state" == "GET_UNFINISHED_GIRDER} {
+        get recipe garbage; 
+    }; #elseif  {"$building_girder_state" == "BUILD_UNFINISHED_GIRDER"} {
+        use recipe; 
+    }; #elseif  {"$building_girder_state" == "BUILD_NEW_GIRDER"} {
+    	put_all_in_mining_portal;
+    	craft Architecture 'Heavy Mining Girder' 1 ironwood
+    }; #ELSE {
+	#SHOWME {build_and_use_heavey_girder_next_action: $building_girder_state};
+    };
+};
+
+#ALIAS {stop_build_and_use_heavy_girders} 
+{
+    #UNTICKER {build_and_use_heavy_girders_next_action_ticker};
+    #VAR building_girder_state NOT_ACTIVE;
+}
+
+#ACTION {Nothing like that here}
+{
+    #IF {"$building_girder_state" == "USE_EXISTING_GIRDER"}
+    {
+        #VAR building_girder_state GET_BUILD_GIRDER;
+    }; #elseif  {"$building_girder_state" == "BUILD_UNFINISHED_GIRDER"} {
+        #VAR building_girder_state BUILD_NEW_GIRDER;
+    }; 
+
+    #IF {"$building_girder_state" != "NOT_ACTIVE"}
+    {
+    	build_and_use_heavey_girder_next_action;
+    };
+}
+
+#ACTION {I see nothing like that in the garbage.}
+{
+    #if  {"$building_girder_state" == "GET_BUILD_GIRDER"} {
+        #VAR building_girder_state GET_UNFINISHED_GIRDER;
+    }; #elseif  {"$building_girder_state" == "GET_UNFINISHED_GIRDER"} {
+        #VAR building_girder_state BUILD_UNFINISHED_GIRDER;
+    };
+
+    #IF {"$building_girder_state" != "NOT_ACTIVE"}
+    {
+    	build_and_use_heavey_girder_next_action;
+    };
+}
+
+#ACTION {from an extradimensional portal 'garbage'}
+{
+    #IF {"$building_girder_state" != "NOT_ACTIVE"}
+    {
+    	#if  {"$building_girder_state" == "GET_BUILD_GIRDER"} {
+    	    #VAR building_girder_state USE_EXISTING_GIRDER;
+    	}; #elseif  {"$building_girder_state" == "GET_UNFINISHED_GIRDER"} {
+    	    #VAR building_girder_state USE_EXISTING_GIRDER;
+    	};
+
+	build_and_use_heavey_girder_next_action;
+    };
+};
+
+#ACTION {You assemble a heavy girder using an}
+{
+    #IF {"$building_girder_state" != "NOT_ACTIVE"}
+    {
+        #VAR building_girder_state USE_EXISTING_GIRDER;
+	build_and_use_heavey_girder_next_action;
+    };
+};
+
+#ACTION {You reinforce the mine with an}
+{
+     register_use_of_girder;
+};
+
+#ACTION {This mine is already reinforced!}
+{
+     register_use_of_girder;
+};
+
+#ALIAS {register_use_of_girder} 
+{
+    #IF {"$building_girder_state" != "NOT_ACTIVE"}
+    {
+   	stop_build_and_use_heavy_girders;
+        #IF {"$created_path[+1]" == "g"} {
+    	    #list created_path delete 1;
+    	};
+    	clear_direction_with_faultline;
+    	trigger_next_mine;
+    	#NOP {The above works if there are no "look" in between this and next mining operation.};
+    };
+}

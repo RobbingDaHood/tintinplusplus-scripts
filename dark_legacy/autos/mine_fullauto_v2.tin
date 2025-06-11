@@ -124,9 +124,9 @@
 
             #map set {roomdesc} {explored};
             move_to_closest_mineable_room;
-        };
+        }
+    	clear_direction_with_score;
     };
-    clear_direction_with_score;
 }
 
 #ALIAS {move_to_closest_mineable_room}
@@ -288,6 +288,13 @@
 }
 
 #ACTION {Bloodstone {.*?}.}
+{
+    #VARIABLE mining_direction %1;
+    #VARIABLE translated_mining_room_direction $mining_directions_looking[%1];
+    #VARIABLE direction_with_score[$translated_mining_room_direction] 1;
+}
+
+#ACTION {Opal {.*?}.}
 {
     #VARIABLE mining_direction %1;
     #VARIABLE translated_mining_room_direction $mining_directions_looking[%1];

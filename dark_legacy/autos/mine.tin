@@ -181,20 +181,6 @@ clear_direction_with_blocker;
     #VARIABLE direction_with_blocker[$translated_mining_room_direction] 1;
 }
 
-#ALIAS {build_and_use_heavy_girders}
-{
-    #DELAY {craft_girder_delay} 
-    {
-	put_all_in_mining_portal;
-    	craft Architecture 'Heavy Mining Girder' 1 ironwood
-    } {0.5};
-    #DELAY {craft_girder_use_girder_delay} 
-    {
-    	use girder; 
-        clear_direction_with_faultline;
-    } {2.5};
-};
-
 #ACTION {Nothing left to harvest there.}
 {
     #DELAY {dig_move_and_mine_trigger} {dig_move_and_mine} {0.2};
@@ -260,28 +246,6 @@ clear_direction_with_blocker;
         #DELAY {trigger_next_mine_after_move_delay} {trigger_next_mine} {1};
     };
 }
-
-#ACTION {You reinforce the mine with}
-{
-    #IF {$digging_path_enabled}
-    {
-        #list created_path delete 1;
-        #SHOWME {AFTER REINFORCEMENT DIGGING PATH: $created_path[]};
-    	clear_direction_with_faultline;
-        trigger_next_mine;
-    };
-};
-
-#ACTION {This mine is already reinforced!}
-{
-    #IF {$digging_path_enabled}
-    {
-        #list created_path delete 1;
-        #SHOWME {AFTER REINFORCEMENT WERE NOT NEEDED DIGGING PATH: $created_path[]};
-    	clear_direction_with_faultline;
-        trigger_next_mine;
-    };
-};
 
 #ACTION {Nothing like that here.}
 {

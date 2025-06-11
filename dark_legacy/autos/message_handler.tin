@@ -6,7 +6,7 @@
 
 #ALIAS {add_message %*} 
 {
-    #regexp {%1} {{ slime |Zenpin|Alexis|You will die by my hand}} {
+    #regexp {%1} {{ slime |Zenpin|Alexis|You will die by my hand|You will die today}} {
         #NOP {Any message with the above text should be ignored};
     } {
         #list messages_received add {%1};

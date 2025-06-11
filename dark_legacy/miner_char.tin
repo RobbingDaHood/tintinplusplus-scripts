@@ -7,9 +7,10 @@
 #READ autos/heal.tin;
 #READ autos/unlock.tin;
 #NOP autos/forage.tin;
-#READ autos/forage_simple.tin;
+#NOP autos/forage_simple.tin;
 #NOP autos/sell.tin;
 #READ autos/maintain_xorns.tin;
+#READ autos/craft_and_use_girder.tin;
 #READ autos/mine.tin;
 #NOP autos/mine_fullauto.tin;
 #READ autos/mining_performance.tin;
